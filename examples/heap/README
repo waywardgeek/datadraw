@@ -1,0 +1,12 @@
+This is a simple heap database application designed to test the heap.
+To use it type:
+
+    $ ./configure
+    $ ./make
+
+To execute it, just type:
+
+    $ ./heap states.txt
+
+It should list the states listed in states.txt in alphabetical order.
+

@@ -1,0 +1,7 @@
+This simple example just creates a bunch of sym objects, and then looks them up.  To use it type:
+
+    $ ./make
+
+To execute it, just type:
+
+    $ ./sym

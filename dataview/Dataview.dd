@@ -1,0 +1,43 @@
+module Dataview dw
+
+import Database
+
+class Schema:dv
+    uint32 rows
+    uint32 cols
+    uint32 rowHeight // This is the number of grid points tall each row is
+    uint32 colWidth  // This is the number of grid points wide each column is
+
+class Class:dv array
+    uint32 X
+    uint32 Y
+    uint32 height
+    uint32 width
+    uint32 left
+    uint32 bottom
+    uint32 right
+    uint32 top
+    bool Added
+
+class Relationship:dv array
+
+class Bucket create_only
+
+class Bund create_only array
+    Bund prevBund
+    Bund overlappingBund
+    uint32 x
+    uint32 y
+    bool nearClass
+
+class Adj create_only
+    bool blocked
+
+class Route
+
+relationship Bucket Bund linked_list
+relationship Class Bund linked_list
+relationship Bund:From Adj:Out linked_list
+relationship Bund:To Adj:In linked_list
+relationship Relationship Route doubly_linked
+relationship Bund Route linked_list

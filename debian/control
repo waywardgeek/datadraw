@@ -1,0 +1,19 @@
+Source: datadraw
+Section: devel
+Priority: extra
+Maintainer: Anders Eurenius <aes@nerdshack.com>
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: datadraw
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Ultra-fast persistent database for C
+ It's so fast that many programs keep all their data in a DataDraw db, even
+ while being manipulated in inner loops of compute intensive app. Unlike slow
+ SQL db's, these are compiled, and directly link into your C programs.
+ DataDraw db's are resident in memory, making manipulation even faster than if
+ they were stored in native C data structures (really). Further, they can
+ automatically support infinite undo/redo, greatly simplifying many apps.
+ .
+ Homepage: http://datadraw.sourceforge.net/

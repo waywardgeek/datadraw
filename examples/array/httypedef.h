@@ -1,0 +1,1 @@
+#define NAME_LENGTH 20

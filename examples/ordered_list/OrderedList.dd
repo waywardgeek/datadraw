@@ -1,0 +1,8 @@
+module OrderedList ol
+
+class Root
+
+class Node
+    array char name
+
+relationship Root Node ordered_list

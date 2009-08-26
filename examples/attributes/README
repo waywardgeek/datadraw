@@ -1,0 +1,10 @@
+This is a simple test of generated attributes.
+
+To use it type:
+
+    $ ./configure
+    $ ./make
+
+To execute it, just type:
+
+    $ ./attrtest nodes.txt

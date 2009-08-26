@@ -1,0 +1,30 @@
+module DatadrawUtil ut
+
+enum FieldType
+    UT_BIT
+    UT_BOOL
+    UT_INT
+    UT_UINT
+    UT_CHAR
+    UT_FLOAT
+    UT_DOUBLE
+    UT_POINTER
+    UT_TYPEDEF
+    UT_ENUM
+    UT_SYM
+    UT_UNION
+
+class Symtab create_only
+    array sym table
+    uint32 numSym
+
+class Sym create_only array
+    array char name
+    uint32 hashValue
+    Sym next
+
+class Dynarray
+    array uint8 value 
+    uint16 valueSize
+    uint32 usedValue
+    uint32 size

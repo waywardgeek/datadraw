@@ -1,0 +1,172 @@
+// These are DataDraw's data structures
+
+module Database dv volatile
+
+enum RelationshipType REL_
+    LINKED_LIST
+    DOUBLY_LINKED
+    TAIL_LINKED
+    POINTER
+    ARRAY
+    HEAP
+    HASHED
+    ORDERED_LIST
+    UNBOUND
+
+enum PropertyType PROP_
+    INT
+    UINT
+    FLOAT
+    DOUBLE
+    BIT
+    BOOL
+    CHAR
+    ENUM
+    TYPEDEF
+    POINTER
+    SYM
+    UNBOUND
+
+enum MemoryStyle MEM_
+    CREATE_ONLY
+    FREE_LIST
+
+// This just gives us a way to keep track of top level data structures
+class Root create_only
+
+class Modpath create_only
+
+class Module create_only
+    sym prefixSym
+    bit Persistent
+    bit undoRedo
+    bit hasSparseData
+    uint16 numFields // The total number of fields to be tracked
+    uint32 numClasses // The number of classes in the module
+    uint32 numEnums // The number of classes in the module
+
+// Helper class to break many-to-many relationship between modules and modules they import
+class Link create_only
+
+class Schema create_only
+
+class Enum create_only
+    sym prefixSym
+    uint16 numEntries
+
+class Entry create_only
+    uint32 value
+
+class Typedef create_only
+    array char initializer
+
+class Class create_only
+    MemoryStyle memoryStyle
+    uint8 referenceSize
+    bit generateArrayClass
+    bit generateAttributes
+    bit Sparse
+    uint16 numFields
+    uint16 number
+    sym baseClassSym
+
+class Property create_only
+    PropertyType type
+    bit Array
+    bit Cascade
+    bit Sparse
+    bit View
+    bit expanded // So that we only generate relationship fields once
+    uint32 fieldNumber // Used in persistent databases
+    Property firstElementProp // Used only for arrays
+    Property numElementsProp // Used only for arrays
+    bit hidden // Hides fields in the manager.  Used if we have to add a free-list property
+    array char initializer
+    bit fixedSize
+    array char index
+    union type
+	Enum enumProp: ENUM
+	Typedef typedefProp: TYPEDEF
+	Class classProp: POINTER
+	sym typeSym: SYM // This is only used during parsing, to allow for forward references
+	uint8 width: INT UINT
+    uint32 line // This is set in parsing so we can report a line number in binding errors
+
+class Sparsegroup // Group of related sparse properties on a class
+
+class Relationship create_only
+    RelationshipType type
+    sym parentLabelSym
+    sym childLabelSym
+    bit Mandatory // Upper case avoids keyword collision
+    bit Cascade
+    bit accessChild
+    bit accessParent
+    bit sharedParent // Set for all but one relationship that share a common parent pointer
+    bit Sparse
+    bit Expanded // So that we only generate relationship fields once
+    bit Unordered
+
+class Key
+    uint32 lineNum // For reporting errors during binding
+
+class Keyproperty
+    sym PropertySym // For unbound keys
+
+class Union
+    sym propertySym
+    Property typeProperty
+    uint32 line // This is set in parsing so we can report a line number in binding errors
+    uint16 number // This is used rather than a name, since unions are not named
+    uint32 fieldNumber // Used in persistent databases
+    uint16 numCases
+
+class Case
+    sym entrySym // Used in binding to an entry
+
+// This class represents cache_together declarations
+class Cache
+    uint16 number // This is used rather than a name, since caches are not named
+    uint32 line // This is set in parsing so we can report a line number in binding errors
+
+class Propident
+    sym Sym
+
+// Relationships are not owned by one class, but shared equally between "parent" and "child"
+relationship Root Modpath hashed mandatory
+relationship Root Module hashed child_only mandatory
+
+relationship Module Class hashed mandatory
+relationship Module Enum hashed mandatory
+relationship Module Typedef hashed mandatory
+relationship Module Schema hashed mandatory
+relationship Module:Import Link:Import tail_linked mandatory
+relationship Module:Export Link:Export tail_linked mandatory
+
+relationship Schema Relationship tail_linked
+
+relationship Class Property hashed mandatory
+relationship Class Property:freeList child_only
+relationship Class Sparsegroup hashed mandatory
+relationship Sparsegroup Property tail_linked
+
+relationship Enum Entry hashed mandatory
+
+relationship Class:base Class:derived tail_linked mandatory
+relationship Class:parent Relationship:child tail_linked mandatory
+relationship Class:child Relationship:parent tail_linked mandatory
+relationship Class Union tail_linked mandatory
+
+relationship Relationship Property tail_linked // List of fields generated to support the relationship
+relationship Union Property tail_linked
+relationship Entry Case tail_linked mandatory
+relationship Property Case tail_linked mandatory
+relationship Relationship Key tail_linked mandatory
+relationship Key Keyproperty tail_linked mandatory
+relationship Property Keyproperty tail_linked mandatory
+relationship Relationship Sparsegroup:Parent
+relationship Relationship Sparsegroup:Child
+
+relationship Class Cache tail_linked mandatory
+relationship Cache Property tail_linked
+relationship Cache Propident tail_linked mandatory

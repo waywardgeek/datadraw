@@ -1,0 +1,12 @@
+module Array ht
+
+typedef dummy // Force include of httypedef.h
+
+class Graph
+
+class Node
+    array char name[NAME_LENGTH]
+    int32 x = "1"
+    int32 y = "1"
+
+relationship Graph Node hashed x y child_only mandatory

@@ -1,0 +1,10 @@
+module Sparse ht
+
+class Graph
+
+class Node
+    array char name sparse
+    int32 x = "1" sparse
+    int32 y = "1"
+
+relationship Graph Node hashed x y child_only mandatory sparse

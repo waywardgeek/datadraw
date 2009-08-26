@@ -1,0 +1,18 @@
+module Graph gr
+
+class Graph
+
+class Node
+    bool visited
+    uint32 color
+    uint32 level
+
+class Edge
+    uint32 weight
+    int32 riseDelay
+    int32 fallDelay
+    bool enabled
+
+relationship Graph Node array mandatory child_only
+relationship Node:From Edge:Out linked_list mandatory
+relationship Node:To Edge:In linked_list mandatory

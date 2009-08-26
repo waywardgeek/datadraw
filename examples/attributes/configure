@@ -1,0 +1,53 @@
+#!/bin/sh
+
+SOURCE="attrtest.c
+htdatabase.c"
+
+if [ ! -d obj ]; then
+    mkdir obj
+fi
+
+../../src/datadraw Attrtest.dd
+
+CFLAGS="-g -Wall -W -Wno-unused-parameter -Wno-unused-function -DDD_DEBUG -I../../util"
+LIBS=""
+
+if [ "`uname -m`" = x86_64 ]; then
+    CFLAGS="$CFLAGS -m64"
+fi
+
+echo "CFLAGS=$CFLAGS
+LIBS=$LIBS
+" > Makefile
+
+echo "OBJECTS=\\" >> Makefile
+for sourceFile in $SOURCE; do
+    objFile="obj/`basename $sourceFile | sed 's/\.c$/.o/'`"
+    echo "$objFile\\" >> Makefile
+done
+
+echo "
+
+attrtest: ../../util/libddutil-dbg.a \$(OBJECTS)
+	\$(CC) \$(CFLAGS) \$(OBJECTS) \$(LIBS) ../../util/libddutil-dbg.a -o attrtest
+
+../../util/libddutil-dbg.a:
+	make -C ../../util clean
+	make -C ../../util libddutil-dbg.a
+
+htdatabase.c htdatabase.h: Attrtest.dd
+	../../src/datadraw Attrtest.dd
+
+clean:
+	rm -f \$(OBJECTS)
+
+" >> Makefile
+
+for sourceFile in $SOURCE; do
+    objFile="obj/`basename $sourceFile | sed 's/\.c$/.o/'`"
+    echo "$objFile: $sourceFile
+	\$(CC) -c \$(CFLAGS) $sourceFile -o $objFile
+" >> Makefile
+done
+
+gcc -M $CFLAGS $SOURCE | sed 's/^\([^ ].*\.o:\)/obj\/\1/' >> Makefile

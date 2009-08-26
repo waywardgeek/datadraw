@@ -1,0 +1,41 @@
+This benchmark compares typical EDA inner loop performance for DataDraw based applications to code written using the
+raw C code, code written in C++ using the STL library, and code writtin in C++ using the Boost library.  I ran these
+benchmarks on my 2.0 GHz Core Duo based Dell Inspiron 9400 laptop, with 2 gig of RAM.  Both programs performed 100
+traversals of a 4 million node graph using depth-first recursive traversal.  Both were compiled on 64-bit Ubuntu using
+gcc for the C version, and G++ for the C++ version.  The graph is in the shape of a 2000 X 2000 mesh.
+
+Here's the results.  DataDraw is the big winner:
+
+				Relative	Relative
+		Time	Memory	Slowdown	Memory
+DataDraw	7.83s	432MB	1X		1X
+C++/Boost	40.05s	331MB	5.1X		1.3X*
+Raw C		55.20s	705MB	7X		1.63X
+C++/STL		124.6s	1.1GB	15X		2.5X
+
+    * - For simplicity, the Boost benchmark was done without any user data fields.  When DataDraw is done this way,
+        it uses only 254MB, making Boost 1.3X higher
+
+The DataDraw improvement is due to L2 cache performance.  The valgrind was used to determine cache miss rates:
+
+                L1 miss         L2 miss
+                rate            rate
+DataDraw        3.8%             1.3%
+C++/STL         32.9%           21.7%
+
+DataDraw's L2 miss rate was 16.7X lower than the C++/STL code.  This accounts for the 15X difference in runtime.  To
+find out cache performance use:
+
+    $ valgrind --tool-cachegrind ./c_graph
+    $ valgrind --tool-cachegrind ./cpp_graph
+
+To compile the boost benchmark example, install the boost libraries and development files, and type:
+
+    $ g++ -O2 boost_graph.cpp -o boost_graph
+
+I also tuned the C version to determine at what point L2 cache efficiency drops off relative to the DataDraw version.
+I keep the total number of node traversals the same, and only varied the number of nodes:
+
+		Num Nodes	Runtime	L2 miss rate
+DataDraw	9,000,000	8.64s	0.4%
+Raw C		40,000		40.3s	5.6%

@@ -1,0 +1,34 @@
+This package was debianized by Anders Eurenius <aes@nerdshack.com> on
+Wed, 10 Jan 2007 23:58:51 +0100.
+
+It was downloaded from 
+  https://datadraw.svn.sourceforge.net/svnroot/datadraw/trunk/datadraw3.0
+
+Upstream Authors:
+  Bill Cox, Bill Falk, Mukesh Lulla, Brad Pirtle and John Maushammer. (more?)
+
+Copyright: (c) 2007 (Upstream Authors)
+
+License:
+
+   This package is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License.
+
+   This package is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with this package; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+
+On Debian systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.
+
+The Debian packaging is (C) 2007, Anders Eurenius <aes@nerdshack.com> and
+is licensed under the GPL, see above.
+
+---
+Like some other code generators, only the actual code generator program is GPL.

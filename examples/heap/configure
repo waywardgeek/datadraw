@@ -1,0 +1,71 @@
+#!/bin/sh
+
+SOURCE="heap.c
+prdatabase.c"
+
+if [ ! -d obj ]; then
+    mkdir obj
+fi
+
+if [ ! -d heap_database ]; then
+    mkdir heap_database
+fi
+
+../../src/datadraw -I ../../util Heap.dd
+
+CFLAGS="-g -Wall -W -Wno-unused-parameter -Wno-unused-function -DDD_DEBUG -I../../util"
+LIBS=""
+
+if [ "`uname -m`" = x86_64 ]; then
+    CFLAGS="$CFLAGS -m64"
+fi
+
+PREFIX="/usr/bin"
+while [ $# != 0 ]; do
+    if [ "$1" = "--dmalloc" ]; then
+	LIBS="$LIBS -ldmalloc"
+	CFLAGS="$CFLAGS -DMALLOC"
+	useDmalloc=true
+    else
+	echo "Unknown option $1"
+	exit 1
+    fi
+    shift
+done
+
+
+echo "CFLAGS=$CFLAGS
+LIBS=$LIBS
+" > Makefile
+
+echo "OBJECTS=\\" >> Makefile
+for sourceFile in $SOURCE; do
+    objFile="obj/`basename $sourceFile | sed 's/\.c$/.o/'`"
+    echo "$objFile\\" >> Makefile
+done
+
+echo "
+
+heap: ../../util/libddutilup.a \$(OBJECTS)
+	\$(CC) \$(CFLAGS) \$(OBJECTS) \$(LIBS) ../../util/libddutilup.a -o heap
+
+prdatabase.c prdatabase.h: Heap.dd
+	../../src/datadraw -I ../../util Heap.dd
+
+../../util/libddutilup.a:
+	make -C ../../util clean
+	make -C ../../util libddutilup.a
+
+clean:
+	rm -f \$(OBJECTS)
+
+" >> Makefile
+
+for sourceFile in $SOURCE; do
+    objFile="obj/`basename $sourceFile | sed 's/\.c$/.o/'`"
+    echo "$objFile: $sourceFile
+	\$(CC) -c \$(CFLAGS) $sourceFile -o $objFile
+" >> Makefile
+done
+
+gcc -M $CFLAGS $SOURCE | sed 's/^\([^ ].*\.o:\)/obj\/\1/' >> Makefile

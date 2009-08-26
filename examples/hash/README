@@ -1,0 +1,13 @@
+This is a simple hashed tabled based database application designed to test hash keys other than by name.
+
+To use it type:
+
+    $ ./configure
+    $ ./make
+
+To execute it, just type:
+
+    $ ./hash nodes.txt
+
+It should simply read nodes.txt and complain when it sees a second node at the same x and y position as a previous
+one.

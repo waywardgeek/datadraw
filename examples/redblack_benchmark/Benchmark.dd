@@ -1,0 +1,8 @@
+module OrderedList ol
+
+class Root
+
+class Node
+    uint32 key
+
+relationship Root Node ordered_list key

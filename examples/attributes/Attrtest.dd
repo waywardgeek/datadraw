@@ -1,0 +1,7 @@
+module Attrtest ht
+
+class Graph attributes
+
+class Node attributes
+
+relationship Graph Node tail_linked mandatory

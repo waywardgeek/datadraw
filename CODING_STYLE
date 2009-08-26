@@ -1,0 +1,17 @@
+Since multiple developers are joining the DataDraw development team, some words about coding style are in order.
+
+The code format that exists in the current files should be followed closely, so that the code looks consistent.  Note
+that there are no '*' '->' or '.' operators used in the manually generated code, except for 'char *' variables.  Also,
+there are no pointers to pointers (char **).  Further, there are no '#if'.  The except to these rules are low-level
+files in the util directory.  As much as possible '#if' declarations should be confined to uttypes.h, and they should
+not show up outside the util directory (except in generated database files).  Every function should have a comment.
+Functions should be small, typically fitting on a single page in VI (25 lines or less).
+
+Tabs are to be removed from the source before checking in (I use the 'expand' utility).  This keeps us from fighting
+over whether they are 4 or 8 spaces.  The "^M" characters that appear at the ends of lines when DOS editors are used
+should be removed.  I use the "dos2unix" utility for this.
+
+Recently, #defines have been replaced by 'static inline' functions as there is no performance cost and are more
+compiler and debugger friendly.
+
+That's it for now!  Feel free to enhance this file as issues arise.

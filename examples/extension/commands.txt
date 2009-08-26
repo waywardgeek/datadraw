@@ -1,0 +1,6 @@
+graph g1
+node n1 n2 n3 n4 n5 n6
+node n2 n3 n4 n5 n6
+node n3 n4 n5 n6
+node n4 n5 n6
+node n5 n6

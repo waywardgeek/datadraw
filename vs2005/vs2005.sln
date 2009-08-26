@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual C++ Express 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "datadraw", "datadraw\datadraw.vcproj", "{D2EAB884-7643-4096-A3EB-3E149AC7A26C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26} = {CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database_mem", "database_mem\database_mem.vcproj", "{B4AED0B2-0C2A-467C-88F2-2CE76ED87164}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database_persistence", "database_persistence\database_persistence.vcproj", "{422642F4-4F64-4F2B-B51B-B76FB44811AF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database_undo", "database_undo\database_undo.vcproj", "{E610AB39-4A08-4F37-88EA-9A6C2E770242}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "database_undo_persistence", "database_undo_persistence\database_undo_persistence.vcproj", "{CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D2EAB884-7643-4096-A3EB-3E149AC7A26C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D2EAB884-7643-4096-A3EB-3E149AC7A26C}.Debug|Win32.Build.0 = Debug|Win32
+		{D2EAB884-7643-4096-A3EB-3E149AC7A26C}.Release|Win32.ActiveCfg = Release|Win32
+		{D2EAB884-7643-4096-A3EB-3E149AC7A26C}.Release|Win32.Build.0 = Release|Win32
+		{B4AED0B2-0C2A-467C-88F2-2CE76ED87164}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B4AED0B2-0C2A-467C-88F2-2CE76ED87164}.Debug|Win32.Build.0 = Debug|Win32
+		{B4AED0B2-0C2A-467C-88F2-2CE76ED87164}.Release|Win32.ActiveCfg = Release|Win32
+		{B4AED0B2-0C2A-467C-88F2-2CE76ED87164}.Release|Win32.Build.0 = Release|Win32
+		{422642F4-4F64-4F2B-B51B-B76FB44811AF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{422642F4-4F64-4F2B-B51B-B76FB44811AF}.Debug|Win32.Build.0 = Debug|Win32
+		{422642F4-4F64-4F2B-B51B-B76FB44811AF}.Release|Win32.ActiveCfg = Release|Win32
+		{422642F4-4F64-4F2B-B51B-B76FB44811AF}.Release|Win32.Build.0 = Release|Win32
+		{E610AB39-4A08-4F37-88EA-9A6C2E770242}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E610AB39-4A08-4F37-88EA-9A6C2E770242}.Debug|Win32.Build.0 = Debug|Win32
+		{E610AB39-4A08-4F37-88EA-9A6C2E770242}.Release|Win32.ActiveCfg = Release|Win32
+		{E610AB39-4A08-4F37-88EA-9A6C2E770242}.Release|Win32.Build.0 = Release|Win32
+		{CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26}.Debug|Win32.Build.0 = Debug|Win32
+		{CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26}.Release|Win32.ActiveCfg = Release|Win32
+		{CADBC1A5-2CAF-41D8-B7C7-62865A4C7E26}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

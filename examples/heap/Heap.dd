@@ -1,0 +1,8 @@
+module Heap pr persistent undo_redo
+
+class Root create_only reference_size 8
+
+class Node
+    sym Sym
+
+relationship Root Node heap

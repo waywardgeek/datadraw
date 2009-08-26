@@ -1,0 +1,17 @@
+// A simple test of persistent databases with infinite undo/redo
+
+module Graph pr persistent undo_redo
+
+class Root create_only reference_size 8
+    Graph currentGraph
+
+class Graph
+
+class Node
+
+class Edge
+
+relationship Root Graph hashed mandatory
+relationship Graph Node hashed mandatory
+relationship Node:From Edge:Out doubly_linked mandatory
+relationship Node:To Edge:In doubly_linked mandatory

@@ -1,0 +1,3 @@
+#!/bin/sh
+cp manual.odt manual.pdf www
+rsync -av --exclude=.svn --delete --rsh=ssh www/ smilindog2000@datadraw.sourceforge.net:/home/groups/d/da/datadraw/htdocs

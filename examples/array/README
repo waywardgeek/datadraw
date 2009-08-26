@@ -1,0 +1,10 @@
+This is a simple test of fixed sized arrays
+
+To use it type:
+
+    $ ./configure
+    $ ./make
+
+To execute it, just type:
+
+    $ ./array nodes.txt

@@ -1,0 +1,25 @@
+This directory has two benchmarks for measuring the performance of the treaps used in DataDraw ordered_list
+relationships.  This test did the following in 22 seconds on my 2 GHz Inspiron 9400 laptop with 2 GB of memory:
+
+    - Created 50 million nodes, and inserted them into the ordered list.  Each new nodes had a higher key value than
+      any others yet inserted.
+    - Iteratively created and inserted a new maximum node and deleted the minimum, 50 million times
+    - Deleted the 50 million nodes from minimum to maximum
+
+The initial 50 million nodes are created and inserted in 7 seconds.  The 50 million create, insert, remove and delete
+operations happen in 13 seconds.  The 50 million removal and deletions happened in 2 seconds.  Total runtime was 22
+seconds.  Average tree depth before deleting at the end was 33.4.
+
+The second benchmark measures random insert/delete performance.  It is interesting that it runs much slower, taking 18
+minutes.  Average tree depth at the end was 33.0.  It:
+
+    - Creates 50 million nodes with random keys and inserts them into the ordered list.
+    - Iteratively creates a with random key and inerts it, then finds a random node and deletes it, 50 million times
+    - Deletes the 50 million nodes
+
+To reproduce these results, simply do:
+
+    $ make
+    $ ./ordered_bechmark
+    $ ./rand_bechmark
+

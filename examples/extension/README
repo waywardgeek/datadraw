@@ -1,0 +1,10 @@
+This is a simple graph database application designed to demonstrate class extension.  To build it, type
+
+    $ ./configure
+    $ ./make
+
+To execute it, just type:
+
+    $ ./color 4 commands.txt
+
+That should result in 2 coloring conflicts, since commands.txt is a complete graph of 6 nodes.

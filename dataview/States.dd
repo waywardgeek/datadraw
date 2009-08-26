@@ -1,0 +1,142 @@
+module States st
+
+
+class Hawaii
+class Alaska
+class Washington
+class Oregon
+class California
+class Nevada
+class Idaho
+class Utah
+class Arizona
+class Montana
+class Wyoming
+class Colorado
+class NewMexico
+class NorthDakota
+class SouthDakota
+class Nebraska
+class Kansas
+class Oklahoma
+class Texas
+class Wisconsin
+class Minnesota
+class Iowa
+class Missouri
+class Arkansas
+class Louisiana
+class Mississippi
+class Alabama
+class Florida
+class Georgia
+class SouthCarolina
+class NorthCarolina
+class Virginia
+class WestVirginia
+class Maryland
+class Deleware
+class NewJersey
+class Pennsylvania
+class NewYork
+class RhodeIsland
+class Connecticutt
+class Massachussetts
+class Vermont
+class NewHampshire
+class Maine
+class Tennessee
+class Kentucky
+class Ohio
+class Indiana
+class Illinois
+class Michigan
+
+schema States
+
+relationship Washington Oregon
+relationship Washington Idaho
+relationship Oregon Idaho
+relationship Oregon California
+relationship California Nevada
+relationship California Arizona
+relationship Nevada Idaho
+relationship Nevada Arizona
+relationship Nevada Utah
+relationship Idaho Montana
+relationship Idaho Wyoming
+relationship Idaho Utah
+relationship Utah Wyoming
+relationship Utah Colorado
+relationship Utah NewMexico
+relationship Arizona NewMexico
+relationship NorthDakota Minnesota
+relationship NorthDakota SouthDakota
+relationship SouthDakota Minnesota
+relationship SouthDakota Iowa
+relationship Nebraska Iowa
+relationship Nebraska Missouri
+relationship Nebraska Kansas
+relationship Kansas Missouri
+relationship Kansas Arkansas
+relationship Kansas Oklahoma
+relationship Oklahoma Arkansas
+relationship Oklahoma Louisiana
+relationship Texas Louisiana
+relationship Wisconsin Minnesota
+relationship Wisconsin Michigan
+relationship Wisconsin Illinois
+relationship Minnesota Illinois
+relationship Minnesota Iowa
+relationship Iowa Illinois
+relationship Missouri Kentucky
+relationship Missouri Tennessee
+relationship Missouri Arkansas
+relationship Arkansas Tennessee
+relationship Arkansas Mississippi
+relationship Arkansas Louisiana
+relationship Louisiana Mississippi
+relationship Mississippi Tennessee
+relationship Mississippi Alabama
+relationship Alabama Tennessee
+relationship Alabama Georgia
+relationship Alabama Florida
+relationship Florida Georgia
+relationship Georgia SouthCarolina
+relationship Georgia NorthCarolina
+relationship Georgia Tennessee
+relationship SouthCarolina NorthCarolina
+relationship NorthCarolina Tennessee
+relationship NorthCarolina Virginia
+relationship Virginia WestVirginia
+relationship Virginia Tennessee
+relationship Virginia Kentucky
+relationship Virginia Maryland
+relationship WestVirginia Kentucky
+relationship WestVirginia Ohio
+relationship WestVirginia Pennsylvania
+relationship WestVirginia Maryland
+relationship Maryland Deleware
+relationship Maryland Pennsylvania
+relationship NewJersey Pennsylvania
+relationship NewJersey NewYork
+relationship Pennsylvania NewYork
+relationship Pennsylvania Ohio
+relationship NewYork Connecticutt
+relationship NewYork NewHampshire
+relationship RhodeIsland Connecticutt
+relationship RhodeIsland Massachussetts
+relationship Connecticutt Massachussetts
+relationship Massachussetts Vermont
+relationship Massachussetts NewHampshire
+relationship Vermont NewHampshire
+relationship NewHampshire Maine
+relationship Tennessee Kentucky
+relationship Kentucky Ohio
+relationship Kentucky Indiana
+relationship Kentucky Illinois
+relationship Ohio Indiana
+relationship Ohio Michigan
+relationship Indiana Michigan
+relationship Indiana Illinois
+relationship Illinois Michigan

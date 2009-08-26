@@ -1,0 +1,30 @@
+This directory has three benchmarks for measuring the performance of the treaps used in DataDraw ordered_list
+relationships.  This test did the following in 1 minute 41 seconds on my 2 GHz Inspiron 9400 laptop with 2 GB of
+memory:
+
+    - Created 50 million nodes, and inserted them into the ordered list.  Each new nodes had a higher key value than
+      any others yet inserted.
+    - Iteratively created and inserted a new maximum node and deleted the minimum, 50 million times
+    - Deleted the 50 million nodes from minimum to maximum
+
+Average tree depth before deleting at the end was 33.4.
+
+The second benchmark measures random insert/delete performance.  Average tree depth at the end was 33.0.  It does the
+following steps in 1 minutes 48 seconds:
+
+    - Creates 50 million nodes with random keys and inserts them into the ordered list.
+    - Iteratively creates a with random key and inerts it, then finds a random node and deletes it, 50 million times
+    - Deletes the 50 million nodes
+
+The third benchmark compares DataDraw's red-black tree based ordered lists to the C++ STL red-black tree based
+multisets.  Unfortunately, because I run a 64-bit laptop, it ran out of memory with 50 million nodes.  However, for 30
+million integers in the multi-set, preforming the same operations as the rand_benchmark above, it takes 5 minutes and
+32 seconds.  Conclusion: at least for integer-keyed ordered lists, DataDraw beats C++ STL by a factor of several.
+
+To reproduce these results, simply do:
+
+    $ make
+    $ ./ordered_bechmark
+    $ ./rand_bechmark
+    $ ./multiset_benchmark
+

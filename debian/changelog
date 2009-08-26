@@ -1,0 +1,12 @@
+datadraw (3.1-1) unstable; urgency=low
+
+  * Upgrade release, including dataview.
+
+ -- Bill Cox <bill@billrocks.org>  Mon, 21 Apr 2008 5:58:51 +0100
+
+datadraw (3.0-1) unstable; urgency=low
+
+  * Initial release.
+
+ -- Anders Eurenius <aes@nerdshack.com>  Wed, 10 Jan 2007 23:58:51 +0100
+

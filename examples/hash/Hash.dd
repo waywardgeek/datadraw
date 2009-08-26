@@ -1,0 +1,11 @@
+module Hash ht
+
+class Graph
+
+class Node
+    array char name
+    int32 x
+    int32 y
+
+relationship Graph Node:XY hashed x y child_only unordered // Look up by x and y
+relationship Graph Node hashed name mandatory // Look up by name - usually just do this with sym types

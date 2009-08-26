@@ -1,0 +1,11 @@
+This is a simple graph database application designed to demonstrate persistence.  To build it, type
+
+    $ ./configure
+    $ ./make
+
+To execute it, just type:
+
+    $ ./graph
+
+For help on commands, type "help" at the interactive prompt.
+

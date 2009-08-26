@@ -1,0 +1,38 @@
+
+- get latest cygwin (I'm using Flex 2.5.4 and Bison 2.3 and
+  have tested building with vs6 and vs2005-express-edition;
+  I've got MANY warnings regarding 64bit-support, don't know
+  if that is problematic or not)
+  
+- include the path from bison and flex into visual studio 
+  executable directory (be sure that really the new tools
+  are used and no other bison/flex is before yours in the
+  path!)  Tools -> Options -> Directories -> Executables
+  
+- hit compile, in the datadraw-executable is the "undo and
+  persistence"-library included by default and in the 
+  project-setting exceptions are disabled.
+  
+have fun
+
+PS: I've not tested the windows-version much, but it
+    generates the graph-example so I think it's working.
+
+===============================================================
+
+UPDATE:
+    by Steven 'KaReL' Van Ingelgem
+
+- Get the latest CMake version from
+  http://www.cmake.org/HTML/Download.html
+
+- Run the CMake interface against the datadraw directory.
+
+- You should end up with the project files for your choosen
+  compiler in the datadraw directory.
+
+have fun
+
+PS: If you find any issues, please patch them if possible, but
+    above all, please report them to the SF project tracker!
+

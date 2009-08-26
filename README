@@ -1,0 +1,58 @@
+DataDraw is a database generator.  It takes a database description file and creates C code that
+links the database directly into your C program.  There have been 3 major rewrites of DataDraw.
+
+The original, version 1.0, was written by me, Bill Cox, in 1992.  I placed it into the copy-left
+domain at that time.  It allowed a single-page schema to be drawn in Windows, and the database was
+generated from that.
+
+After that, QuickLogic put time into developing version 2.0, which inherited my copy-left.
+Version 2.0 has been used since about 1993, and is stable, mature, and quite useful.  It supports
+many features, such as multiple schemas per tool, and multiple tools, and dynamic class extension.
+However, it's showing it's age, and most of the open-source community seems to want command-line
+driven tools, rather than a graphical front-end.
+
+I wrote version 3.0 in 2006, starting with code from version 2.0.  Version 3.0 inherits it's
+copy-left from version 2.0.  All three versions are copyrighted under the GNU Library General Public
+License.  You should have received a copy, and if not, you can find it on fsf.org.
+
+Version 3.0 is modern, feature-rich, and well documented.  I hope you find it useful for your
+project.  The manual is in datadraw3.0/manual.odt, which is "Open Document Format", compatible
+with multiple editors, just none currently from Microsoft.  I wrote it using OpenOffice, which I
+highly recommend.  Installation and usage instructions are in the manual.
+
+Linux Installation
+------------------
+
+If you just want to compile it now, before reading the manual, just type this:
+
+    $ cd datadraw3.X.X
+    $ ./configure
+    $ make
+    $ su
+    $ make install
+    $ exit
+
+This should install a "datadraw" executable, which you can use on database description files
+(ending in ".dd").  The following will generate the C database:
+
+    $ cd src
+    $ datadraw dvdatabase.dd
+
+The output files are dvdatabase.c and dvdatabase.h, which you can check out.  I recommend taking
+some Advil before reading the generating code.  The manual is where I recommend you start.
+
+Debian Installation
+-------------------
+
+Thanks to Aes, we now have Debian scripts to build proper Debian .pkg files for DataDraw3.0.  You
+can build a Debian package with "make deb", which will create the package in the directory
+containing datadraw3.0.  These packages are also available at
+http://sourceforge.net/projects/datadraw, where you can download and install them directly.
+
+Windows Installation
+--------------------
+
+You should find a datadraw_windows directory in the tar-ball.  This contains Visual C++ 6.0
+project files.  In addition, there is a Bakefile directory which can be used with the
+bakefile-tool (http://bakefile.sourceforge.net) to build project files for Visual C++ as well as
+others.  Thanks to Questor for the port!

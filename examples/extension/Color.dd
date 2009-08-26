@@ -1,0 +1,10 @@
+module Color co
+
+import Graph
+
+class Graph:Graph
+    uint32 numColors
+
+class Node:Graph //sparse
+    uint32 color
+    bit colored
