@@ -216,354 +216,354 @@ struct dvRootType_ {
 };
 extern struct dvRootType_ dvRootData;
 
-static utInlineC uint32 dvHash(void) {return dvRootData.hash;}
-static utInlineC uint32 dvUsedRoot(void) {return dvRootData.usedRoot;}
-static utInlineC uint32 dvAllocatedRoot(void) {return dvRootData.allocatedRoot;}
-static utInlineC void dvSetUsedRoot(uint32 value) {dvRootData.usedRoot = value;}
-static utInlineC void dvSetAllocatedRoot(uint32 value) {dvRootData.allocatedRoot = value;}
-static utInlineC uint32 dvUsedRootModpathTable(void) {return dvRootData.usedRootModpathTable;}
-static utInlineC uint32 dvAllocatedRootModpathTable(void) {return dvRootData.allocatedRootModpathTable;}
-static utInlineC uint32 dvFreeRootModpathTable(void) {return dvRootData.freeRootModpathTable;}
-static utInlineC void dvSetUsedRootModpathTable(uint32 value) {dvRootData.usedRootModpathTable = value;}
-static utInlineC void dvSetAllocatedRootModpathTable(uint32 value) {dvRootData.allocatedRootModpathTable = value;}
-static utInlineC void dvSetFreeRootModpathTable(int32 value) {dvRootData.freeRootModpathTable = value;}
-static utInlineC uint32 dvUsedRootModuleTable(void) {return dvRootData.usedRootModuleTable;}
-static utInlineC uint32 dvAllocatedRootModuleTable(void) {return dvRootData.allocatedRootModuleTable;}
-static utInlineC uint32 dvFreeRootModuleTable(void) {return dvRootData.freeRootModuleTable;}
-static utInlineC void dvSetUsedRootModuleTable(uint32 value) {dvRootData.usedRootModuleTable = value;}
-static utInlineC void dvSetAllocatedRootModuleTable(uint32 value) {dvRootData.allocatedRootModuleTable = value;}
-static utInlineC void dvSetFreeRootModuleTable(int32 value) {dvRootData.freeRootModuleTable = value;}
-static utInlineC uint32 dvUsedModpath(void) {return dvRootData.usedModpath;}
-static utInlineC uint32 dvAllocatedModpath(void) {return dvRootData.allocatedModpath;}
-static utInlineC void dvSetUsedModpath(uint32 value) {dvRootData.usedModpath = value;}
-static utInlineC void dvSetAllocatedModpath(uint32 value) {dvRootData.allocatedModpath = value;}
-static utInlineC uint32 dvUsedModule(void) {return dvRootData.usedModule;}
-static utInlineC uint32 dvAllocatedModule(void) {return dvRootData.allocatedModule;}
-static utInlineC void dvSetUsedModule(uint32 value) {dvRootData.usedModule = value;}
-static utInlineC void dvSetAllocatedModule(uint32 value) {dvRootData.allocatedModule = value;}
-static utInlineC uint32 dvUsedModuleClassTable(void) {return dvRootData.usedModuleClassTable;}
-static utInlineC uint32 dvAllocatedModuleClassTable(void) {return dvRootData.allocatedModuleClassTable;}
-static utInlineC uint32 dvFreeModuleClassTable(void) {return dvRootData.freeModuleClassTable;}
-static utInlineC void dvSetUsedModuleClassTable(uint32 value) {dvRootData.usedModuleClassTable = value;}
-static utInlineC void dvSetAllocatedModuleClassTable(uint32 value) {dvRootData.allocatedModuleClassTable = value;}
-static utInlineC void dvSetFreeModuleClassTable(int32 value) {dvRootData.freeModuleClassTable = value;}
-static utInlineC uint32 dvUsedModuleEnumTable(void) {return dvRootData.usedModuleEnumTable;}
-static utInlineC uint32 dvAllocatedModuleEnumTable(void) {return dvRootData.allocatedModuleEnumTable;}
-static utInlineC uint32 dvFreeModuleEnumTable(void) {return dvRootData.freeModuleEnumTable;}
-static utInlineC void dvSetUsedModuleEnumTable(uint32 value) {dvRootData.usedModuleEnumTable = value;}
-static utInlineC void dvSetAllocatedModuleEnumTable(uint32 value) {dvRootData.allocatedModuleEnumTable = value;}
-static utInlineC void dvSetFreeModuleEnumTable(int32 value) {dvRootData.freeModuleEnumTable = value;}
-static utInlineC uint32 dvUsedModuleTypedefTable(void) {return dvRootData.usedModuleTypedefTable;}
-static utInlineC uint32 dvAllocatedModuleTypedefTable(void) {return dvRootData.allocatedModuleTypedefTable;}
-static utInlineC uint32 dvFreeModuleTypedefTable(void) {return dvRootData.freeModuleTypedefTable;}
-static utInlineC void dvSetUsedModuleTypedefTable(uint32 value) {dvRootData.usedModuleTypedefTable = value;}
-static utInlineC void dvSetAllocatedModuleTypedefTable(uint32 value) {dvRootData.allocatedModuleTypedefTable = value;}
-static utInlineC void dvSetFreeModuleTypedefTable(int32 value) {dvRootData.freeModuleTypedefTable = value;}
-static utInlineC uint32 dvUsedModuleSchemaTable(void) {return dvRootData.usedModuleSchemaTable;}
-static utInlineC uint32 dvAllocatedModuleSchemaTable(void) {return dvRootData.allocatedModuleSchemaTable;}
-static utInlineC uint32 dvFreeModuleSchemaTable(void) {return dvRootData.freeModuleSchemaTable;}
-static utInlineC void dvSetUsedModuleSchemaTable(uint32 value) {dvRootData.usedModuleSchemaTable = value;}
-static utInlineC void dvSetAllocatedModuleSchemaTable(uint32 value) {dvRootData.allocatedModuleSchemaTable = value;}
-static utInlineC void dvSetFreeModuleSchemaTable(int32 value) {dvRootData.freeModuleSchemaTable = value;}
-static utInlineC uint32 dvUsedLink(void) {return dvRootData.usedLink;}
-static utInlineC uint32 dvAllocatedLink(void) {return dvRootData.allocatedLink;}
-static utInlineC void dvSetUsedLink(uint32 value) {dvRootData.usedLink = value;}
-static utInlineC void dvSetAllocatedLink(uint32 value) {dvRootData.allocatedLink = value;}
-static utInlineC uint32 dvUsedSchema(void) {return dvRootData.usedSchema;}
-static utInlineC uint32 dvAllocatedSchema(void) {return dvRootData.allocatedSchema;}
-static utInlineC void dvSetUsedSchema(uint32 value) {dvRootData.usedSchema = value;}
-static utInlineC void dvSetAllocatedSchema(uint32 value) {dvRootData.allocatedSchema = value;}
-static utInlineC uint32 dvUsedEnum(void) {return dvRootData.usedEnum;}
-static utInlineC uint32 dvAllocatedEnum(void) {return dvRootData.allocatedEnum;}
-static utInlineC void dvSetUsedEnum(uint32 value) {dvRootData.usedEnum = value;}
-static utInlineC void dvSetAllocatedEnum(uint32 value) {dvRootData.allocatedEnum = value;}
-static utInlineC uint32 dvUsedEnumEntryTable(void) {return dvRootData.usedEnumEntryTable;}
-static utInlineC uint32 dvAllocatedEnumEntryTable(void) {return dvRootData.allocatedEnumEntryTable;}
-static utInlineC uint32 dvFreeEnumEntryTable(void) {return dvRootData.freeEnumEntryTable;}
-static utInlineC void dvSetUsedEnumEntryTable(uint32 value) {dvRootData.usedEnumEntryTable = value;}
-static utInlineC void dvSetAllocatedEnumEntryTable(uint32 value) {dvRootData.allocatedEnumEntryTable = value;}
-static utInlineC void dvSetFreeEnumEntryTable(int32 value) {dvRootData.freeEnumEntryTable = value;}
-static utInlineC uint32 dvUsedEntry(void) {return dvRootData.usedEntry;}
-static utInlineC uint32 dvAllocatedEntry(void) {return dvRootData.allocatedEntry;}
-static utInlineC void dvSetUsedEntry(uint32 value) {dvRootData.usedEntry = value;}
-static utInlineC void dvSetAllocatedEntry(uint32 value) {dvRootData.allocatedEntry = value;}
-static utInlineC uint32 dvUsedTypedef(void) {return dvRootData.usedTypedef;}
-static utInlineC uint32 dvAllocatedTypedef(void) {return dvRootData.allocatedTypedef;}
-static utInlineC void dvSetUsedTypedef(uint32 value) {dvRootData.usedTypedef = value;}
-static utInlineC void dvSetAllocatedTypedef(uint32 value) {dvRootData.allocatedTypedef = value;}
-static utInlineC uint32 dvUsedTypedefInitializer(void) {return dvRootData.usedTypedefInitializer;}
-static utInlineC uint32 dvAllocatedTypedefInitializer(void) {return dvRootData.allocatedTypedefInitializer;}
-static utInlineC uint32 dvFreeTypedefInitializer(void) {return dvRootData.freeTypedefInitializer;}
-static utInlineC void dvSetUsedTypedefInitializer(uint32 value) {dvRootData.usedTypedefInitializer = value;}
-static utInlineC void dvSetAllocatedTypedefInitializer(uint32 value) {dvRootData.allocatedTypedefInitializer = value;}
-static utInlineC void dvSetFreeTypedefInitializer(int32 value) {dvRootData.freeTypedefInitializer = value;}
-static utInlineC uint32 dvUsedClass(void) {return dvRootData.usedClass;}
-static utInlineC uint32 dvAllocatedClass(void) {return dvRootData.allocatedClass;}
-static utInlineC void dvSetUsedClass(uint32 value) {dvRootData.usedClass = value;}
-static utInlineC void dvSetAllocatedClass(uint32 value) {dvRootData.allocatedClass = value;}
-static utInlineC uint32 dvUsedClassPropertyTable(void) {return dvRootData.usedClassPropertyTable;}
-static utInlineC uint32 dvAllocatedClassPropertyTable(void) {return dvRootData.allocatedClassPropertyTable;}
-static utInlineC uint32 dvFreeClassPropertyTable(void) {return dvRootData.freeClassPropertyTable;}
-static utInlineC void dvSetUsedClassPropertyTable(uint32 value) {dvRootData.usedClassPropertyTable = value;}
-static utInlineC void dvSetAllocatedClassPropertyTable(uint32 value) {dvRootData.allocatedClassPropertyTable = value;}
-static utInlineC void dvSetFreeClassPropertyTable(int32 value) {dvRootData.freeClassPropertyTable = value;}
-static utInlineC uint32 dvUsedClassSparsegroupTable(void) {return dvRootData.usedClassSparsegroupTable;}
-static utInlineC uint32 dvAllocatedClassSparsegroupTable(void) {return dvRootData.allocatedClassSparsegroupTable;}
-static utInlineC uint32 dvFreeClassSparsegroupTable(void) {return dvRootData.freeClassSparsegroupTable;}
-static utInlineC void dvSetUsedClassSparsegroupTable(uint32 value) {dvRootData.usedClassSparsegroupTable = value;}
-static utInlineC void dvSetAllocatedClassSparsegroupTable(uint32 value) {dvRootData.allocatedClassSparsegroupTable = value;}
-static utInlineC void dvSetFreeClassSparsegroupTable(int32 value) {dvRootData.freeClassSparsegroupTable = value;}
-static utInlineC uint32 dvUsedProperty(void) {return dvRootData.usedProperty;}
-static utInlineC uint32 dvAllocatedProperty(void) {return dvRootData.allocatedProperty;}
-static utInlineC void dvSetUsedProperty(uint32 value) {dvRootData.usedProperty = value;}
-static utInlineC void dvSetAllocatedProperty(uint32 value) {dvRootData.allocatedProperty = value;}
-static utInlineC uint32 dvUsedPropertyInitializer(void) {return dvRootData.usedPropertyInitializer;}
-static utInlineC uint32 dvAllocatedPropertyInitializer(void) {return dvRootData.allocatedPropertyInitializer;}
-static utInlineC uint32 dvFreePropertyInitializer(void) {return dvRootData.freePropertyInitializer;}
-static utInlineC void dvSetUsedPropertyInitializer(uint32 value) {dvRootData.usedPropertyInitializer = value;}
-static utInlineC void dvSetAllocatedPropertyInitializer(uint32 value) {dvRootData.allocatedPropertyInitializer = value;}
-static utInlineC void dvSetFreePropertyInitializer(int32 value) {dvRootData.freePropertyInitializer = value;}
-static utInlineC uint32 dvUsedPropertyIndex(void) {return dvRootData.usedPropertyIndex;}
-static utInlineC uint32 dvAllocatedPropertyIndex(void) {return dvRootData.allocatedPropertyIndex;}
-static utInlineC uint32 dvFreePropertyIndex(void) {return dvRootData.freePropertyIndex;}
-static utInlineC void dvSetUsedPropertyIndex(uint32 value) {dvRootData.usedPropertyIndex = value;}
-static utInlineC void dvSetAllocatedPropertyIndex(uint32 value) {dvRootData.allocatedPropertyIndex = value;}
-static utInlineC void dvSetFreePropertyIndex(int32 value) {dvRootData.freePropertyIndex = value;}
-static utInlineC dvSparsegroup dvFirstFreeSparsegroup(void) {return dvRootData.firstFreeSparsegroup;}
-static utInlineC void dvSetFirstFreeSparsegroup(dvSparsegroup value) {dvRootData.firstFreeSparsegroup = (value);}
-static utInlineC uint32 dvUsedSparsegroup(void) {return dvRootData.usedSparsegroup;}
-static utInlineC uint32 dvAllocatedSparsegroup(void) {return dvRootData.allocatedSparsegroup;}
-static utInlineC void dvSetUsedSparsegroup(uint32 value) {dvRootData.usedSparsegroup = value;}
-static utInlineC void dvSetAllocatedSparsegroup(uint32 value) {dvRootData.allocatedSparsegroup = value;}
-static utInlineC uint32 dvUsedRelationship(void) {return dvRootData.usedRelationship;}
-static utInlineC uint32 dvAllocatedRelationship(void) {return dvRootData.allocatedRelationship;}
-static utInlineC void dvSetUsedRelationship(uint32 value) {dvRootData.usedRelationship = value;}
-static utInlineC void dvSetAllocatedRelationship(uint32 value) {dvRootData.allocatedRelationship = value;}
-static utInlineC dvKey dvFirstFreeKey(void) {return dvRootData.firstFreeKey;}
-static utInlineC void dvSetFirstFreeKey(dvKey value) {dvRootData.firstFreeKey = (value);}
-static utInlineC uint32 dvUsedKey(void) {return dvRootData.usedKey;}
-static utInlineC uint32 dvAllocatedKey(void) {return dvRootData.allocatedKey;}
-static utInlineC void dvSetUsedKey(uint32 value) {dvRootData.usedKey = value;}
-static utInlineC void dvSetAllocatedKey(uint32 value) {dvRootData.allocatedKey = value;}
-static utInlineC dvKeyproperty dvFirstFreeKeyproperty(void) {return dvRootData.firstFreeKeyproperty;}
-static utInlineC void dvSetFirstFreeKeyproperty(dvKeyproperty value) {dvRootData.firstFreeKeyproperty = (value);}
-static utInlineC uint32 dvUsedKeyproperty(void) {return dvRootData.usedKeyproperty;}
-static utInlineC uint32 dvAllocatedKeyproperty(void) {return dvRootData.allocatedKeyproperty;}
-static utInlineC void dvSetUsedKeyproperty(uint32 value) {dvRootData.usedKeyproperty = value;}
-static utInlineC void dvSetAllocatedKeyproperty(uint32 value) {dvRootData.allocatedKeyproperty = value;}
-static utInlineC dvUnion dvFirstFreeUnion(void) {return dvRootData.firstFreeUnion;}
-static utInlineC void dvSetFirstFreeUnion(dvUnion value) {dvRootData.firstFreeUnion = (value);}
-static utInlineC uint32 dvUsedUnion(void) {return dvRootData.usedUnion;}
-static utInlineC uint32 dvAllocatedUnion(void) {return dvRootData.allocatedUnion;}
-static utInlineC void dvSetUsedUnion(uint32 value) {dvRootData.usedUnion = value;}
-static utInlineC void dvSetAllocatedUnion(uint32 value) {dvRootData.allocatedUnion = value;}
-static utInlineC dvCase dvFirstFreeCase(void) {return dvRootData.firstFreeCase;}
-static utInlineC void dvSetFirstFreeCase(dvCase value) {dvRootData.firstFreeCase = (value);}
-static utInlineC uint32 dvUsedCase(void) {return dvRootData.usedCase;}
-static utInlineC uint32 dvAllocatedCase(void) {return dvRootData.allocatedCase;}
-static utInlineC void dvSetUsedCase(uint32 value) {dvRootData.usedCase = value;}
-static utInlineC void dvSetAllocatedCase(uint32 value) {dvRootData.allocatedCase = value;}
-static utInlineC dvCache dvFirstFreeCache(void) {return dvRootData.firstFreeCache;}
-static utInlineC void dvSetFirstFreeCache(dvCache value) {dvRootData.firstFreeCache = (value);}
-static utInlineC uint32 dvUsedCache(void) {return dvRootData.usedCache;}
-static utInlineC uint32 dvAllocatedCache(void) {return dvRootData.allocatedCache;}
-static utInlineC void dvSetUsedCache(uint32 value) {dvRootData.usedCache = value;}
-static utInlineC void dvSetAllocatedCache(uint32 value) {dvRootData.allocatedCache = value;}
-static utInlineC dvPropident dvFirstFreePropident(void) {return dvRootData.firstFreePropident;}
-static utInlineC void dvSetFirstFreePropident(dvPropident value) {dvRootData.firstFreePropident = (value);}
-static utInlineC uint32 dvUsedPropident(void) {return dvRootData.usedPropident;}
-static utInlineC uint32 dvAllocatedPropident(void) {return dvRootData.allocatedPropident;}
-static utInlineC void dvSetUsedPropident(uint32 value) {dvRootData.usedPropident = value;}
-static utInlineC void dvSetAllocatedPropident(uint32 value) {dvRootData.allocatedPropident = value;}
+utInlineC uint32 dvHash(void) {return dvRootData.hash;}
+utInlineC uint32 dvUsedRoot(void) {return dvRootData.usedRoot;}
+utInlineC uint32 dvAllocatedRoot(void) {return dvRootData.allocatedRoot;}
+utInlineC void dvSetUsedRoot(uint32 value) {dvRootData.usedRoot = value;}
+utInlineC void dvSetAllocatedRoot(uint32 value) {dvRootData.allocatedRoot = value;}
+utInlineC uint32 dvUsedRootModpathTable(void) {return dvRootData.usedRootModpathTable;}
+utInlineC uint32 dvAllocatedRootModpathTable(void) {return dvRootData.allocatedRootModpathTable;}
+utInlineC uint32 dvFreeRootModpathTable(void) {return dvRootData.freeRootModpathTable;}
+utInlineC void dvSetUsedRootModpathTable(uint32 value) {dvRootData.usedRootModpathTable = value;}
+utInlineC void dvSetAllocatedRootModpathTable(uint32 value) {dvRootData.allocatedRootModpathTable = value;}
+utInlineC void dvSetFreeRootModpathTable(int32 value) {dvRootData.freeRootModpathTable = value;}
+utInlineC uint32 dvUsedRootModuleTable(void) {return dvRootData.usedRootModuleTable;}
+utInlineC uint32 dvAllocatedRootModuleTable(void) {return dvRootData.allocatedRootModuleTable;}
+utInlineC uint32 dvFreeRootModuleTable(void) {return dvRootData.freeRootModuleTable;}
+utInlineC void dvSetUsedRootModuleTable(uint32 value) {dvRootData.usedRootModuleTable = value;}
+utInlineC void dvSetAllocatedRootModuleTable(uint32 value) {dvRootData.allocatedRootModuleTable = value;}
+utInlineC void dvSetFreeRootModuleTable(int32 value) {dvRootData.freeRootModuleTable = value;}
+utInlineC uint32 dvUsedModpath(void) {return dvRootData.usedModpath;}
+utInlineC uint32 dvAllocatedModpath(void) {return dvRootData.allocatedModpath;}
+utInlineC void dvSetUsedModpath(uint32 value) {dvRootData.usedModpath = value;}
+utInlineC void dvSetAllocatedModpath(uint32 value) {dvRootData.allocatedModpath = value;}
+utInlineC uint32 dvUsedModule(void) {return dvRootData.usedModule;}
+utInlineC uint32 dvAllocatedModule(void) {return dvRootData.allocatedModule;}
+utInlineC void dvSetUsedModule(uint32 value) {dvRootData.usedModule = value;}
+utInlineC void dvSetAllocatedModule(uint32 value) {dvRootData.allocatedModule = value;}
+utInlineC uint32 dvUsedModuleClassTable(void) {return dvRootData.usedModuleClassTable;}
+utInlineC uint32 dvAllocatedModuleClassTable(void) {return dvRootData.allocatedModuleClassTable;}
+utInlineC uint32 dvFreeModuleClassTable(void) {return dvRootData.freeModuleClassTable;}
+utInlineC void dvSetUsedModuleClassTable(uint32 value) {dvRootData.usedModuleClassTable = value;}
+utInlineC void dvSetAllocatedModuleClassTable(uint32 value) {dvRootData.allocatedModuleClassTable = value;}
+utInlineC void dvSetFreeModuleClassTable(int32 value) {dvRootData.freeModuleClassTable = value;}
+utInlineC uint32 dvUsedModuleEnumTable(void) {return dvRootData.usedModuleEnumTable;}
+utInlineC uint32 dvAllocatedModuleEnumTable(void) {return dvRootData.allocatedModuleEnumTable;}
+utInlineC uint32 dvFreeModuleEnumTable(void) {return dvRootData.freeModuleEnumTable;}
+utInlineC void dvSetUsedModuleEnumTable(uint32 value) {dvRootData.usedModuleEnumTable = value;}
+utInlineC void dvSetAllocatedModuleEnumTable(uint32 value) {dvRootData.allocatedModuleEnumTable = value;}
+utInlineC void dvSetFreeModuleEnumTable(int32 value) {dvRootData.freeModuleEnumTable = value;}
+utInlineC uint32 dvUsedModuleTypedefTable(void) {return dvRootData.usedModuleTypedefTable;}
+utInlineC uint32 dvAllocatedModuleTypedefTable(void) {return dvRootData.allocatedModuleTypedefTable;}
+utInlineC uint32 dvFreeModuleTypedefTable(void) {return dvRootData.freeModuleTypedefTable;}
+utInlineC void dvSetUsedModuleTypedefTable(uint32 value) {dvRootData.usedModuleTypedefTable = value;}
+utInlineC void dvSetAllocatedModuleTypedefTable(uint32 value) {dvRootData.allocatedModuleTypedefTable = value;}
+utInlineC void dvSetFreeModuleTypedefTable(int32 value) {dvRootData.freeModuleTypedefTable = value;}
+utInlineC uint32 dvUsedModuleSchemaTable(void) {return dvRootData.usedModuleSchemaTable;}
+utInlineC uint32 dvAllocatedModuleSchemaTable(void) {return dvRootData.allocatedModuleSchemaTable;}
+utInlineC uint32 dvFreeModuleSchemaTable(void) {return dvRootData.freeModuleSchemaTable;}
+utInlineC void dvSetUsedModuleSchemaTable(uint32 value) {dvRootData.usedModuleSchemaTable = value;}
+utInlineC void dvSetAllocatedModuleSchemaTable(uint32 value) {dvRootData.allocatedModuleSchemaTable = value;}
+utInlineC void dvSetFreeModuleSchemaTable(int32 value) {dvRootData.freeModuleSchemaTable = value;}
+utInlineC uint32 dvUsedLink(void) {return dvRootData.usedLink;}
+utInlineC uint32 dvAllocatedLink(void) {return dvRootData.allocatedLink;}
+utInlineC void dvSetUsedLink(uint32 value) {dvRootData.usedLink = value;}
+utInlineC void dvSetAllocatedLink(uint32 value) {dvRootData.allocatedLink = value;}
+utInlineC uint32 dvUsedSchema(void) {return dvRootData.usedSchema;}
+utInlineC uint32 dvAllocatedSchema(void) {return dvRootData.allocatedSchema;}
+utInlineC void dvSetUsedSchema(uint32 value) {dvRootData.usedSchema = value;}
+utInlineC void dvSetAllocatedSchema(uint32 value) {dvRootData.allocatedSchema = value;}
+utInlineC uint32 dvUsedEnum(void) {return dvRootData.usedEnum;}
+utInlineC uint32 dvAllocatedEnum(void) {return dvRootData.allocatedEnum;}
+utInlineC void dvSetUsedEnum(uint32 value) {dvRootData.usedEnum = value;}
+utInlineC void dvSetAllocatedEnum(uint32 value) {dvRootData.allocatedEnum = value;}
+utInlineC uint32 dvUsedEnumEntryTable(void) {return dvRootData.usedEnumEntryTable;}
+utInlineC uint32 dvAllocatedEnumEntryTable(void) {return dvRootData.allocatedEnumEntryTable;}
+utInlineC uint32 dvFreeEnumEntryTable(void) {return dvRootData.freeEnumEntryTable;}
+utInlineC void dvSetUsedEnumEntryTable(uint32 value) {dvRootData.usedEnumEntryTable = value;}
+utInlineC void dvSetAllocatedEnumEntryTable(uint32 value) {dvRootData.allocatedEnumEntryTable = value;}
+utInlineC void dvSetFreeEnumEntryTable(int32 value) {dvRootData.freeEnumEntryTable = value;}
+utInlineC uint32 dvUsedEntry(void) {return dvRootData.usedEntry;}
+utInlineC uint32 dvAllocatedEntry(void) {return dvRootData.allocatedEntry;}
+utInlineC void dvSetUsedEntry(uint32 value) {dvRootData.usedEntry = value;}
+utInlineC void dvSetAllocatedEntry(uint32 value) {dvRootData.allocatedEntry = value;}
+utInlineC uint32 dvUsedTypedef(void) {return dvRootData.usedTypedef;}
+utInlineC uint32 dvAllocatedTypedef(void) {return dvRootData.allocatedTypedef;}
+utInlineC void dvSetUsedTypedef(uint32 value) {dvRootData.usedTypedef = value;}
+utInlineC void dvSetAllocatedTypedef(uint32 value) {dvRootData.allocatedTypedef = value;}
+utInlineC uint32 dvUsedTypedefInitializer(void) {return dvRootData.usedTypedefInitializer;}
+utInlineC uint32 dvAllocatedTypedefInitializer(void) {return dvRootData.allocatedTypedefInitializer;}
+utInlineC uint32 dvFreeTypedefInitializer(void) {return dvRootData.freeTypedefInitializer;}
+utInlineC void dvSetUsedTypedefInitializer(uint32 value) {dvRootData.usedTypedefInitializer = value;}
+utInlineC void dvSetAllocatedTypedefInitializer(uint32 value) {dvRootData.allocatedTypedefInitializer = value;}
+utInlineC void dvSetFreeTypedefInitializer(int32 value) {dvRootData.freeTypedefInitializer = value;}
+utInlineC uint32 dvUsedClass(void) {return dvRootData.usedClass;}
+utInlineC uint32 dvAllocatedClass(void) {return dvRootData.allocatedClass;}
+utInlineC void dvSetUsedClass(uint32 value) {dvRootData.usedClass = value;}
+utInlineC void dvSetAllocatedClass(uint32 value) {dvRootData.allocatedClass = value;}
+utInlineC uint32 dvUsedClassPropertyTable(void) {return dvRootData.usedClassPropertyTable;}
+utInlineC uint32 dvAllocatedClassPropertyTable(void) {return dvRootData.allocatedClassPropertyTable;}
+utInlineC uint32 dvFreeClassPropertyTable(void) {return dvRootData.freeClassPropertyTable;}
+utInlineC void dvSetUsedClassPropertyTable(uint32 value) {dvRootData.usedClassPropertyTable = value;}
+utInlineC void dvSetAllocatedClassPropertyTable(uint32 value) {dvRootData.allocatedClassPropertyTable = value;}
+utInlineC void dvSetFreeClassPropertyTable(int32 value) {dvRootData.freeClassPropertyTable = value;}
+utInlineC uint32 dvUsedClassSparsegroupTable(void) {return dvRootData.usedClassSparsegroupTable;}
+utInlineC uint32 dvAllocatedClassSparsegroupTable(void) {return dvRootData.allocatedClassSparsegroupTable;}
+utInlineC uint32 dvFreeClassSparsegroupTable(void) {return dvRootData.freeClassSparsegroupTable;}
+utInlineC void dvSetUsedClassSparsegroupTable(uint32 value) {dvRootData.usedClassSparsegroupTable = value;}
+utInlineC void dvSetAllocatedClassSparsegroupTable(uint32 value) {dvRootData.allocatedClassSparsegroupTable = value;}
+utInlineC void dvSetFreeClassSparsegroupTable(int32 value) {dvRootData.freeClassSparsegroupTable = value;}
+utInlineC uint32 dvUsedProperty(void) {return dvRootData.usedProperty;}
+utInlineC uint32 dvAllocatedProperty(void) {return dvRootData.allocatedProperty;}
+utInlineC void dvSetUsedProperty(uint32 value) {dvRootData.usedProperty = value;}
+utInlineC void dvSetAllocatedProperty(uint32 value) {dvRootData.allocatedProperty = value;}
+utInlineC uint32 dvUsedPropertyInitializer(void) {return dvRootData.usedPropertyInitializer;}
+utInlineC uint32 dvAllocatedPropertyInitializer(void) {return dvRootData.allocatedPropertyInitializer;}
+utInlineC uint32 dvFreePropertyInitializer(void) {return dvRootData.freePropertyInitializer;}
+utInlineC void dvSetUsedPropertyInitializer(uint32 value) {dvRootData.usedPropertyInitializer = value;}
+utInlineC void dvSetAllocatedPropertyInitializer(uint32 value) {dvRootData.allocatedPropertyInitializer = value;}
+utInlineC void dvSetFreePropertyInitializer(int32 value) {dvRootData.freePropertyInitializer = value;}
+utInlineC uint32 dvUsedPropertyIndex(void) {return dvRootData.usedPropertyIndex;}
+utInlineC uint32 dvAllocatedPropertyIndex(void) {return dvRootData.allocatedPropertyIndex;}
+utInlineC uint32 dvFreePropertyIndex(void) {return dvRootData.freePropertyIndex;}
+utInlineC void dvSetUsedPropertyIndex(uint32 value) {dvRootData.usedPropertyIndex = value;}
+utInlineC void dvSetAllocatedPropertyIndex(uint32 value) {dvRootData.allocatedPropertyIndex = value;}
+utInlineC void dvSetFreePropertyIndex(int32 value) {dvRootData.freePropertyIndex = value;}
+utInlineC dvSparsegroup dvFirstFreeSparsegroup(void) {return dvRootData.firstFreeSparsegroup;}
+utInlineC void dvSetFirstFreeSparsegroup(dvSparsegroup value) {dvRootData.firstFreeSparsegroup = (value);}
+utInlineC uint32 dvUsedSparsegroup(void) {return dvRootData.usedSparsegroup;}
+utInlineC uint32 dvAllocatedSparsegroup(void) {return dvRootData.allocatedSparsegroup;}
+utInlineC void dvSetUsedSparsegroup(uint32 value) {dvRootData.usedSparsegroup = value;}
+utInlineC void dvSetAllocatedSparsegroup(uint32 value) {dvRootData.allocatedSparsegroup = value;}
+utInlineC uint32 dvUsedRelationship(void) {return dvRootData.usedRelationship;}
+utInlineC uint32 dvAllocatedRelationship(void) {return dvRootData.allocatedRelationship;}
+utInlineC void dvSetUsedRelationship(uint32 value) {dvRootData.usedRelationship = value;}
+utInlineC void dvSetAllocatedRelationship(uint32 value) {dvRootData.allocatedRelationship = value;}
+utInlineC dvKey dvFirstFreeKey(void) {return dvRootData.firstFreeKey;}
+utInlineC void dvSetFirstFreeKey(dvKey value) {dvRootData.firstFreeKey = (value);}
+utInlineC uint32 dvUsedKey(void) {return dvRootData.usedKey;}
+utInlineC uint32 dvAllocatedKey(void) {return dvRootData.allocatedKey;}
+utInlineC void dvSetUsedKey(uint32 value) {dvRootData.usedKey = value;}
+utInlineC void dvSetAllocatedKey(uint32 value) {dvRootData.allocatedKey = value;}
+utInlineC dvKeyproperty dvFirstFreeKeyproperty(void) {return dvRootData.firstFreeKeyproperty;}
+utInlineC void dvSetFirstFreeKeyproperty(dvKeyproperty value) {dvRootData.firstFreeKeyproperty = (value);}
+utInlineC uint32 dvUsedKeyproperty(void) {return dvRootData.usedKeyproperty;}
+utInlineC uint32 dvAllocatedKeyproperty(void) {return dvRootData.allocatedKeyproperty;}
+utInlineC void dvSetUsedKeyproperty(uint32 value) {dvRootData.usedKeyproperty = value;}
+utInlineC void dvSetAllocatedKeyproperty(uint32 value) {dvRootData.allocatedKeyproperty = value;}
+utInlineC dvUnion dvFirstFreeUnion(void) {return dvRootData.firstFreeUnion;}
+utInlineC void dvSetFirstFreeUnion(dvUnion value) {dvRootData.firstFreeUnion = (value);}
+utInlineC uint32 dvUsedUnion(void) {return dvRootData.usedUnion;}
+utInlineC uint32 dvAllocatedUnion(void) {return dvRootData.allocatedUnion;}
+utInlineC void dvSetUsedUnion(uint32 value) {dvRootData.usedUnion = value;}
+utInlineC void dvSetAllocatedUnion(uint32 value) {dvRootData.allocatedUnion = value;}
+utInlineC dvCase dvFirstFreeCase(void) {return dvRootData.firstFreeCase;}
+utInlineC void dvSetFirstFreeCase(dvCase value) {dvRootData.firstFreeCase = (value);}
+utInlineC uint32 dvUsedCase(void) {return dvRootData.usedCase;}
+utInlineC uint32 dvAllocatedCase(void) {return dvRootData.allocatedCase;}
+utInlineC void dvSetUsedCase(uint32 value) {dvRootData.usedCase = value;}
+utInlineC void dvSetAllocatedCase(uint32 value) {dvRootData.allocatedCase = value;}
+utInlineC dvCache dvFirstFreeCache(void) {return dvRootData.firstFreeCache;}
+utInlineC void dvSetFirstFreeCache(dvCache value) {dvRootData.firstFreeCache = (value);}
+utInlineC uint32 dvUsedCache(void) {return dvRootData.usedCache;}
+utInlineC uint32 dvAllocatedCache(void) {return dvRootData.allocatedCache;}
+utInlineC void dvSetUsedCache(uint32 value) {dvRootData.usedCache = value;}
+utInlineC void dvSetAllocatedCache(uint32 value) {dvRootData.allocatedCache = value;}
+utInlineC dvPropident dvFirstFreePropident(void) {return dvRootData.firstFreePropident;}
+utInlineC void dvSetFirstFreePropident(dvPropident value) {dvRootData.firstFreePropident = (value);}
+utInlineC uint32 dvUsedPropident(void) {return dvRootData.usedPropident;}
+utInlineC uint32 dvAllocatedPropident(void) {return dvRootData.allocatedPropident;}
+utInlineC void dvSetUsedPropident(uint32 value) {dvRootData.usedPropident = value;}
+utInlineC void dvSetAllocatedPropident(uint32 value) {dvRootData.allocatedPropident = value;}
 
 /* Validate macros */
 #if defined(DD_DEBUG)
-static utInlineC dvRoot dvValidRoot(dvRoot Root) {
+utInlineC dvRoot dvValidRoot(dvRoot Root) {
     utAssert(utLikely(Root != dvRootNull && (uint32)(Root - (dvRoot)0) < dvRootData.usedRoot));
     return Root;}
-static utInlineC dvModpath dvValidModpath(dvModpath Modpath) {
+utInlineC dvModpath dvValidModpath(dvModpath Modpath) {
     utAssert(utLikely(Modpath != dvModpathNull && (uint32)(Modpath - (dvModpath)0) < dvRootData.usedModpath));
     return Modpath;}
-static utInlineC dvModule dvValidModule(dvModule Module) {
+utInlineC dvModule dvValidModule(dvModule Module) {
     utAssert(utLikely(Module != dvModuleNull && (uint32)(Module - (dvModule)0) < dvRootData.usedModule));
     return Module;}
-static utInlineC dvLink dvValidLink(dvLink Link) {
+utInlineC dvLink dvValidLink(dvLink Link) {
     utAssert(utLikely(Link != dvLinkNull && (uint32)(Link - (dvLink)0) < dvRootData.usedLink));
     return Link;}
-static utInlineC dvSchema dvValidSchema(dvSchema Schema) {
+utInlineC dvSchema dvValidSchema(dvSchema Schema) {
     utAssert(utLikely(Schema != dvSchemaNull && (uint32)(Schema - (dvSchema)0) < dvRootData.usedSchema));
     return Schema;}
-static utInlineC dvEnum dvValidEnum(dvEnum Enum) {
+utInlineC dvEnum dvValidEnum(dvEnum Enum) {
     utAssert(utLikely(Enum != dvEnumNull && (uint32)(Enum - (dvEnum)0) < dvRootData.usedEnum));
     return Enum;}
-static utInlineC dvEntry dvValidEntry(dvEntry Entry) {
+utInlineC dvEntry dvValidEntry(dvEntry Entry) {
     utAssert(utLikely(Entry != dvEntryNull && (uint32)(Entry - (dvEntry)0) < dvRootData.usedEntry));
     return Entry;}
-static utInlineC dvTypedef dvValidTypedef(dvTypedef Typedef) {
+utInlineC dvTypedef dvValidTypedef(dvTypedef Typedef) {
     utAssert(utLikely(Typedef != dvTypedefNull && (uint32)(Typedef - (dvTypedef)0) < dvRootData.usedTypedef));
     return Typedef;}
-static utInlineC dvClass dvValidClass(dvClass Class) {
+utInlineC dvClass dvValidClass(dvClass Class) {
     utAssert(utLikely(Class != dvClassNull && (uint32)(Class - (dvClass)0) < dvRootData.usedClass));
     return Class;}
-static utInlineC dvProperty dvValidProperty(dvProperty Property) {
+utInlineC dvProperty dvValidProperty(dvProperty Property) {
     utAssert(utLikely(Property != dvPropertyNull && (uint32)(Property - (dvProperty)0) < dvRootData.usedProperty));
     return Property;}
-static utInlineC dvSparsegroup dvValidSparsegroup(dvSparsegroup Sparsegroup) {
+utInlineC dvSparsegroup dvValidSparsegroup(dvSparsegroup Sparsegroup) {
     utAssert(utLikely(Sparsegroup != dvSparsegroupNull && (uint32)(Sparsegroup - (dvSparsegroup)0) < dvRootData.usedSparsegroup));
     return Sparsegroup;}
-static utInlineC dvRelationship dvValidRelationship(dvRelationship Relationship) {
+utInlineC dvRelationship dvValidRelationship(dvRelationship Relationship) {
     utAssert(utLikely(Relationship != dvRelationshipNull && (uint32)(Relationship - (dvRelationship)0) < dvRootData.usedRelationship));
     return Relationship;}
-static utInlineC dvKey dvValidKey(dvKey Key) {
+utInlineC dvKey dvValidKey(dvKey Key) {
     utAssert(utLikely(Key != dvKeyNull && (uint32)(Key - (dvKey)0) < dvRootData.usedKey));
     return Key;}
-static utInlineC dvKeyproperty dvValidKeyproperty(dvKeyproperty Keyproperty) {
+utInlineC dvKeyproperty dvValidKeyproperty(dvKeyproperty Keyproperty) {
     utAssert(utLikely(Keyproperty != dvKeypropertyNull && (uint32)(Keyproperty - (dvKeyproperty)0) < dvRootData.usedKeyproperty));
     return Keyproperty;}
-static utInlineC dvUnion dvValidUnion(dvUnion Union) {
+utInlineC dvUnion dvValidUnion(dvUnion Union) {
     utAssert(utLikely(Union != dvUnionNull && (uint32)(Union - (dvUnion)0) < dvRootData.usedUnion));
     return Union;}
-static utInlineC dvCase dvValidCase(dvCase Case) {
+utInlineC dvCase dvValidCase(dvCase Case) {
     utAssert(utLikely(Case != dvCaseNull && (uint32)(Case - (dvCase)0) < dvRootData.usedCase));
     return Case;}
-static utInlineC dvCache dvValidCache(dvCache Cache) {
+utInlineC dvCache dvValidCache(dvCache Cache) {
     utAssert(utLikely(Cache != dvCacheNull && (uint32)(Cache - (dvCache)0) < dvRootData.usedCache));
     return Cache;}
-static utInlineC dvPropident dvValidPropident(dvPropident Propident) {
+utInlineC dvPropident dvValidPropident(dvPropident Propident) {
     utAssert(utLikely(Propident != dvPropidentNull && (uint32)(Propident - (dvPropident)0) < dvRootData.usedPropident));
     return Propident;}
 #else
-static utInlineC dvRoot dvValidRoot(dvRoot Root) {return Root;}
-static utInlineC dvModpath dvValidModpath(dvModpath Modpath) {return Modpath;}
-static utInlineC dvModule dvValidModule(dvModule Module) {return Module;}
-static utInlineC dvLink dvValidLink(dvLink Link) {return Link;}
-static utInlineC dvSchema dvValidSchema(dvSchema Schema) {return Schema;}
-static utInlineC dvEnum dvValidEnum(dvEnum Enum) {return Enum;}
-static utInlineC dvEntry dvValidEntry(dvEntry Entry) {return Entry;}
-static utInlineC dvTypedef dvValidTypedef(dvTypedef Typedef) {return Typedef;}
-static utInlineC dvClass dvValidClass(dvClass Class) {return Class;}
-static utInlineC dvProperty dvValidProperty(dvProperty Property) {return Property;}
-static utInlineC dvSparsegroup dvValidSparsegroup(dvSparsegroup Sparsegroup) {return Sparsegroup;}
-static utInlineC dvRelationship dvValidRelationship(dvRelationship Relationship) {return Relationship;}
-static utInlineC dvKey dvValidKey(dvKey Key) {return Key;}
-static utInlineC dvKeyproperty dvValidKeyproperty(dvKeyproperty Keyproperty) {return Keyproperty;}
-static utInlineC dvUnion dvValidUnion(dvUnion Union) {return Union;}
-static utInlineC dvCase dvValidCase(dvCase Case) {return Case;}
-static utInlineC dvCache dvValidCache(dvCache Cache) {return Cache;}
-static utInlineC dvPropident dvValidPropident(dvPropident Propident) {return Propident;}
+utInlineC dvRoot dvValidRoot(dvRoot Root) {return Root;}
+utInlineC dvModpath dvValidModpath(dvModpath Modpath) {return Modpath;}
+utInlineC dvModule dvValidModule(dvModule Module) {return Module;}
+utInlineC dvLink dvValidLink(dvLink Link) {return Link;}
+utInlineC dvSchema dvValidSchema(dvSchema Schema) {return Schema;}
+utInlineC dvEnum dvValidEnum(dvEnum Enum) {return Enum;}
+utInlineC dvEntry dvValidEntry(dvEntry Entry) {return Entry;}
+utInlineC dvTypedef dvValidTypedef(dvTypedef Typedef) {return Typedef;}
+utInlineC dvClass dvValidClass(dvClass Class) {return Class;}
+utInlineC dvProperty dvValidProperty(dvProperty Property) {return Property;}
+utInlineC dvSparsegroup dvValidSparsegroup(dvSparsegroup Sparsegroup) {return Sparsegroup;}
+utInlineC dvRelationship dvValidRelationship(dvRelationship Relationship) {return Relationship;}
+utInlineC dvKey dvValidKey(dvKey Key) {return Key;}
+utInlineC dvKeyproperty dvValidKeyproperty(dvKeyproperty Keyproperty) {return Keyproperty;}
+utInlineC dvUnion dvValidUnion(dvUnion Union) {return Union;}
+utInlineC dvCase dvValidCase(dvCase Case) {return Case;}
+utInlineC dvCache dvValidCache(dvCache Cache) {return Cache;}
+utInlineC dvPropident dvValidPropident(dvPropident Propident) {return Propident;}
 #endif
 
 /* Object ref to integer conversions */
 #if (defined(DD_DEBUG) && !defined(DD_NOSTRICT)) || defined(DD_STRICT)
-static utInlineC uint32 dvRoot2Index(dvRoot Root) {return Root - (dvRoot)0;}
-static uint32 dvRoot2ValidIndex(dvRoot Root) {return dvValidRoot(Root) - (dvRoot)0;}
-static dvRoot dvIndex2Root(uint32 xRoot) {return (dvRoot)(xRoot + (dvRoot)(0));}
-static utInlineC uint32 dvModpath2Index(dvModpath Modpath) {return Modpath - (dvModpath)0;}
-static uint32 dvModpath2ValidIndex(dvModpath Modpath) {return dvValidModpath(Modpath) - (dvModpath)0;}
-static dvModpath dvIndex2Modpath(uint32 xModpath) {return (dvModpath)(xModpath + (dvModpath)(0));}
-static utInlineC uint32 dvModule2Index(dvModule Module) {return Module - (dvModule)0;}
-static uint32 dvModule2ValidIndex(dvModule Module) {return dvValidModule(Module) - (dvModule)0;}
-static dvModule dvIndex2Module(uint32 xModule) {return (dvModule)(xModule + (dvModule)(0));}
-static utInlineC uint32 dvLink2Index(dvLink Link) {return Link - (dvLink)0;}
-static uint32 dvLink2ValidIndex(dvLink Link) {return dvValidLink(Link) - (dvLink)0;}
-static dvLink dvIndex2Link(uint32 xLink) {return (dvLink)(xLink + (dvLink)(0));}
-static utInlineC uint32 dvSchema2Index(dvSchema Schema) {return Schema - (dvSchema)0;}
-static uint32 dvSchema2ValidIndex(dvSchema Schema) {return dvValidSchema(Schema) - (dvSchema)0;}
-static dvSchema dvIndex2Schema(uint32 xSchema) {return (dvSchema)(xSchema + (dvSchema)(0));}
-static utInlineC uint32 dvEnum2Index(dvEnum Enum) {return Enum - (dvEnum)0;}
-static uint32 dvEnum2ValidIndex(dvEnum Enum) {return dvValidEnum(Enum) - (dvEnum)0;}
-static dvEnum dvIndex2Enum(uint32 xEnum) {return (dvEnum)(xEnum + (dvEnum)(0));}
-static utInlineC uint32 dvEntry2Index(dvEntry Entry) {return Entry - (dvEntry)0;}
-static uint32 dvEntry2ValidIndex(dvEntry Entry) {return dvValidEntry(Entry) - (dvEntry)0;}
-static dvEntry dvIndex2Entry(uint32 xEntry) {return (dvEntry)(xEntry + (dvEntry)(0));}
-static utInlineC uint32 dvTypedef2Index(dvTypedef Typedef) {return Typedef - (dvTypedef)0;}
-static uint32 dvTypedef2ValidIndex(dvTypedef Typedef) {return dvValidTypedef(Typedef) - (dvTypedef)0;}
-static dvTypedef dvIndex2Typedef(uint32 xTypedef) {return (dvTypedef)(xTypedef + (dvTypedef)(0));}
-static utInlineC uint32 dvClass2Index(dvClass Class) {return Class - (dvClass)0;}
-static uint32 dvClass2ValidIndex(dvClass Class) {return dvValidClass(Class) - (dvClass)0;}
-static dvClass dvIndex2Class(uint32 xClass) {return (dvClass)(xClass + (dvClass)(0));}
-static utInlineC uint32 dvProperty2Index(dvProperty Property) {return Property - (dvProperty)0;}
-static uint32 dvProperty2ValidIndex(dvProperty Property) {return dvValidProperty(Property) - (dvProperty)0;}
-static dvProperty dvIndex2Property(uint32 xProperty) {return (dvProperty)(xProperty + (dvProperty)(0));}
-static utInlineC uint32 dvSparsegroup2Index(dvSparsegroup Sparsegroup) {return Sparsegroup - (dvSparsegroup)0;}
-static uint32 dvSparsegroup2ValidIndex(dvSparsegroup Sparsegroup) {return dvValidSparsegroup(Sparsegroup) - (dvSparsegroup)0;}
-static dvSparsegroup dvIndex2Sparsegroup(uint32 xSparsegroup) {return (dvSparsegroup)(xSparsegroup + (dvSparsegroup)(0));}
-static utInlineC uint32 dvRelationship2Index(dvRelationship Relationship) {return Relationship - (dvRelationship)0;}
-static uint32 dvRelationship2ValidIndex(dvRelationship Relationship) {return dvValidRelationship(Relationship) - (dvRelationship)0;}
-static dvRelationship dvIndex2Relationship(uint32 xRelationship) {return (dvRelationship)(xRelationship + (dvRelationship)(0));}
-static utInlineC uint32 dvKey2Index(dvKey Key) {return Key - (dvKey)0;}
-static uint32 dvKey2ValidIndex(dvKey Key) {return dvValidKey(Key) - (dvKey)0;}
-static dvKey dvIndex2Key(uint32 xKey) {return (dvKey)(xKey + (dvKey)(0));}
-static utInlineC uint32 dvKeyproperty2Index(dvKeyproperty Keyproperty) {return Keyproperty - (dvKeyproperty)0;}
-static uint32 dvKeyproperty2ValidIndex(dvKeyproperty Keyproperty) {return dvValidKeyproperty(Keyproperty) - (dvKeyproperty)0;}
-static dvKeyproperty dvIndex2Keyproperty(uint32 xKeyproperty) {return (dvKeyproperty)(xKeyproperty + (dvKeyproperty)(0));}
-static utInlineC uint32 dvUnion2Index(dvUnion Union) {return Union - (dvUnion)0;}
-static uint32 dvUnion2ValidIndex(dvUnion Union) {return dvValidUnion(Union) - (dvUnion)0;}
-static dvUnion dvIndex2Union(uint32 xUnion) {return (dvUnion)(xUnion + (dvUnion)(0));}
-static utInlineC uint32 dvCase2Index(dvCase Case) {return Case - (dvCase)0;}
-static uint32 dvCase2ValidIndex(dvCase Case) {return dvValidCase(Case) - (dvCase)0;}
-static dvCase dvIndex2Case(uint32 xCase) {return (dvCase)(xCase + (dvCase)(0));}
-static utInlineC uint32 dvCache2Index(dvCache Cache) {return Cache - (dvCache)0;}
-static uint32 dvCache2ValidIndex(dvCache Cache) {return dvValidCache(Cache) - (dvCache)0;}
-static dvCache dvIndex2Cache(uint32 xCache) {return (dvCache)(xCache + (dvCache)(0));}
-static utInlineC uint32 dvPropident2Index(dvPropident Propident) {return Propident - (dvPropident)0;}
-static uint32 dvPropident2ValidIndex(dvPropident Propident) {return dvValidPropident(Propident) - (dvPropident)0;}
-static dvPropident dvIndex2Propident(uint32 xPropident) {return (dvPropident)(xPropident + (dvPropident)(0));}
+utInlineC uint32 dvRoot2Index(dvRoot Root) {return Root - (dvRoot)0;}
+utInlineC uint32 dvRoot2ValidIndex(dvRoot Root) {return dvValidRoot(Root) - (dvRoot)0;}
+utInlineC dvRoot dvIndex2Root(uint32 xRoot) {return (dvRoot)(xRoot + (dvRoot)(0));}
+utInlineC uint32 dvModpath2Index(dvModpath Modpath) {return Modpath - (dvModpath)0;}
+utInlineC uint32 dvModpath2ValidIndex(dvModpath Modpath) {return dvValidModpath(Modpath) - (dvModpath)0;}
+utInlineC dvModpath dvIndex2Modpath(uint32 xModpath) {return (dvModpath)(xModpath + (dvModpath)(0));}
+utInlineC uint32 dvModule2Index(dvModule Module) {return Module - (dvModule)0;}
+utInlineC uint32 dvModule2ValidIndex(dvModule Module) {return dvValidModule(Module) - (dvModule)0;}
+utInlineC dvModule dvIndex2Module(uint32 xModule) {return (dvModule)(xModule + (dvModule)(0));}
+utInlineC uint32 dvLink2Index(dvLink Link) {return Link - (dvLink)0;}
+utInlineC uint32 dvLink2ValidIndex(dvLink Link) {return dvValidLink(Link) - (dvLink)0;}
+utInlineC dvLink dvIndex2Link(uint32 xLink) {return (dvLink)(xLink + (dvLink)(0));}
+utInlineC uint32 dvSchema2Index(dvSchema Schema) {return Schema - (dvSchema)0;}
+utInlineC uint32 dvSchema2ValidIndex(dvSchema Schema) {return dvValidSchema(Schema) - (dvSchema)0;}
+utInlineC dvSchema dvIndex2Schema(uint32 xSchema) {return (dvSchema)(xSchema + (dvSchema)(0));}
+utInlineC uint32 dvEnum2Index(dvEnum Enum) {return Enum - (dvEnum)0;}
+utInlineC uint32 dvEnum2ValidIndex(dvEnum Enum) {return dvValidEnum(Enum) - (dvEnum)0;}
+utInlineC dvEnum dvIndex2Enum(uint32 xEnum) {return (dvEnum)(xEnum + (dvEnum)(0));}
+utInlineC uint32 dvEntry2Index(dvEntry Entry) {return Entry - (dvEntry)0;}
+utInlineC uint32 dvEntry2ValidIndex(dvEntry Entry) {return dvValidEntry(Entry) - (dvEntry)0;}
+utInlineC dvEntry dvIndex2Entry(uint32 xEntry) {return (dvEntry)(xEntry + (dvEntry)(0));}
+utInlineC uint32 dvTypedef2Index(dvTypedef Typedef) {return Typedef - (dvTypedef)0;}
+utInlineC uint32 dvTypedef2ValidIndex(dvTypedef Typedef) {return dvValidTypedef(Typedef) - (dvTypedef)0;}
+utInlineC dvTypedef dvIndex2Typedef(uint32 xTypedef) {return (dvTypedef)(xTypedef + (dvTypedef)(0));}
+utInlineC uint32 dvClass2Index(dvClass Class) {return Class - (dvClass)0;}
+utInlineC uint32 dvClass2ValidIndex(dvClass Class) {return dvValidClass(Class) - (dvClass)0;}
+utInlineC dvClass dvIndex2Class(uint32 xClass) {return (dvClass)(xClass + (dvClass)(0));}
+utInlineC uint32 dvProperty2Index(dvProperty Property) {return Property - (dvProperty)0;}
+utInlineC uint32 dvProperty2ValidIndex(dvProperty Property) {return dvValidProperty(Property) - (dvProperty)0;}
+utInlineC dvProperty dvIndex2Property(uint32 xProperty) {return (dvProperty)(xProperty + (dvProperty)(0));}
+utInlineC uint32 dvSparsegroup2Index(dvSparsegroup Sparsegroup) {return Sparsegroup - (dvSparsegroup)0;}
+utInlineC uint32 dvSparsegroup2ValidIndex(dvSparsegroup Sparsegroup) {return dvValidSparsegroup(Sparsegroup) - (dvSparsegroup)0;}
+utInlineC dvSparsegroup dvIndex2Sparsegroup(uint32 xSparsegroup) {return (dvSparsegroup)(xSparsegroup + (dvSparsegroup)(0));}
+utInlineC uint32 dvRelationship2Index(dvRelationship Relationship) {return Relationship - (dvRelationship)0;}
+utInlineC uint32 dvRelationship2ValidIndex(dvRelationship Relationship) {return dvValidRelationship(Relationship) - (dvRelationship)0;}
+utInlineC dvRelationship dvIndex2Relationship(uint32 xRelationship) {return (dvRelationship)(xRelationship + (dvRelationship)(0));}
+utInlineC uint32 dvKey2Index(dvKey Key) {return Key - (dvKey)0;}
+utInlineC uint32 dvKey2ValidIndex(dvKey Key) {return dvValidKey(Key) - (dvKey)0;}
+utInlineC dvKey dvIndex2Key(uint32 xKey) {return (dvKey)(xKey + (dvKey)(0));}
+utInlineC uint32 dvKeyproperty2Index(dvKeyproperty Keyproperty) {return Keyproperty - (dvKeyproperty)0;}
+utInlineC uint32 dvKeyproperty2ValidIndex(dvKeyproperty Keyproperty) {return dvValidKeyproperty(Keyproperty) - (dvKeyproperty)0;}
+utInlineC dvKeyproperty dvIndex2Keyproperty(uint32 xKeyproperty) {return (dvKeyproperty)(xKeyproperty + (dvKeyproperty)(0));}
+utInlineC uint32 dvUnion2Index(dvUnion Union) {return Union - (dvUnion)0;}
+utInlineC uint32 dvUnion2ValidIndex(dvUnion Union) {return dvValidUnion(Union) - (dvUnion)0;}
+utInlineC dvUnion dvIndex2Union(uint32 xUnion) {return (dvUnion)(xUnion + (dvUnion)(0));}
+utInlineC uint32 dvCase2Index(dvCase Case) {return Case - (dvCase)0;}
+utInlineC uint32 dvCase2ValidIndex(dvCase Case) {return dvValidCase(Case) - (dvCase)0;}
+utInlineC dvCase dvIndex2Case(uint32 xCase) {return (dvCase)(xCase + (dvCase)(0));}
+utInlineC uint32 dvCache2Index(dvCache Cache) {return Cache - (dvCache)0;}
+utInlineC uint32 dvCache2ValidIndex(dvCache Cache) {return dvValidCache(Cache) - (dvCache)0;}
+utInlineC dvCache dvIndex2Cache(uint32 xCache) {return (dvCache)(xCache + (dvCache)(0));}
+utInlineC uint32 dvPropident2Index(dvPropident Propident) {return Propident - (dvPropident)0;}
+utInlineC uint32 dvPropident2ValidIndex(dvPropident Propident) {return dvValidPropident(Propident) - (dvPropident)0;}
+utInlineC dvPropident dvIndex2Propident(uint32 xPropident) {return (dvPropident)(xPropident + (dvPropident)(0));}
 #else
-static utInlineC uint32 dvRoot2Index(dvRoot Root) {return Root;}
-static utInlineC uint32 dvRoot2ValidIndex(dvRoot Root) {return dvValidRoot(Root);}
-static utInlineC dvRoot dvIndex2Root(uint32 xRoot) {return xRoot;}
-static utInlineC uint32 dvModpath2Index(dvModpath Modpath) {return Modpath;}
-static utInlineC uint32 dvModpath2ValidIndex(dvModpath Modpath) {return dvValidModpath(Modpath);}
-static utInlineC dvModpath dvIndex2Modpath(uint32 xModpath) {return xModpath;}
-static utInlineC uint32 dvModule2Index(dvModule Module) {return Module;}
-static utInlineC uint32 dvModule2ValidIndex(dvModule Module) {return dvValidModule(Module);}
-static utInlineC dvModule dvIndex2Module(uint32 xModule) {return xModule;}
-static utInlineC uint32 dvLink2Index(dvLink Link) {return Link;}
-static utInlineC uint32 dvLink2ValidIndex(dvLink Link) {return dvValidLink(Link);}
-static utInlineC dvLink dvIndex2Link(uint32 xLink) {return xLink;}
-static utInlineC uint32 dvSchema2Index(dvSchema Schema) {return Schema;}
-static utInlineC uint32 dvSchema2ValidIndex(dvSchema Schema) {return dvValidSchema(Schema);}
-static utInlineC dvSchema dvIndex2Schema(uint32 xSchema) {return xSchema;}
-static utInlineC uint32 dvEnum2Index(dvEnum Enum) {return Enum;}
-static utInlineC uint32 dvEnum2ValidIndex(dvEnum Enum) {return dvValidEnum(Enum);}
-static utInlineC dvEnum dvIndex2Enum(uint32 xEnum) {return xEnum;}
-static utInlineC uint32 dvEntry2Index(dvEntry Entry) {return Entry;}
-static utInlineC uint32 dvEntry2ValidIndex(dvEntry Entry) {return dvValidEntry(Entry);}
-static utInlineC dvEntry dvIndex2Entry(uint32 xEntry) {return xEntry;}
-static utInlineC uint32 dvTypedef2Index(dvTypedef Typedef) {return Typedef;}
-static utInlineC uint32 dvTypedef2ValidIndex(dvTypedef Typedef) {return dvValidTypedef(Typedef);}
-static utInlineC dvTypedef dvIndex2Typedef(uint32 xTypedef) {return xTypedef;}
-static utInlineC uint32 dvClass2Index(dvClass Class) {return Class;}
-static utInlineC uint32 dvClass2ValidIndex(dvClass Class) {return dvValidClass(Class);}
-static utInlineC dvClass dvIndex2Class(uint32 xClass) {return xClass;}
-static utInlineC uint32 dvProperty2Index(dvProperty Property) {return Property;}
-static utInlineC uint32 dvProperty2ValidIndex(dvProperty Property) {return dvValidProperty(Property);}
-static utInlineC dvProperty dvIndex2Property(uint32 xProperty) {return xProperty;}
-static utInlineC uint32 dvSparsegroup2Index(dvSparsegroup Sparsegroup) {return Sparsegroup;}
-static utInlineC uint32 dvSparsegroup2ValidIndex(dvSparsegroup Sparsegroup) {return dvValidSparsegroup(Sparsegroup);}
-static utInlineC dvSparsegroup dvIndex2Sparsegroup(uint32 xSparsegroup) {return xSparsegroup;}
-static utInlineC uint32 dvRelationship2Index(dvRelationship Relationship) {return Relationship;}
-static utInlineC uint32 dvRelationship2ValidIndex(dvRelationship Relationship) {return dvValidRelationship(Relationship);}
-static utInlineC dvRelationship dvIndex2Relationship(uint32 xRelationship) {return xRelationship;}
-static utInlineC uint32 dvKey2Index(dvKey Key) {return Key;}
-static utInlineC uint32 dvKey2ValidIndex(dvKey Key) {return dvValidKey(Key);}
-static utInlineC dvKey dvIndex2Key(uint32 xKey) {return xKey;}
-static utInlineC uint32 dvKeyproperty2Index(dvKeyproperty Keyproperty) {return Keyproperty;}
-static utInlineC uint32 dvKeyproperty2ValidIndex(dvKeyproperty Keyproperty) {return dvValidKeyproperty(Keyproperty);}
-static utInlineC dvKeyproperty dvIndex2Keyproperty(uint32 xKeyproperty) {return xKeyproperty;}
-static utInlineC uint32 dvUnion2Index(dvUnion Union) {return Union;}
-static utInlineC uint32 dvUnion2ValidIndex(dvUnion Union) {return dvValidUnion(Union);}
-static utInlineC dvUnion dvIndex2Union(uint32 xUnion) {return xUnion;}
-static utInlineC uint32 dvCase2Index(dvCase Case) {return Case;}
-static utInlineC uint32 dvCase2ValidIndex(dvCase Case) {return dvValidCase(Case);}
-static utInlineC dvCase dvIndex2Case(uint32 xCase) {return xCase;}
-static utInlineC uint32 dvCache2Index(dvCache Cache) {return Cache;}
-static utInlineC uint32 dvCache2ValidIndex(dvCache Cache) {return dvValidCache(Cache);}
-static utInlineC dvCache dvIndex2Cache(uint32 xCache) {return xCache;}
-static utInlineC uint32 dvPropident2Index(dvPropident Propident) {return Propident;}
-static utInlineC uint32 dvPropident2ValidIndex(dvPropident Propident) {return dvValidPropident(Propident);}
-static utInlineC dvPropident dvIndex2Propident(uint32 xPropident) {return xPropident;}
+utInlineC uint32 dvRoot2Index(dvRoot Root) {return Root;}
+utInlineC uint32 dvRoot2ValidIndex(dvRoot Root) {return dvValidRoot(Root);}
+utInlineC dvRoot dvIndex2Root(uint32 xRoot) {return xRoot;}
+utInlineC uint32 dvModpath2Index(dvModpath Modpath) {return Modpath;}
+utInlineC uint32 dvModpath2ValidIndex(dvModpath Modpath) {return dvValidModpath(Modpath);}
+utInlineC dvModpath dvIndex2Modpath(uint32 xModpath) {return xModpath;}
+utInlineC uint32 dvModule2Index(dvModule Module) {return Module;}
+utInlineC uint32 dvModule2ValidIndex(dvModule Module) {return dvValidModule(Module);}
+utInlineC dvModule dvIndex2Module(uint32 xModule) {return xModule;}
+utInlineC uint32 dvLink2Index(dvLink Link) {return Link;}
+utInlineC uint32 dvLink2ValidIndex(dvLink Link) {return dvValidLink(Link);}
+utInlineC dvLink dvIndex2Link(uint32 xLink) {return xLink;}
+utInlineC uint32 dvSchema2Index(dvSchema Schema) {return Schema;}
+utInlineC uint32 dvSchema2ValidIndex(dvSchema Schema) {return dvValidSchema(Schema);}
+utInlineC dvSchema dvIndex2Schema(uint32 xSchema) {return xSchema;}
+utInlineC uint32 dvEnum2Index(dvEnum Enum) {return Enum;}
+utInlineC uint32 dvEnum2ValidIndex(dvEnum Enum) {return dvValidEnum(Enum);}
+utInlineC dvEnum dvIndex2Enum(uint32 xEnum) {return xEnum;}
+utInlineC uint32 dvEntry2Index(dvEntry Entry) {return Entry;}
+utInlineC uint32 dvEntry2ValidIndex(dvEntry Entry) {return dvValidEntry(Entry);}
+utInlineC dvEntry dvIndex2Entry(uint32 xEntry) {return xEntry;}
+utInlineC uint32 dvTypedef2Index(dvTypedef Typedef) {return Typedef;}
+utInlineC uint32 dvTypedef2ValidIndex(dvTypedef Typedef) {return dvValidTypedef(Typedef);}
+utInlineC dvTypedef dvIndex2Typedef(uint32 xTypedef) {return xTypedef;}
+utInlineC uint32 dvClass2Index(dvClass Class) {return Class;}
+utInlineC uint32 dvClass2ValidIndex(dvClass Class) {return dvValidClass(Class);}
+utInlineC dvClass dvIndex2Class(uint32 xClass) {return xClass;}
+utInlineC uint32 dvProperty2Index(dvProperty Property) {return Property;}
+utInlineC uint32 dvProperty2ValidIndex(dvProperty Property) {return dvValidProperty(Property);}
+utInlineC dvProperty dvIndex2Property(uint32 xProperty) {return xProperty;}
+utInlineC uint32 dvSparsegroup2Index(dvSparsegroup Sparsegroup) {return Sparsegroup;}
+utInlineC uint32 dvSparsegroup2ValidIndex(dvSparsegroup Sparsegroup) {return dvValidSparsegroup(Sparsegroup);}
+utInlineC dvSparsegroup dvIndex2Sparsegroup(uint32 xSparsegroup) {return xSparsegroup;}
+utInlineC uint32 dvRelationship2Index(dvRelationship Relationship) {return Relationship;}
+utInlineC uint32 dvRelationship2ValidIndex(dvRelationship Relationship) {return dvValidRelationship(Relationship);}
+utInlineC dvRelationship dvIndex2Relationship(uint32 xRelationship) {return xRelationship;}
+utInlineC uint32 dvKey2Index(dvKey Key) {return Key;}
+utInlineC uint32 dvKey2ValidIndex(dvKey Key) {return dvValidKey(Key);}
+utInlineC dvKey dvIndex2Key(uint32 xKey) {return xKey;}
+utInlineC uint32 dvKeyproperty2Index(dvKeyproperty Keyproperty) {return Keyproperty;}
+utInlineC uint32 dvKeyproperty2ValidIndex(dvKeyproperty Keyproperty) {return dvValidKeyproperty(Keyproperty);}
+utInlineC dvKeyproperty dvIndex2Keyproperty(uint32 xKeyproperty) {return xKeyproperty;}
+utInlineC uint32 dvUnion2Index(dvUnion Union) {return Union;}
+utInlineC uint32 dvUnion2ValidIndex(dvUnion Union) {return dvValidUnion(Union);}
+utInlineC dvUnion dvIndex2Union(uint32 xUnion) {return xUnion;}
+utInlineC uint32 dvCase2Index(dvCase Case) {return Case;}
+utInlineC uint32 dvCase2ValidIndex(dvCase Case) {return dvValidCase(Case);}
+utInlineC dvCase dvIndex2Case(uint32 xCase) {return xCase;}
+utInlineC uint32 dvCache2Index(dvCache Cache) {return Cache;}
+utInlineC uint32 dvCache2ValidIndex(dvCache Cache) {return dvValidCache(Cache);}
+utInlineC dvCache dvIndex2Cache(uint32 xCache) {return xCache;}
+utInlineC uint32 dvPropident2Index(dvPropident Propident) {return Propident;}
+utInlineC uint32 dvPropident2ValidIndex(dvPropident Propident) {return dvValidPropident(Propident);}
+utInlineC dvPropident dvIndex2Propident(uint32 xPropident) {return xPropident;}
 #endif
 
 /*----------------------------------------------------------------------------------------
@@ -595,67 +595,67 @@ void dvRootAllocModuleTables(dvRoot Root, uint32 numModuleTables);
 void dvRootResizeModuleTables(dvRoot Root, uint32 numModuleTables);
 void dvRootFreeModuleTables(dvRoot Root);
 void dvCompactRootModuleTables(void);
-static utInlineC dvModpath dvRootGetFirstModpath(dvRoot Root) {return dvRoots.FirstModpath[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetFirstModpath(dvRoot Root, dvModpath value) {dvRoots.FirstModpath[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC dvModpath dvRootGetLastModpath(dvRoot Root) {return dvRoots.LastModpath[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetLastModpath(dvRoot Root, dvModpath value) {dvRoots.LastModpath[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC uint32 dvRootGetModpathTableIndex(dvRoot Root) {return dvRoots.ModpathTableIndex[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetModpathTableIndex(dvRoot Root, uint32 value) {dvRoots.ModpathTableIndex[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC uint32 dvRootGetNumModpathTable(dvRoot Root) {return dvRoots.NumModpathTable[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetNumModpathTable(dvRoot Root, uint32 value) {dvRoots.NumModpathTable[dvRoot2ValidIndex(Root)] = value;}
+utInlineC dvModpath dvRootGetFirstModpath(dvRoot Root) {return dvRoots.FirstModpath[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetFirstModpath(dvRoot Root, dvModpath value) {dvRoots.FirstModpath[dvRoot2ValidIndex(Root)] = value;}
+utInlineC dvModpath dvRootGetLastModpath(dvRoot Root) {return dvRoots.LastModpath[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetLastModpath(dvRoot Root, dvModpath value) {dvRoots.LastModpath[dvRoot2ValidIndex(Root)] = value;}
+utInlineC uint32 dvRootGetModpathTableIndex(dvRoot Root) {return dvRoots.ModpathTableIndex[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetModpathTableIndex(dvRoot Root, uint32 value) {dvRoots.ModpathTableIndex[dvRoot2ValidIndex(Root)] = value;}
+utInlineC uint32 dvRootGetNumModpathTable(dvRoot Root) {return dvRoots.NumModpathTable[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetNumModpathTable(dvRoot Root, uint32 value) {dvRoots.NumModpathTable[dvRoot2ValidIndex(Root)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvRootCheckModpathTableIndex(dvRoot Root, uint32 x) {utAssert(x < dvRootGetNumModpathTable(Root)); return x;}
+utInlineC uint32 dvRootCheckModpathTableIndex(dvRoot Root, uint32 x) {utAssert(x < dvRootGetNumModpathTable(Root)); return x;}
 #else
-static utInlineC uint32 dvRootCheckModpathTableIndex(dvRoot Root, uint32 x) {return x;}
+utInlineC uint32 dvRootCheckModpathTableIndex(dvRoot Root, uint32 x) {return x;}
 #endif
-static utInlineC dvModpath dvRootGetiModpathTable(dvRoot Root, uint32 x) {return dvRoots.ModpathTable[
+utInlineC dvModpath dvRootGetiModpathTable(dvRoot Root, uint32 x) {return dvRoots.ModpathTable[
     dvRootGetModpathTableIndex(Root) + dvRootCheckModpathTableIndex(Root, x)];}
-static utInlineC dvModpath *dvRootGetModpathTable(dvRoot Root) {return dvRoots.ModpathTable + dvRootGetModpathTableIndex(Root);}
+utInlineC dvModpath *dvRootGetModpathTable(dvRoot Root) {return dvRoots.ModpathTable + dvRootGetModpathTableIndex(Root);}
 #define dvRootGetModpathTables dvRootGetModpathTable
-static utInlineC void dvRootSetModpathTable(dvRoot Root, dvModpath *valuePtr, uint32 numModpathTable) {
+utInlineC void dvRootSetModpathTable(dvRoot Root, dvModpath *valuePtr, uint32 numModpathTable) {
     dvRootResizeModpathTables(Root, numModpathTable);
     memcpy(dvRootGetModpathTables(Root), valuePtr, numModpathTable*sizeof(dvModpath));}
-static utInlineC void dvRootSetiModpathTable(dvRoot Root, uint32 x, dvModpath value) {
+utInlineC void dvRootSetiModpathTable(dvRoot Root, uint32 x, dvModpath value) {
     dvRoots.ModpathTable[dvRootGetModpathTableIndex(Root) + dvRootCheckModpathTableIndex(Root, (x))] = value;}
-static utInlineC uint32 dvRootGetNumModpath(dvRoot Root) {return dvRoots.NumModpath[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetNumModpath(dvRoot Root, uint32 value) {dvRoots.NumModpath[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC dvModule dvRootGetFirstModule(dvRoot Root) {return dvRoots.FirstModule[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetFirstModule(dvRoot Root, dvModule value) {dvRoots.FirstModule[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC dvModule dvRootGetLastModule(dvRoot Root) {return dvRoots.LastModule[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetLastModule(dvRoot Root, dvModule value) {dvRoots.LastModule[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC uint32 dvRootGetModuleTableIndex(dvRoot Root) {return dvRoots.ModuleTableIndex[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetModuleTableIndex(dvRoot Root, uint32 value) {dvRoots.ModuleTableIndex[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC uint32 dvRootGetNumModuleTable(dvRoot Root) {return dvRoots.NumModuleTable[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetNumModuleTable(dvRoot Root, uint32 value) {dvRoots.NumModuleTable[dvRoot2ValidIndex(Root)] = value;}
+utInlineC uint32 dvRootGetNumModpath(dvRoot Root) {return dvRoots.NumModpath[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetNumModpath(dvRoot Root, uint32 value) {dvRoots.NumModpath[dvRoot2ValidIndex(Root)] = value;}
+utInlineC dvModule dvRootGetFirstModule(dvRoot Root) {return dvRoots.FirstModule[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetFirstModule(dvRoot Root, dvModule value) {dvRoots.FirstModule[dvRoot2ValidIndex(Root)] = value;}
+utInlineC dvModule dvRootGetLastModule(dvRoot Root) {return dvRoots.LastModule[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetLastModule(dvRoot Root, dvModule value) {dvRoots.LastModule[dvRoot2ValidIndex(Root)] = value;}
+utInlineC uint32 dvRootGetModuleTableIndex(dvRoot Root) {return dvRoots.ModuleTableIndex[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetModuleTableIndex(dvRoot Root, uint32 value) {dvRoots.ModuleTableIndex[dvRoot2ValidIndex(Root)] = value;}
+utInlineC uint32 dvRootGetNumModuleTable(dvRoot Root) {return dvRoots.NumModuleTable[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetNumModuleTable(dvRoot Root, uint32 value) {dvRoots.NumModuleTable[dvRoot2ValidIndex(Root)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvRootCheckModuleTableIndex(dvRoot Root, uint32 x) {utAssert(x < dvRootGetNumModuleTable(Root)); return x;}
+utInlineC uint32 dvRootCheckModuleTableIndex(dvRoot Root, uint32 x) {utAssert(x < dvRootGetNumModuleTable(Root)); return x;}
 #else
-static utInlineC uint32 dvRootCheckModuleTableIndex(dvRoot Root, uint32 x) {return x;}
+utInlineC uint32 dvRootCheckModuleTableIndex(dvRoot Root, uint32 x) {return x;}
 #endif
-static utInlineC dvModule dvRootGetiModuleTable(dvRoot Root, uint32 x) {return dvRoots.ModuleTable[
+utInlineC dvModule dvRootGetiModuleTable(dvRoot Root, uint32 x) {return dvRoots.ModuleTable[
     dvRootGetModuleTableIndex(Root) + dvRootCheckModuleTableIndex(Root, x)];}
-static utInlineC dvModule *dvRootGetModuleTable(dvRoot Root) {return dvRoots.ModuleTable + dvRootGetModuleTableIndex(Root);}
+utInlineC dvModule *dvRootGetModuleTable(dvRoot Root) {return dvRoots.ModuleTable + dvRootGetModuleTableIndex(Root);}
 #define dvRootGetModuleTables dvRootGetModuleTable
-static utInlineC void dvRootSetModuleTable(dvRoot Root, dvModule *valuePtr, uint32 numModuleTable) {
+utInlineC void dvRootSetModuleTable(dvRoot Root, dvModule *valuePtr, uint32 numModuleTable) {
     dvRootResizeModuleTables(Root, numModuleTable);
     memcpy(dvRootGetModuleTables(Root), valuePtr, numModuleTable*sizeof(dvModule));}
-static utInlineC void dvRootSetiModuleTable(dvRoot Root, uint32 x, dvModule value) {
+utInlineC void dvRootSetiModuleTable(dvRoot Root, uint32 x, dvModule value) {
     dvRoots.ModuleTable[dvRootGetModuleTableIndex(Root) + dvRootCheckModuleTableIndex(Root, (x))] = value;}
-static utInlineC uint32 dvRootGetNumModule(dvRoot Root) {return dvRoots.NumModule[dvRoot2ValidIndex(Root)];}
-static utInlineC void dvRootSetNumModule(dvRoot Root, uint32 value) {dvRoots.NumModule[dvRoot2ValidIndex(Root)] = value;}
-static utInlineC void dvRootSetConstructorCallback(void(*func)(dvRoot)) {dvRootConstructorCallback = func;}
-static utInlineC dvRootCallbackType dvRootGetConstructorCallback(void) {return dvRootConstructorCallback;}
-static utInlineC dvRoot dvFirstRoot(void) {return dvRootData.usedRoot == 1? dvRootNull : dvIndex2Root(1);}
-static utInlineC dvRoot dvLastRoot(void) {return dvRootData.usedRoot == 1? dvRootNull :
+utInlineC uint32 dvRootGetNumModule(dvRoot Root) {return dvRoots.NumModule[dvRoot2ValidIndex(Root)];}
+utInlineC void dvRootSetNumModule(dvRoot Root, uint32 value) {dvRoots.NumModule[dvRoot2ValidIndex(Root)] = value;}
+utInlineC void dvRootSetConstructorCallback(void(*func)(dvRoot)) {dvRootConstructorCallback = func;}
+utInlineC dvRootCallbackType dvRootGetConstructorCallback(void) {return dvRootConstructorCallback;}
+utInlineC dvRoot dvFirstRoot(void) {return dvRootData.usedRoot == 1? dvRootNull : dvIndex2Root(1);}
+utInlineC dvRoot dvLastRoot(void) {return dvRootData.usedRoot == 1? dvRootNull :
     dvIndex2Root(dvRootData.usedRoot - 1);}
-static dvRoot dvNextRoot(dvRoot Root) {return dvRoot2ValidIndex(Root) + 1 == dvRootData.usedRoot? dvRootNull :
+utInlineC dvRoot dvNextRoot(dvRoot Root) {return dvRoot2ValidIndex(Root) + 1 == dvRootData.usedRoot? dvRootNull :
     Root + 1;}
-static utInlineC dvRoot dvPrevRoot(dvRoot Root) {return dvRoot2ValidIndex(Root) == 1? dvRootNull : Root - 1;}
+utInlineC dvRoot dvPrevRoot(dvRoot Root) {return dvRoot2ValidIndex(Root) == 1? dvRootNull : Root - 1;}
 #define dvForeachRoot(var) \
     for(var = dvIndex2Root(1); dvRoot2Index(var) != dvRootData.usedRoot; var++)
 #define dvEndRoot
-static utInlineC void dvRootFreeAll(void) {dvSetUsedRoot(1); dvSetUsedRootModpathTable(0); dvSetUsedRootModuleTable(0);}
-static utInlineC dvRoot dvRootAllocRaw(void) {
+utInlineC void dvRootFreeAll(void) {dvSetUsedRoot(1); dvSetUsedRootModpathTable(0); dvSetUsedRootModuleTable(0);}
+utInlineC dvRoot dvRootAllocRaw(void) {
     dvRoot Root;
     if(dvRootData.usedRoot == dvRootData.allocatedRoot) {
         dvRootAllocMore();
@@ -663,7 +663,7 @@ static utInlineC dvRoot dvRootAllocRaw(void) {
     Root = dvIndex2Root(dvRootData.usedRoot);
     dvSetUsedRoot(dvUsedRoot() + 1);
     return Root;}
-static utInlineC dvRoot dvRootAlloc(void) {
+utInlineC dvRoot dvRootAlloc(void) {
     dvRoot Root = dvRootAllocRaw();
     dvRootSetFirstModpath(Root, dvModpathNull);
     dvRootSetLastModpath(Root, dvModpathNull);
@@ -696,29 +696,29 @@ extern struct dvModpathFields dvModpaths;
 
 void dvModpathAllocMore(void);
 void dvModpathCopyProps(dvModpath dvOldModpath, dvModpath dvNewModpath);
-static utInlineC utSym dvModpathGetSym(dvModpath Modpath) {return dvModpaths.Sym[dvModpath2ValidIndex(Modpath)];}
-static utInlineC void dvModpathSetSym(dvModpath Modpath, utSym value) {dvModpaths.Sym[dvModpath2ValidIndex(Modpath)] = value;}
-static utInlineC dvRoot dvModpathGetRoot(dvModpath Modpath) {return dvModpaths.Root[dvModpath2ValidIndex(Modpath)];}
-static utInlineC void dvModpathSetRoot(dvModpath Modpath, dvRoot value) {dvModpaths.Root[dvModpath2ValidIndex(Modpath)] = value;}
-static utInlineC dvModpath dvModpathGetNextRootModpath(dvModpath Modpath) {return dvModpaths.NextRootModpath[dvModpath2ValidIndex(Modpath)];}
-static utInlineC void dvModpathSetNextRootModpath(dvModpath Modpath, dvModpath value) {dvModpaths.NextRootModpath[dvModpath2ValidIndex(Modpath)] = value;}
-static utInlineC dvModpath dvModpathGetPrevRootModpath(dvModpath Modpath) {return dvModpaths.PrevRootModpath[dvModpath2ValidIndex(Modpath)];}
-static utInlineC void dvModpathSetPrevRootModpath(dvModpath Modpath, dvModpath value) {dvModpaths.PrevRootModpath[dvModpath2ValidIndex(Modpath)] = value;}
-static utInlineC dvModpath dvModpathGetNextTableRootModpath(dvModpath Modpath) {return dvModpaths.NextTableRootModpath[dvModpath2ValidIndex(Modpath)];}
-static utInlineC void dvModpathSetNextTableRootModpath(dvModpath Modpath, dvModpath value) {dvModpaths.NextTableRootModpath[dvModpath2ValidIndex(Modpath)] = value;}
-static utInlineC void dvModpathSetConstructorCallback(void(*func)(dvModpath)) {dvModpathConstructorCallback = func;}
-static utInlineC dvModpathCallbackType dvModpathGetConstructorCallback(void) {return dvModpathConstructorCallback;}
-static utInlineC dvModpath dvFirstModpath(void) {return dvRootData.usedModpath == 1? dvModpathNull : dvIndex2Modpath(1);}
-static utInlineC dvModpath dvLastModpath(void) {return dvRootData.usedModpath == 1? dvModpathNull :
+utInlineC utSym dvModpathGetSym(dvModpath Modpath) {return dvModpaths.Sym[dvModpath2ValidIndex(Modpath)];}
+utInlineC void dvModpathSetSym(dvModpath Modpath, utSym value) {dvModpaths.Sym[dvModpath2ValidIndex(Modpath)] = value;}
+utInlineC dvRoot dvModpathGetRoot(dvModpath Modpath) {return dvModpaths.Root[dvModpath2ValidIndex(Modpath)];}
+utInlineC void dvModpathSetRoot(dvModpath Modpath, dvRoot value) {dvModpaths.Root[dvModpath2ValidIndex(Modpath)] = value;}
+utInlineC dvModpath dvModpathGetNextRootModpath(dvModpath Modpath) {return dvModpaths.NextRootModpath[dvModpath2ValidIndex(Modpath)];}
+utInlineC void dvModpathSetNextRootModpath(dvModpath Modpath, dvModpath value) {dvModpaths.NextRootModpath[dvModpath2ValidIndex(Modpath)] = value;}
+utInlineC dvModpath dvModpathGetPrevRootModpath(dvModpath Modpath) {return dvModpaths.PrevRootModpath[dvModpath2ValidIndex(Modpath)];}
+utInlineC void dvModpathSetPrevRootModpath(dvModpath Modpath, dvModpath value) {dvModpaths.PrevRootModpath[dvModpath2ValidIndex(Modpath)] = value;}
+utInlineC dvModpath dvModpathGetNextTableRootModpath(dvModpath Modpath) {return dvModpaths.NextTableRootModpath[dvModpath2ValidIndex(Modpath)];}
+utInlineC void dvModpathSetNextTableRootModpath(dvModpath Modpath, dvModpath value) {dvModpaths.NextTableRootModpath[dvModpath2ValidIndex(Modpath)] = value;}
+utInlineC void dvModpathSetConstructorCallback(void(*func)(dvModpath)) {dvModpathConstructorCallback = func;}
+utInlineC dvModpathCallbackType dvModpathGetConstructorCallback(void) {return dvModpathConstructorCallback;}
+utInlineC dvModpath dvFirstModpath(void) {return dvRootData.usedModpath == 1? dvModpathNull : dvIndex2Modpath(1);}
+utInlineC dvModpath dvLastModpath(void) {return dvRootData.usedModpath == 1? dvModpathNull :
     dvIndex2Modpath(dvRootData.usedModpath - 1);}
-static dvModpath dvNextModpath(dvModpath Modpath) {return dvModpath2ValidIndex(Modpath) + 1 == dvRootData.usedModpath? dvModpathNull :
+utInlineC dvModpath dvNextModpath(dvModpath Modpath) {return dvModpath2ValidIndex(Modpath) + 1 == dvRootData.usedModpath? dvModpathNull :
     Modpath + 1;}
-static utInlineC dvModpath dvPrevModpath(dvModpath Modpath) {return dvModpath2ValidIndex(Modpath) == 1? dvModpathNull : Modpath - 1;}
+utInlineC dvModpath dvPrevModpath(dvModpath Modpath) {return dvModpath2ValidIndex(Modpath) == 1? dvModpathNull : Modpath - 1;}
 #define dvForeachModpath(var) \
     for(var = dvIndex2Modpath(1); dvModpath2Index(var) != dvRootData.usedModpath; var++)
 #define dvEndModpath
-static utInlineC void dvModpathFreeAll(void) {dvSetUsedModpath(1);}
-static utInlineC dvModpath dvModpathAllocRaw(void) {
+utInlineC void dvModpathFreeAll(void) {dvSetUsedModpath(1);}
+utInlineC dvModpath dvModpathAllocRaw(void) {
     dvModpath Modpath;
     if(dvRootData.usedModpath == dvRootData.allocatedModpath) {
         dvModpathAllocMore();
@@ -726,7 +726,7 @@ static utInlineC dvModpath dvModpathAllocRaw(void) {
     Modpath = dvIndex2Modpath(dvRootData.usedModpath);
     dvSetUsedModpath(dvUsedModpath() + 1);
     return Modpath;}
-static utInlineC dvModpath dvModpathAlloc(void) {
+utInlineC dvModpath dvModpathAlloc(void) {
     dvModpath Modpath = dvModpathAllocRaw();
     dvModpathSetSym(Modpath, utSymNull);
     dvModpathSetRoot(Modpath, dvRootNull);
@@ -804,154 +804,154 @@ void dvModuleAllocSchemaTables(dvModule Module, uint32 numSchemaTables);
 void dvModuleResizeSchemaTables(dvModule Module, uint32 numSchemaTables);
 void dvModuleFreeSchemaTables(dvModule Module);
 void dvCompactModuleSchemaTables(void);
-static utInlineC utSym dvModuleGetSym(dvModule Module) {return dvModules.Sym[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetSym(dvModule Module, utSym value) {dvModules.Sym[dvModule2ValidIndex(Module)] = value;}
-static utInlineC utSym dvModuleGetPrefixSym(dvModule Module) {return dvModules.PrefixSym[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetPrefixSym(dvModule Module, utSym value) {dvModules.PrefixSym[dvModule2ValidIndex(Module)] = value;}
-static utInlineC bool dvModulePersistent(dvModule Module) {
+utInlineC utSym dvModuleGetSym(dvModule Module) {return dvModules.Sym[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetSym(dvModule Module, utSym value) {dvModules.Sym[dvModule2ValidIndex(Module)] = value;}
+utInlineC utSym dvModuleGetPrefixSym(dvModule Module) {return dvModules.PrefixSym[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetPrefixSym(dvModule Module, utSym value) {dvModules.PrefixSym[dvModule2ValidIndex(Module)] = value;}
+utInlineC bool dvModulePersistent(dvModule Module) {
     return (dvModules.Persistent[dvModule2ValidIndex(Module) >> 3] >> (dvModule2ValidIndex(Module) & 7)) & 1;}
-static utInlineC void dvModuleSetPersistent(dvModule Module, bool value) {
+utInlineC void dvModuleSetPersistent(dvModule Module, bool value) {
     dvModules.Persistent[dvModule2ValidIndex(Module) >> 3] = (uint8)((dvModules.Persistent[dvModule2ValidIndex(Module) >> 3] &
         ~(1 << (dvModule2ValidIndex(Module) & 7))) | ((value != 0) << (dvModule2ValidIndex(Module) & 7)));}
-static utInlineC bool dvModuleUndoRedo(dvModule Module) {
+utInlineC bool dvModuleUndoRedo(dvModule Module) {
     return (dvModules.UndoRedo[dvModule2ValidIndex(Module) >> 3] >> (dvModule2ValidIndex(Module) & 7)) & 1;}
-static utInlineC void dvModuleSetUndoRedo(dvModule Module, bool value) {
+utInlineC void dvModuleSetUndoRedo(dvModule Module, bool value) {
     dvModules.UndoRedo[dvModule2ValidIndex(Module) >> 3] = (uint8)((dvModules.UndoRedo[dvModule2ValidIndex(Module) >> 3] &
         ~(1 << (dvModule2ValidIndex(Module) & 7))) | ((value != 0) << (dvModule2ValidIndex(Module) & 7)));}
-static utInlineC bool dvModuleHasSparseData(dvModule Module) {
+utInlineC bool dvModuleHasSparseData(dvModule Module) {
     return (dvModules.HasSparseData[dvModule2ValidIndex(Module) >> 3] >> (dvModule2ValidIndex(Module) & 7)) & 1;}
-static utInlineC void dvModuleSetHasSparseData(dvModule Module, bool value) {
+utInlineC void dvModuleSetHasSparseData(dvModule Module, bool value) {
     dvModules.HasSparseData[dvModule2ValidIndex(Module) >> 3] = (uint8)((dvModules.HasSparseData[dvModule2ValidIndex(Module) >> 3] &
         ~(1 << (dvModule2ValidIndex(Module) & 7))) | ((value != 0) << (dvModule2ValidIndex(Module) & 7)));}
-static utInlineC uint16 dvModuleGetNumFields(dvModule Module) {return dvModules.NumFields[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumFields(dvModule Module, uint16 value) {dvModules.NumFields[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetNumClasses(dvModule Module) {return dvModules.NumClasses[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumClasses(dvModule Module, uint32 value) {dvModules.NumClasses[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetNumEnums(dvModule Module) {return dvModules.NumEnums[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumEnums(dvModule Module, uint32 value) {dvModules.NumEnums[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvModule dvModuleGetNextRootModule(dvModule Module) {return dvModules.NextRootModule[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNextRootModule(dvModule Module, dvModule value) {dvModules.NextRootModule[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvModule dvModuleGetPrevRootModule(dvModule Module) {return dvModules.PrevRootModule[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetPrevRootModule(dvModule Module, dvModule value) {dvModules.PrevRootModule[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvModule dvModuleGetNextTableRootModule(dvModule Module) {return dvModules.NextTableRootModule[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNextTableRootModule(dvModule Module, dvModule value) {dvModules.NextTableRootModule[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvClass dvModuleGetFirstClass(dvModule Module) {return dvModules.FirstClass[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetFirstClass(dvModule Module, dvClass value) {dvModules.FirstClass[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvClass dvModuleGetLastClass(dvModule Module) {return dvModules.LastClass[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetLastClass(dvModule Module, dvClass value) {dvModules.LastClass[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetClassTableIndex(dvModule Module) {return dvModules.ClassTableIndex[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetClassTableIndex(dvModule Module, uint32 value) {dvModules.ClassTableIndex[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetNumClassTable(dvModule Module) {return dvModules.NumClassTable[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumClassTable(dvModule Module, uint32 value) {dvModules.NumClassTable[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint16 dvModuleGetNumFields(dvModule Module) {return dvModules.NumFields[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumFields(dvModule Module, uint16 value) {dvModules.NumFields[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumClasses(dvModule Module) {return dvModules.NumClasses[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumClasses(dvModule Module, uint32 value) {dvModules.NumClasses[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumEnums(dvModule Module) {return dvModules.NumEnums[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumEnums(dvModule Module, uint32 value) {dvModules.NumEnums[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvModule dvModuleGetNextRootModule(dvModule Module) {return dvModules.NextRootModule[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNextRootModule(dvModule Module, dvModule value) {dvModules.NextRootModule[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvModule dvModuleGetPrevRootModule(dvModule Module) {return dvModules.PrevRootModule[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetPrevRootModule(dvModule Module, dvModule value) {dvModules.PrevRootModule[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvModule dvModuleGetNextTableRootModule(dvModule Module) {return dvModules.NextTableRootModule[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNextTableRootModule(dvModule Module, dvModule value) {dvModules.NextTableRootModule[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvClass dvModuleGetFirstClass(dvModule Module) {return dvModules.FirstClass[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetFirstClass(dvModule Module, dvClass value) {dvModules.FirstClass[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvClass dvModuleGetLastClass(dvModule Module) {return dvModules.LastClass[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetLastClass(dvModule Module, dvClass value) {dvModules.LastClass[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetClassTableIndex(dvModule Module) {return dvModules.ClassTableIndex[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetClassTableIndex(dvModule Module, uint32 value) {dvModules.ClassTableIndex[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumClassTable(dvModule Module) {return dvModules.NumClassTable[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumClassTable(dvModule Module, uint32 value) {dvModules.NumClassTable[dvModule2ValidIndex(Module)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvModuleCheckClassTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumClassTable(Module)); return x;}
+utInlineC uint32 dvModuleCheckClassTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumClassTable(Module)); return x;}
 #else
-static utInlineC uint32 dvModuleCheckClassTableIndex(dvModule Module, uint32 x) {return x;}
+utInlineC uint32 dvModuleCheckClassTableIndex(dvModule Module, uint32 x) {return x;}
 #endif
-static utInlineC dvClass dvModuleGetiClassTable(dvModule Module, uint32 x) {return dvModules.ClassTable[
+utInlineC dvClass dvModuleGetiClassTable(dvModule Module, uint32 x) {return dvModules.ClassTable[
     dvModuleGetClassTableIndex(Module) + dvModuleCheckClassTableIndex(Module, x)];}
-static utInlineC dvClass *dvModuleGetClassTable(dvModule Module) {return dvModules.ClassTable + dvModuleGetClassTableIndex(Module);}
+utInlineC dvClass *dvModuleGetClassTable(dvModule Module) {return dvModules.ClassTable + dvModuleGetClassTableIndex(Module);}
 #define dvModuleGetClassTables dvModuleGetClassTable
-static utInlineC void dvModuleSetClassTable(dvModule Module, dvClass *valuePtr, uint32 numClassTable) {
+utInlineC void dvModuleSetClassTable(dvModule Module, dvClass *valuePtr, uint32 numClassTable) {
     dvModuleResizeClassTables(Module, numClassTable);
     memcpy(dvModuleGetClassTables(Module), valuePtr, numClassTable*sizeof(dvClass));}
-static utInlineC void dvModuleSetiClassTable(dvModule Module, uint32 x, dvClass value) {
+utInlineC void dvModuleSetiClassTable(dvModule Module, uint32 x, dvClass value) {
     dvModules.ClassTable[dvModuleGetClassTableIndex(Module) + dvModuleCheckClassTableIndex(Module, (x))] = value;}
-static utInlineC uint32 dvModuleGetNumClass(dvModule Module) {return dvModules.NumClass[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumClass(dvModule Module, uint32 value) {dvModules.NumClass[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvEnum dvModuleGetFirstEnum(dvModule Module) {return dvModules.FirstEnum[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetFirstEnum(dvModule Module, dvEnum value) {dvModules.FirstEnum[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvEnum dvModuleGetLastEnum(dvModule Module) {return dvModules.LastEnum[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetLastEnum(dvModule Module, dvEnum value) {dvModules.LastEnum[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetEnumTableIndex(dvModule Module) {return dvModules.EnumTableIndex[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetEnumTableIndex(dvModule Module, uint32 value) {dvModules.EnumTableIndex[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetNumEnumTable(dvModule Module) {return dvModules.NumEnumTable[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumEnumTable(dvModule Module, uint32 value) {dvModules.NumEnumTable[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumClass(dvModule Module) {return dvModules.NumClass[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumClass(dvModule Module, uint32 value) {dvModules.NumClass[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvEnum dvModuleGetFirstEnum(dvModule Module) {return dvModules.FirstEnum[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetFirstEnum(dvModule Module, dvEnum value) {dvModules.FirstEnum[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvEnum dvModuleGetLastEnum(dvModule Module) {return dvModules.LastEnum[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetLastEnum(dvModule Module, dvEnum value) {dvModules.LastEnum[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetEnumTableIndex(dvModule Module) {return dvModules.EnumTableIndex[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetEnumTableIndex(dvModule Module, uint32 value) {dvModules.EnumTableIndex[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumEnumTable(dvModule Module) {return dvModules.NumEnumTable[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumEnumTable(dvModule Module, uint32 value) {dvModules.NumEnumTable[dvModule2ValidIndex(Module)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvModuleCheckEnumTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumEnumTable(Module)); return x;}
+utInlineC uint32 dvModuleCheckEnumTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumEnumTable(Module)); return x;}
 #else
-static utInlineC uint32 dvModuleCheckEnumTableIndex(dvModule Module, uint32 x) {return x;}
+utInlineC uint32 dvModuleCheckEnumTableIndex(dvModule Module, uint32 x) {return x;}
 #endif
-static utInlineC dvEnum dvModuleGetiEnumTable(dvModule Module, uint32 x) {return dvModules.EnumTable[
+utInlineC dvEnum dvModuleGetiEnumTable(dvModule Module, uint32 x) {return dvModules.EnumTable[
     dvModuleGetEnumTableIndex(Module) + dvModuleCheckEnumTableIndex(Module, x)];}
-static utInlineC dvEnum *dvModuleGetEnumTable(dvModule Module) {return dvModules.EnumTable + dvModuleGetEnumTableIndex(Module);}
+utInlineC dvEnum *dvModuleGetEnumTable(dvModule Module) {return dvModules.EnumTable + dvModuleGetEnumTableIndex(Module);}
 #define dvModuleGetEnumTables dvModuleGetEnumTable
-static utInlineC void dvModuleSetEnumTable(dvModule Module, dvEnum *valuePtr, uint32 numEnumTable) {
+utInlineC void dvModuleSetEnumTable(dvModule Module, dvEnum *valuePtr, uint32 numEnumTable) {
     dvModuleResizeEnumTables(Module, numEnumTable);
     memcpy(dvModuleGetEnumTables(Module), valuePtr, numEnumTable*sizeof(dvEnum));}
-static utInlineC void dvModuleSetiEnumTable(dvModule Module, uint32 x, dvEnum value) {
+utInlineC void dvModuleSetiEnumTable(dvModule Module, uint32 x, dvEnum value) {
     dvModules.EnumTable[dvModuleGetEnumTableIndex(Module) + dvModuleCheckEnumTableIndex(Module, (x))] = value;}
-static utInlineC uint32 dvModuleGetNumEnum(dvModule Module) {return dvModules.NumEnum[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumEnum(dvModule Module, uint32 value) {dvModules.NumEnum[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvTypedef dvModuleGetFirstTypedef(dvModule Module) {return dvModules.FirstTypedef[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetFirstTypedef(dvModule Module, dvTypedef value) {dvModules.FirstTypedef[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvTypedef dvModuleGetLastTypedef(dvModule Module) {return dvModules.LastTypedef[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetLastTypedef(dvModule Module, dvTypedef value) {dvModules.LastTypedef[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetTypedefTableIndex(dvModule Module) {return dvModules.TypedefTableIndex[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetTypedefTableIndex(dvModule Module, uint32 value) {dvModules.TypedefTableIndex[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetNumTypedefTable(dvModule Module) {return dvModules.NumTypedefTable[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumTypedefTable(dvModule Module, uint32 value) {dvModules.NumTypedefTable[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumEnum(dvModule Module) {return dvModules.NumEnum[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumEnum(dvModule Module, uint32 value) {dvModules.NumEnum[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvTypedef dvModuleGetFirstTypedef(dvModule Module) {return dvModules.FirstTypedef[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetFirstTypedef(dvModule Module, dvTypedef value) {dvModules.FirstTypedef[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvTypedef dvModuleGetLastTypedef(dvModule Module) {return dvModules.LastTypedef[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetLastTypedef(dvModule Module, dvTypedef value) {dvModules.LastTypedef[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetTypedefTableIndex(dvModule Module) {return dvModules.TypedefTableIndex[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetTypedefTableIndex(dvModule Module, uint32 value) {dvModules.TypedefTableIndex[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumTypedefTable(dvModule Module) {return dvModules.NumTypedefTable[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumTypedefTable(dvModule Module, uint32 value) {dvModules.NumTypedefTable[dvModule2ValidIndex(Module)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvModuleCheckTypedefTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumTypedefTable(Module)); return x;}
+utInlineC uint32 dvModuleCheckTypedefTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumTypedefTable(Module)); return x;}
 #else
-static utInlineC uint32 dvModuleCheckTypedefTableIndex(dvModule Module, uint32 x) {return x;}
+utInlineC uint32 dvModuleCheckTypedefTableIndex(dvModule Module, uint32 x) {return x;}
 #endif
-static utInlineC dvTypedef dvModuleGetiTypedefTable(dvModule Module, uint32 x) {return dvModules.TypedefTable[
+utInlineC dvTypedef dvModuleGetiTypedefTable(dvModule Module, uint32 x) {return dvModules.TypedefTable[
     dvModuleGetTypedefTableIndex(Module) + dvModuleCheckTypedefTableIndex(Module, x)];}
-static utInlineC dvTypedef *dvModuleGetTypedefTable(dvModule Module) {return dvModules.TypedefTable + dvModuleGetTypedefTableIndex(Module);}
+utInlineC dvTypedef *dvModuleGetTypedefTable(dvModule Module) {return dvModules.TypedefTable + dvModuleGetTypedefTableIndex(Module);}
 #define dvModuleGetTypedefTables dvModuleGetTypedefTable
-static utInlineC void dvModuleSetTypedefTable(dvModule Module, dvTypedef *valuePtr, uint32 numTypedefTable) {
+utInlineC void dvModuleSetTypedefTable(dvModule Module, dvTypedef *valuePtr, uint32 numTypedefTable) {
     dvModuleResizeTypedefTables(Module, numTypedefTable);
     memcpy(dvModuleGetTypedefTables(Module), valuePtr, numTypedefTable*sizeof(dvTypedef));}
-static utInlineC void dvModuleSetiTypedefTable(dvModule Module, uint32 x, dvTypedef value) {
+utInlineC void dvModuleSetiTypedefTable(dvModule Module, uint32 x, dvTypedef value) {
     dvModules.TypedefTable[dvModuleGetTypedefTableIndex(Module) + dvModuleCheckTypedefTableIndex(Module, (x))] = value;}
-static utInlineC uint32 dvModuleGetNumTypedef(dvModule Module) {return dvModules.NumTypedef[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumTypedef(dvModule Module, uint32 value) {dvModules.NumTypedef[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvSchema dvModuleGetFirstSchema(dvModule Module) {return dvModules.FirstSchema[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetFirstSchema(dvModule Module, dvSchema value) {dvModules.FirstSchema[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvSchema dvModuleGetLastSchema(dvModule Module) {return dvModules.LastSchema[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetLastSchema(dvModule Module, dvSchema value) {dvModules.LastSchema[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetSchemaTableIndex(dvModule Module) {return dvModules.SchemaTableIndex[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetSchemaTableIndex(dvModule Module, uint32 value) {dvModules.SchemaTableIndex[dvModule2ValidIndex(Module)] = value;}
-static utInlineC uint32 dvModuleGetNumSchemaTable(dvModule Module) {return dvModules.NumSchemaTable[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumSchemaTable(dvModule Module, uint32 value) {dvModules.NumSchemaTable[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumTypedef(dvModule Module) {return dvModules.NumTypedef[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumTypedef(dvModule Module, uint32 value) {dvModules.NumTypedef[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvSchema dvModuleGetFirstSchema(dvModule Module) {return dvModules.FirstSchema[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetFirstSchema(dvModule Module, dvSchema value) {dvModules.FirstSchema[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvSchema dvModuleGetLastSchema(dvModule Module) {return dvModules.LastSchema[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetLastSchema(dvModule Module, dvSchema value) {dvModules.LastSchema[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetSchemaTableIndex(dvModule Module) {return dvModules.SchemaTableIndex[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetSchemaTableIndex(dvModule Module, uint32 value) {dvModules.SchemaTableIndex[dvModule2ValidIndex(Module)] = value;}
+utInlineC uint32 dvModuleGetNumSchemaTable(dvModule Module) {return dvModules.NumSchemaTable[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumSchemaTable(dvModule Module, uint32 value) {dvModules.NumSchemaTable[dvModule2ValidIndex(Module)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvModuleCheckSchemaTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumSchemaTable(Module)); return x;}
+utInlineC uint32 dvModuleCheckSchemaTableIndex(dvModule Module, uint32 x) {utAssert(x < dvModuleGetNumSchemaTable(Module)); return x;}
 #else
-static utInlineC uint32 dvModuleCheckSchemaTableIndex(dvModule Module, uint32 x) {return x;}
+utInlineC uint32 dvModuleCheckSchemaTableIndex(dvModule Module, uint32 x) {return x;}
 #endif
-static utInlineC dvSchema dvModuleGetiSchemaTable(dvModule Module, uint32 x) {return dvModules.SchemaTable[
+utInlineC dvSchema dvModuleGetiSchemaTable(dvModule Module, uint32 x) {return dvModules.SchemaTable[
     dvModuleGetSchemaTableIndex(Module) + dvModuleCheckSchemaTableIndex(Module, x)];}
-static utInlineC dvSchema *dvModuleGetSchemaTable(dvModule Module) {return dvModules.SchemaTable + dvModuleGetSchemaTableIndex(Module);}
+utInlineC dvSchema *dvModuleGetSchemaTable(dvModule Module) {return dvModules.SchemaTable + dvModuleGetSchemaTableIndex(Module);}
 #define dvModuleGetSchemaTables dvModuleGetSchemaTable
-static utInlineC void dvModuleSetSchemaTable(dvModule Module, dvSchema *valuePtr, uint32 numSchemaTable) {
+utInlineC void dvModuleSetSchemaTable(dvModule Module, dvSchema *valuePtr, uint32 numSchemaTable) {
     dvModuleResizeSchemaTables(Module, numSchemaTable);
     memcpy(dvModuleGetSchemaTables(Module), valuePtr, numSchemaTable*sizeof(dvSchema));}
-static utInlineC void dvModuleSetiSchemaTable(dvModule Module, uint32 x, dvSchema value) {
+utInlineC void dvModuleSetiSchemaTable(dvModule Module, uint32 x, dvSchema value) {
     dvModules.SchemaTable[dvModuleGetSchemaTableIndex(Module) + dvModuleCheckSchemaTableIndex(Module, (x))] = value;}
-static utInlineC uint32 dvModuleGetNumSchema(dvModule Module) {return dvModules.NumSchema[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetNumSchema(dvModule Module, uint32 value) {dvModules.NumSchema[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvLink dvModuleGetFirstImportLink(dvModule Module) {return dvModules.FirstImportLink[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetFirstImportLink(dvModule Module, dvLink value) {dvModules.FirstImportLink[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvLink dvModuleGetLastImportLink(dvModule Module) {return dvModules.LastImportLink[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetLastImportLink(dvModule Module, dvLink value) {dvModules.LastImportLink[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvLink dvModuleGetFirstExportLink(dvModule Module) {return dvModules.FirstExportLink[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetFirstExportLink(dvModule Module, dvLink value) {dvModules.FirstExportLink[dvModule2ValidIndex(Module)] = value;}
-static utInlineC dvLink dvModuleGetLastExportLink(dvModule Module) {return dvModules.LastExportLink[dvModule2ValidIndex(Module)];}
-static utInlineC void dvModuleSetLastExportLink(dvModule Module, dvLink value) {dvModules.LastExportLink[dvModule2ValidIndex(Module)] = value;}
-static utInlineC void dvModuleSetConstructorCallback(void(*func)(dvModule)) {dvModuleConstructorCallback = func;}
-static utInlineC dvModuleCallbackType dvModuleGetConstructorCallback(void) {return dvModuleConstructorCallback;}
-static utInlineC dvModule dvFirstModule(void) {return dvRootData.usedModule == 1? dvModuleNull : dvIndex2Module(1);}
-static utInlineC dvModule dvLastModule(void) {return dvRootData.usedModule == 1? dvModuleNull :
+utInlineC uint32 dvModuleGetNumSchema(dvModule Module) {return dvModules.NumSchema[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetNumSchema(dvModule Module, uint32 value) {dvModules.NumSchema[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvLink dvModuleGetFirstImportLink(dvModule Module) {return dvModules.FirstImportLink[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetFirstImportLink(dvModule Module, dvLink value) {dvModules.FirstImportLink[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvLink dvModuleGetLastImportLink(dvModule Module) {return dvModules.LastImportLink[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetLastImportLink(dvModule Module, dvLink value) {dvModules.LastImportLink[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvLink dvModuleGetFirstExportLink(dvModule Module) {return dvModules.FirstExportLink[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetFirstExportLink(dvModule Module, dvLink value) {dvModules.FirstExportLink[dvModule2ValidIndex(Module)] = value;}
+utInlineC dvLink dvModuleGetLastExportLink(dvModule Module) {return dvModules.LastExportLink[dvModule2ValidIndex(Module)];}
+utInlineC void dvModuleSetLastExportLink(dvModule Module, dvLink value) {dvModules.LastExportLink[dvModule2ValidIndex(Module)] = value;}
+utInlineC void dvModuleSetConstructorCallback(void(*func)(dvModule)) {dvModuleConstructorCallback = func;}
+utInlineC dvModuleCallbackType dvModuleGetConstructorCallback(void) {return dvModuleConstructorCallback;}
+utInlineC dvModule dvFirstModule(void) {return dvRootData.usedModule == 1? dvModuleNull : dvIndex2Module(1);}
+utInlineC dvModule dvLastModule(void) {return dvRootData.usedModule == 1? dvModuleNull :
     dvIndex2Module(dvRootData.usedModule - 1);}
-static dvModule dvNextModule(dvModule Module) {return dvModule2ValidIndex(Module) + 1 == dvRootData.usedModule? dvModuleNull :
+utInlineC dvModule dvNextModule(dvModule Module) {return dvModule2ValidIndex(Module) + 1 == dvRootData.usedModule? dvModuleNull :
     Module + 1;}
-static utInlineC dvModule dvPrevModule(dvModule Module) {return dvModule2ValidIndex(Module) == 1? dvModuleNull : Module - 1;}
+utInlineC dvModule dvPrevModule(dvModule Module) {return dvModule2ValidIndex(Module) == 1? dvModuleNull : Module - 1;}
 #define dvForeachModule(var) \
     for(var = dvIndex2Module(1); dvModule2Index(var) != dvRootData.usedModule; var++)
 #define dvEndModule
-static utInlineC void dvModuleFreeAll(void) {dvSetUsedModule(1); dvSetUsedModuleClassTable(0); dvSetUsedModuleEnumTable(0); dvSetUsedModuleTypedefTable(0); dvSetUsedModuleSchemaTable(0);}
-static utInlineC dvModule dvModuleAllocRaw(void) {
+utInlineC void dvModuleFreeAll(void) {dvSetUsedModule(1); dvSetUsedModuleClassTable(0); dvSetUsedModuleEnumTable(0); dvSetUsedModuleTypedefTable(0); dvSetUsedModuleSchemaTable(0);}
+utInlineC dvModule dvModuleAllocRaw(void) {
     dvModule Module;
     if(dvRootData.usedModule == dvRootData.allocatedModule) {
         dvModuleAllocMore();
@@ -959,7 +959,7 @@ static utInlineC dvModule dvModuleAllocRaw(void) {
     Module = dvIndex2Module(dvRootData.usedModule);
     dvSetUsedModule(dvUsedModule() + 1);
     return Module;}
-static utInlineC dvModule dvModuleAlloc(void) {
+utInlineC dvModule dvModuleAlloc(void) {
     dvModule Module = dvModuleAllocRaw();
     dvModuleSetSym(Module, utSymNull);
     dvModuleSetPrefixSym(Module, utSymNull);
@@ -1018,27 +1018,27 @@ extern struct dvLinkFields dvLinks;
 
 void dvLinkAllocMore(void);
 void dvLinkCopyProps(dvLink dvOldLink, dvLink dvNewLink);
-static utInlineC dvModule dvLinkGetImportModule(dvLink Link) {return dvLinks.ImportModule[dvLink2ValidIndex(Link)];}
-static utInlineC void dvLinkSetImportModule(dvLink Link, dvModule value) {dvLinks.ImportModule[dvLink2ValidIndex(Link)] = value;}
-static utInlineC dvLink dvLinkGetNextModuleImportLink(dvLink Link) {return dvLinks.NextModuleImportLink[dvLink2ValidIndex(Link)];}
-static utInlineC void dvLinkSetNextModuleImportLink(dvLink Link, dvLink value) {dvLinks.NextModuleImportLink[dvLink2ValidIndex(Link)] = value;}
-static utInlineC dvModule dvLinkGetExportModule(dvLink Link) {return dvLinks.ExportModule[dvLink2ValidIndex(Link)];}
-static utInlineC void dvLinkSetExportModule(dvLink Link, dvModule value) {dvLinks.ExportModule[dvLink2ValidIndex(Link)] = value;}
-static utInlineC dvLink dvLinkGetNextModuleExportLink(dvLink Link) {return dvLinks.NextModuleExportLink[dvLink2ValidIndex(Link)];}
-static utInlineC void dvLinkSetNextModuleExportLink(dvLink Link, dvLink value) {dvLinks.NextModuleExportLink[dvLink2ValidIndex(Link)] = value;}
-static utInlineC void dvLinkSetConstructorCallback(void(*func)(dvLink)) {dvLinkConstructorCallback = func;}
-static utInlineC dvLinkCallbackType dvLinkGetConstructorCallback(void) {return dvLinkConstructorCallback;}
-static utInlineC dvLink dvFirstLink(void) {return dvRootData.usedLink == 1? dvLinkNull : dvIndex2Link(1);}
-static utInlineC dvLink dvLastLink(void) {return dvRootData.usedLink == 1? dvLinkNull :
+utInlineC dvModule dvLinkGetImportModule(dvLink Link) {return dvLinks.ImportModule[dvLink2ValidIndex(Link)];}
+utInlineC void dvLinkSetImportModule(dvLink Link, dvModule value) {dvLinks.ImportModule[dvLink2ValidIndex(Link)] = value;}
+utInlineC dvLink dvLinkGetNextModuleImportLink(dvLink Link) {return dvLinks.NextModuleImportLink[dvLink2ValidIndex(Link)];}
+utInlineC void dvLinkSetNextModuleImportLink(dvLink Link, dvLink value) {dvLinks.NextModuleImportLink[dvLink2ValidIndex(Link)] = value;}
+utInlineC dvModule dvLinkGetExportModule(dvLink Link) {return dvLinks.ExportModule[dvLink2ValidIndex(Link)];}
+utInlineC void dvLinkSetExportModule(dvLink Link, dvModule value) {dvLinks.ExportModule[dvLink2ValidIndex(Link)] = value;}
+utInlineC dvLink dvLinkGetNextModuleExportLink(dvLink Link) {return dvLinks.NextModuleExportLink[dvLink2ValidIndex(Link)];}
+utInlineC void dvLinkSetNextModuleExportLink(dvLink Link, dvLink value) {dvLinks.NextModuleExportLink[dvLink2ValidIndex(Link)] = value;}
+utInlineC void dvLinkSetConstructorCallback(void(*func)(dvLink)) {dvLinkConstructorCallback = func;}
+utInlineC dvLinkCallbackType dvLinkGetConstructorCallback(void) {return dvLinkConstructorCallback;}
+utInlineC dvLink dvFirstLink(void) {return dvRootData.usedLink == 1? dvLinkNull : dvIndex2Link(1);}
+utInlineC dvLink dvLastLink(void) {return dvRootData.usedLink == 1? dvLinkNull :
     dvIndex2Link(dvRootData.usedLink - 1);}
-static dvLink dvNextLink(dvLink Link) {return dvLink2ValidIndex(Link) + 1 == dvRootData.usedLink? dvLinkNull :
+utInlineC dvLink dvNextLink(dvLink Link) {return dvLink2ValidIndex(Link) + 1 == dvRootData.usedLink? dvLinkNull :
     Link + 1;}
-static utInlineC dvLink dvPrevLink(dvLink Link) {return dvLink2ValidIndex(Link) == 1? dvLinkNull : Link - 1;}
+utInlineC dvLink dvPrevLink(dvLink Link) {return dvLink2ValidIndex(Link) == 1? dvLinkNull : Link - 1;}
 #define dvForeachLink(var) \
     for(var = dvIndex2Link(1); dvLink2Index(var) != dvRootData.usedLink; var++)
 #define dvEndLink
-static utInlineC void dvLinkFreeAll(void) {dvSetUsedLink(1);}
-static utInlineC dvLink dvLinkAllocRaw(void) {
+utInlineC void dvLinkFreeAll(void) {dvSetUsedLink(1);}
+utInlineC dvLink dvLinkAllocRaw(void) {
     dvLink Link;
     if(dvRootData.usedLink == dvRootData.allocatedLink) {
         dvLinkAllocMore();
@@ -1046,7 +1046,7 @@ static utInlineC dvLink dvLinkAllocRaw(void) {
     Link = dvIndex2Link(dvRootData.usedLink);
     dvSetUsedLink(dvUsedLink() + 1);
     return Link;}
-static utInlineC dvLink dvLinkAlloc(void) {
+utInlineC dvLink dvLinkAlloc(void) {
     dvLink Link = dvLinkAllocRaw();
     dvLinkSetImportModule(Link, dvModuleNull);
     dvLinkSetNextModuleImportLink(Link, dvLinkNull);
@@ -1073,33 +1073,33 @@ extern struct dvSchemaFields dvSchemas;
 
 void dvSchemaAllocMore(void);
 void dvSchemaCopyProps(dvSchema dvOldSchema, dvSchema dvNewSchema);
-static utInlineC utSym dvSchemaGetSym(dvSchema Schema) {return dvSchemas.Sym[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetSym(dvSchema Schema, utSym value) {dvSchemas.Sym[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC dvModule dvSchemaGetModule(dvSchema Schema) {return dvSchemas.Module[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetModule(dvSchema Schema, dvModule value) {dvSchemas.Module[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC dvSchema dvSchemaGetNextModuleSchema(dvSchema Schema) {return dvSchemas.NextModuleSchema[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetNextModuleSchema(dvSchema Schema, dvSchema value) {dvSchemas.NextModuleSchema[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC dvSchema dvSchemaGetPrevModuleSchema(dvSchema Schema) {return dvSchemas.PrevModuleSchema[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetPrevModuleSchema(dvSchema Schema, dvSchema value) {dvSchemas.PrevModuleSchema[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC dvSchema dvSchemaGetNextTableModuleSchema(dvSchema Schema) {return dvSchemas.NextTableModuleSchema[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetNextTableModuleSchema(dvSchema Schema, dvSchema value) {dvSchemas.NextTableModuleSchema[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC dvRelationship dvSchemaGetFirstRelationship(dvSchema Schema) {return dvSchemas.FirstRelationship[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetFirstRelationship(dvSchema Schema, dvRelationship value) {dvSchemas.FirstRelationship[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC dvRelationship dvSchemaGetLastRelationship(dvSchema Schema) {return dvSchemas.LastRelationship[dvSchema2ValidIndex(Schema)];}
-static utInlineC void dvSchemaSetLastRelationship(dvSchema Schema, dvRelationship value) {dvSchemas.LastRelationship[dvSchema2ValidIndex(Schema)] = value;}
-static utInlineC void dvSchemaSetConstructorCallback(void(*func)(dvSchema)) {dvSchemaConstructorCallback = func;}
-static utInlineC dvSchemaCallbackType dvSchemaGetConstructorCallback(void) {return dvSchemaConstructorCallback;}
-static utInlineC dvSchema dvFirstSchema(void) {return dvRootData.usedSchema == 1? dvSchemaNull : dvIndex2Schema(1);}
-static utInlineC dvSchema dvLastSchema(void) {return dvRootData.usedSchema == 1? dvSchemaNull :
+utInlineC utSym dvSchemaGetSym(dvSchema Schema) {return dvSchemas.Sym[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetSym(dvSchema Schema, utSym value) {dvSchemas.Sym[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC dvModule dvSchemaGetModule(dvSchema Schema) {return dvSchemas.Module[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetModule(dvSchema Schema, dvModule value) {dvSchemas.Module[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC dvSchema dvSchemaGetNextModuleSchema(dvSchema Schema) {return dvSchemas.NextModuleSchema[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetNextModuleSchema(dvSchema Schema, dvSchema value) {dvSchemas.NextModuleSchema[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC dvSchema dvSchemaGetPrevModuleSchema(dvSchema Schema) {return dvSchemas.PrevModuleSchema[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetPrevModuleSchema(dvSchema Schema, dvSchema value) {dvSchemas.PrevModuleSchema[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC dvSchema dvSchemaGetNextTableModuleSchema(dvSchema Schema) {return dvSchemas.NextTableModuleSchema[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetNextTableModuleSchema(dvSchema Schema, dvSchema value) {dvSchemas.NextTableModuleSchema[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC dvRelationship dvSchemaGetFirstRelationship(dvSchema Schema) {return dvSchemas.FirstRelationship[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetFirstRelationship(dvSchema Schema, dvRelationship value) {dvSchemas.FirstRelationship[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC dvRelationship dvSchemaGetLastRelationship(dvSchema Schema) {return dvSchemas.LastRelationship[dvSchema2ValidIndex(Schema)];}
+utInlineC void dvSchemaSetLastRelationship(dvSchema Schema, dvRelationship value) {dvSchemas.LastRelationship[dvSchema2ValidIndex(Schema)] = value;}
+utInlineC void dvSchemaSetConstructorCallback(void(*func)(dvSchema)) {dvSchemaConstructorCallback = func;}
+utInlineC dvSchemaCallbackType dvSchemaGetConstructorCallback(void) {return dvSchemaConstructorCallback;}
+utInlineC dvSchema dvFirstSchema(void) {return dvRootData.usedSchema == 1? dvSchemaNull : dvIndex2Schema(1);}
+utInlineC dvSchema dvLastSchema(void) {return dvRootData.usedSchema == 1? dvSchemaNull :
     dvIndex2Schema(dvRootData.usedSchema - 1);}
-static dvSchema dvNextSchema(dvSchema Schema) {return dvSchema2ValidIndex(Schema) + 1 == dvRootData.usedSchema? dvSchemaNull :
+utInlineC dvSchema dvNextSchema(dvSchema Schema) {return dvSchema2ValidIndex(Schema) + 1 == dvRootData.usedSchema? dvSchemaNull :
     Schema + 1;}
-static utInlineC dvSchema dvPrevSchema(dvSchema Schema) {return dvSchema2ValidIndex(Schema) == 1? dvSchemaNull : Schema - 1;}
+utInlineC dvSchema dvPrevSchema(dvSchema Schema) {return dvSchema2ValidIndex(Schema) == 1? dvSchemaNull : Schema - 1;}
 #define dvForeachSchema(var) \
     for(var = dvIndex2Schema(1); dvSchema2Index(var) != dvRootData.usedSchema; var++)
 #define dvEndSchema
-static utInlineC void dvSchemaFreeAll(void) {dvSetUsedSchema(1);}
-static utInlineC dvSchema dvSchemaAllocRaw(void) {
+utInlineC void dvSchemaFreeAll(void) {dvSetUsedSchema(1);}
+utInlineC dvSchema dvSchemaAllocRaw(void) {
     dvSchema Schema;
     if(dvRootData.usedSchema == dvRootData.allocatedSchema) {
         dvSchemaAllocMore();
@@ -1107,7 +1107,7 @@ static utInlineC dvSchema dvSchemaAllocRaw(void) {
     Schema = dvIndex2Schema(dvRootData.usedSchema);
     dvSetUsedSchema(dvUsedSchema() + 1);
     return Schema;}
-static utInlineC dvSchema dvSchemaAlloc(void) {
+utInlineC dvSchema dvSchemaAlloc(void) {
     dvSchema Schema = dvSchemaAllocRaw();
     dvSchemaSetSym(Schema, utSymNull);
     dvSchemaSetModule(Schema, dvModuleNull);
@@ -1147,57 +1147,57 @@ void dvEnumAllocEntryTables(dvEnum Enum, uint32 numEntryTables);
 void dvEnumResizeEntryTables(dvEnum Enum, uint32 numEntryTables);
 void dvEnumFreeEntryTables(dvEnum Enum);
 void dvCompactEnumEntryTables(void);
-static utInlineC utSym dvEnumGetSym(dvEnum Enum) {return dvEnums.Sym[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetSym(dvEnum Enum, utSym value) {dvEnums.Sym[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC utSym dvEnumGetPrefixSym(dvEnum Enum) {return dvEnums.PrefixSym[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetPrefixSym(dvEnum Enum, utSym value) {dvEnums.PrefixSym[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC uint16 dvEnumGetNumEntries(dvEnum Enum) {return dvEnums.NumEntries[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetNumEntries(dvEnum Enum, uint16 value) {dvEnums.NumEntries[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC dvModule dvEnumGetModule(dvEnum Enum) {return dvEnums.Module[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetModule(dvEnum Enum, dvModule value) {dvEnums.Module[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC dvEnum dvEnumGetNextModuleEnum(dvEnum Enum) {return dvEnums.NextModuleEnum[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetNextModuleEnum(dvEnum Enum, dvEnum value) {dvEnums.NextModuleEnum[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC dvEnum dvEnumGetPrevModuleEnum(dvEnum Enum) {return dvEnums.PrevModuleEnum[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetPrevModuleEnum(dvEnum Enum, dvEnum value) {dvEnums.PrevModuleEnum[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC dvEnum dvEnumGetNextTableModuleEnum(dvEnum Enum) {return dvEnums.NextTableModuleEnum[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetNextTableModuleEnum(dvEnum Enum, dvEnum value) {dvEnums.NextTableModuleEnum[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC dvEntry dvEnumGetFirstEntry(dvEnum Enum) {return dvEnums.FirstEntry[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetFirstEntry(dvEnum Enum, dvEntry value) {dvEnums.FirstEntry[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC dvEntry dvEnumGetLastEntry(dvEnum Enum) {return dvEnums.LastEntry[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetLastEntry(dvEnum Enum, dvEntry value) {dvEnums.LastEntry[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC uint32 dvEnumGetEntryTableIndex(dvEnum Enum) {return dvEnums.EntryTableIndex[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetEntryTableIndex(dvEnum Enum, uint32 value) {dvEnums.EntryTableIndex[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC uint32 dvEnumGetNumEntryTable(dvEnum Enum) {return dvEnums.NumEntryTable[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetNumEntryTable(dvEnum Enum, uint32 value) {dvEnums.NumEntryTable[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC utSym dvEnumGetSym(dvEnum Enum) {return dvEnums.Sym[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetSym(dvEnum Enum, utSym value) {dvEnums.Sym[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC utSym dvEnumGetPrefixSym(dvEnum Enum) {return dvEnums.PrefixSym[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetPrefixSym(dvEnum Enum, utSym value) {dvEnums.PrefixSym[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC uint16 dvEnumGetNumEntries(dvEnum Enum) {return dvEnums.NumEntries[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetNumEntries(dvEnum Enum, uint16 value) {dvEnums.NumEntries[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC dvModule dvEnumGetModule(dvEnum Enum) {return dvEnums.Module[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetModule(dvEnum Enum, dvModule value) {dvEnums.Module[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC dvEnum dvEnumGetNextModuleEnum(dvEnum Enum) {return dvEnums.NextModuleEnum[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetNextModuleEnum(dvEnum Enum, dvEnum value) {dvEnums.NextModuleEnum[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC dvEnum dvEnumGetPrevModuleEnum(dvEnum Enum) {return dvEnums.PrevModuleEnum[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetPrevModuleEnum(dvEnum Enum, dvEnum value) {dvEnums.PrevModuleEnum[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC dvEnum dvEnumGetNextTableModuleEnum(dvEnum Enum) {return dvEnums.NextTableModuleEnum[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetNextTableModuleEnum(dvEnum Enum, dvEnum value) {dvEnums.NextTableModuleEnum[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC dvEntry dvEnumGetFirstEntry(dvEnum Enum) {return dvEnums.FirstEntry[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetFirstEntry(dvEnum Enum, dvEntry value) {dvEnums.FirstEntry[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC dvEntry dvEnumGetLastEntry(dvEnum Enum) {return dvEnums.LastEntry[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetLastEntry(dvEnum Enum, dvEntry value) {dvEnums.LastEntry[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC uint32 dvEnumGetEntryTableIndex(dvEnum Enum) {return dvEnums.EntryTableIndex[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetEntryTableIndex(dvEnum Enum, uint32 value) {dvEnums.EntryTableIndex[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC uint32 dvEnumGetNumEntryTable(dvEnum Enum) {return dvEnums.NumEntryTable[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetNumEntryTable(dvEnum Enum, uint32 value) {dvEnums.NumEntryTable[dvEnum2ValidIndex(Enum)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvEnumCheckEntryTableIndex(dvEnum Enum, uint32 x) {utAssert(x < dvEnumGetNumEntryTable(Enum)); return x;}
+utInlineC uint32 dvEnumCheckEntryTableIndex(dvEnum Enum, uint32 x) {utAssert(x < dvEnumGetNumEntryTable(Enum)); return x;}
 #else
-static utInlineC uint32 dvEnumCheckEntryTableIndex(dvEnum Enum, uint32 x) {return x;}
+utInlineC uint32 dvEnumCheckEntryTableIndex(dvEnum Enum, uint32 x) {return x;}
 #endif
-static utInlineC dvEntry dvEnumGetiEntryTable(dvEnum Enum, uint32 x) {return dvEnums.EntryTable[
+utInlineC dvEntry dvEnumGetiEntryTable(dvEnum Enum, uint32 x) {return dvEnums.EntryTable[
     dvEnumGetEntryTableIndex(Enum) + dvEnumCheckEntryTableIndex(Enum, x)];}
-static utInlineC dvEntry *dvEnumGetEntryTable(dvEnum Enum) {return dvEnums.EntryTable + dvEnumGetEntryTableIndex(Enum);}
+utInlineC dvEntry *dvEnumGetEntryTable(dvEnum Enum) {return dvEnums.EntryTable + dvEnumGetEntryTableIndex(Enum);}
 #define dvEnumGetEntryTables dvEnumGetEntryTable
-static utInlineC void dvEnumSetEntryTable(dvEnum Enum, dvEntry *valuePtr, uint32 numEntryTable) {
+utInlineC void dvEnumSetEntryTable(dvEnum Enum, dvEntry *valuePtr, uint32 numEntryTable) {
     dvEnumResizeEntryTables(Enum, numEntryTable);
     memcpy(dvEnumGetEntryTables(Enum), valuePtr, numEntryTable*sizeof(dvEntry));}
-static utInlineC void dvEnumSetiEntryTable(dvEnum Enum, uint32 x, dvEntry value) {
+utInlineC void dvEnumSetiEntryTable(dvEnum Enum, uint32 x, dvEntry value) {
     dvEnums.EntryTable[dvEnumGetEntryTableIndex(Enum) + dvEnumCheckEntryTableIndex(Enum, (x))] = value;}
-static utInlineC uint32 dvEnumGetNumEntry(dvEnum Enum) {return dvEnums.NumEntry[dvEnum2ValidIndex(Enum)];}
-static utInlineC void dvEnumSetNumEntry(dvEnum Enum, uint32 value) {dvEnums.NumEntry[dvEnum2ValidIndex(Enum)] = value;}
-static utInlineC void dvEnumSetConstructorCallback(void(*func)(dvEnum)) {dvEnumConstructorCallback = func;}
-static utInlineC dvEnumCallbackType dvEnumGetConstructorCallback(void) {return dvEnumConstructorCallback;}
-static utInlineC dvEnum dvFirstEnum(void) {return dvRootData.usedEnum == 1? dvEnumNull : dvIndex2Enum(1);}
-static utInlineC dvEnum dvLastEnum(void) {return dvRootData.usedEnum == 1? dvEnumNull :
+utInlineC uint32 dvEnumGetNumEntry(dvEnum Enum) {return dvEnums.NumEntry[dvEnum2ValidIndex(Enum)];}
+utInlineC void dvEnumSetNumEntry(dvEnum Enum, uint32 value) {dvEnums.NumEntry[dvEnum2ValidIndex(Enum)] = value;}
+utInlineC void dvEnumSetConstructorCallback(void(*func)(dvEnum)) {dvEnumConstructorCallback = func;}
+utInlineC dvEnumCallbackType dvEnumGetConstructorCallback(void) {return dvEnumConstructorCallback;}
+utInlineC dvEnum dvFirstEnum(void) {return dvRootData.usedEnum == 1? dvEnumNull : dvIndex2Enum(1);}
+utInlineC dvEnum dvLastEnum(void) {return dvRootData.usedEnum == 1? dvEnumNull :
     dvIndex2Enum(dvRootData.usedEnum - 1);}
-static dvEnum dvNextEnum(dvEnum Enum) {return dvEnum2ValidIndex(Enum) + 1 == dvRootData.usedEnum? dvEnumNull :
+utInlineC dvEnum dvNextEnum(dvEnum Enum) {return dvEnum2ValidIndex(Enum) + 1 == dvRootData.usedEnum? dvEnumNull :
     Enum + 1;}
-static utInlineC dvEnum dvPrevEnum(dvEnum Enum) {return dvEnum2ValidIndex(Enum) == 1? dvEnumNull : Enum - 1;}
+utInlineC dvEnum dvPrevEnum(dvEnum Enum) {return dvEnum2ValidIndex(Enum) == 1? dvEnumNull : Enum - 1;}
 #define dvForeachEnum(var) \
     for(var = dvIndex2Enum(1); dvEnum2Index(var) != dvRootData.usedEnum; var++)
 #define dvEndEnum
-static utInlineC void dvEnumFreeAll(void) {dvSetUsedEnum(1); dvSetUsedEnumEntryTable(0);}
-static utInlineC dvEnum dvEnumAllocRaw(void) {
+utInlineC void dvEnumFreeAll(void) {dvSetUsedEnum(1); dvSetUsedEnumEntryTable(0);}
+utInlineC dvEnum dvEnumAllocRaw(void) {
     dvEnum Enum;
     if(dvRootData.usedEnum == dvRootData.allocatedEnum) {
         dvEnumAllocMore();
@@ -1205,7 +1205,7 @@ static utInlineC dvEnum dvEnumAllocRaw(void) {
     Enum = dvIndex2Enum(dvRootData.usedEnum);
     dvSetUsedEnum(dvUsedEnum() + 1);
     return Enum;}
-static utInlineC dvEnum dvEnumAlloc(void) {
+utInlineC dvEnum dvEnumAlloc(void) {
     dvEnum Enum = dvEnumAllocRaw();
     dvEnumSetSym(Enum, utSymNull);
     dvEnumSetPrefixSym(Enum, utSymNull);
@@ -1242,35 +1242,35 @@ extern struct dvEntryFields dvEntrys;
 
 void dvEntryAllocMore(void);
 void dvEntryCopyProps(dvEntry dvOldEntry, dvEntry dvNewEntry);
-static utInlineC utSym dvEntryGetSym(dvEntry Entry) {return dvEntrys.Sym[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetSym(dvEntry Entry, utSym value) {dvEntrys.Sym[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC uint32 dvEntryGetValue(dvEntry Entry) {return dvEntrys.Value[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetValue(dvEntry Entry, uint32 value) {dvEntrys.Value[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC dvEnum dvEntryGetEnum(dvEntry Entry) {return dvEntrys.Enum[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetEnum(dvEntry Entry, dvEnum value) {dvEntrys.Enum[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC dvEntry dvEntryGetNextEnumEntry(dvEntry Entry) {return dvEntrys.NextEnumEntry[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetNextEnumEntry(dvEntry Entry, dvEntry value) {dvEntrys.NextEnumEntry[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC dvEntry dvEntryGetPrevEnumEntry(dvEntry Entry) {return dvEntrys.PrevEnumEntry[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetPrevEnumEntry(dvEntry Entry, dvEntry value) {dvEntrys.PrevEnumEntry[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC dvEntry dvEntryGetNextTableEnumEntry(dvEntry Entry) {return dvEntrys.NextTableEnumEntry[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetNextTableEnumEntry(dvEntry Entry, dvEntry value) {dvEntrys.NextTableEnumEntry[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC dvCase dvEntryGetFirstCase(dvEntry Entry) {return dvEntrys.FirstCase[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetFirstCase(dvEntry Entry, dvCase value) {dvEntrys.FirstCase[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC dvCase dvEntryGetLastCase(dvEntry Entry) {return dvEntrys.LastCase[dvEntry2ValidIndex(Entry)];}
-static utInlineC void dvEntrySetLastCase(dvEntry Entry, dvCase value) {dvEntrys.LastCase[dvEntry2ValidIndex(Entry)] = value;}
-static utInlineC void dvEntrySetConstructorCallback(void(*func)(dvEntry)) {dvEntryConstructorCallback = func;}
-static utInlineC dvEntryCallbackType dvEntryGetConstructorCallback(void) {return dvEntryConstructorCallback;}
-static utInlineC dvEntry dvFirstEntry(void) {return dvRootData.usedEntry == 1? dvEntryNull : dvIndex2Entry(1);}
-static utInlineC dvEntry dvLastEntry(void) {return dvRootData.usedEntry == 1? dvEntryNull :
+utInlineC utSym dvEntryGetSym(dvEntry Entry) {return dvEntrys.Sym[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetSym(dvEntry Entry, utSym value) {dvEntrys.Sym[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC uint32 dvEntryGetValue(dvEntry Entry) {return dvEntrys.Value[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetValue(dvEntry Entry, uint32 value) {dvEntrys.Value[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC dvEnum dvEntryGetEnum(dvEntry Entry) {return dvEntrys.Enum[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetEnum(dvEntry Entry, dvEnum value) {dvEntrys.Enum[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC dvEntry dvEntryGetNextEnumEntry(dvEntry Entry) {return dvEntrys.NextEnumEntry[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetNextEnumEntry(dvEntry Entry, dvEntry value) {dvEntrys.NextEnumEntry[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC dvEntry dvEntryGetPrevEnumEntry(dvEntry Entry) {return dvEntrys.PrevEnumEntry[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetPrevEnumEntry(dvEntry Entry, dvEntry value) {dvEntrys.PrevEnumEntry[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC dvEntry dvEntryGetNextTableEnumEntry(dvEntry Entry) {return dvEntrys.NextTableEnumEntry[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetNextTableEnumEntry(dvEntry Entry, dvEntry value) {dvEntrys.NextTableEnumEntry[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC dvCase dvEntryGetFirstCase(dvEntry Entry) {return dvEntrys.FirstCase[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetFirstCase(dvEntry Entry, dvCase value) {dvEntrys.FirstCase[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC dvCase dvEntryGetLastCase(dvEntry Entry) {return dvEntrys.LastCase[dvEntry2ValidIndex(Entry)];}
+utInlineC void dvEntrySetLastCase(dvEntry Entry, dvCase value) {dvEntrys.LastCase[dvEntry2ValidIndex(Entry)] = value;}
+utInlineC void dvEntrySetConstructorCallback(void(*func)(dvEntry)) {dvEntryConstructorCallback = func;}
+utInlineC dvEntryCallbackType dvEntryGetConstructorCallback(void) {return dvEntryConstructorCallback;}
+utInlineC dvEntry dvFirstEntry(void) {return dvRootData.usedEntry == 1? dvEntryNull : dvIndex2Entry(1);}
+utInlineC dvEntry dvLastEntry(void) {return dvRootData.usedEntry == 1? dvEntryNull :
     dvIndex2Entry(dvRootData.usedEntry - 1);}
-static dvEntry dvNextEntry(dvEntry Entry) {return dvEntry2ValidIndex(Entry) + 1 == dvRootData.usedEntry? dvEntryNull :
+utInlineC dvEntry dvNextEntry(dvEntry Entry) {return dvEntry2ValidIndex(Entry) + 1 == dvRootData.usedEntry? dvEntryNull :
     Entry + 1;}
-static utInlineC dvEntry dvPrevEntry(dvEntry Entry) {return dvEntry2ValidIndex(Entry) == 1? dvEntryNull : Entry - 1;}
+utInlineC dvEntry dvPrevEntry(dvEntry Entry) {return dvEntry2ValidIndex(Entry) == 1? dvEntryNull : Entry - 1;}
 #define dvForeachEntry(var) \
     for(var = dvIndex2Entry(1); dvEntry2Index(var) != dvRootData.usedEntry; var++)
 #define dvEndEntry
-static utInlineC void dvEntryFreeAll(void) {dvSetUsedEntry(1);}
-static utInlineC dvEntry dvEntryAllocRaw(void) {
+utInlineC void dvEntryFreeAll(void) {dvSetUsedEntry(1);}
+utInlineC dvEntry dvEntryAllocRaw(void) {
     dvEntry Entry;
     if(dvRootData.usedEntry == dvRootData.allocatedEntry) {
         dvEntryAllocMore();
@@ -1278,7 +1278,7 @@ static utInlineC dvEntry dvEntryAllocRaw(void) {
     Entry = dvIndex2Entry(dvRootData.usedEntry);
     dvSetUsedEntry(dvUsedEntry() + 1);
     return Entry;}
-static utInlineC dvEntry dvEntryAlloc(void) {
+utInlineC dvEntry dvEntryAlloc(void) {
     dvEntry Entry = dvEntryAllocRaw();
     dvEntrySetSym(Entry, utSymNull);
     dvEntrySetValue(Entry, 0);
@@ -1314,45 +1314,45 @@ void dvTypedefAllocInitializers(dvTypedef Typedef, uint32 numInitializers);
 void dvTypedefResizeInitializers(dvTypedef Typedef, uint32 numInitializers);
 void dvTypedefFreeInitializers(dvTypedef Typedef);
 void dvCompactTypedefInitializers(void);
-static utInlineC utSym dvTypedefGetSym(dvTypedef Typedef) {return dvTypedefs.Sym[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetSym(dvTypedef Typedef, utSym value) {dvTypedefs.Sym[dvTypedef2ValidIndex(Typedef)] = value;}
-static utInlineC uint32 dvTypedefGetInitializerIndex(dvTypedef Typedef) {return dvTypedefs.InitializerIndex[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetInitializerIndex(dvTypedef Typedef, uint32 value) {dvTypedefs.InitializerIndex[dvTypedef2ValidIndex(Typedef)] = value;}
-static utInlineC uint32 dvTypedefGetNumInitializer(dvTypedef Typedef) {return dvTypedefs.NumInitializer[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetNumInitializer(dvTypedef Typedef, uint32 value) {dvTypedefs.NumInitializer[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC utSym dvTypedefGetSym(dvTypedef Typedef) {return dvTypedefs.Sym[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetSym(dvTypedef Typedef, utSym value) {dvTypedefs.Sym[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC uint32 dvTypedefGetInitializerIndex(dvTypedef Typedef) {return dvTypedefs.InitializerIndex[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetInitializerIndex(dvTypedef Typedef, uint32 value) {dvTypedefs.InitializerIndex[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC uint32 dvTypedefGetNumInitializer(dvTypedef Typedef) {return dvTypedefs.NumInitializer[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetNumInitializer(dvTypedef Typedef, uint32 value) {dvTypedefs.NumInitializer[dvTypedef2ValidIndex(Typedef)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvTypedefCheckInitializerIndex(dvTypedef Typedef, uint32 x) {utAssert(x < dvTypedefGetNumInitializer(Typedef)); return x;}
+utInlineC uint32 dvTypedefCheckInitializerIndex(dvTypedef Typedef, uint32 x) {utAssert(x < dvTypedefGetNumInitializer(Typedef)); return x;}
 #else
-static utInlineC uint32 dvTypedefCheckInitializerIndex(dvTypedef Typedef, uint32 x) {return x;}
+utInlineC uint32 dvTypedefCheckInitializerIndex(dvTypedef Typedef, uint32 x) {return x;}
 #endif
-static utInlineC char dvTypedefGetiInitializer(dvTypedef Typedef, uint32 x) {return dvTypedefs.Initializer[
+utInlineC char dvTypedefGetiInitializer(dvTypedef Typedef, uint32 x) {return dvTypedefs.Initializer[
     dvTypedefGetInitializerIndex(Typedef) + dvTypedefCheckInitializerIndex(Typedef, x)];}
-static utInlineC char *dvTypedefGetInitializer(dvTypedef Typedef) {return dvTypedefs.Initializer + dvTypedefGetInitializerIndex(Typedef);}
+utInlineC char *dvTypedefGetInitializer(dvTypedef Typedef) {return dvTypedefs.Initializer + dvTypedefGetInitializerIndex(Typedef);}
 #define dvTypedefGetInitializers dvTypedefGetInitializer
-static utInlineC void dvTypedefSetInitializer(dvTypedef Typedef, char *valuePtr, uint32 numInitializer) {
+utInlineC void dvTypedefSetInitializer(dvTypedef Typedef, char *valuePtr, uint32 numInitializer) {
     dvTypedefResizeInitializers(Typedef, numInitializer);
     memcpy(dvTypedefGetInitializers(Typedef), valuePtr, numInitializer*sizeof(char));}
-static utInlineC void dvTypedefSetiInitializer(dvTypedef Typedef, uint32 x, char value) {
+utInlineC void dvTypedefSetiInitializer(dvTypedef Typedef, uint32 x, char value) {
     dvTypedefs.Initializer[dvTypedefGetInitializerIndex(Typedef) + dvTypedefCheckInitializerIndex(Typedef, (x))] = value;}
-static utInlineC void dvTypedefMoveInitializers(dvTypedef Typedef, uint32 from, uint32 to, uint32 count) {
+utInlineC void dvTypedefMoveInitializers(dvTypedef Typedef, uint32 from, uint32 to, uint32 count) {
     utAssert((to+count) <= dvTypedefGetNumInitializer(Typedef));
     utAssert((from+count) <= dvTypedefGetNumInitializer(Typedef));
     memmove(dvTypedefGetInitializers(Typedef)+to,dvTypedefGetInitializers(Typedef)+from,((int32)count)*sizeof(char));
 }
-static utInlineC void dvTypedefCopyInitializers(dvTypedef Typedef, uint32 x, char * values, uint32 count) {
+utInlineC void dvTypedefCopyInitializers(dvTypedef Typedef, uint32 x, char * values, uint32 count) {
     utAssert((x+count) <= dvTypedefGetNumInitializer(Typedef));
     memcpy(dvTypedefGetInitializers(Typedef)+x, values, count*sizeof(char));
 }
-static utInlineC void dvTypedefAppendInitializers(dvTypedef Typedef, char * values, uint32 count) {
+utInlineC void dvTypedefAppendInitializers(dvTypedef Typedef, char * values, uint32 count) {
     uint32 num = dvTypedefGetNumInitializer(Typedef);
     dvTypedefResizeInitializers(Typedef, num+count);
     dvTypedefCopyInitializers(Typedef, num, values, count);
 }
-static utInlineC void dvTypedefAppendInitializer(dvTypedef Typedef, char Initializer) {
+utInlineC void dvTypedefAppendInitializer(dvTypedef Typedef, char Initializer) {
     dvTypedefResizeInitializers(Typedef, dvTypedefGetNumInitializer(Typedef)+1);
     dvTypedefSetiInitializer(Typedef, dvTypedefGetNumInitializer(Typedef)-1, Initializer);
 }
-static utInlineC void dvTypedefInsertInitializers(dvTypedef Typedef, uint32 x, char *Initializer, uint32 count) {
+utInlineC void dvTypedefInsertInitializers(dvTypedef Typedef, uint32 x, char *Initializer, uint32 count) {
     utAssert(x <= dvTypedefGetNumInitializer(Typedef));
     if(x < dvTypedefGetNumInitializer(Typedef)) {
         dvTypedefResizeInitializers(Typedef, dvTypedefGetNumInitializer(Typedef)+count);
@@ -1363,27 +1363,27 @@ static utInlineC void dvTypedefInsertInitializers(dvTypedef Typedef, uint32 x, c
         dvTypedefAppendInitializers(Typedef, Initializer, count);
     }
 }
-static utInlineC void dvTypedefInsertInitializer(dvTypedef Typedef, uint32 x, char Initializer) {
+utInlineC void dvTypedefInsertInitializer(dvTypedef Typedef, uint32 x, char Initializer) {
     dvTypedefInsertInitializers(Typedef, x, &Initializer, 1);
 }
-static utInlineC void dvTypedefRemoveInitializers(dvTypedef Typedef, uint32 x, uint32 count) {
+utInlineC void dvTypedefRemoveInitializers(dvTypedef Typedef, uint32 x, uint32 count) {
     utAssert((x+count) <= dvTypedefGetNumInitializer(Typedef));
     if((x+count) < dvTypedefGetNumInitializer(Typedef)) {
         dvTypedefMoveInitializers(Typedef, x+count,x,dvTypedefGetNumInitializer(Typedef)-x-count);
     }
     dvTypedefResizeInitializers(Typedef, dvTypedefGetNumInitializer(Typedef)-(int32)count);
 }
-static utInlineC void dvTypedefRemoveInitializer(dvTypedef Typedef, uint32 x) {
+utInlineC void dvTypedefRemoveInitializer(dvTypedef Typedef, uint32 x) {
     dvTypedefRemoveInitializers(Typedef, x, 1);
 }
-static utInlineC void dvTypedefSwapInitializer(dvTypedef Typedef, uint32 from, uint32 to) {
+utInlineC void dvTypedefSwapInitializer(dvTypedef Typedef, uint32 from, uint32 to) {
     utAssert(from <= dvTypedefGetNumInitializer(Typedef));
     utAssert(to <= dvTypedefGetNumInitializer(Typedef));
     char tmp = dvTypedefGetiInitializer(Typedef, from);
     dvTypedefSetiInitializer(Typedef, from, dvTypedefGetiInitializer(Typedef, to));
     dvTypedefSetiInitializer(Typedef, to, tmp);
 }
-static utInlineC void dvTypedefSwapInitializers(dvTypedef Typedef, uint32 from, uint32 to, uint32 count) {
+utInlineC void dvTypedefSwapInitializers(dvTypedef Typedef, uint32 from, uint32 to, uint32 count) {
     utAssert((from+count) < dvTypedefGetNumInitializer(Typedef));
     utAssert((to+count) < dvTypedefGetNumInitializer(Typedef));
     char tmp[count];
@@ -1396,27 +1396,27 @@ static utInlineC void dvTypedefSwapInitializers(dvTypedef Typedef, uint32 from, 
     for(_xInitializer = 0; _xInitializer < dvTypedefGetNumInitializer(pVar); _xInitializer++) { \
         cVar = dvTypedefGetiInitializer(pVar, _xInitializer);
 #define dvEndTypedefInitializer }}
-static utInlineC dvModule dvTypedefGetModule(dvTypedef Typedef) {return dvTypedefs.Module[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetModule(dvTypedef Typedef, dvModule value) {dvTypedefs.Module[dvTypedef2ValidIndex(Typedef)] = value;}
-static utInlineC dvTypedef dvTypedefGetNextModuleTypedef(dvTypedef Typedef) {return dvTypedefs.NextModuleTypedef[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetNextModuleTypedef(dvTypedef Typedef, dvTypedef value) {dvTypedefs.NextModuleTypedef[dvTypedef2ValidIndex(Typedef)] = value;}
-static utInlineC dvTypedef dvTypedefGetPrevModuleTypedef(dvTypedef Typedef) {return dvTypedefs.PrevModuleTypedef[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetPrevModuleTypedef(dvTypedef Typedef, dvTypedef value) {dvTypedefs.PrevModuleTypedef[dvTypedef2ValidIndex(Typedef)] = value;}
-static utInlineC dvTypedef dvTypedefGetNextTableModuleTypedef(dvTypedef Typedef) {return dvTypedefs.NextTableModuleTypedef[dvTypedef2ValidIndex(Typedef)];}
-static utInlineC void dvTypedefSetNextTableModuleTypedef(dvTypedef Typedef, dvTypedef value) {dvTypedefs.NextTableModuleTypedef[dvTypedef2ValidIndex(Typedef)] = value;}
-static utInlineC void dvTypedefSetConstructorCallback(void(*func)(dvTypedef)) {dvTypedefConstructorCallback = func;}
-static utInlineC dvTypedefCallbackType dvTypedefGetConstructorCallback(void) {return dvTypedefConstructorCallback;}
-static utInlineC dvTypedef dvFirstTypedef(void) {return dvRootData.usedTypedef == 1? dvTypedefNull : dvIndex2Typedef(1);}
-static utInlineC dvTypedef dvLastTypedef(void) {return dvRootData.usedTypedef == 1? dvTypedefNull :
+utInlineC dvModule dvTypedefGetModule(dvTypedef Typedef) {return dvTypedefs.Module[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetModule(dvTypedef Typedef, dvModule value) {dvTypedefs.Module[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC dvTypedef dvTypedefGetNextModuleTypedef(dvTypedef Typedef) {return dvTypedefs.NextModuleTypedef[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetNextModuleTypedef(dvTypedef Typedef, dvTypedef value) {dvTypedefs.NextModuleTypedef[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC dvTypedef dvTypedefGetPrevModuleTypedef(dvTypedef Typedef) {return dvTypedefs.PrevModuleTypedef[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetPrevModuleTypedef(dvTypedef Typedef, dvTypedef value) {dvTypedefs.PrevModuleTypedef[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC dvTypedef dvTypedefGetNextTableModuleTypedef(dvTypedef Typedef) {return dvTypedefs.NextTableModuleTypedef[dvTypedef2ValidIndex(Typedef)];}
+utInlineC void dvTypedefSetNextTableModuleTypedef(dvTypedef Typedef, dvTypedef value) {dvTypedefs.NextTableModuleTypedef[dvTypedef2ValidIndex(Typedef)] = value;}
+utInlineC void dvTypedefSetConstructorCallback(void(*func)(dvTypedef)) {dvTypedefConstructorCallback = func;}
+utInlineC dvTypedefCallbackType dvTypedefGetConstructorCallback(void) {return dvTypedefConstructorCallback;}
+utInlineC dvTypedef dvFirstTypedef(void) {return dvRootData.usedTypedef == 1? dvTypedefNull : dvIndex2Typedef(1);}
+utInlineC dvTypedef dvLastTypedef(void) {return dvRootData.usedTypedef == 1? dvTypedefNull :
     dvIndex2Typedef(dvRootData.usedTypedef - 1);}
-static dvTypedef dvNextTypedef(dvTypedef Typedef) {return dvTypedef2ValidIndex(Typedef) + 1 == dvRootData.usedTypedef? dvTypedefNull :
+utInlineC dvTypedef dvNextTypedef(dvTypedef Typedef) {return dvTypedef2ValidIndex(Typedef) + 1 == dvRootData.usedTypedef? dvTypedefNull :
     Typedef + 1;}
-static utInlineC dvTypedef dvPrevTypedef(dvTypedef Typedef) {return dvTypedef2ValidIndex(Typedef) == 1? dvTypedefNull : Typedef - 1;}
+utInlineC dvTypedef dvPrevTypedef(dvTypedef Typedef) {return dvTypedef2ValidIndex(Typedef) == 1? dvTypedefNull : Typedef - 1;}
 #define dvForeachTypedef(var) \
     for(var = dvIndex2Typedef(1); dvTypedef2Index(var) != dvRootData.usedTypedef; var++)
 #define dvEndTypedef
-static utInlineC void dvTypedefFreeAll(void) {dvSetUsedTypedef(1); dvSetUsedTypedefInitializer(0);}
-static utInlineC dvTypedef dvTypedefAllocRaw(void) {
+utInlineC void dvTypedefFreeAll(void) {dvSetUsedTypedef(1); dvSetUsedTypedefInitializer(0);}
+utInlineC dvTypedef dvTypedefAllocRaw(void) {
     dvTypedef Typedef;
     if(dvRootData.usedTypedef == dvRootData.allocatedTypedef) {
         dvTypedefAllocMore();
@@ -1424,7 +1424,7 @@ static utInlineC dvTypedef dvTypedefAllocRaw(void) {
     Typedef = dvIndex2Typedef(dvRootData.usedTypedef);
     dvSetUsedTypedef(dvUsedTypedef() + 1);
     return Typedef;}
-static utInlineC dvTypedef dvTypedefAlloc(void) {
+utInlineC dvTypedef dvTypedefAlloc(void) {
     dvTypedef Typedef = dvTypedefAllocRaw();
     dvTypedefSetSym(Typedef, utSymNull);
     dvTypedefSetInitializerIndex(Typedef, 0);
@@ -1496,128 +1496,128 @@ void dvClassAllocSparsegroupTables(dvClass Class, uint32 numSparsegroupTables);
 void dvClassResizeSparsegroupTables(dvClass Class, uint32 numSparsegroupTables);
 void dvClassFreeSparsegroupTables(dvClass Class);
 void dvCompactClassSparsegroupTables(void);
-static utInlineC utSym dvClassGetSym(dvClass Class) {return dvClasss.Sym[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetSym(dvClass Class, utSym value) {dvClasss.Sym[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvMemoryStyle dvClassGetMemoryStyle(dvClass Class) {return dvClasss.MemoryStyle[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetMemoryStyle(dvClass Class, dvMemoryStyle value) {dvClasss.MemoryStyle[dvClass2ValidIndex(Class)] = value;}
-static utInlineC uint8 dvClassGetReferenceSize(dvClass Class) {return dvClasss.ReferenceSize[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetReferenceSize(dvClass Class, uint8 value) {dvClasss.ReferenceSize[dvClass2ValidIndex(Class)] = value;}
-static utInlineC bool dvClassGenerateArrayClass(dvClass Class) {
+utInlineC utSym dvClassGetSym(dvClass Class) {return dvClasss.Sym[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetSym(dvClass Class, utSym value) {dvClasss.Sym[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvMemoryStyle dvClassGetMemoryStyle(dvClass Class) {return dvClasss.MemoryStyle[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetMemoryStyle(dvClass Class, dvMemoryStyle value) {dvClasss.MemoryStyle[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint8 dvClassGetReferenceSize(dvClass Class) {return dvClasss.ReferenceSize[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetReferenceSize(dvClass Class, uint8 value) {dvClasss.ReferenceSize[dvClass2ValidIndex(Class)] = value;}
+utInlineC bool dvClassGenerateArrayClass(dvClass Class) {
     return (dvClasss.GenerateArrayClass[dvClass2ValidIndex(Class) >> 3] >> (dvClass2ValidIndex(Class) & 7)) & 1;}
-static utInlineC void dvClassSetGenerateArrayClass(dvClass Class, bool value) {
+utInlineC void dvClassSetGenerateArrayClass(dvClass Class, bool value) {
     dvClasss.GenerateArrayClass[dvClass2ValidIndex(Class) >> 3] = (uint8)((dvClasss.GenerateArrayClass[dvClass2ValidIndex(Class) >> 3] &
         ~(1 << (dvClass2ValidIndex(Class) & 7))) | ((value != 0) << (dvClass2ValidIndex(Class) & 7)));}
-static utInlineC bool dvClassGenerateAttributes(dvClass Class) {
+utInlineC bool dvClassGenerateAttributes(dvClass Class) {
     return (dvClasss.GenerateAttributes[dvClass2ValidIndex(Class) >> 3] >> (dvClass2ValidIndex(Class) & 7)) & 1;}
-static utInlineC void dvClassSetGenerateAttributes(dvClass Class, bool value) {
+utInlineC void dvClassSetGenerateAttributes(dvClass Class, bool value) {
     dvClasss.GenerateAttributes[dvClass2ValidIndex(Class) >> 3] = (uint8)((dvClasss.GenerateAttributes[dvClass2ValidIndex(Class) >> 3] &
         ~(1 << (dvClass2ValidIndex(Class) & 7))) | ((value != 0) << (dvClass2ValidIndex(Class) & 7)));}
-static utInlineC bool dvClassSparse(dvClass Class) {
+utInlineC bool dvClassSparse(dvClass Class) {
     return (dvClasss.Sparse[dvClass2ValidIndex(Class) >> 3] >> (dvClass2ValidIndex(Class) & 7)) & 1;}
-static utInlineC void dvClassSetSparse(dvClass Class, bool value) {
+utInlineC void dvClassSetSparse(dvClass Class, bool value) {
     dvClasss.Sparse[dvClass2ValidIndex(Class) >> 3] = (uint8)((dvClasss.Sparse[dvClass2ValidIndex(Class) >> 3] &
         ~(1 << (dvClass2ValidIndex(Class) & 7))) | ((value != 0) << (dvClass2ValidIndex(Class) & 7)));}
-static utInlineC uint16 dvClassGetNumFields(dvClass Class) {return dvClasss.NumFields[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNumFields(dvClass Class, uint16 value) {dvClasss.NumFields[dvClass2ValidIndex(Class)] = value;}
-static utInlineC uint16 dvClassGetNumber(dvClass Class) {return dvClasss.Number[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNumber(dvClass Class, uint16 value) {dvClasss.Number[dvClass2ValidIndex(Class)] = value;}
-static utInlineC utSym dvClassGetBaseClassSym(dvClass Class) {return dvClasss.BaseClassSym[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetBaseClassSym(dvClass Class, utSym value) {dvClasss.BaseClassSym[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvModule dvClassGetModule(dvClass Class) {return dvClasss.Module[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetModule(dvClass Class, dvModule value) {dvClasss.Module[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetNextModuleClass(dvClass Class) {return dvClasss.NextModuleClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNextModuleClass(dvClass Class, dvClass value) {dvClasss.NextModuleClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetPrevModuleClass(dvClass Class) {return dvClasss.PrevModuleClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetPrevModuleClass(dvClass Class, dvClass value) {dvClasss.PrevModuleClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetNextTableModuleClass(dvClass Class) {return dvClasss.NextTableModuleClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNextTableModuleClass(dvClass Class, dvClass value) {dvClasss.NextTableModuleClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvProperty dvClassGetFirstProperty(dvClass Class) {return dvClasss.FirstProperty[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstProperty(dvClass Class, dvProperty value) {dvClasss.FirstProperty[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvProperty dvClassGetLastProperty(dvClass Class) {return dvClasss.LastProperty[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastProperty(dvClass Class, dvProperty value) {dvClasss.LastProperty[dvClass2ValidIndex(Class)] = value;}
-static utInlineC uint32 dvClassGetPropertyTableIndex(dvClass Class) {return dvClasss.PropertyTableIndex[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetPropertyTableIndex(dvClass Class, uint32 value) {dvClasss.PropertyTableIndex[dvClass2ValidIndex(Class)] = value;}
-static utInlineC uint32 dvClassGetNumPropertyTable(dvClass Class) {return dvClasss.NumPropertyTable[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNumPropertyTable(dvClass Class, uint32 value) {dvClasss.NumPropertyTable[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint16 dvClassGetNumFields(dvClass Class) {return dvClasss.NumFields[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNumFields(dvClass Class, uint16 value) {dvClasss.NumFields[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint16 dvClassGetNumber(dvClass Class) {return dvClasss.Number[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNumber(dvClass Class, uint16 value) {dvClasss.Number[dvClass2ValidIndex(Class)] = value;}
+utInlineC utSym dvClassGetBaseClassSym(dvClass Class) {return dvClasss.BaseClassSym[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetBaseClassSym(dvClass Class, utSym value) {dvClasss.BaseClassSym[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvModule dvClassGetModule(dvClass Class) {return dvClasss.Module[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetModule(dvClass Class, dvModule value) {dvClasss.Module[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetNextModuleClass(dvClass Class) {return dvClasss.NextModuleClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNextModuleClass(dvClass Class, dvClass value) {dvClasss.NextModuleClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetPrevModuleClass(dvClass Class) {return dvClasss.PrevModuleClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetPrevModuleClass(dvClass Class, dvClass value) {dvClasss.PrevModuleClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetNextTableModuleClass(dvClass Class) {return dvClasss.NextTableModuleClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNextTableModuleClass(dvClass Class, dvClass value) {dvClasss.NextTableModuleClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvProperty dvClassGetFirstProperty(dvClass Class) {return dvClasss.FirstProperty[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstProperty(dvClass Class, dvProperty value) {dvClasss.FirstProperty[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvProperty dvClassGetLastProperty(dvClass Class) {return dvClasss.LastProperty[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastProperty(dvClass Class, dvProperty value) {dvClasss.LastProperty[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint32 dvClassGetPropertyTableIndex(dvClass Class) {return dvClasss.PropertyTableIndex[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetPropertyTableIndex(dvClass Class, uint32 value) {dvClasss.PropertyTableIndex[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint32 dvClassGetNumPropertyTable(dvClass Class) {return dvClasss.NumPropertyTable[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNumPropertyTable(dvClass Class, uint32 value) {dvClasss.NumPropertyTable[dvClass2ValidIndex(Class)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvClassCheckPropertyTableIndex(dvClass Class, uint32 x) {utAssert(x < dvClassGetNumPropertyTable(Class)); return x;}
+utInlineC uint32 dvClassCheckPropertyTableIndex(dvClass Class, uint32 x) {utAssert(x < dvClassGetNumPropertyTable(Class)); return x;}
 #else
-static utInlineC uint32 dvClassCheckPropertyTableIndex(dvClass Class, uint32 x) {return x;}
+utInlineC uint32 dvClassCheckPropertyTableIndex(dvClass Class, uint32 x) {return x;}
 #endif
-static utInlineC dvProperty dvClassGetiPropertyTable(dvClass Class, uint32 x) {return dvClasss.PropertyTable[
+utInlineC dvProperty dvClassGetiPropertyTable(dvClass Class, uint32 x) {return dvClasss.PropertyTable[
     dvClassGetPropertyTableIndex(Class) + dvClassCheckPropertyTableIndex(Class, x)];}
-static utInlineC dvProperty *dvClassGetPropertyTable(dvClass Class) {return dvClasss.PropertyTable + dvClassGetPropertyTableIndex(Class);}
+utInlineC dvProperty *dvClassGetPropertyTable(dvClass Class) {return dvClasss.PropertyTable + dvClassGetPropertyTableIndex(Class);}
 #define dvClassGetPropertyTables dvClassGetPropertyTable
-static utInlineC void dvClassSetPropertyTable(dvClass Class, dvProperty *valuePtr, uint32 numPropertyTable) {
+utInlineC void dvClassSetPropertyTable(dvClass Class, dvProperty *valuePtr, uint32 numPropertyTable) {
     dvClassResizePropertyTables(Class, numPropertyTable);
     memcpy(dvClassGetPropertyTables(Class), valuePtr, numPropertyTable*sizeof(dvProperty));}
-static utInlineC void dvClassSetiPropertyTable(dvClass Class, uint32 x, dvProperty value) {
+utInlineC void dvClassSetiPropertyTable(dvClass Class, uint32 x, dvProperty value) {
     dvClasss.PropertyTable[dvClassGetPropertyTableIndex(Class) + dvClassCheckPropertyTableIndex(Class, (x))] = value;}
-static utInlineC uint32 dvClassGetNumProperty(dvClass Class) {return dvClasss.NumProperty[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNumProperty(dvClass Class, uint32 value) {dvClasss.NumProperty[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvProperty dvClassGetFreeListProperty(dvClass Class) {return dvClasss.FreeListProperty[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFreeListProperty(dvClass Class, dvProperty value) {dvClasss.FreeListProperty[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvSparsegroup dvClassGetFirstSparsegroup(dvClass Class) {return dvClasss.FirstSparsegroup[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstSparsegroup(dvClass Class, dvSparsegroup value) {dvClasss.FirstSparsegroup[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvSparsegroup dvClassGetLastSparsegroup(dvClass Class) {return dvClasss.LastSparsegroup[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastSparsegroup(dvClass Class, dvSparsegroup value) {dvClasss.LastSparsegroup[dvClass2ValidIndex(Class)] = value;}
-static utInlineC uint32 dvClassGetSparsegroupTableIndex(dvClass Class) {return dvClasss.SparsegroupTableIndex[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetSparsegroupTableIndex(dvClass Class, uint32 value) {dvClasss.SparsegroupTableIndex[dvClass2ValidIndex(Class)] = value;}
-static utInlineC uint32 dvClassGetNumSparsegroupTable(dvClass Class) {return dvClasss.NumSparsegroupTable[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNumSparsegroupTable(dvClass Class, uint32 value) {dvClasss.NumSparsegroupTable[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint32 dvClassGetNumProperty(dvClass Class) {return dvClasss.NumProperty[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNumProperty(dvClass Class, uint32 value) {dvClasss.NumProperty[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvProperty dvClassGetFreeListProperty(dvClass Class) {return dvClasss.FreeListProperty[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFreeListProperty(dvClass Class, dvProperty value) {dvClasss.FreeListProperty[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvSparsegroup dvClassGetFirstSparsegroup(dvClass Class) {return dvClasss.FirstSparsegroup[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstSparsegroup(dvClass Class, dvSparsegroup value) {dvClasss.FirstSparsegroup[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvSparsegroup dvClassGetLastSparsegroup(dvClass Class) {return dvClasss.LastSparsegroup[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastSparsegroup(dvClass Class, dvSparsegroup value) {dvClasss.LastSparsegroup[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint32 dvClassGetSparsegroupTableIndex(dvClass Class) {return dvClasss.SparsegroupTableIndex[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetSparsegroupTableIndex(dvClass Class, uint32 value) {dvClasss.SparsegroupTableIndex[dvClass2ValidIndex(Class)] = value;}
+utInlineC uint32 dvClassGetNumSparsegroupTable(dvClass Class) {return dvClasss.NumSparsegroupTable[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNumSparsegroupTable(dvClass Class, uint32 value) {dvClasss.NumSparsegroupTable[dvClass2ValidIndex(Class)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvClassCheckSparsegroupTableIndex(dvClass Class, uint32 x) {utAssert(x < dvClassGetNumSparsegroupTable(Class)); return x;}
+utInlineC uint32 dvClassCheckSparsegroupTableIndex(dvClass Class, uint32 x) {utAssert(x < dvClassGetNumSparsegroupTable(Class)); return x;}
 #else
-static utInlineC uint32 dvClassCheckSparsegroupTableIndex(dvClass Class, uint32 x) {return x;}
+utInlineC uint32 dvClassCheckSparsegroupTableIndex(dvClass Class, uint32 x) {return x;}
 #endif
-static utInlineC dvSparsegroup dvClassGetiSparsegroupTable(dvClass Class, uint32 x) {return dvClasss.SparsegroupTable[
+utInlineC dvSparsegroup dvClassGetiSparsegroupTable(dvClass Class, uint32 x) {return dvClasss.SparsegroupTable[
     dvClassGetSparsegroupTableIndex(Class) + dvClassCheckSparsegroupTableIndex(Class, x)];}
-static utInlineC dvSparsegroup *dvClassGetSparsegroupTable(dvClass Class) {return dvClasss.SparsegroupTable + dvClassGetSparsegroupTableIndex(Class);}
+utInlineC dvSparsegroup *dvClassGetSparsegroupTable(dvClass Class) {return dvClasss.SparsegroupTable + dvClassGetSparsegroupTableIndex(Class);}
 #define dvClassGetSparsegroupTables dvClassGetSparsegroupTable
-static utInlineC void dvClassSetSparsegroupTable(dvClass Class, dvSparsegroup *valuePtr, uint32 numSparsegroupTable) {
+utInlineC void dvClassSetSparsegroupTable(dvClass Class, dvSparsegroup *valuePtr, uint32 numSparsegroupTable) {
     dvClassResizeSparsegroupTables(Class, numSparsegroupTable);
     memcpy(dvClassGetSparsegroupTables(Class), valuePtr, numSparsegroupTable*sizeof(dvSparsegroup));}
-static utInlineC void dvClassSetiSparsegroupTable(dvClass Class, uint32 x, dvSparsegroup value) {
+utInlineC void dvClassSetiSparsegroupTable(dvClass Class, uint32 x, dvSparsegroup value) {
     dvClasss.SparsegroupTable[dvClassGetSparsegroupTableIndex(Class) + dvClassCheckSparsegroupTableIndex(Class, (x))] = value;}
-static utInlineC uint32 dvClassGetNumSparsegroup(dvClass Class) {return dvClasss.NumSparsegroup[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNumSparsegroup(dvClass Class, uint32 value) {dvClasss.NumSparsegroup[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetBaseClass(dvClass Class) {return dvClasss.BaseClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetBaseClass(dvClass Class, dvClass value) {dvClasss.BaseClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetFirstDerivedClass(dvClass Class) {return dvClasss.FirstDerivedClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstDerivedClass(dvClass Class, dvClass value) {dvClasss.FirstDerivedClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetNextClassDerivedClass(dvClass Class) {return dvClasss.NextClassDerivedClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetNextClassDerivedClass(dvClass Class, dvClass value) {dvClasss.NextClassDerivedClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvClass dvClassGetLastDerivedClass(dvClass Class) {return dvClasss.LastDerivedClass[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastDerivedClass(dvClass Class, dvClass value) {dvClasss.LastDerivedClass[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvRelationship dvClassGetFirstChildRelationship(dvClass Class) {return dvClasss.FirstChildRelationship[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstChildRelationship(dvClass Class, dvRelationship value) {dvClasss.FirstChildRelationship[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvRelationship dvClassGetLastChildRelationship(dvClass Class) {return dvClasss.LastChildRelationship[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastChildRelationship(dvClass Class, dvRelationship value) {dvClasss.LastChildRelationship[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvRelationship dvClassGetFirstParentRelationship(dvClass Class) {return dvClasss.FirstParentRelationship[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstParentRelationship(dvClass Class, dvRelationship value) {dvClasss.FirstParentRelationship[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvRelationship dvClassGetLastParentRelationship(dvClass Class) {return dvClasss.LastParentRelationship[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastParentRelationship(dvClass Class, dvRelationship value) {dvClasss.LastParentRelationship[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvUnion dvClassGetFirstUnion(dvClass Class) {return dvClasss.FirstUnion[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstUnion(dvClass Class, dvUnion value) {dvClasss.FirstUnion[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvUnion dvClassGetLastUnion(dvClass Class) {return dvClasss.LastUnion[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastUnion(dvClass Class, dvUnion value) {dvClasss.LastUnion[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvCache dvClassGetFirstCache(dvClass Class) {return dvClasss.FirstCache[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetFirstCache(dvClass Class, dvCache value) {dvClasss.FirstCache[dvClass2ValidIndex(Class)] = value;}
-static utInlineC dvCache dvClassGetLastCache(dvClass Class) {return dvClasss.LastCache[dvClass2ValidIndex(Class)];}
-static utInlineC void dvClassSetLastCache(dvClass Class, dvCache value) {dvClasss.LastCache[dvClass2ValidIndex(Class)] = value;}
-static utInlineC void dvClassSetConstructorCallback(void(*func)(dvClass)) {dvClassConstructorCallback = func;}
-static utInlineC dvClassCallbackType dvClassGetConstructorCallback(void) {return dvClassConstructorCallback;}
-static utInlineC dvClass dvFirstClass(void) {return dvRootData.usedClass == 1? dvClassNull : dvIndex2Class(1);}
-static utInlineC dvClass dvLastClass(void) {return dvRootData.usedClass == 1? dvClassNull :
+utInlineC uint32 dvClassGetNumSparsegroup(dvClass Class) {return dvClasss.NumSparsegroup[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNumSparsegroup(dvClass Class, uint32 value) {dvClasss.NumSparsegroup[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetBaseClass(dvClass Class) {return dvClasss.BaseClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetBaseClass(dvClass Class, dvClass value) {dvClasss.BaseClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetFirstDerivedClass(dvClass Class) {return dvClasss.FirstDerivedClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstDerivedClass(dvClass Class, dvClass value) {dvClasss.FirstDerivedClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetNextClassDerivedClass(dvClass Class) {return dvClasss.NextClassDerivedClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetNextClassDerivedClass(dvClass Class, dvClass value) {dvClasss.NextClassDerivedClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvClass dvClassGetLastDerivedClass(dvClass Class) {return dvClasss.LastDerivedClass[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastDerivedClass(dvClass Class, dvClass value) {dvClasss.LastDerivedClass[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvRelationship dvClassGetFirstChildRelationship(dvClass Class) {return dvClasss.FirstChildRelationship[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstChildRelationship(dvClass Class, dvRelationship value) {dvClasss.FirstChildRelationship[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvRelationship dvClassGetLastChildRelationship(dvClass Class) {return dvClasss.LastChildRelationship[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastChildRelationship(dvClass Class, dvRelationship value) {dvClasss.LastChildRelationship[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvRelationship dvClassGetFirstParentRelationship(dvClass Class) {return dvClasss.FirstParentRelationship[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstParentRelationship(dvClass Class, dvRelationship value) {dvClasss.FirstParentRelationship[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvRelationship dvClassGetLastParentRelationship(dvClass Class) {return dvClasss.LastParentRelationship[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastParentRelationship(dvClass Class, dvRelationship value) {dvClasss.LastParentRelationship[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvUnion dvClassGetFirstUnion(dvClass Class) {return dvClasss.FirstUnion[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstUnion(dvClass Class, dvUnion value) {dvClasss.FirstUnion[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvUnion dvClassGetLastUnion(dvClass Class) {return dvClasss.LastUnion[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastUnion(dvClass Class, dvUnion value) {dvClasss.LastUnion[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvCache dvClassGetFirstCache(dvClass Class) {return dvClasss.FirstCache[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetFirstCache(dvClass Class, dvCache value) {dvClasss.FirstCache[dvClass2ValidIndex(Class)] = value;}
+utInlineC dvCache dvClassGetLastCache(dvClass Class) {return dvClasss.LastCache[dvClass2ValidIndex(Class)];}
+utInlineC void dvClassSetLastCache(dvClass Class, dvCache value) {dvClasss.LastCache[dvClass2ValidIndex(Class)] = value;}
+utInlineC void dvClassSetConstructorCallback(void(*func)(dvClass)) {dvClassConstructorCallback = func;}
+utInlineC dvClassCallbackType dvClassGetConstructorCallback(void) {return dvClassConstructorCallback;}
+utInlineC dvClass dvFirstClass(void) {return dvRootData.usedClass == 1? dvClassNull : dvIndex2Class(1);}
+utInlineC dvClass dvLastClass(void) {return dvRootData.usedClass == 1? dvClassNull :
     dvIndex2Class(dvRootData.usedClass - 1);}
-static dvClass dvNextClass(dvClass Class) {return dvClass2ValidIndex(Class) + 1 == dvRootData.usedClass? dvClassNull :
+utInlineC dvClass dvNextClass(dvClass Class) {return dvClass2ValidIndex(Class) + 1 == dvRootData.usedClass? dvClassNull :
     Class + 1;}
-static utInlineC dvClass dvPrevClass(dvClass Class) {return dvClass2ValidIndex(Class) == 1? dvClassNull : Class - 1;}
+utInlineC dvClass dvPrevClass(dvClass Class) {return dvClass2ValidIndex(Class) == 1? dvClassNull : Class - 1;}
 #define dvForeachClass(var) \
     for(var = dvIndex2Class(1); dvClass2Index(var) != dvRootData.usedClass; var++)
 #define dvEndClass
-static utInlineC void dvClassFreeAll(void) {dvSetUsedClass(1); dvSetUsedClassPropertyTable(0); dvSetUsedClassSparsegroupTable(0);}
-static utInlineC dvClass dvClassAllocRaw(void) {
+utInlineC void dvClassFreeAll(void) {dvSetUsedClass(1); dvSetUsedClassPropertyTable(0); dvSetUsedClassSparsegroupTable(0);}
+utInlineC dvClass dvClassAllocRaw(void) {
     dvClass Class;
     if(dvRootData.usedClass == dvRootData.allocatedClass) {
         dvClassAllocMore();
@@ -1625,10 +1625,10 @@ static utInlineC dvClass dvClassAllocRaw(void) {
     Class = dvIndex2Class(dvRootData.usedClass);
     dvSetUsedClass(dvUsedClass() + 1);
     return Class;}
-static utInlineC dvClass dvClassAlloc(void) {
+utInlineC dvClass dvClassAlloc(void) {
     dvClass Class = dvClassAllocRaw();
     dvClassSetSym(Class, utSymNull);
-    dvClassSetMemoryStyle(Class, 0);
+    dvClassSetMemoryStyle(Class, MEM_CREATE_ONLY);
     dvClassSetReferenceSize(Class, 0);
     dvClassSetGenerateArrayClass(Class, 0);
     dvClassSetGenerateAttributes(Class, 0);
@@ -1736,83 +1736,83 @@ void dvPropertyAllocIndexs(dvProperty Property, uint32 numIndexs);
 void dvPropertyResizeIndexs(dvProperty Property, uint32 numIndexs);
 void dvPropertyFreeIndexs(dvProperty Property);
 void dvCompactPropertyIndexs(void);
-static utInlineC utSym dvPropertyGetSym(dvProperty Property) {return dvPropertys.Sym[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetSym(dvProperty Property, utSym value) {dvPropertys.Sym[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvPropertyType dvPropertyGetType(dvProperty Property) {return dvPropertys.Type[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetType(dvProperty Property, dvPropertyType value) {dvPropertys.Type[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC bool dvPropertyArray(dvProperty Property) {
+utInlineC utSym dvPropertyGetSym(dvProperty Property) {return dvPropertys.Sym[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetSym(dvProperty Property, utSym value) {dvPropertys.Sym[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvPropertyType dvPropertyGetType(dvProperty Property) {return dvPropertys.Type[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetType(dvProperty Property, dvPropertyType value) {dvPropertys.Type[dvProperty2ValidIndex(Property)] = value;}
+utInlineC bool dvPropertyArray(dvProperty Property) {
     return (dvPropertys.Array[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetArray(dvProperty Property, bool value) {
+utInlineC void dvPropertySetArray(dvProperty Property, bool value) {
     dvPropertys.Array[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.Array[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC bool dvPropertyCascade(dvProperty Property) {
+utInlineC bool dvPropertyCascade(dvProperty Property) {
     return (dvPropertys.Cascade[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetCascade(dvProperty Property, bool value) {
+utInlineC void dvPropertySetCascade(dvProperty Property, bool value) {
     dvPropertys.Cascade[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.Cascade[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC bool dvPropertySparse(dvProperty Property) {
+utInlineC bool dvPropertySparse(dvProperty Property) {
     return (dvPropertys.Sparse[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetSparse(dvProperty Property, bool value) {
+utInlineC void dvPropertySetSparse(dvProperty Property, bool value) {
     dvPropertys.Sparse[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.Sparse[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC bool dvPropertyView(dvProperty Property) {
+utInlineC bool dvPropertyView(dvProperty Property) {
     return (dvPropertys.View[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetView(dvProperty Property, bool value) {
+utInlineC void dvPropertySetView(dvProperty Property, bool value) {
     dvPropertys.View[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.View[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC bool dvPropertyExpanded(dvProperty Property) {
+utInlineC bool dvPropertyExpanded(dvProperty Property) {
     return (dvPropertys.Expanded[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetExpanded(dvProperty Property, bool value) {
+utInlineC void dvPropertySetExpanded(dvProperty Property, bool value) {
     dvPropertys.Expanded[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.Expanded[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC uint32 dvPropertyGetFieldNumber(dvProperty Property) {return dvPropertys.FieldNumber[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetFieldNumber(dvProperty Property, uint32 value) {dvPropertys.FieldNumber[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetFirstElementProp(dvProperty Property) {return dvPropertys.FirstElementProp[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetFirstElementProp(dvProperty Property, dvProperty value) {dvPropertys.FirstElementProp[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNumElementsProp(dvProperty Property) {return dvPropertys.NumElementsProp[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNumElementsProp(dvProperty Property, dvProperty value) {dvPropertys.NumElementsProp[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC bool dvPropertyHidden(dvProperty Property) {
+utInlineC uint32 dvPropertyGetFieldNumber(dvProperty Property) {return dvPropertys.FieldNumber[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetFieldNumber(dvProperty Property, uint32 value) {dvPropertys.FieldNumber[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetFirstElementProp(dvProperty Property) {return dvPropertys.FirstElementProp[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetFirstElementProp(dvProperty Property, dvProperty value) {dvPropertys.FirstElementProp[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNumElementsProp(dvProperty Property) {return dvPropertys.NumElementsProp[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNumElementsProp(dvProperty Property, dvProperty value) {dvPropertys.NumElementsProp[dvProperty2ValidIndex(Property)] = value;}
+utInlineC bool dvPropertyHidden(dvProperty Property) {
     return (dvPropertys.Hidden[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetHidden(dvProperty Property, bool value) {
+utInlineC void dvPropertySetHidden(dvProperty Property, bool value) {
     dvPropertys.Hidden[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.Hidden[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC uint32 dvPropertyGetInitializerIndex(dvProperty Property) {return dvPropertys.InitializerIndex[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetInitializerIndex(dvProperty Property, uint32 value) {dvPropertys.InitializerIndex[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC uint32 dvPropertyGetNumInitializer(dvProperty Property) {return dvPropertys.NumInitializer[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNumInitializer(dvProperty Property, uint32 value) {dvPropertys.NumInitializer[dvProperty2ValidIndex(Property)] = value;}
+utInlineC uint32 dvPropertyGetInitializerIndex(dvProperty Property) {return dvPropertys.InitializerIndex[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetInitializerIndex(dvProperty Property, uint32 value) {dvPropertys.InitializerIndex[dvProperty2ValidIndex(Property)] = value;}
+utInlineC uint32 dvPropertyGetNumInitializer(dvProperty Property) {return dvPropertys.NumInitializer[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNumInitializer(dvProperty Property, uint32 value) {dvPropertys.NumInitializer[dvProperty2ValidIndex(Property)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvPropertyCheckInitializerIndex(dvProperty Property, uint32 x) {utAssert(x < dvPropertyGetNumInitializer(Property)); return x;}
+utInlineC uint32 dvPropertyCheckInitializerIndex(dvProperty Property, uint32 x) {utAssert(x < dvPropertyGetNumInitializer(Property)); return x;}
 #else
-static utInlineC uint32 dvPropertyCheckInitializerIndex(dvProperty Property, uint32 x) {return x;}
+utInlineC uint32 dvPropertyCheckInitializerIndex(dvProperty Property, uint32 x) {return x;}
 #endif
-static utInlineC char dvPropertyGetiInitializer(dvProperty Property, uint32 x) {return dvPropertys.Initializer[
+utInlineC char dvPropertyGetiInitializer(dvProperty Property, uint32 x) {return dvPropertys.Initializer[
     dvPropertyGetInitializerIndex(Property) + dvPropertyCheckInitializerIndex(Property, x)];}
-static utInlineC char *dvPropertyGetInitializer(dvProperty Property) {return dvPropertys.Initializer + dvPropertyGetInitializerIndex(Property);}
+utInlineC char *dvPropertyGetInitializer(dvProperty Property) {return dvPropertys.Initializer + dvPropertyGetInitializerIndex(Property);}
 #define dvPropertyGetInitializers dvPropertyGetInitializer
-static utInlineC void dvPropertySetInitializer(dvProperty Property, char *valuePtr, uint32 numInitializer) {
+utInlineC void dvPropertySetInitializer(dvProperty Property, char *valuePtr, uint32 numInitializer) {
     dvPropertyResizeInitializers(Property, numInitializer);
     memcpy(dvPropertyGetInitializers(Property), valuePtr, numInitializer*sizeof(char));}
-static utInlineC void dvPropertySetiInitializer(dvProperty Property, uint32 x, char value) {
+utInlineC void dvPropertySetiInitializer(dvProperty Property, uint32 x, char value) {
     dvPropertys.Initializer[dvPropertyGetInitializerIndex(Property) + dvPropertyCheckInitializerIndex(Property, (x))] = value;}
-static utInlineC void dvPropertyMoveInitializers(dvProperty Property, uint32 from, uint32 to, uint32 count) {
+utInlineC void dvPropertyMoveInitializers(dvProperty Property, uint32 from, uint32 to, uint32 count) {
     utAssert((to+count) <= dvPropertyGetNumInitializer(Property));
     utAssert((from+count) <= dvPropertyGetNumInitializer(Property));
     memmove(dvPropertyGetInitializers(Property)+to,dvPropertyGetInitializers(Property)+from,((int32)count)*sizeof(char));
 }
-static utInlineC void dvPropertyCopyInitializers(dvProperty Property, uint32 x, char * values, uint32 count) {
+utInlineC void dvPropertyCopyInitializers(dvProperty Property, uint32 x, char * values, uint32 count) {
     utAssert((x+count) <= dvPropertyGetNumInitializer(Property));
     memcpy(dvPropertyGetInitializers(Property)+x, values, count*sizeof(char));
 }
-static utInlineC void dvPropertyAppendInitializers(dvProperty Property, char * values, uint32 count) {
+utInlineC void dvPropertyAppendInitializers(dvProperty Property, char * values, uint32 count) {
     uint32 num = dvPropertyGetNumInitializer(Property);
     dvPropertyResizeInitializers(Property, num+count);
     dvPropertyCopyInitializers(Property, num, values, count);
 }
-static utInlineC void dvPropertyAppendInitializer(dvProperty Property, char Initializer) {
+utInlineC void dvPropertyAppendInitializer(dvProperty Property, char Initializer) {
     dvPropertyResizeInitializers(Property, dvPropertyGetNumInitializer(Property)+1);
     dvPropertySetiInitializer(Property, dvPropertyGetNumInitializer(Property)-1, Initializer);
 }
-static utInlineC void dvPropertyInsertInitializers(dvProperty Property, uint32 x, char *Initializer, uint32 count) {
+utInlineC void dvPropertyInsertInitializers(dvProperty Property, uint32 x, char *Initializer, uint32 count) {
     utAssert(x <= dvPropertyGetNumInitializer(Property));
     if(x < dvPropertyGetNumInitializer(Property)) {
         dvPropertyResizeInitializers(Property, dvPropertyGetNumInitializer(Property)+count);
@@ -1823,27 +1823,27 @@ static utInlineC void dvPropertyInsertInitializers(dvProperty Property, uint32 x
         dvPropertyAppendInitializers(Property, Initializer, count);
     }
 }
-static utInlineC void dvPropertyInsertInitializer(dvProperty Property, uint32 x, char Initializer) {
+utInlineC void dvPropertyInsertInitializer(dvProperty Property, uint32 x, char Initializer) {
     dvPropertyInsertInitializers(Property, x, &Initializer, 1);
 }
-static utInlineC void dvPropertyRemoveInitializers(dvProperty Property, uint32 x, uint32 count) {
+utInlineC void dvPropertyRemoveInitializers(dvProperty Property, uint32 x, uint32 count) {
     utAssert((x+count) <= dvPropertyGetNumInitializer(Property));
     if((x+count) < dvPropertyGetNumInitializer(Property)) {
         dvPropertyMoveInitializers(Property, x+count,x,dvPropertyGetNumInitializer(Property)-x-count);
     }
     dvPropertyResizeInitializers(Property, dvPropertyGetNumInitializer(Property)-(int32)count);
 }
-static utInlineC void dvPropertyRemoveInitializer(dvProperty Property, uint32 x) {
+utInlineC void dvPropertyRemoveInitializer(dvProperty Property, uint32 x) {
     dvPropertyRemoveInitializers(Property, x, 1);
 }
-static utInlineC void dvPropertySwapInitializer(dvProperty Property, uint32 from, uint32 to) {
+utInlineC void dvPropertySwapInitializer(dvProperty Property, uint32 from, uint32 to) {
     utAssert(from <= dvPropertyGetNumInitializer(Property));
     utAssert(to <= dvPropertyGetNumInitializer(Property));
     char tmp = dvPropertyGetiInitializer(Property, from);
     dvPropertySetiInitializer(Property, from, dvPropertyGetiInitializer(Property, to));
     dvPropertySetiInitializer(Property, to, tmp);
 }
-static utInlineC void dvPropertySwapInitializers(dvProperty Property, uint32 from, uint32 to, uint32 count) {
+utInlineC void dvPropertySwapInitializers(dvProperty Property, uint32 from, uint32 to, uint32 count) {
     utAssert((from+count) < dvPropertyGetNumInitializer(Property));
     utAssert((to+count) < dvPropertyGetNumInitializer(Property));
     char tmp[count];
@@ -1856,48 +1856,48 @@ static utInlineC void dvPropertySwapInitializers(dvProperty Property, uint32 fro
     for(_xInitializer = 0; _xInitializer < dvPropertyGetNumInitializer(pVar); _xInitializer++) { \
         cVar = dvPropertyGetiInitializer(pVar, _xInitializer);
 #define dvEndPropertyInitializer }}
-static utInlineC bool dvPropertyFixedSize(dvProperty Property) {
+utInlineC bool dvPropertyFixedSize(dvProperty Property) {
     return (dvPropertys.FixedSize[dvProperty2ValidIndex(Property) >> 3] >> (dvProperty2ValidIndex(Property) & 7)) & 1;}
-static utInlineC void dvPropertySetFixedSize(dvProperty Property, bool value) {
+utInlineC void dvPropertySetFixedSize(dvProperty Property, bool value) {
     dvPropertys.FixedSize[dvProperty2ValidIndex(Property) >> 3] = (uint8)((dvPropertys.FixedSize[dvProperty2ValidIndex(Property) >> 3] &
         ~(1 << (dvProperty2ValidIndex(Property) & 7))) | ((value != 0) << (dvProperty2ValidIndex(Property) & 7)));}
-static utInlineC uint32 dvPropertyGetIndexIndex(dvProperty Property) {return dvPropertys.IndexIndex[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetIndexIndex(dvProperty Property, uint32 value) {dvPropertys.IndexIndex[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC uint32 dvPropertyGetNumIndex(dvProperty Property) {return dvPropertys.NumIndex[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNumIndex(dvProperty Property, uint32 value) {dvPropertys.NumIndex[dvProperty2ValidIndex(Property)] = value;}
+utInlineC uint32 dvPropertyGetIndexIndex(dvProperty Property) {return dvPropertys.IndexIndex[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetIndexIndex(dvProperty Property, uint32 value) {dvPropertys.IndexIndex[dvProperty2ValidIndex(Property)] = value;}
+utInlineC uint32 dvPropertyGetNumIndex(dvProperty Property) {return dvPropertys.NumIndex[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNumIndex(dvProperty Property, uint32 value) {dvPropertys.NumIndex[dvProperty2ValidIndex(Property)] = value;}
 #if defined(DD_DEBUG)
-static utInlineC uint32 dvPropertyCheckIndexIndex(dvProperty Property, uint32 x) {utAssert(x < dvPropertyGetNumIndex(Property)); return x;}
+utInlineC uint32 dvPropertyCheckIndexIndex(dvProperty Property, uint32 x) {utAssert(x < dvPropertyGetNumIndex(Property)); return x;}
 #else
-static utInlineC uint32 dvPropertyCheckIndexIndex(dvProperty Property, uint32 x) {return x;}
+utInlineC uint32 dvPropertyCheckIndexIndex(dvProperty Property, uint32 x) {return x;}
 #endif
-static utInlineC char dvPropertyGetiIndex(dvProperty Property, uint32 x) {return dvPropertys.Index[
+utInlineC char dvPropertyGetiIndex(dvProperty Property, uint32 x) {return dvPropertys.Index[
     dvPropertyGetIndexIndex(Property) + dvPropertyCheckIndexIndex(Property, x)];}
-static utInlineC char *dvPropertyGetIndex(dvProperty Property) {return dvPropertys.Index + dvPropertyGetIndexIndex(Property);}
+utInlineC char *dvPropertyGetIndex(dvProperty Property) {return dvPropertys.Index + dvPropertyGetIndexIndex(Property);}
 #define dvPropertyGetIndexs dvPropertyGetIndex
-static utInlineC void dvPropertySetIndex(dvProperty Property, char *valuePtr, uint32 numIndex) {
+utInlineC void dvPropertySetIndex(dvProperty Property, char *valuePtr, uint32 numIndex) {
     dvPropertyResizeIndexs(Property, numIndex);
     memcpy(dvPropertyGetIndexs(Property), valuePtr, numIndex*sizeof(char));}
-static utInlineC void dvPropertySetiIndex(dvProperty Property, uint32 x, char value) {
+utInlineC void dvPropertySetiIndex(dvProperty Property, uint32 x, char value) {
     dvPropertys.Index[dvPropertyGetIndexIndex(Property) + dvPropertyCheckIndexIndex(Property, (x))] = value;}
-static utInlineC void dvPropertyMoveIndexs(dvProperty Property, uint32 from, uint32 to, uint32 count) {
+utInlineC void dvPropertyMoveIndexs(dvProperty Property, uint32 from, uint32 to, uint32 count) {
     utAssert((to+count) <= dvPropertyGetNumIndex(Property));
     utAssert((from+count) <= dvPropertyGetNumIndex(Property));
     memmove(dvPropertyGetIndexs(Property)+to,dvPropertyGetIndexs(Property)+from,((int32)count)*sizeof(char));
 }
-static utInlineC void dvPropertyCopyIndexs(dvProperty Property, uint32 x, char * values, uint32 count) {
+utInlineC void dvPropertyCopyIndexs(dvProperty Property, uint32 x, char * values, uint32 count) {
     utAssert((x+count) <= dvPropertyGetNumIndex(Property));
     memcpy(dvPropertyGetIndexs(Property)+x, values, count*sizeof(char));
 }
-static utInlineC void dvPropertyAppendIndexs(dvProperty Property, char * values, uint32 count) {
+utInlineC void dvPropertyAppendIndexs(dvProperty Property, char * values, uint32 count) {
     uint32 num = dvPropertyGetNumIndex(Property);
     dvPropertyResizeIndexs(Property, num+count);
     dvPropertyCopyIndexs(Property, num, values, count);
 }
-static utInlineC void dvPropertyAppendIndex(dvProperty Property, char Index) {
+utInlineC void dvPropertyAppendIndex(dvProperty Property, char Index) {
     dvPropertyResizeIndexs(Property, dvPropertyGetNumIndex(Property)+1);
     dvPropertySetiIndex(Property, dvPropertyGetNumIndex(Property)-1, Index);
 }
-static utInlineC void dvPropertyInsertIndexs(dvProperty Property, uint32 x, char *Index, uint32 count) {
+utInlineC void dvPropertyInsertIndexs(dvProperty Property, uint32 x, char *Index, uint32 count) {
     utAssert(x <= dvPropertyGetNumIndex(Property));
     if(x < dvPropertyGetNumIndex(Property)) {
         dvPropertyResizeIndexs(Property, dvPropertyGetNumIndex(Property)+count);
@@ -1908,27 +1908,27 @@ static utInlineC void dvPropertyInsertIndexs(dvProperty Property, uint32 x, char
         dvPropertyAppendIndexs(Property, Index, count);
     }
 }
-static utInlineC void dvPropertyInsertIndex(dvProperty Property, uint32 x, char Index) {
+utInlineC void dvPropertyInsertIndex(dvProperty Property, uint32 x, char Index) {
     dvPropertyInsertIndexs(Property, x, &Index, 1);
 }
-static utInlineC void dvPropertyRemoveIndexs(dvProperty Property, uint32 x, uint32 count) {
+utInlineC void dvPropertyRemoveIndexs(dvProperty Property, uint32 x, uint32 count) {
     utAssert((x+count) <= dvPropertyGetNumIndex(Property));
     if((x+count) < dvPropertyGetNumIndex(Property)) {
         dvPropertyMoveIndexs(Property, x+count,x,dvPropertyGetNumIndex(Property)-x-count);
     }
     dvPropertyResizeIndexs(Property, dvPropertyGetNumIndex(Property)-(int32)count);
 }
-static utInlineC void dvPropertyRemoveIndex(dvProperty Property, uint32 x) {
+utInlineC void dvPropertyRemoveIndex(dvProperty Property, uint32 x) {
     dvPropertyRemoveIndexs(Property, x, 1);
 }
-static utInlineC void dvPropertySwapIndex(dvProperty Property, uint32 from, uint32 to) {
+utInlineC void dvPropertySwapIndex(dvProperty Property, uint32 from, uint32 to) {
     utAssert(from <= dvPropertyGetNumIndex(Property));
     utAssert(to <= dvPropertyGetNumIndex(Property));
     char tmp = dvPropertyGetiIndex(Property, from);
     dvPropertySetiIndex(Property, from, dvPropertyGetiIndex(Property, to));
     dvPropertySetiIndex(Property, to, tmp);
 }
-static utInlineC void dvPropertySwapIndexs(dvProperty Property, uint32 from, uint32 to, uint32 count) {
+utInlineC void dvPropertySwapIndexs(dvProperty Property, uint32 from, uint32 to, uint32 count) {
     utAssert((from+count) < dvPropertyGetNumIndex(Property));
     utAssert((to+count) < dvPropertyGetNumIndex(Property));
     char tmp[count];
@@ -1941,68 +1941,68 @@ static utInlineC void dvPropertySwapIndexs(dvProperty Property, uint32 from, uin
     for(_xIndex = 0; _xIndex < dvPropertyGetNumIndex(pVar); _xIndex++) { \
         cVar = dvPropertyGetiIndex(pVar, _xIndex);
 #define dvEndPropertyIndex }}
-static utInlineC dvEnum dvPropertyGetEnumProp(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].EnumProp;}
-static utInlineC void dvPropertySetEnumProp(dvProperty Property, dvEnum value) {
+utInlineC dvEnum dvPropertyGetEnumProp(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].EnumProp;}
+utInlineC void dvPropertySetEnumProp(dvProperty Property, dvEnum value) {
     dvPropertys.union1[dvProperty2ValidIndex(Property)].EnumProp = value;}
-static utInlineC dvTypedef dvPropertyGetTypedefProp(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].TypedefProp;}
-static utInlineC void dvPropertySetTypedefProp(dvProperty Property, dvTypedef value) {
+utInlineC dvTypedef dvPropertyGetTypedefProp(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].TypedefProp;}
+utInlineC void dvPropertySetTypedefProp(dvProperty Property, dvTypedef value) {
     dvPropertys.union1[dvProperty2ValidIndex(Property)].TypedefProp = value;}
-static utInlineC dvClass dvPropertyGetClassProp(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].ClassProp;}
-static utInlineC void dvPropertySetClassProp(dvProperty Property, dvClass value) {
+utInlineC dvClass dvPropertyGetClassProp(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].ClassProp;}
+utInlineC void dvPropertySetClassProp(dvProperty Property, dvClass value) {
     dvPropertys.union1[dvProperty2ValidIndex(Property)].ClassProp = value;}
-static utInlineC utSym dvPropertyGetTypeSym(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].TypeSym;}
-static utInlineC void dvPropertySetTypeSym(dvProperty Property, utSym value) {
+utInlineC utSym dvPropertyGetTypeSym(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].TypeSym;}
+utInlineC void dvPropertySetTypeSym(dvProperty Property, utSym value) {
     dvPropertys.union1[dvProperty2ValidIndex(Property)].TypeSym = value;}
-static utInlineC uint8 dvPropertyGetWidth(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].Width;}
-static utInlineC void dvPropertySetWidth(dvProperty Property, uint8 value) {
+utInlineC uint8 dvPropertyGetWidth(dvProperty Property) {return dvPropertys.union1[dvProperty2ValidIndex(Property)].Width;}
+utInlineC void dvPropertySetWidth(dvProperty Property, uint8 value) {
     dvPropertys.union1[dvProperty2ValidIndex(Property)].Width = value;}
-static utInlineC uint32 dvPropertyGetLine(dvProperty Property) {return dvPropertys.Line[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetLine(dvProperty Property, uint32 value) {dvPropertys.Line[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvClass dvPropertyGetClass(dvProperty Property) {return dvPropertys.Class[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetClass(dvProperty Property, dvClass value) {dvPropertys.Class[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNextClassProperty(dvProperty Property) {return dvPropertys.NextClassProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNextClassProperty(dvProperty Property, dvProperty value) {dvPropertys.NextClassProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetPrevClassProperty(dvProperty Property) {return dvPropertys.PrevClassProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetPrevClassProperty(dvProperty Property, dvProperty value) {dvPropertys.PrevClassProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNextTableClassProperty(dvProperty Property) {return dvPropertys.NextTableClassProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNextTableClassProperty(dvProperty Property, dvProperty value) {dvPropertys.NextTableClassProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvCase dvPropertyGetFirstCase(dvProperty Property) {return dvPropertys.FirstCase[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetFirstCase(dvProperty Property, dvCase value) {dvPropertys.FirstCase[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvCase dvPropertyGetLastCase(dvProperty Property) {return dvPropertys.LastCase[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetLastCase(dvProperty Property, dvCase value) {dvPropertys.LastCase[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvKeyproperty dvPropertyGetFirstKeyproperty(dvProperty Property) {return dvPropertys.FirstKeyproperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetFirstKeyproperty(dvProperty Property, dvKeyproperty value) {dvPropertys.FirstKeyproperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvKeyproperty dvPropertyGetLastKeyproperty(dvProperty Property) {return dvPropertys.LastKeyproperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetLastKeyproperty(dvProperty Property, dvKeyproperty value) {dvPropertys.LastKeyproperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvSparsegroup dvPropertyGetSparsegroup(dvProperty Property) {return dvPropertys.Sparsegroup[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetSparsegroup(dvProperty Property, dvSparsegroup value) {dvPropertys.Sparsegroup[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNextSparsegroupProperty(dvProperty Property) {return dvPropertys.NextSparsegroupProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNextSparsegroupProperty(dvProperty Property, dvProperty value) {dvPropertys.NextSparsegroupProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvRelationship dvPropertyGetRelationship(dvProperty Property) {return dvPropertys.Relationship[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetRelationship(dvProperty Property, dvRelationship value) {dvPropertys.Relationship[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNextRelationshipProperty(dvProperty Property) {return dvPropertys.NextRelationshipProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNextRelationshipProperty(dvProperty Property, dvProperty value) {dvPropertys.NextRelationshipProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvUnion dvPropertyGetUnion(dvProperty Property) {return dvPropertys.Union[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetUnion(dvProperty Property, dvUnion value) {dvPropertys.Union[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNextUnionProperty(dvProperty Property) {return dvPropertys.NextUnionProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNextUnionProperty(dvProperty Property, dvProperty value) {dvPropertys.NextUnionProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvCache dvPropertyGetCache(dvProperty Property) {return dvPropertys.Cache[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetCache(dvProperty Property, dvCache value) {dvPropertys.Cache[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC dvProperty dvPropertyGetNextCacheProperty(dvProperty Property) {return dvPropertys.NextCacheProperty[dvProperty2ValidIndex(Property)];}
-static utInlineC void dvPropertySetNextCacheProperty(dvProperty Property, dvProperty value) {dvPropertys.NextCacheProperty[dvProperty2ValidIndex(Property)] = value;}
-static utInlineC void dvPropertySetConstructorCallback(void(*func)(dvProperty)) {dvPropertyConstructorCallback = func;}
-static utInlineC dvPropertyCallbackType dvPropertyGetConstructorCallback(void) {return dvPropertyConstructorCallback;}
-static utInlineC dvProperty dvFirstProperty(void) {return dvRootData.usedProperty == 1? dvPropertyNull : dvIndex2Property(1);}
-static utInlineC dvProperty dvLastProperty(void) {return dvRootData.usedProperty == 1? dvPropertyNull :
+utInlineC uint32 dvPropertyGetLine(dvProperty Property) {return dvPropertys.Line[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetLine(dvProperty Property, uint32 value) {dvPropertys.Line[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvClass dvPropertyGetClass(dvProperty Property) {return dvPropertys.Class[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetClass(dvProperty Property, dvClass value) {dvPropertys.Class[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNextClassProperty(dvProperty Property) {return dvPropertys.NextClassProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNextClassProperty(dvProperty Property, dvProperty value) {dvPropertys.NextClassProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetPrevClassProperty(dvProperty Property) {return dvPropertys.PrevClassProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetPrevClassProperty(dvProperty Property, dvProperty value) {dvPropertys.PrevClassProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNextTableClassProperty(dvProperty Property) {return dvPropertys.NextTableClassProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNextTableClassProperty(dvProperty Property, dvProperty value) {dvPropertys.NextTableClassProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvCase dvPropertyGetFirstCase(dvProperty Property) {return dvPropertys.FirstCase[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetFirstCase(dvProperty Property, dvCase value) {dvPropertys.FirstCase[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvCase dvPropertyGetLastCase(dvProperty Property) {return dvPropertys.LastCase[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetLastCase(dvProperty Property, dvCase value) {dvPropertys.LastCase[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvKeyproperty dvPropertyGetFirstKeyproperty(dvProperty Property) {return dvPropertys.FirstKeyproperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetFirstKeyproperty(dvProperty Property, dvKeyproperty value) {dvPropertys.FirstKeyproperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvKeyproperty dvPropertyGetLastKeyproperty(dvProperty Property) {return dvPropertys.LastKeyproperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetLastKeyproperty(dvProperty Property, dvKeyproperty value) {dvPropertys.LastKeyproperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvSparsegroup dvPropertyGetSparsegroup(dvProperty Property) {return dvPropertys.Sparsegroup[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetSparsegroup(dvProperty Property, dvSparsegroup value) {dvPropertys.Sparsegroup[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNextSparsegroupProperty(dvProperty Property) {return dvPropertys.NextSparsegroupProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNextSparsegroupProperty(dvProperty Property, dvProperty value) {dvPropertys.NextSparsegroupProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvRelationship dvPropertyGetRelationship(dvProperty Property) {return dvPropertys.Relationship[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetRelationship(dvProperty Property, dvRelationship value) {dvPropertys.Relationship[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNextRelationshipProperty(dvProperty Property) {return dvPropertys.NextRelationshipProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNextRelationshipProperty(dvProperty Property, dvProperty value) {dvPropertys.NextRelationshipProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvUnion dvPropertyGetUnion(dvProperty Property) {return dvPropertys.Union[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetUnion(dvProperty Property, dvUnion value) {dvPropertys.Union[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNextUnionProperty(dvProperty Property) {return dvPropertys.NextUnionProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNextUnionProperty(dvProperty Property, dvProperty value) {dvPropertys.NextUnionProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvCache dvPropertyGetCache(dvProperty Property) {return dvPropertys.Cache[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetCache(dvProperty Property, dvCache value) {dvPropertys.Cache[dvProperty2ValidIndex(Property)] = value;}
+utInlineC dvProperty dvPropertyGetNextCacheProperty(dvProperty Property) {return dvPropertys.NextCacheProperty[dvProperty2ValidIndex(Property)];}
+utInlineC void dvPropertySetNextCacheProperty(dvProperty Property, dvProperty value) {dvPropertys.NextCacheProperty[dvProperty2ValidIndex(Property)] = value;}
+utInlineC void dvPropertySetConstructorCallback(void(*func)(dvProperty)) {dvPropertyConstructorCallback = func;}
+utInlineC dvPropertyCallbackType dvPropertyGetConstructorCallback(void) {return dvPropertyConstructorCallback;}
+utInlineC dvProperty dvFirstProperty(void) {return dvRootData.usedProperty == 1? dvPropertyNull : dvIndex2Property(1);}
+utInlineC dvProperty dvLastProperty(void) {return dvRootData.usedProperty == 1? dvPropertyNull :
     dvIndex2Property(dvRootData.usedProperty - 1);}
-static dvProperty dvNextProperty(dvProperty Property) {return dvProperty2ValidIndex(Property) + 1 == dvRootData.usedProperty? dvPropertyNull :
+utInlineC dvProperty dvNextProperty(dvProperty Property) {return dvProperty2ValidIndex(Property) + 1 == dvRootData.usedProperty? dvPropertyNull :
     Property + 1;}
-static utInlineC dvProperty dvPrevProperty(dvProperty Property) {return dvProperty2ValidIndex(Property) == 1? dvPropertyNull : Property - 1;}
+utInlineC dvProperty dvPrevProperty(dvProperty Property) {return dvProperty2ValidIndex(Property) == 1? dvPropertyNull : Property - 1;}
 #define dvForeachProperty(var) \
     for(var = dvIndex2Property(1); dvProperty2Index(var) != dvRootData.usedProperty; var++)
 #define dvEndProperty
-static utInlineC void dvPropertyFreeAll(void) {dvSetUsedProperty(1); dvSetUsedPropertyInitializer(0); dvSetUsedPropertyIndex(0);}
-static utInlineC dvProperty dvPropertyAllocRaw(void) {
+utInlineC void dvPropertyFreeAll(void) {dvSetUsedProperty(1); dvSetUsedPropertyInitializer(0); dvSetUsedPropertyIndex(0);}
+utInlineC dvProperty dvPropertyAllocRaw(void) {
     dvProperty Property;
     if(dvRootData.usedProperty == dvRootData.allocatedProperty) {
         dvPropertyAllocMore();
@@ -2010,10 +2010,10 @@ static utInlineC dvProperty dvPropertyAllocRaw(void) {
     Property = dvIndex2Property(dvRootData.usedProperty);
     dvSetUsedProperty(dvUsedProperty() + 1);
     return Property;}
-static utInlineC dvProperty dvPropertyAlloc(void) {
+utInlineC dvProperty dvPropertyAlloc(void) {
     dvProperty Property = dvPropertyAllocRaw();
     dvPropertySetSym(Property, utSymNull);
-    dvPropertySetType(Property, 0);
+    dvPropertySetType(Property, PROP_INT);
     dvPropertySetArray(Property, 0);
     dvPropertySetCascade(Property, 0);
     dvPropertySetSparse(Property, 0);
@@ -2070,34 +2070,34 @@ extern struct dvSparsegroupFields dvSparsegroups;
 
 void dvSparsegroupAllocMore(void);
 void dvSparsegroupCopyProps(dvSparsegroup dvOldSparsegroup, dvSparsegroup dvNewSparsegroup);
-static utInlineC utSym dvSparsegroupGetSym(dvSparsegroup Sparsegroup) {return dvSparsegroups.Sym[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetSym(dvSparsegroup Sparsegroup, utSym value) {dvSparsegroups.Sym[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvClass dvSparsegroupGetClass(dvSparsegroup Sparsegroup) {return dvSparsegroups.Class[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetClass(dvSparsegroup Sparsegroup, dvClass value) {dvSparsegroups.Class[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvSparsegroup dvSparsegroupGetNextClassSparsegroup(dvSparsegroup Sparsegroup) {return dvSparsegroups.NextClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetNextClassSparsegroup(dvSparsegroup Sparsegroup, dvSparsegroup value) {dvSparsegroups.NextClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvSparsegroup dvSparsegroupGetPrevClassSparsegroup(dvSparsegroup Sparsegroup) {return dvSparsegroups.PrevClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetPrevClassSparsegroup(dvSparsegroup Sparsegroup, dvSparsegroup value) {dvSparsegroups.PrevClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvSparsegroup dvSparsegroupGetNextTableClassSparsegroup(dvSparsegroup Sparsegroup) {return dvSparsegroups.NextTableClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetNextTableClassSparsegroup(dvSparsegroup Sparsegroup, dvSparsegroup value) {dvSparsegroups.NextTableClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvProperty dvSparsegroupGetFirstProperty(dvSparsegroup Sparsegroup) {return dvSparsegroups.FirstProperty[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetFirstProperty(dvSparsegroup Sparsegroup, dvProperty value) {dvSparsegroups.FirstProperty[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvProperty dvSparsegroupGetLastProperty(dvSparsegroup Sparsegroup) {return dvSparsegroups.LastProperty[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetLastProperty(dvSparsegroup Sparsegroup, dvProperty value) {dvSparsegroups.LastProperty[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC dvRelationship dvSparsegroupGetRelationship(dvSparsegroup Sparsegroup) {return dvSparsegroups.Relationship[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetRelationship(dvSparsegroup Sparsegroup, dvRelationship value) {dvSparsegroups.Relationship[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC void dvSparsegroupSetConstructorCallback(void(*func)(dvSparsegroup)) {dvSparsegroupConstructorCallback = func;}
-static utInlineC dvSparsegroupCallbackType dvSparsegroupGetConstructorCallback(void) {return dvSparsegroupConstructorCallback;}
-static utInlineC void dvSparsegroupSetDestructorCallback(void(*func)(dvSparsegroup)) {dvSparsegroupDestructorCallback = func;}
-static utInlineC dvSparsegroupCallbackType dvSparsegroupGetDestructorCallback(void) {return dvSparsegroupDestructorCallback;}
-static utInlineC dvSparsegroup dvSparsegroupNextFree(dvSparsegroup Sparsegroup) {return ((dvSparsegroup *)(void *)(dvSparsegroups.Sym))[dvSparsegroup2ValidIndex(Sparsegroup)];}
-static utInlineC void dvSparsegroupSetNextFree(dvSparsegroup Sparsegroup, dvSparsegroup value) {
+utInlineC utSym dvSparsegroupGetSym(dvSparsegroup Sparsegroup) {return dvSparsegroups.Sym[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetSym(dvSparsegroup Sparsegroup, utSym value) {dvSparsegroups.Sym[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvClass dvSparsegroupGetClass(dvSparsegroup Sparsegroup) {return dvSparsegroups.Class[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetClass(dvSparsegroup Sparsegroup, dvClass value) {dvSparsegroups.Class[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvSparsegroup dvSparsegroupGetNextClassSparsegroup(dvSparsegroup Sparsegroup) {return dvSparsegroups.NextClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetNextClassSparsegroup(dvSparsegroup Sparsegroup, dvSparsegroup value) {dvSparsegroups.NextClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvSparsegroup dvSparsegroupGetPrevClassSparsegroup(dvSparsegroup Sparsegroup) {return dvSparsegroups.PrevClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetPrevClassSparsegroup(dvSparsegroup Sparsegroup, dvSparsegroup value) {dvSparsegroups.PrevClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvSparsegroup dvSparsegroupGetNextTableClassSparsegroup(dvSparsegroup Sparsegroup) {return dvSparsegroups.NextTableClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetNextTableClassSparsegroup(dvSparsegroup Sparsegroup, dvSparsegroup value) {dvSparsegroups.NextTableClassSparsegroup[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvProperty dvSparsegroupGetFirstProperty(dvSparsegroup Sparsegroup) {return dvSparsegroups.FirstProperty[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetFirstProperty(dvSparsegroup Sparsegroup, dvProperty value) {dvSparsegroups.FirstProperty[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvProperty dvSparsegroupGetLastProperty(dvSparsegroup Sparsegroup) {return dvSparsegroups.LastProperty[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetLastProperty(dvSparsegroup Sparsegroup, dvProperty value) {dvSparsegroups.LastProperty[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC dvRelationship dvSparsegroupGetRelationship(dvSparsegroup Sparsegroup) {return dvSparsegroups.Relationship[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetRelationship(dvSparsegroup Sparsegroup, dvRelationship value) {dvSparsegroups.Relationship[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
+utInlineC void dvSparsegroupSetConstructorCallback(void(*func)(dvSparsegroup)) {dvSparsegroupConstructorCallback = func;}
+utInlineC dvSparsegroupCallbackType dvSparsegroupGetConstructorCallback(void) {return dvSparsegroupConstructorCallback;}
+utInlineC void dvSparsegroupSetDestructorCallback(void(*func)(dvSparsegroup)) {dvSparsegroupDestructorCallback = func;}
+utInlineC dvSparsegroupCallbackType dvSparsegroupGetDestructorCallback(void) {return dvSparsegroupDestructorCallback;}
+utInlineC dvSparsegroup dvSparsegroupNextFree(dvSparsegroup Sparsegroup) {return ((dvSparsegroup *)(void *)(dvSparsegroups.Sym))[dvSparsegroup2ValidIndex(Sparsegroup)];}
+utInlineC void dvSparsegroupSetNextFree(dvSparsegroup Sparsegroup, dvSparsegroup value) {
     ((dvSparsegroup *)(void *)(dvSparsegroups.Sym))[dvSparsegroup2ValidIndex(Sparsegroup)] = value;}
-static utInlineC void dvSparsegroupFree(dvSparsegroup Sparsegroup) {
+utInlineC void dvSparsegroupFree(dvSparsegroup Sparsegroup) {
     dvSparsegroupSetNextFree(Sparsegroup, dvRootData.firstFreeSparsegroup);
     dvSetFirstFreeSparsegroup(Sparsegroup);}
 void dvSparsegroupDestroy(dvSparsegroup Sparsegroup);
-static utInlineC dvSparsegroup dvSparsegroupAllocRaw(void) {
+utInlineC dvSparsegroup dvSparsegroupAllocRaw(void) {
     dvSparsegroup Sparsegroup;
     if(dvRootData.firstFreeSparsegroup != dvSparsegroupNull) {
         Sparsegroup = dvRootData.firstFreeSparsegroup;
@@ -2110,7 +2110,7 @@ static utInlineC dvSparsegroup dvSparsegroupAllocRaw(void) {
         dvSetUsedSparsegroup(dvUsedSparsegroup() + 1);
     }
     return Sparsegroup;}
-static utInlineC dvSparsegroup dvSparsegroupAlloc(void) {
+utInlineC dvSparsegroup dvSparsegroupAlloc(void) {
     dvSparsegroup Sparsegroup = dvSparsegroupAllocRaw();
     dvSparsegroupSetSym(Sparsegroup, utSymNull);
     dvSparsegroupSetClass(Sparsegroup, dvClassNull);
@@ -2159,89 +2159,89 @@ void dvRelationshipAllocMore(void);
 void dvRelationshipCopyProps(dvRelationship dvOldRelationship, dvRelationship dvNewRelationship);
 void dvRelationshipSetBitfield(dvRelationship _Relationship, uint32 bitfield);
 uint32 dvRelationshipGetBitfield(dvRelationship _Relationship);
-static utInlineC dvRelationshipType dvRelationshipGetType(dvRelationship Relationship) {return dvRelationships.Type[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetType(dvRelationship Relationship, dvRelationshipType value) {dvRelationships.Type[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC utSym dvRelationshipGetParentLabelSym(dvRelationship Relationship) {return dvRelationships.ParentLabelSym[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetParentLabelSym(dvRelationship Relationship, utSym value) {dvRelationships.ParentLabelSym[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC utSym dvRelationshipGetChildLabelSym(dvRelationship Relationship) {return dvRelationships.ChildLabelSym[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetChildLabelSym(dvRelationship Relationship, utSym value) {dvRelationships.ChildLabelSym[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC bool dvRelationshipMandatory(dvRelationship Relationship) {
+utInlineC dvRelationshipType dvRelationshipGetType(dvRelationship Relationship) {return dvRelationships.Type[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetType(dvRelationship Relationship, dvRelationshipType value) {dvRelationships.Type[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC utSym dvRelationshipGetParentLabelSym(dvRelationship Relationship) {return dvRelationships.ParentLabelSym[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetParentLabelSym(dvRelationship Relationship, utSym value) {dvRelationships.ParentLabelSym[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC utSym dvRelationshipGetChildLabelSym(dvRelationship Relationship) {return dvRelationships.ChildLabelSym[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetChildLabelSym(dvRelationship Relationship, utSym value) {dvRelationships.ChildLabelSym[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC bool dvRelationshipMandatory(dvRelationship Relationship) {
     return (dvRelationships.Mandatory[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetMandatory(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetMandatory(dvRelationship Relationship, bool value) {
     dvRelationships.Mandatory[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.Mandatory[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipCascade(dvRelationship Relationship) {
+utInlineC bool dvRelationshipCascade(dvRelationship Relationship) {
     return (dvRelationships.Cascade[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetCascade(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetCascade(dvRelationship Relationship, bool value) {
     dvRelationships.Cascade[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.Cascade[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipAccessChild(dvRelationship Relationship) {
+utInlineC bool dvRelationshipAccessChild(dvRelationship Relationship) {
     return (dvRelationships.AccessChild[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetAccessChild(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetAccessChild(dvRelationship Relationship, bool value) {
     dvRelationships.AccessChild[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.AccessChild[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipAccessParent(dvRelationship Relationship) {
+utInlineC bool dvRelationshipAccessParent(dvRelationship Relationship) {
     return (dvRelationships.AccessParent[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetAccessParent(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetAccessParent(dvRelationship Relationship, bool value) {
     dvRelationships.AccessParent[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.AccessParent[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipSharedParent(dvRelationship Relationship) {
+utInlineC bool dvRelationshipSharedParent(dvRelationship Relationship) {
     return (dvRelationships.SharedParent[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetSharedParent(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetSharedParent(dvRelationship Relationship, bool value) {
     dvRelationships.SharedParent[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.SharedParent[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipSparse(dvRelationship Relationship) {
+utInlineC bool dvRelationshipSparse(dvRelationship Relationship) {
     return (dvRelationships.Sparse[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetSparse(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetSparse(dvRelationship Relationship, bool value) {
     dvRelationships.Sparse[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.Sparse[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipExpanded(dvRelationship Relationship) {
+utInlineC bool dvRelationshipExpanded(dvRelationship Relationship) {
     return (dvRelationships.Expanded[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetExpanded(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetExpanded(dvRelationship Relationship, bool value) {
     dvRelationships.Expanded[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.Expanded[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC bool dvRelationshipUnordered(dvRelationship Relationship) {
+utInlineC bool dvRelationshipUnordered(dvRelationship Relationship) {
     return (dvRelationships.Unordered[dvRelationship2ValidIndex(Relationship) >> 3] >> (dvRelationship2ValidIndex(Relationship) & 7)) & 1;}
-static utInlineC void dvRelationshipSetUnordered(dvRelationship Relationship, bool value) {
+utInlineC void dvRelationshipSetUnordered(dvRelationship Relationship, bool value) {
     dvRelationships.Unordered[dvRelationship2ValidIndex(Relationship) >> 3] = (uint8)((dvRelationships.Unordered[dvRelationship2ValidIndex(Relationship) >> 3] &
         ~(1 << (dvRelationship2ValidIndex(Relationship) & 7))) | ((value != 0) << (dvRelationship2ValidIndex(Relationship) & 7)));}
-static utInlineC dvSchema dvRelationshipGetSchema(dvRelationship Relationship) {return dvRelationships.Schema[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetSchema(dvRelationship Relationship, dvSchema value) {dvRelationships.Schema[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvRelationship dvRelationshipGetNextSchemaRelationship(dvRelationship Relationship) {return dvRelationships.NextSchemaRelationship[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetNextSchemaRelationship(dvRelationship Relationship, dvRelationship value) {dvRelationships.NextSchemaRelationship[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvClass dvRelationshipGetParentClass(dvRelationship Relationship) {return dvRelationships.ParentClass[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetParentClass(dvRelationship Relationship, dvClass value) {dvRelationships.ParentClass[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvRelationship dvRelationshipGetNextClassChildRelationship(dvRelationship Relationship) {return dvRelationships.NextClassChildRelationship[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetNextClassChildRelationship(dvRelationship Relationship, dvRelationship value) {dvRelationships.NextClassChildRelationship[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvClass dvRelationshipGetChildClass(dvRelationship Relationship) {return dvRelationships.ChildClass[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetChildClass(dvRelationship Relationship, dvClass value) {dvRelationships.ChildClass[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvRelationship dvRelationshipGetNextClassParentRelationship(dvRelationship Relationship) {return dvRelationships.NextClassParentRelationship[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetNextClassParentRelationship(dvRelationship Relationship, dvRelationship value) {dvRelationships.NextClassParentRelationship[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvProperty dvRelationshipGetFirstProperty(dvRelationship Relationship) {return dvRelationships.FirstProperty[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetFirstProperty(dvRelationship Relationship, dvProperty value) {dvRelationships.FirstProperty[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvProperty dvRelationshipGetLastProperty(dvRelationship Relationship) {return dvRelationships.LastProperty[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetLastProperty(dvRelationship Relationship, dvProperty value) {dvRelationships.LastProperty[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvKey dvRelationshipGetFirstKey(dvRelationship Relationship) {return dvRelationships.FirstKey[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetFirstKey(dvRelationship Relationship, dvKey value) {dvRelationships.FirstKey[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvKey dvRelationshipGetLastKey(dvRelationship Relationship) {return dvRelationships.LastKey[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetLastKey(dvRelationship Relationship, dvKey value) {dvRelationships.LastKey[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvSparsegroup dvRelationshipGetParentSparsegroup(dvRelationship Relationship) {return dvRelationships.ParentSparsegroup[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetParentSparsegroup(dvRelationship Relationship, dvSparsegroup value) {dvRelationships.ParentSparsegroup[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC dvSparsegroup dvRelationshipGetChildSparsegroup(dvRelationship Relationship) {return dvRelationships.ChildSparsegroup[dvRelationship2ValidIndex(Relationship)];}
-static utInlineC void dvRelationshipSetChildSparsegroup(dvRelationship Relationship, dvSparsegroup value) {dvRelationships.ChildSparsegroup[dvRelationship2ValidIndex(Relationship)] = value;}
-static utInlineC void dvRelationshipSetConstructorCallback(void(*func)(dvRelationship)) {dvRelationshipConstructorCallback = func;}
-static utInlineC dvRelationshipCallbackType dvRelationshipGetConstructorCallback(void) {return dvRelationshipConstructorCallback;}
-static utInlineC dvRelationship dvFirstRelationship(void) {return dvRootData.usedRelationship == 1? dvRelationshipNull : dvIndex2Relationship(1);}
-static utInlineC dvRelationship dvLastRelationship(void) {return dvRootData.usedRelationship == 1? dvRelationshipNull :
+utInlineC dvSchema dvRelationshipGetSchema(dvRelationship Relationship) {return dvRelationships.Schema[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetSchema(dvRelationship Relationship, dvSchema value) {dvRelationships.Schema[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvRelationship dvRelationshipGetNextSchemaRelationship(dvRelationship Relationship) {return dvRelationships.NextSchemaRelationship[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetNextSchemaRelationship(dvRelationship Relationship, dvRelationship value) {dvRelationships.NextSchemaRelationship[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvClass dvRelationshipGetParentClass(dvRelationship Relationship) {return dvRelationships.ParentClass[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetParentClass(dvRelationship Relationship, dvClass value) {dvRelationships.ParentClass[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvRelationship dvRelationshipGetNextClassChildRelationship(dvRelationship Relationship) {return dvRelationships.NextClassChildRelationship[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetNextClassChildRelationship(dvRelationship Relationship, dvRelationship value) {dvRelationships.NextClassChildRelationship[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvClass dvRelationshipGetChildClass(dvRelationship Relationship) {return dvRelationships.ChildClass[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetChildClass(dvRelationship Relationship, dvClass value) {dvRelationships.ChildClass[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvRelationship dvRelationshipGetNextClassParentRelationship(dvRelationship Relationship) {return dvRelationships.NextClassParentRelationship[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetNextClassParentRelationship(dvRelationship Relationship, dvRelationship value) {dvRelationships.NextClassParentRelationship[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvProperty dvRelationshipGetFirstProperty(dvRelationship Relationship) {return dvRelationships.FirstProperty[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetFirstProperty(dvRelationship Relationship, dvProperty value) {dvRelationships.FirstProperty[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvProperty dvRelationshipGetLastProperty(dvRelationship Relationship) {return dvRelationships.LastProperty[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetLastProperty(dvRelationship Relationship, dvProperty value) {dvRelationships.LastProperty[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvKey dvRelationshipGetFirstKey(dvRelationship Relationship) {return dvRelationships.FirstKey[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetFirstKey(dvRelationship Relationship, dvKey value) {dvRelationships.FirstKey[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvKey dvRelationshipGetLastKey(dvRelationship Relationship) {return dvRelationships.LastKey[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetLastKey(dvRelationship Relationship, dvKey value) {dvRelationships.LastKey[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvSparsegroup dvRelationshipGetParentSparsegroup(dvRelationship Relationship) {return dvRelationships.ParentSparsegroup[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetParentSparsegroup(dvRelationship Relationship, dvSparsegroup value) {dvRelationships.ParentSparsegroup[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC dvSparsegroup dvRelationshipGetChildSparsegroup(dvRelationship Relationship) {return dvRelationships.ChildSparsegroup[dvRelationship2ValidIndex(Relationship)];}
+utInlineC void dvRelationshipSetChildSparsegroup(dvRelationship Relationship, dvSparsegroup value) {dvRelationships.ChildSparsegroup[dvRelationship2ValidIndex(Relationship)] = value;}
+utInlineC void dvRelationshipSetConstructorCallback(void(*func)(dvRelationship)) {dvRelationshipConstructorCallback = func;}
+utInlineC dvRelationshipCallbackType dvRelationshipGetConstructorCallback(void) {return dvRelationshipConstructorCallback;}
+utInlineC dvRelationship dvFirstRelationship(void) {return dvRootData.usedRelationship == 1? dvRelationshipNull : dvIndex2Relationship(1);}
+utInlineC dvRelationship dvLastRelationship(void) {return dvRootData.usedRelationship == 1? dvRelationshipNull :
     dvIndex2Relationship(dvRootData.usedRelationship - 1);}
-static dvRelationship dvNextRelationship(dvRelationship Relationship) {return dvRelationship2ValidIndex(Relationship) + 1 == dvRootData.usedRelationship? dvRelationshipNull :
+utInlineC dvRelationship dvNextRelationship(dvRelationship Relationship) {return dvRelationship2ValidIndex(Relationship) + 1 == dvRootData.usedRelationship? dvRelationshipNull :
     Relationship + 1;}
-static utInlineC dvRelationship dvPrevRelationship(dvRelationship Relationship) {return dvRelationship2ValidIndex(Relationship) == 1? dvRelationshipNull : Relationship - 1;}
+utInlineC dvRelationship dvPrevRelationship(dvRelationship Relationship) {return dvRelationship2ValidIndex(Relationship) == 1? dvRelationshipNull : Relationship - 1;}
 #define dvForeachRelationship(var) \
     for(var = dvIndex2Relationship(1); dvRelationship2Index(var) != dvRootData.usedRelationship; var++)
 #define dvEndRelationship
-static utInlineC void dvRelationshipFreeAll(void) {dvSetUsedRelationship(1);}
-static utInlineC dvRelationship dvRelationshipAllocRaw(void) {
+utInlineC void dvRelationshipFreeAll(void) {dvSetUsedRelationship(1);}
+utInlineC dvRelationship dvRelationshipAllocRaw(void) {
     dvRelationship Relationship;
     if(dvRootData.usedRelationship == dvRootData.allocatedRelationship) {
         dvRelationshipAllocMore();
@@ -2249,9 +2249,9 @@ static utInlineC dvRelationship dvRelationshipAllocRaw(void) {
     Relationship = dvIndex2Relationship(dvRootData.usedRelationship);
     dvSetUsedRelationship(dvUsedRelationship() + 1);
     return Relationship;}
-static utInlineC dvRelationship dvRelationshipAlloc(void) {
+utInlineC dvRelationship dvRelationshipAlloc(void) {
     dvRelationship Relationship = dvRelationshipAllocRaw();
-    dvRelationshipSetType(Relationship, 0);
+    dvRelationshipSetType(Relationship, REL_LINKED_LIST);
     dvRelationshipSetParentLabelSym(Relationship, utSymNull);
     dvRelationshipSetChildLabelSym(Relationship, utSymNull);
     dvRelationshipSetMandatory(Relationship, 0);
@@ -2293,28 +2293,28 @@ extern struct dvKeyFields dvKeys;
 
 void dvKeyAllocMore(void);
 void dvKeyCopyProps(dvKey dvOldKey, dvKey dvNewKey);
-static utInlineC uint32 dvKeyGetLineNum(dvKey Key) {return dvKeys.LineNum[dvKey2ValidIndex(Key)];}
-static utInlineC void dvKeySetLineNum(dvKey Key, uint32 value) {dvKeys.LineNum[dvKey2ValidIndex(Key)] = value;}
-static utInlineC dvRelationship dvKeyGetRelationship(dvKey Key) {return dvKeys.Relationship[dvKey2ValidIndex(Key)];}
-static utInlineC void dvKeySetRelationship(dvKey Key, dvRelationship value) {dvKeys.Relationship[dvKey2ValidIndex(Key)] = value;}
-static utInlineC dvKey dvKeyGetNextRelationshipKey(dvKey Key) {return dvKeys.NextRelationshipKey[dvKey2ValidIndex(Key)];}
-static utInlineC void dvKeySetNextRelationshipKey(dvKey Key, dvKey value) {dvKeys.NextRelationshipKey[dvKey2ValidIndex(Key)] = value;}
-static utInlineC dvKeyproperty dvKeyGetFirstKeyproperty(dvKey Key) {return dvKeys.FirstKeyproperty[dvKey2ValidIndex(Key)];}
-static utInlineC void dvKeySetFirstKeyproperty(dvKey Key, dvKeyproperty value) {dvKeys.FirstKeyproperty[dvKey2ValidIndex(Key)] = value;}
-static utInlineC dvKeyproperty dvKeyGetLastKeyproperty(dvKey Key) {return dvKeys.LastKeyproperty[dvKey2ValidIndex(Key)];}
-static utInlineC void dvKeySetLastKeyproperty(dvKey Key, dvKeyproperty value) {dvKeys.LastKeyproperty[dvKey2ValidIndex(Key)] = value;}
-static utInlineC void dvKeySetConstructorCallback(void(*func)(dvKey)) {dvKeyConstructorCallback = func;}
-static utInlineC dvKeyCallbackType dvKeyGetConstructorCallback(void) {return dvKeyConstructorCallback;}
-static utInlineC void dvKeySetDestructorCallback(void(*func)(dvKey)) {dvKeyDestructorCallback = func;}
-static utInlineC dvKeyCallbackType dvKeyGetDestructorCallback(void) {return dvKeyDestructorCallback;}
-static utInlineC dvKey dvKeyNextFree(dvKey Key) {return ((dvKey *)(void *)(dvKeys.Relationship))[dvKey2ValidIndex(Key)];}
-static utInlineC void dvKeySetNextFree(dvKey Key, dvKey value) {
+utInlineC uint32 dvKeyGetLineNum(dvKey Key) {return dvKeys.LineNum[dvKey2ValidIndex(Key)];}
+utInlineC void dvKeySetLineNum(dvKey Key, uint32 value) {dvKeys.LineNum[dvKey2ValidIndex(Key)] = value;}
+utInlineC dvRelationship dvKeyGetRelationship(dvKey Key) {return dvKeys.Relationship[dvKey2ValidIndex(Key)];}
+utInlineC void dvKeySetRelationship(dvKey Key, dvRelationship value) {dvKeys.Relationship[dvKey2ValidIndex(Key)] = value;}
+utInlineC dvKey dvKeyGetNextRelationshipKey(dvKey Key) {return dvKeys.NextRelationshipKey[dvKey2ValidIndex(Key)];}
+utInlineC void dvKeySetNextRelationshipKey(dvKey Key, dvKey value) {dvKeys.NextRelationshipKey[dvKey2ValidIndex(Key)] = value;}
+utInlineC dvKeyproperty dvKeyGetFirstKeyproperty(dvKey Key) {return dvKeys.FirstKeyproperty[dvKey2ValidIndex(Key)];}
+utInlineC void dvKeySetFirstKeyproperty(dvKey Key, dvKeyproperty value) {dvKeys.FirstKeyproperty[dvKey2ValidIndex(Key)] = value;}
+utInlineC dvKeyproperty dvKeyGetLastKeyproperty(dvKey Key) {return dvKeys.LastKeyproperty[dvKey2ValidIndex(Key)];}
+utInlineC void dvKeySetLastKeyproperty(dvKey Key, dvKeyproperty value) {dvKeys.LastKeyproperty[dvKey2ValidIndex(Key)] = value;}
+utInlineC void dvKeySetConstructorCallback(void(*func)(dvKey)) {dvKeyConstructorCallback = func;}
+utInlineC dvKeyCallbackType dvKeyGetConstructorCallback(void) {return dvKeyConstructorCallback;}
+utInlineC void dvKeySetDestructorCallback(void(*func)(dvKey)) {dvKeyDestructorCallback = func;}
+utInlineC dvKeyCallbackType dvKeyGetDestructorCallback(void) {return dvKeyDestructorCallback;}
+utInlineC dvKey dvKeyNextFree(dvKey Key) {return ((dvKey *)(void *)(dvKeys.Relationship))[dvKey2ValidIndex(Key)];}
+utInlineC void dvKeySetNextFree(dvKey Key, dvKey value) {
     ((dvKey *)(void *)(dvKeys.Relationship))[dvKey2ValidIndex(Key)] = value;}
-static utInlineC void dvKeyFree(dvKey Key) {
+utInlineC void dvKeyFree(dvKey Key) {
     dvKeySetNextFree(Key, dvRootData.firstFreeKey);
     dvSetFirstFreeKey(Key);}
 void dvKeyDestroy(dvKey Key);
-static utInlineC dvKey dvKeyAllocRaw(void) {
+utInlineC dvKey dvKeyAllocRaw(void) {
     dvKey Key;
     if(dvRootData.firstFreeKey != dvKeyNull) {
         Key = dvRootData.firstFreeKey;
@@ -2327,7 +2327,7 @@ static utInlineC dvKey dvKeyAllocRaw(void) {
         dvSetUsedKey(dvUsedKey() + 1);
     }
     return Key;}
-static utInlineC dvKey dvKeyAlloc(void) {
+utInlineC dvKey dvKeyAlloc(void) {
     dvKey Key = dvKeyAllocRaw();
     dvKeySetLineNum(Key, 0);
     dvKeySetRelationship(Key, dvRelationshipNull);
@@ -2353,28 +2353,28 @@ extern struct dvKeypropertyFields dvKeypropertys;
 
 void dvKeypropertyAllocMore(void);
 void dvKeypropertyCopyProps(dvKeyproperty dvOldKeyproperty, dvKeyproperty dvNewKeyproperty);
-static utInlineC utSym dvKeypropertyGetPropertySym(dvKeyproperty Keyproperty) {return dvKeypropertys.PropertySym[dvKeyproperty2ValidIndex(Keyproperty)];}
-static utInlineC void dvKeypropertySetPropertySym(dvKeyproperty Keyproperty, utSym value) {dvKeypropertys.PropertySym[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
-static utInlineC dvProperty dvKeypropertyGetProperty(dvKeyproperty Keyproperty) {return dvKeypropertys.Property[dvKeyproperty2ValidIndex(Keyproperty)];}
-static utInlineC void dvKeypropertySetProperty(dvKeyproperty Keyproperty, dvProperty value) {dvKeypropertys.Property[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
-static utInlineC dvKeyproperty dvKeypropertyGetNextPropertyKeyproperty(dvKeyproperty Keyproperty) {return dvKeypropertys.NextPropertyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)];}
-static utInlineC void dvKeypropertySetNextPropertyKeyproperty(dvKeyproperty Keyproperty, dvKeyproperty value) {dvKeypropertys.NextPropertyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
-static utInlineC dvKey dvKeypropertyGetKey(dvKeyproperty Keyproperty) {return dvKeypropertys.Key[dvKeyproperty2ValidIndex(Keyproperty)];}
-static utInlineC void dvKeypropertySetKey(dvKeyproperty Keyproperty, dvKey value) {dvKeypropertys.Key[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
-static utInlineC dvKeyproperty dvKeypropertyGetNextKeyKeyproperty(dvKeyproperty Keyproperty) {return dvKeypropertys.NextKeyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)];}
-static utInlineC void dvKeypropertySetNextKeyKeyproperty(dvKeyproperty Keyproperty, dvKeyproperty value) {dvKeypropertys.NextKeyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
-static utInlineC void dvKeypropertySetConstructorCallback(void(*func)(dvKeyproperty)) {dvKeypropertyConstructorCallback = func;}
-static utInlineC dvKeypropertyCallbackType dvKeypropertyGetConstructorCallback(void) {return dvKeypropertyConstructorCallback;}
-static utInlineC void dvKeypropertySetDestructorCallback(void(*func)(dvKeyproperty)) {dvKeypropertyDestructorCallback = func;}
-static utInlineC dvKeypropertyCallbackType dvKeypropertyGetDestructorCallback(void) {return dvKeypropertyDestructorCallback;}
-static utInlineC dvKeyproperty dvKeypropertyNextFree(dvKeyproperty Keyproperty) {return ((dvKeyproperty *)(void *)(dvKeypropertys.PropertySym))[dvKeyproperty2ValidIndex(Keyproperty)];}
-static utInlineC void dvKeypropertySetNextFree(dvKeyproperty Keyproperty, dvKeyproperty value) {
+utInlineC utSym dvKeypropertyGetPropertySym(dvKeyproperty Keyproperty) {return dvKeypropertys.PropertySym[dvKeyproperty2ValidIndex(Keyproperty)];}
+utInlineC void dvKeypropertySetPropertySym(dvKeyproperty Keyproperty, utSym value) {dvKeypropertys.PropertySym[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
+utInlineC dvProperty dvKeypropertyGetProperty(dvKeyproperty Keyproperty) {return dvKeypropertys.Property[dvKeyproperty2ValidIndex(Keyproperty)];}
+utInlineC void dvKeypropertySetProperty(dvKeyproperty Keyproperty, dvProperty value) {dvKeypropertys.Property[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
+utInlineC dvKeyproperty dvKeypropertyGetNextPropertyKeyproperty(dvKeyproperty Keyproperty) {return dvKeypropertys.NextPropertyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)];}
+utInlineC void dvKeypropertySetNextPropertyKeyproperty(dvKeyproperty Keyproperty, dvKeyproperty value) {dvKeypropertys.NextPropertyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
+utInlineC dvKey dvKeypropertyGetKey(dvKeyproperty Keyproperty) {return dvKeypropertys.Key[dvKeyproperty2ValidIndex(Keyproperty)];}
+utInlineC void dvKeypropertySetKey(dvKeyproperty Keyproperty, dvKey value) {dvKeypropertys.Key[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
+utInlineC dvKeyproperty dvKeypropertyGetNextKeyKeyproperty(dvKeyproperty Keyproperty) {return dvKeypropertys.NextKeyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)];}
+utInlineC void dvKeypropertySetNextKeyKeyproperty(dvKeyproperty Keyproperty, dvKeyproperty value) {dvKeypropertys.NextKeyKeyproperty[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
+utInlineC void dvKeypropertySetConstructorCallback(void(*func)(dvKeyproperty)) {dvKeypropertyConstructorCallback = func;}
+utInlineC dvKeypropertyCallbackType dvKeypropertyGetConstructorCallback(void) {return dvKeypropertyConstructorCallback;}
+utInlineC void dvKeypropertySetDestructorCallback(void(*func)(dvKeyproperty)) {dvKeypropertyDestructorCallback = func;}
+utInlineC dvKeypropertyCallbackType dvKeypropertyGetDestructorCallback(void) {return dvKeypropertyDestructorCallback;}
+utInlineC dvKeyproperty dvKeypropertyNextFree(dvKeyproperty Keyproperty) {return ((dvKeyproperty *)(void *)(dvKeypropertys.PropertySym))[dvKeyproperty2ValidIndex(Keyproperty)];}
+utInlineC void dvKeypropertySetNextFree(dvKeyproperty Keyproperty, dvKeyproperty value) {
     ((dvKeyproperty *)(void *)(dvKeypropertys.PropertySym))[dvKeyproperty2ValidIndex(Keyproperty)] = value;}
-static utInlineC void dvKeypropertyFree(dvKeyproperty Keyproperty) {
+utInlineC void dvKeypropertyFree(dvKeyproperty Keyproperty) {
     dvKeypropertySetNextFree(Keyproperty, dvRootData.firstFreeKeyproperty);
     dvSetFirstFreeKeyproperty(Keyproperty);}
 void dvKeypropertyDestroy(dvKeyproperty Keyproperty);
-static utInlineC dvKeyproperty dvKeypropertyAllocRaw(void) {
+utInlineC dvKeyproperty dvKeypropertyAllocRaw(void) {
     dvKeyproperty Keyproperty;
     if(dvRootData.firstFreeKeyproperty != dvKeypropertyNull) {
         Keyproperty = dvRootData.firstFreeKeyproperty;
@@ -2387,7 +2387,7 @@ static utInlineC dvKeyproperty dvKeypropertyAllocRaw(void) {
         dvSetUsedKeyproperty(dvUsedKeyproperty() + 1);
     }
     return Keyproperty;}
-static utInlineC dvKeyproperty dvKeypropertyAlloc(void) {
+utInlineC dvKeyproperty dvKeypropertyAlloc(void) {
     dvKeyproperty Keyproperty = dvKeypropertyAllocRaw();
     dvKeypropertySetPropertySym(Keyproperty, utSymNull);
     dvKeypropertySetProperty(Keyproperty, dvPropertyNull);
@@ -2418,38 +2418,38 @@ extern struct dvUnionFields dvUnions;
 
 void dvUnionAllocMore(void);
 void dvUnionCopyProps(dvUnion dvOldUnion, dvUnion dvNewUnion);
-static utInlineC utSym dvUnionGetPropertySym(dvUnion Union) {return dvUnions.PropertySym[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetPropertySym(dvUnion Union, utSym value) {dvUnions.PropertySym[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC dvProperty dvUnionGetTypeProperty(dvUnion Union) {return dvUnions.TypeProperty[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetTypeProperty(dvUnion Union, dvProperty value) {dvUnions.TypeProperty[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC uint32 dvUnionGetLine(dvUnion Union) {return dvUnions.Line[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetLine(dvUnion Union, uint32 value) {dvUnions.Line[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC uint16 dvUnionGetNumber(dvUnion Union) {return dvUnions.Number[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetNumber(dvUnion Union, uint16 value) {dvUnions.Number[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC uint32 dvUnionGetFieldNumber(dvUnion Union) {return dvUnions.FieldNumber[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetFieldNumber(dvUnion Union, uint32 value) {dvUnions.FieldNumber[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC uint16 dvUnionGetNumCases(dvUnion Union) {return dvUnions.NumCases[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetNumCases(dvUnion Union, uint16 value) {dvUnions.NumCases[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC dvClass dvUnionGetClass(dvUnion Union) {return dvUnions.Class[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetClass(dvUnion Union, dvClass value) {dvUnions.Class[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC dvUnion dvUnionGetNextClassUnion(dvUnion Union) {return dvUnions.NextClassUnion[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetNextClassUnion(dvUnion Union, dvUnion value) {dvUnions.NextClassUnion[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC dvProperty dvUnionGetFirstProperty(dvUnion Union) {return dvUnions.FirstProperty[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetFirstProperty(dvUnion Union, dvProperty value) {dvUnions.FirstProperty[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC dvProperty dvUnionGetLastProperty(dvUnion Union) {return dvUnions.LastProperty[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetLastProperty(dvUnion Union, dvProperty value) {dvUnions.LastProperty[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC void dvUnionSetConstructorCallback(void(*func)(dvUnion)) {dvUnionConstructorCallback = func;}
-static utInlineC dvUnionCallbackType dvUnionGetConstructorCallback(void) {return dvUnionConstructorCallback;}
-static utInlineC void dvUnionSetDestructorCallback(void(*func)(dvUnion)) {dvUnionDestructorCallback = func;}
-static utInlineC dvUnionCallbackType dvUnionGetDestructorCallback(void) {return dvUnionDestructorCallback;}
-static utInlineC dvUnion dvUnionNextFree(dvUnion Union) {return ((dvUnion *)(void *)(dvUnions.PropertySym))[dvUnion2ValidIndex(Union)];}
-static utInlineC void dvUnionSetNextFree(dvUnion Union, dvUnion value) {
+utInlineC utSym dvUnionGetPropertySym(dvUnion Union) {return dvUnions.PropertySym[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetPropertySym(dvUnion Union, utSym value) {dvUnions.PropertySym[dvUnion2ValidIndex(Union)] = value;}
+utInlineC dvProperty dvUnionGetTypeProperty(dvUnion Union) {return dvUnions.TypeProperty[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetTypeProperty(dvUnion Union, dvProperty value) {dvUnions.TypeProperty[dvUnion2ValidIndex(Union)] = value;}
+utInlineC uint32 dvUnionGetLine(dvUnion Union) {return dvUnions.Line[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetLine(dvUnion Union, uint32 value) {dvUnions.Line[dvUnion2ValidIndex(Union)] = value;}
+utInlineC uint16 dvUnionGetNumber(dvUnion Union) {return dvUnions.Number[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetNumber(dvUnion Union, uint16 value) {dvUnions.Number[dvUnion2ValidIndex(Union)] = value;}
+utInlineC uint32 dvUnionGetFieldNumber(dvUnion Union) {return dvUnions.FieldNumber[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetFieldNumber(dvUnion Union, uint32 value) {dvUnions.FieldNumber[dvUnion2ValidIndex(Union)] = value;}
+utInlineC uint16 dvUnionGetNumCases(dvUnion Union) {return dvUnions.NumCases[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetNumCases(dvUnion Union, uint16 value) {dvUnions.NumCases[dvUnion2ValidIndex(Union)] = value;}
+utInlineC dvClass dvUnionGetClass(dvUnion Union) {return dvUnions.Class[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetClass(dvUnion Union, dvClass value) {dvUnions.Class[dvUnion2ValidIndex(Union)] = value;}
+utInlineC dvUnion dvUnionGetNextClassUnion(dvUnion Union) {return dvUnions.NextClassUnion[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetNextClassUnion(dvUnion Union, dvUnion value) {dvUnions.NextClassUnion[dvUnion2ValidIndex(Union)] = value;}
+utInlineC dvProperty dvUnionGetFirstProperty(dvUnion Union) {return dvUnions.FirstProperty[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetFirstProperty(dvUnion Union, dvProperty value) {dvUnions.FirstProperty[dvUnion2ValidIndex(Union)] = value;}
+utInlineC dvProperty dvUnionGetLastProperty(dvUnion Union) {return dvUnions.LastProperty[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetLastProperty(dvUnion Union, dvProperty value) {dvUnions.LastProperty[dvUnion2ValidIndex(Union)] = value;}
+utInlineC void dvUnionSetConstructorCallback(void(*func)(dvUnion)) {dvUnionConstructorCallback = func;}
+utInlineC dvUnionCallbackType dvUnionGetConstructorCallback(void) {return dvUnionConstructorCallback;}
+utInlineC void dvUnionSetDestructorCallback(void(*func)(dvUnion)) {dvUnionDestructorCallback = func;}
+utInlineC dvUnionCallbackType dvUnionGetDestructorCallback(void) {return dvUnionDestructorCallback;}
+utInlineC dvUnion dvUnionNextFree(dvUnion Union) {return ((dvUnion *)(void *)(dvUnions.PropertySym))[dvUnion2ValidIndex(Union)];}
+utInlineC void dvUnionSetNextFree(dvUnion Union, dvUnion value) {
     ((dvUnion *)(void *)(dvUnions.PropertySym))[dvUnion2ValidIndex(Union)] = value;}
-static utInlineC void dvUnionFree(dvUnion Union) {
+utInlineC void dvUnionFree(dvUnion Union) {
     dvUnionSetNextFree(Union, dvRootData.firstFreeUnion);
     dvSetFirstFreeUnion(Union);}
 void dvUnionDestroy(dvUnion Union);
-static utInlineC dvUnion dvUnionAllocRaw(void) {
+utInlineC dvUnion dvUnionAllocRaw(void) {
     dvUnion Union;
     if(dvRootData.firstFreeUnion != dvUnionNull) {
         Union = dvRootData.firstFreeUnion;
@@ -2462,7 +2462,7 @@ static utInlineC dvUnion dvUnionAllocRaw(void) {
         dvSetUsedUnion(dvUsedUnion() + 1);
     }
     return Union;}
-static utInlineC dvUnion dvUnionAlloc(void) {
+utInlineC dvUnion dvUnionAlloc(void) {
     dvUnion Union = dvUnionAllocRaw();
     dvUnionSetPropertySym(Union, utSymNull);
     dvUnionSetTypeProperty(Union, dvPropertyNull);
@@ -2493,28 +2493,28 @@ extern struct dvCaseFields dvCases;
 
 void dvCaseAllocMore(void);
 void dvCaseCopyProps(dvCase dvOldCase, dvCase dvNewCase);
-static utInlineC utSym dvCaseGetEntrySym(dvCase Case) {return dvCases.EntrySym[dvCase2ValidIndex(Case)];}
-static utInlineC void dvCaseSetEntrySym(dvCase Case, utSym value) {dvCases.EntrySym[dvCase2ValidIndex(Case)] = value;}
-static utInlineC dvEntry dvCaseGetEntry(dvCase Case) {return dvCases.Entry[dvCase2ValidIndex(Case)];}
-static utInlineC void dvCaseSetEntry(dvCase Case, dvEntry value) {dvCases.Entry[dvCase2ValidIndex(Case)] = value;}
-static utInlineC dvCase dvCaseGetNextEntryCase(dvCase Case) {return dvCases.NextEntryCase[dvCase2ValidIndex(Case)];}
-static utInlineC void dvCaseSetNextEntryCase(dvCase Case, dvCase value) {dvCases.NextEntryCase[dvCase2ValidIndex(Case)] = value;}
-static utInlineC dvProperty dvCaseGetProperty(dvCase Case) {return dvCases.Property[dvCase2ValidIndex(Case)];}
-static utInlineC void dvCaseSetProperty(dvCase Case, dvProperty value) {dvCases.Property[dvCase2ValidIndex(Case)] = value;}
-static utInlineC dvCase dvCaseGetNextPropertyCase(dvCase Case) {return dvCases.NextPropertyCase[dvCase2ValidIndex(Case)];}
-static utInlineC void dvCaseSetNextPropertyCase(dvCase Case, dvCase value) {dvCases.NextPropertyCase[dvCase2ValidIndex(Case)] = value;}
-static utInlineC void dvCaseSetConstructorCallback(void(*func)(dvCase)) {dvCaseConstructorCallback = func;}
-static utInlineC dvCaseCallbackType dvCaseGetConstructorCallback(void) {return dvCaseConstructorCallback;}
-static utInlineC void dvCaseSetDestructorCallback(void(*func)(dvCase)) {dvCaseDestructorCallback = func;}
-static utInlineC dvCaseCallbackType dvCaseGetDestructorCallback(void) {return dvCaseDestructorCallback;}
-static utInlineC dvCase dvCaseNextFree(dvCase Case) {return ((dvCase *)(void *)(dvCases.EntrySym))[dvCase2ValidIndex(Case)];}
-static utInlineC void dvCaseSetNextFree(dvCase Case, dvCase value) {
+utInlineC utSym dvCaseGetEntrySym(dvCase Case) {return dvCases.EntrySym[dvCase2ValidIndex(Case)];}
+utInlineC void dvCaseSetEntrySym(dvCase Case, utSym value) {dvCases.EntrySym[dvCase2ValidIndex(Case)] = value;}
+utInlineC dvEntry dvCaseGetEntry(dvCase Case) {return dvCases.Entry[dvCase2ValidIndex(Case)];}
+utInlineC void dvCaseSetEntry(dvCase Case, dvEntry value) {dvCases.Entry[dvCase2ValidIndex(Case)] = value;}
+utInlineC dvCase dvCaseGetNextEntryCase(dvCase Case) {return dvCases.NextEntryCase[dvCase2ValidIndex(Case)];}
+utInlineC void dvCaseSetNextEntryCase(dvCase Case, dvCase value) {dvCases.NextEntryCase[dvCase2ValidIndex(Case)] = value;}
+utInlineC dvProperty dvCaseGetProperty(dvCase Case) {return dvCases.Property[dvCase2ValidIndex(Case)];}
+utInlineC void dvCaseSetProperty(dvCase Case, dvProperty value) {dvCases.Property[dvCase2ValidIndex(Case)] = value;}
+utInlineC dvCase dvCaseGetNextPropertyCase(dvCase Case) {return dvCases.NextPropertyCase[dvCase2ValidIndex(Case)];}
+utInlineC void dvCaseSetNextPropertyCase(dvCase Case, dvCase value) {dvCases.NextPropertyCase[dvCase2ValidIndex(Case)] = value;}
+utInlineC void dvCaseSetConstructorCallback(void(*func)(dvCase)) {dvCaseConstructorCallback = func;}
+utInlineC dvCaseCallbackType dvCaseGetConstructorCallback(void) {return dvCaseConstructorCallback;}
+utInlineC void dvCaseSetDestructorCallback(void(*func)(dvCase)) {dvCaseDestructorCallback = func;}
+utInlineC dvCaseCallbackType dvCaseGetDestructorCallback(void) {return dvCaseDestructorCallback;}
+utInlineC dvCase dvCaseNextFree(dvCase Case) {return ((dvCase *)(void *)(dvCases.EntrySym))[dvCase2ValidIndex(Case)];}
+utInlineC void dvCaseSetNextFree(dvCase Case, dvCase value) {
     ((dvCase *)(void *)(dvCases.EntrySym))[dvCase2ValidIndex(Case)] = value;}
-static utInlineC void dvCaseFree(dvCase Case) {
+utInlineC void dvCaseFree(dvCase Case) {
     dvCaseSetNextFree(Case, dvRootData.firstFreeCase);
     dvSetFirstFreeCase(Case);}
 void dvCaseDestroy(dvCase Case);
-static utInlineC dvCase dvCaseAllocRaw(void) {
+utInlineC dvCase dvCaseAllocRaw(void) {
     dvCase Case;
     if(dvRootData.firstFreeCase != dvCaseNull) {
         Case = dvRootData.firstFreeCase;
@@ -2527,7 +2527,7 @@ static utInlineC dvCase dvCaseAllocRaw(void) {
         dvSetUsedCase(dvUsedCase() + 1);
     }
     return Case;}
-static utInlineC dvCase dvCaseAlloc(void) {
+utInlineC dvCase dvCaseAlloc(void) {
     dvCase Case = dvCaseAllocRaw();
     dvCaseSetEntrySym(Case, utSymNull);
     dvCaseSetEntry(Case, dvEntryNull);
@@ -2556,34 +2556,34 @@ extern struct dvCacheFields dvCaches;
 
 void dvCacheAllocMore(void);
 void dvCacheCopyProps(dvCache dvOldCache, dvCache dvNewCache);
-static utInlineC uint16 dvCacheGetNumber(dvCache Cache) {return dvCaches.Number[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetNumber(dvCache Cache, uint16 value) {dvCaches.Number[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC uint32 dvCacheGetLine(dvCache Cache) {return dvCaches.Line[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetLine(dvCache Cache, uint32 value) {dvCaches.Line[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC dvClass dvCacheGetClass(dvCache Cache) {return dvCaches.Class[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetClass(dvCache Cache, dvClass value) {dvCaches.Class[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC dvCache dvCacheGetNextClassCache(dvCache Cache) {return dvCaches.NextClassCache[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetNextClassCache(dvCache Cache, dvCache value) {dvCaches.NextClassCache[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC dvProperty dvCacheGetFirstProperty(dvCache Cache) {return dvCaches.FirstProperty[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetFirstProperty(dvCache Cache, dvProperty value) {dvCaches.FirstProperty[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC dvProperty dvCacheGetLastProperty(dvCache Cache) {return dvCaches.LastProperty[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetLastProperty(dvCache Cache, dvProperty value) {dvCaches.LastProperty[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC dvPropident dvCacheGetFirstPropident(dvCache Cache) {return dvCaches.FirstPropident[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetFirstPropident(dvCache Cache, dvPropident value) {dvCaches.FirstPropident[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC dvPropident dvCacheGetLastPropident(dvCache Cache) {return dvCaches.LastPropident[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetLastPropident(dvCache Cache, dvPropident value) {dvCaches.LastPropident[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC void dvCacheSetConstructorCallback(void(*func)(dvCache)) {dvCacheConstructorCallback = func;}
-static utInlineC dvCacheCallbackType dvCacheGetConstructorCallback(void) {return dvCacheConstructorCallback;}
-static utInlineC void dvCacheSetDestructorCallback(void(*func)(dvCache)) {dvCacheDestructorCallback = func;}
-static utInlineC dvCacheCallbackType dvCacheGetDestructorCallback(void) {return dvCacheDestructorCallback;}
-static utInlineC dvCache dvCacheNextFree(dvCache Cache) {return ((dvCache *)(void *)(dvCaches.Class))[dvCache2ValidIndex(Cache)];}
-static utInlineC void dvCacheSetNextFree(dvCache Cache, dvCache value) {
+utInlineC uint16 dvCacheGetNumber(dvCache Cache) {return dvCaches.Number[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetNumber(dvCache Cache, uint16 value) {dvCaches.Number[dvCache2ValidIndex(Cache)] = value;}
+utInlineC uint32 dvCacheGetLine(dvCache Cache) {return dvCaches.Line[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetLine(dvCache Cache, uint32 value) {dvCaches.Line[dvCache2ValidIndex(Cache)] = value;}
+utInlineC dvClass dvCacheGetClass(dvCache Cache) {return dvCaches.Class[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetClass(dvCache Cache, dvClass value) {dvCaches.Class[dvCache2ValidIndex(Cache)] = value;}
+utInlineC dvCache dvCacheGetNextClassCache(dvCache Cache) {return dvCaches.NextClassCache[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetNextClassCache(dvCache Cache, dvCache value) {dvCaches.NextClassCache[dvCache2ValidIndex(Cache)] = value;}
+utInlineC dvProperty dvCacheGetFirstProperty(dvCache Cache) {return dvCaches.FirstProperty[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetFirstProperty(dvCache Cache, dvProperty value) {dvCaches.FirstProperty[dvCache2ValidIndex(Cache)] = value;}
+utInlineC dvProperty dvCacheGetLastProperty(dvCache Cache) {return dvCaches.LastProperty[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetLastProperty(dvCache Cache, dvProperty value) {dvCaches.LastProperty[dvCache2ValidIndex(Cache)] = value;}
+utInlineC dvPropident dvCacheGetFirstPropident(dvCache Cache) {return dvCaches.FirstPropident[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetFirstPropident(dvCache Cache, dvPropident value) {dvCaches.FirstPropident[dvCache2ValidIndex(Cache)] = value;}
+utInlineC dvPropident dvCacheGetLastPropident(dvCache Cache) {return dvCaches.LastPropident[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetLastPropident(dvCache Cache, dvPropident value) {dvCaches.LastPropident[dvCache2ValidIndex(Cache)] = value;}
+utInlineC void dvCacheSetConstructorCallback(void(*func)(dvCache)) {dvCacheConstructorCallback = func;}
+utInlineC dvCacheCallbackType dvCacheGetConstructorCallback(void) {return dvCacheConstructorCallback;}
+utInlineC void dvCacheSetDestructorCallback(void(*func)(dvCache)) {dvCacheDestructorCallback = func;}
+utInlineC dvCacheCallbackType dvCacheGetDestructorCallback(void) {return dvCacheDestructorCallback;}
+utInlineC dvCache dvCacheNextFree(dvCache Cache) {return ((dvCache *)(void *)(dvCaches.Class))[dvCache2ValidIndex(Cache)];}
+utInlineC void dvCacheSetNextFree(dvCache Cache, dvCache value) {
     ((dvCache *)(void *)(dvCaches.Class))[dvCache2ValidIndex(Cache)] = value;}
-static utInlineC void dvCacheFree(dvCache Cache) {
+utInlineC void dvCacheFree(dvCache Cache) {
     dvCacheSetNextFree(Cache, dvRootData.firstFreeCache);
     dvSetFirstFreeCache(Cache);}
 void dvCacheDestroy(dvCache Cache);
-static utInlineC dvCache dvCacheAllocRaw(void) {
+utInlineC dvCache dvCacheAllocRaw(void) {
     dvCache Cache;
     if(dvRootData.firstFreeCache != dvCacheNull) {
         Cache = dvRootData.firstFreeCache;
@@ -2596,7 +2596,7 @@ static utInlineC dvCache dvCacheAllocRaw(void) {
         dvSetUsedCache(dvUsedCache() + 1);
     }
     return Cache;}
-static utInlineC dvCache dvCacheAlloc(void) {
+utInlineC dvCache dvCacheAlloc(void) {
     dvCache Cache = dvCacheAllocRaw();
     dvCacheSetNumber(Cache, 0);
     dvCacheSetLine(Cache, 0);
@@ -2623,24 +2623,24 @@ extern struct dvPropidentFields dvPropidents;
 
 void dvPropidentAllocMore(void);
 void dvPropidentCopyProps(dvPropident dvOldPropident, dvPropident dvNewPropident);
-static utInlineC utSym dvPropidentGetSym(dvPropident Propident) {return dvPropidents.Sym[dvPropident2ValidIndex(Propident)];}
-static utInlineC void dvPropidentSetSym(dvPropident Propident, utSym value) {dvPropidents.Sym[dvPropident2ValidIndex(Propident)] = value;}
-static utInlineC dvCache dvPropidentGetCache(dvPropident Propident) {return dvPropidents.Cache[dvPropident2ValidIndex(Propident)];}
-static utInlineC void dvPropidentSetCache(dvPropident Propident, dvCache value) {dvPropidents.Cache[dvPropident2ValidIndex(Propident)] = value;}
-static utInlineC dvPropident dvPropidentGetNextCachePropident(dvPropident Propident) {return dvPropidents.NextCachePropident[dvPropident2ValidIndex(Propident)];}
-static utInlineC void dvPropidentSetNextCachePropident(dvPropident Propident, dvPropident value) {dvPropidents.NextCachePropident[dvPropident2ValidIndex(Propident)] = value;}
-static utInlineC void dvPropidentSetConstructorCallback(void(*func)(dvPropident)) {dvPropidentConstructorCallback = func;}
-static utInlineC dvPropidentCallbackType dvPropidentGetConstructorCallback(void) {return dvPropidentConstructorCallback;}
-static utInlineC void dvPropidentSetDestructorCallback(void(*func)(dvPropident)) {dvPropidentDestructorCallback = func;}
-static utInlineC dvPropidentCallbackType dvPropidentGetDestructorCallback(void) {return dvPropidentDestructorCallback;}
-static utInlineC dvPropident dvPropidentNextFree(dvPropident Propident) {return ((dvPropident *)(void *)(dvPropidents.Sym))[dvPropident2ValidIndex(Propident)];}
-static utInlineC void dvPropidentSetNextFree(dvPropident Propident, dvPropident value) {
+utInlineC utSym dvPropidentGetSym(dvPropident Propident) {return dvPropidents.Sym[dvPropident2ValidIndex(Propident)];}
+utInlineC void dvPropidentSetSym(dvPropident Propident, utSym value) {dvPropidents.Sym[dvPropident2ValidIndex(Propident)] = value;}
+utInlineC dvCache dvPropidentGetCache(dvPropident Propident) {return dvPropidents.Cache[dvPropident2ValidIndex(Propident)];}
+utInlineC void dvPropidentSetCache(dvPropident Propident, dvCache value) {dvPropidents.Cache[dvPropident2ValidIndex(Propident)] = value;}
+utInlineC dvPropident dvPropidentGetNextCachePropident(dvPropident Propident) {return dvPropidents.NextCachePropident[dvPropident2ValidIndex(Propident)];}
+utInlineC void dvPropidentSetNextCachePropident(dvPropident Propident, dvPropident value) {dvPropidents.NextCachePropident[dvPropident2ValidIndex(Propident)] = value;}
+utInlineC void dvPropidentSetConstructorCallback(void(*func)(dvPropident)) {dvPropidentConstructorCallback = func;}
+utInlineC dvPropidentCallbackType dvPropidentGetConstructorCallback(void) {return dvPropidentConstructorCallback;}
+utInlineC void dvPropidentSetDestructorCallback(void(*func)(dvPropident)) {dvPropidentDestructorCallback = func;}
+utInlineC dvPropidentCallbackType dvPropidentGetDestructorCallback(void) {return dvPropidentDestructorCallback;}
+utInlineC dvPropident dvPropidentNextFree(dvPropident Propident) {return ((dvPropident *)(void *)(dvPropidents.Sym))[dvPropident2ValidIndex(Propident)];}
+utInlineC void dvPropidentSetNextFree(dvPropident Propident, dvPropident value) {
     ((dvPropident *)(void *)(dvPropidents.Sym))[dvPropident2ValidIndex(Propident)] = value;}
-static utInlineC void dvPropidentFree(dvPropident Propident) {
+utInlineC void dvPropidentFree(dvPropident Propident) {
     dvPropidentSetNextFree(Propident, dvRootData.firstFreePropident);
     dvSetFirstFreePropident(Propident);}
 void dvPropidentDestroy(dvPropident Propident);
-static utInlineC dvPropident dvPropidentAllocRaw(void) {
+utInlineC dvPropident dvPropidentAllocRaw(void) {
     dvPropident Propident;
     if(dvRootData.firstFreePropident != dvPropidentNull) {
         Propident = dvRootData.firstFreePropident;
@@ -2653,7 +2653,7 @@ static utInlineC dvPropident dvPropidentAllocRaw(void) {
         dvSetUsedPropident(dvUsedPropident() + 1);
     }
     return Propident;}
-static utInlineC dvPropident dvPropidentAlloc(void) {
+utInlineC dvPropident dvPropidentAlloc(void) {
     dvPropident Propident = dvPropidentAllocRaw();
     dvPropidentSetSym(Propident, utSymNull);
     dvPropidentSetCache(Propident, dvCacheNull);
@@ -2668,7 +2668,7 @@ static utInlineC dvPropident dvPropidentAlloc(void) {
 ----------------------------------------------------------------------------------------*/
 dvModpath dvRootFindModpath(dvRoot Root, utSym Sym);
 void dvRootRenameModpath(dvRoot Root, dvModpath _Modpath, utSym sym);
-static utInlineC char *dvModpathGetName(dvModpath Modpath) {return utSymGetName(dvModpathGetSym(Modpath));}
+utInlineC char *dvModpathGetName(dvModpath Modpath) {return utSymGetName(dvModpathGetSym(Modpath));}
 #define dvForeachRootModpath(pVar, cVar) \
     for(cVar = dvRootGetFirstModpath(pVar); cVar != dvModpathNull; \
         cVar = dvModpathGetNextRootModpath(cVar))
@@ -2680,7 +2680,7 @@ static utInlineC char *dvModpathGetName(dvModpath Modpath) {return utSymGetName(
 #define dvEndSafeRootModpath }}
 dvModule dvRootFindModule(dvRoot Root, utSym Sym);
 void dvRootRenameModule(dvRoot Root, dvModule _Module, utSym sym);
-static utInlineC char *dvModuleGetName(dvModule Module) {return utSymGetName(dvModuleGetSym(Module));}
+utInlineC char *dvModuleGetName(dvModule Module) {return utSymGetName(dvModuleGetSym(Module));}
 #define dvForeachRootModule(pVar, cVar) \
     for(cVar = dvRootGetFirstModule(pVar); cVar != dvModuleNull; \
         cVar = dvModuleGetNextRootModule(cVar))
@@ -2700,7 +2700,7 @@ void dvRootInsertAfterModule(dvRoot Root, dvModule prevModule, dvModule _Module)
 void dvRootAppendModule(dvRoot Root, dvModule _Module);
 dvClass dvModuleFindClass(dvModule Module, utSym Sym);
 void dvModuleRenameClass(dvModule Module, dvClass _Class, utSym sym);
-static utInlineC char *dvClassGetName(dvClass Class) {return utSymGetName(dvClassGetSym(Class));}
+utInlineC char *dvClassGetName(dvClass Class) {return utSymGetName(dvClassGetSym(Class));}
 #define dvForeachModuleClass(pVar, cVar) \
     for(cVar = dvModuleGetFirstClass(pVar); cVar != dvClassNull; \
         cVar = dvClassGetNextModuleClass(cVar))
@@ -2712,7 +2712,7 @@ static utInlineC char *dvClassGetName(dvClass Class) {return utSymGetName(dvClas
 #define dvEndSafeModuleClass }}
 dvEnum dvModuleFindEnum(dvModule Module, utSym Sym);
 void dvModuleRenameEnum(dvModule Module, dvEnum _Enum, utSym sym);
-static utInlineC char *dvEnumGetName(dvEnum Enum) {return utSymGetName(dvEnumGetSym(Enum));}
+utInlineC char *dvEnumGetName(dvEnum Enum) {return utSymGetName(dvEnumGetSym(Enum));}
 #define dvForeachModuleEnum(pVar, cVar) \
     for(cVar = dvModuleGetFirstEnum(pVar); cVar != dvEnumNull; \
         cVar = dvEnumGetNextModuleEnum(cVar))
@@ -2724,7 +2724,7 @@ static utInlineC char *dvEnumGetName(dvEnum Enum) {return utSymGetName(dvEnumGet
 #define dvEndSafeModuleEnum }}
 dvTypedef dvModuleFindTypedef(dvModule Module, utSym Sym);
 void dvModuleRenameTypedef(dvModule Module, dvTypedef _Typedef, utSym sym);
-static utInlineC char *dvTypedefGetName(dvTypedef Typedef) {return utSymGetName(dvTypedefGetSym(Typedef));}
+utInlineC char *dvTypedefGetName(dvTypedef Typedef) {return utSymGetName(dvTypedefGetSym(Typedef));}
 #define dvForeachModuleTypedef(pVar, cVar) \
     for(cVar = dvModuleGetFirstTypedef(pVar); cVar != dvTypedefNull; \
         cVar = dvTypedefGetNextModuleTypedef(cVar))
@@ -2736,7 +2736,7 @@ static utInlineC char *dvTypedefGetName(dvTypedef Typedef) {return utSymGetName(
 #define dvEndSafeModuleTypedef }}
 dvSchema dvModuleFindSchema(dvModule Module, utSym Sym);
 void dvModuleRenameSchema(dvModule Module, dvSchema _Schema, utSym sym);
-static utInlineC char *dvSchemaGetName(dvSchema Schema) {return utSymGetName(dvSchemaGetSym(Schema));}
+utInlineC char *dvSchemaGetName(dvSchema Schema) {return utSymGetName(dvSchemaGetSym(Schema));}
 #define dvForeachModuleSchema(pVar, cVar) \
     for(cVar = dvModuleGetFirstSchema(pVar); cVar != dvSchemaNull; \
         cVar = dvSchemaGetNextModuleSchema(cVar))
@@ -2803,7 +2803,7 @@ void dvSchemaInsertAfterRelationship(dvSchema Schema, dvRelationship prevRelatio
 void dvSchemaAppendRelationship(dvSchema Schema, dvRelationship _Relationship);
 dvEntry dvEnumFindEntry(dvEnum Enum, utSym Sym);
 void dvEnumRenameEntry(dvEnum Enum, dvEntry _Entry, utSym sym);
-static utInlineC char *dvEntryGetName(dvEntry Entry) {return utSymGetName(dvEntryGetSym(Entry));}
+utInlineC char *dvEntryGetName(dvEntry Entry) {return utSymGetName(dvEntryGetSym(Entry));}
 #define dvForeachEnumEntry(pVar, cVar) \
     for(cVar = dvEnumGetFirstEntry(pVar); cVar != dvEntryNull; \
         cVar = dvEntryGetNextEnumEntry(cVar))
@@ -2832,7 +2832,7 @@ void dvEntryInsertAfterCase(dvEntry Entry, dvCase prevCase, dvCase _Case);
 void dvEntryAppendCase(dvEntry Entry, dvCase _Case);
 dvProperty dvClassFindProperty(dvClass Class, utSym Sym);
 void dvClassRenameProperty(dvClass Class, dvProperty _Property, utSym sym);
-static utInlineC char *dvPropertyGetName(dvProperty Property) {return utSymGetName(dvPropertyGetSym(Property));}
+utInlineC char *dvPropertyGetName(dvProperty Property) {return utSymGetName(dvPropertyGetSym(Property));}
 #define dvForeachClassProperty(pVar, cVar) \
     for(cVar = dvClassGetFirstProperty(pVar); cVar != dvPropertyNull; \
         cVar = dvPropertyGetNextClassProperty(cVar))
@@ -2844,7 +2844,7 @@ static utInlineC char *dvPropertyGetName(dvProperty Property) {return utSymGetNa
 #define dvEndSafeClassProperty }}
 dvSparsegroup dvClassFindSparsegroup(dvClass Class, utSym Sym);
 void dvClassRenameSparsegroup(dvClass Class, dvSparsegroup _Sparsegroup, utSym sym);
-static utInlineC char *dvSparsegroupGetName(dvSparsegroup Sparsegroup) {return utSymGetName(dvSparsegroupGetSym(Sparsegroup));}
+utInlineC char *dvSparsegroupGetName(dvSparsegroup Sparsegroup) {return utSymGetName(dvSparsegroupGetSym(Sparsegroup));}
 #define dvForeachClassSparsegroup(pVar, cVar) \
     for(cVar = dvClassGetFirstSparsegroup(pVar); cVar != dvSparsegroupNull; \
         cVar = dvSparsegroupGetNextClassSparsegroup(cVar))
@@ -2992,10 +2992,10 @@ void dvRelationshipInsertKey(dvRelationship Relationship, dvKey _Key);
 void dvRelationshipRemoveKey(dvRelationship Relationship, dvKey _Key);
 void dvRelationshipInsertAfterKey(dvRelationship Relationship, dvKey prevKey, dvKey _Key);
 void dvRelationshipAppendKey(dvRelationship Relationship, dvKey _Key);
-static utInlineC void dvRelationshipInsertParentSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetParentSparsegroup(Relationship, _Sparsegroup); dvSparsegroupSetRelationship(_Sparsegroup, Relationship);}
-static utInlineC void dvRelationshipRemoveParentSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetParentSparsegroup(Relationship, dvSparsegroupNull); dvSparsegroupSetRelationship(_Sparsegroup, dvRelationshipNull);}
-static utInlineC void dvRelationshipInsertChildSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetChildSparsegroup(Relationship, _Sparsegroup); dvSparsegroupSetRelationship(_Sparsegroup, Relationship);}
-static utInlineC void dvRelationshipRemoveChildSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetChildSparsegroup(Relationship, dvSparsegroupNull); dvSparsegroupSetRelationship(_Sparsegroup, dvRelationshipNull);}
+utInlineC void dvRelationshipInsertParentSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetParentSparsegroup(Relationship, _Sparsegroup); dvSparsegroupSetRelationship(_Sparsegroup, Relationship);}
+utInlineC void dvRelationshipRemoveParentSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetParentSparsegroup(Relationship, dvSparsegroupNull); dvSparsegroupSetRelationship(_Sparsegroup, dvRelationshipNull);}
+utInlineC void dvRelationshipInsertChildSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetChildSparsegroup(Relationship, _Sparsegroup); dvSparsegroupSetRelationship(_Sparsegroup, Relationship);}
+utInlineC void dvRelationshipRemoveChildSparsegroup(dvRelationship Relationship, dvSparsegroup _Sparsegroup) {dvRelationshipSetChildSparsegroup(Relationship, dvSparsegroupNull); dvSparsegroupSetRelationship(_Sparsegroup, dvRelationshipNull);}
 #define dvForeachKeyKeyproperty(pVar, cVar) \
     for(cVar = dvKeyGetFirstKeyproperty(pVar); cVar != dvKeypropertyNull; \
         cVar = dvKeypropertyGetNextKeyKeyproperty(cVar))

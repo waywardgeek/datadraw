@@ -6922,8 +6922,8 @@ void dvSparsegroupDestroy(
     dvSparsegroup Sparsegroup)
 {
     dvProperty Property_;
-    dvClass owningClass = dvSparsegroupGetClass(Sparsegroup);
-    dvRelationship owningRelationship = dvSparsegroupGetRelationship(Sparsegroup);
+    dvClass owningClass /* = dvSparsegroupGetClass(Sparsegroup) */ ;
+    dvRelationship owningRelationship /* = dvSparsegroupGetRelationship(Sparsegroup) */ ;
 
     if(dvSparsegroupDestructorCallback != NULL) {
         dvSparsegroupDestructorCallback(Sparsegroup);
@@ -6931,6 +6931,7 @@ void dvSparsegroupDestroy(
     dvSafeForeachSparsegroupProperty(Sparsegroup, Property_) {
         dvPropertySetSparsegroup(Property_, dvSparsegroupNull);
     } dvEndSafeSparsegroupProperty;
+    owningClass = dvSparsegroupGetClass(Sparsegroup);
     if(owningClass != dvClassNull) {
         dvClassRemoveSparsegroup(owningClass, Sparsegroup);
 #if defined(DD_DEBUG)
@@ -6938,9 +6939,11 @@ void dvSparsegroupDestroy(
         utExit("Sparsegroup without owning Class");
 #endif
     }
+    owningRelationship = dvSparsegroupGetRelationship(Sparsegroup);
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipSetParentSparsegroup(owningRelationship, dvSparsegroupNull);
     }
+    owningRelationship = dvSparsegroupGetRelationship(Sparsegroup);
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipSetChildSparsegroup(owningRelationship, dvSparsegroupNull);
     }
@@ -7545,7 +7548,7 @@ void dvKeyDestroy(
     dvKey Key)
 {
     dvKeyproperty Keyproperty_;
-    dvRelationship owningRelationship = dvKeyGetRelationship(Key);
+    dvRelationship owningRelationship /* = dvKeyGetRelationship(Key) */ ;
 
     if(dvKeyDestructorCallback != NULL) {
         dvKeyDestructorCallback(Key);
@@ -7553,6 +7556,7 @@ void dvKeyDestroy(
     dvSafeForeachKeyKeyproperty(Key, Keyproperty_) {
         dvKeypropertyDestroy(Keyproperty_);
     } dvEndSafeKeyKeyproperty;
+    owningRelationship = dvKeyGetRelationship(Key);
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipRemoveKey(owningRelationship, Key);
 #if defined(DD_DEBUG)
@@ -7763,12 +7767,13 @@ void dvShowKey(
 void dvKeypropertyDestroy(
     dvKeyproperty Keyproperty)
 {
-    dvKey owningKey = dvKeypropertyGetKey(Keyproperty);
-    dvProperty owningProperty = dvKeypropertyGetProperty(Keyproperty);
+    dvKey owningKey /* = dvKeypropertyGetKey(Keyproperty) */ ;
+    dvProperty owningProperty /* = dvKeypropertyGetProperty(Keyproperty) */ ;
 
     if(dvKeypropertyDestructorCallback != NULL) {
         dvKeypropertyDestructorCallback(Keyproperty);
     }
+    owningKey = dvKeypropertyGetKey(Keyproperty);
     if(owningKey != dvKeyNull) {
         dvKeyRemoveKeyproperty(owningKey, Keyproperty);
 #if defined(DD_DEBUG)
@@ -7776,6 +7781,7 @@ void dvKeypropertyDestroy(
         utExit("Keyproperty without owning Key");
 #endif
     }
+    owningProperty = dvKeypropertyGetProperty(Keyproperty);
     if(owningProperty != dvPropertyNull) {
         dvPropertyRemoveKeyproperty(owningProperty, Keyproperty);
 #if defined(DD_DEBUG)
@@ -7870,7 +7876,7 @@ void dvUnionDestroy(
     dvUnion Union)
 {
     dvProperty Property_;
-    dvClass owningClass = dvUnionGetClass(Union);
+    dvClass owningClass /* = dvUnionGetClass(Union) */ ;
 
     if(dvUnionDestructorCallback != NULL) {
         dvUnionDestructorCallback(Union);
@@ -7878,6 +7884,7 @@ void dvUnionDestroy(
     dvSafeForeachUnionProperty(Union, Property_) {
         dvPropertySetUnion(Property_, dvUnionNull);
     } dvEndSafeUnionProperty;
+    owningClass = dvUnionGetClass(Union);
     if(owningClass != dvClassNull) {
         dvClassRemoveUnion(owningClass, Union);
 #if defined(DD_DEBUG)
@@ -8102,12 +8109,13 @@ void dvShowUnion(
 void dvCaseDestroy(
     dvCase Case)
 {
-    dvEntry owningEntry = dvCaseGetEntry(Case);
-    dvProperty owningProperty = dvCaseGetProperty(Case);
+    dvEntry owningEntry /* = dvCaseGetEntry(Case) */ ;
+    dvProperty owningProperty /* = dvCaseGetProperty(Case) */ ;
 
     if(dvCaseDestructorCallback != NULL) {
         dvCaseDestructorCallback(Case);
     }
+    owningEntry = dvCaseGetEntry(Case);
     if(owningEntry != dvEntryNull) {
         dvEntryRemoveCase(owningEntry, Case);
 #if defined(DD_DEBUG)
@@ -8115,6 +8123,7 @@ void dvCaseDestroy(
         utExit("Case without owning Entry");
 #endif
     }
+    owningProperty = dvCaseGetProperty(Case);
     if(owningProperty != dvPropertyNull) {
         dvPropertyRemoveCase(owningProperty, Case);
 #if defined(DD_DEBUG)
@@ -8210,7 +8219,7 @@ void dvCacheDestroy(
 {
     dvProperty Property_;
     dvPropident Propident_;
-    dvClass owningClass = dvCacheGetClass(Cache);
+    dvClass owningClass /* = dvCacheGetClass(Cache) */ ;
 
     if(dvCacheDestructorCallback != NULL) {
         dvCacheDestructorCallback(Cache);
@@ -8221,6 +8230,7 @@ void dvCacheDestroy(
     dvSafeForeachCachePropident(Cache, Propident_) {
         dvPropidentDestroy(Propident_);
     } dvEndSafeCachePropident;
+    owningClass = dvCacheGetClass(Cache);
     if(owningClass != dvClassNull) {
         dvClassRemoveCache(owningClass, Cache);
 #if defined(DD_DEBUG)
@@ -8555,11 +8565,12 @@ void dvShowCache(
 void dvPropidentDestroy(
     dvPropident Propident)
 {
-    dvCache owningCache = dvPropidentGetCache(Propident);
+    dvCache owningCache /* = dvPropidentGetCache(Propident) */ ;
 
     if(dvPropidentDestructorCallback != NULL) {
         dvPropidentDestructorCallback(Propident);
     }
+    owningCache = dvPropidentGetCache(Propident);
     if(owningCache != dvCacheNull) {
         dvCacheRemovePropident(owningCache, Propident);
 #if defined(DD_DEBUG)

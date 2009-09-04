@@ -115,6 +115,7 @@ char *utFullPath(char *relativePath);
 char *utFindInPath(char *name, char *path);
 void utTruncateFile(char *fileName, uint64 length);
 bool utDeleteFile(char *fileName);
+bool utMakeDirectory(char *dirName);
 
 /*--------------------------------------------------------------------------------------------------
   Portable interface to launch an application.
@@ -351,12 +352,12 @@ void utDynarrayResize(utDynarray dynarray, uint32 newSize);
     (utDynarrayGetSize(dynarray) >> 1)), true),\
     utDynarraySetiValueType(dynarray, type, utDynarrayGetUsedValue(dynarray), (value)),\
     utDynarraySetUsedValue(dynarray, utDynarrayGetUsedValue(dynarray) + 1))
-#define utForeachDynarrayValue(dynarray, type, value) \
+#define utForeachDynarrayTypeValue(dynarray, type, value) \
 {\
     uint32 _xValue;\
     for(_xValue = 0; _xValue < utDynarrayGetUsedValue(dynarray); _xValue++) {\
         (value) = utDynarrayGetiValueType((dynarray), type, _xValue);
-#define utEndDynarrayValue }}
+#define utEndDynarrayTypeValue }}
 #define utDynarrayCopy(destDynarray, sourceDynarray, type) { \
     uint32 _xValue; \
     if (utDynarrayGetSize(destDynarray) < utDynarrayGetSize(sourceDynarray)) { \

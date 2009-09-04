@@ -108,7 +108,7 @@ static void writeClassRootMemoryManagementMacros(
     if(dvClassGetBaseClass(theClass) == dvClassNull) {
         if(dvClassGetMemoryStyle(theClass) == MEM_FREE_LIST) {
             dvWrtemp(dvFile,
-                "static utInlineC %0%1 %0FirstFree%1(void) {return %0RootData.firstFree%1;}\n",
+                "utInlineC %0%1 %0FirstFree%1(void) {return %0RootData.firstFree%1;}\n",
                 dvPrefix, name);
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
                 "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.firstFree%1, true);\n    ",
@@ -117,12 +117,12 @@ static void writeClassRootMemoryManagementMacros(
                 "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.firstFree%1, false);",
                 dvPrefix, name, utSprintf("%u", dvClassGetReferenceSize(theClass) >> 3));
             dvWrtemp(dvFile,
-                "static utInlineC void %0SetFirstFree%1(%0%1 value) {%2%0RootData.firstFree%1 = (value);%3}\n",
+                "utInlineC void %0SetFirstFree%1(%0%1 value) {%2%0RootData.firstFree%1 = (value);%3}\n",
                 dvPrefix, name, preString, postString);
         }
         dvWrtemp(dvFile,
-            "static utInlineC %2 %0Used%1(void) {return %0RootData.used%1;}\n"
-            "static utInlineC %2 %0Allocated%1(void) {return %0RootData.allocated%1;}\n",
+            "utInlineC %2 %0Used%1(void) {return %0RootData.used%1;}\n"
+            "utInlineC %2 %0Allocated%1(void) {return %0RootData.allocated%1;}\n",
             dvPrefix, name, dvClassGetReferenceTypeName(theClass));
         preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
             "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.used%1, true);\n    ",
@@ -131,7 +131,7 @@ static void writeClassRootMemoryManagementMacros(
             "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.used%1, false);",
             dvPrefix, name, utSprintf("%u", dvClassGetReferenceSize(theClass) >> 3));
         dvWrtemp(dvFile,
-            "static utInlineC void %0SetUsed%1(%4 value) {%2%0RootData.used%1 = value;%3}\n",
+            "utInlineC void %0SetUsed%1(%4 value) {%2%0RootData.used%1 = value;%3}\n",
             dvPrefix, name, preString, postString, dvClassGetReferenceTypeName(theClass));
         preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
                 "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.allocated%1, true);\n    ",
@@ -140,11 +140,11 @@ static void writeClassRootMemoryManagementMacros(
                 "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.allocated%1, false);",
                 dvPrefix, name, utSprintf("%u", dvClassGetReferenceSize(theClass) >> 3));
         dvWrtemp(dvFile,
-            "static utInlineC void %0SetAllocated%1(%4 value) {%2%0RootData.allocated%1 = value;%3}\n",
+            "utInlineC void %0SetAllocated%1(%4 value) {%2%0RootData.allocated%1 = value;%3}\n",
             dvPrefix, name, preString, postString, dvClassGetReferenceTypeName(theClass));
     } else {
         dvWrtemp(dvFile,
-            "static utInlineC %2 %0Allocated%1(void) {return %0RootData.allocated%1;}\n",
+            "utInlineC %2 %0Allocated%1(void) {return %0RootData.allocated%1;}\n",
             dvPrefix, name, dvClassGetReferenceTypeName(theClass));
         preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
             "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.allocated%1, true);\n",
@@ -153,7 +153,7 @@ static void writeClassRootMemoryManagementMacros(
             "\n    utRecordGlobal(%0ModuleID, %2, &%0RootData.allocated%1, false);",
             dvPrefix, name, utSprintf("%u", dvClassGetReferenceSize(theClass) >> 3));
         dvWrtemp(dvFile,
-            "static utInlineC void %0SetAllocated%1(%4 value) {%2%0RootData.allocated%1 = value;%3}\n",
+            "utInlineC void %0SetAllocated%1(%4 value) {%2%0RootData.allocated%1 = value;%3}\n",
             dvPrefix, name, preString, postString, dvClassGetReferenceTypeName(theClass));
     }
 }
@@ -171,9 +171,9 @@ static void writeClassRootPropertyMacros(
     dvForeachClassProperty(theClass, prop) {
         if(dvPropertyArray(prop) && !dvPropertyFixedSize(prop) && !dvPropertyView(prop)) {
             dvWrtemp(dvFile,
-                "static utInlineC uint32 %0Used%1%2(void) {return %0RootData.used%1%2;}\n"
-                "static utInlineC uint32 %0Allocated%1%2(void) {return %0RootData.allocated%1%2;}\n"
-                "static utInlineC uint32 %0Free%1%2(void) {return %0RootData.free%1%2;}\n",
+                "utInlineC uint32 %0Used%1%2(void) {return %0RootData.used%1%2;}\n"
+                "utInlineC uint32 %0Allocated%1%2(void) {return %0RootData.allocated%1%2;}\n"
+                "utInlineC uint32 %0Free%1%2(void) {return %0RootData.free%1%2;}\n",
                 dvPrefix, name, dvPropertyGetName(prop));
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
                 "\n    utRecordGlobal(%0ModuleID, sizeof(uint32), &%0RootData.used%1%2, true);\n    ",
@@ -182,7 +182,7 @@ static void writeClassRootPropertyMacros(
                 "\n    utRecordGlobal(%0ModuleID, sizeof(uint32), &%0RootData.used%1%2, false);",
                 dvPrefix, name, dvPropertyGetName(prop));
             dvWrtemp(dvFile,
-                "static utInlineC void %0SetUsed%1%2(uint32 value) {%3%0RootData.used%1%2 = value;%4}\n",
+                "utInlineC void %0SetUsed%1%2(uint32 value) {%3%0RootData.used%1%2 = value;%4}\n",
                 dvPrefix, name, dvPropertyGetName(prop), preString, postString);
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
                 "\n    utRecordGlobal(%0ModuleID, sizeof(uint32), &%0RootData.allocated%1%2, true);\n    ",
@@ -191,7 +191,7 @@ static void writeClassRootPropertyMacros(
                 "\n    utRecordGlobal(%0ModuleID, sizeof(uint32), &%0RootData.allocated%1%2, false);",
                 dvPrefix, name, dvPropertyGetName(prop));
             dvWrtemp(dvFile,
-                "static utInlineC void %0SetAllocated%1%2(uint32 value) {%3%0RootData.allocated%1%2 = value;%4}\n",
+                "utInlineC void %0SetAllocated%1%2(uint32 value) {%3%0RootData.allocated%1%2 = value;%4}\n",
                 dvPrefix, name, dvPropertyGetName(prop), preString, postString);
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
                 "\n    utRecordGlobal(%0ModuleID, sizeof(uint32), &%0RootData.free%1%2, true);\n    ",
@@ -200,7 +200,7 @@ static void writeClassRootPropertyMacros(
                 "\n    utRecordGlobal(%0ModuleID, sizeof(uint32), &%0RootData.free%1%2, false);",
                 dvPrefix, name, dvPropertyGetName(prop));
             dvWrtemp(dvFile,
-                "static utInlineC void %0SetFree%1%2(int32 value) {%3%0RootData.free%1%2 = value;%4}\n",
+                "utInlineC void %0SetFree%1%2(int32 value) {%3%0RootData.free%1%2 = value;%4}\n",
                 dvPrefix, name, dvPropertyGetName(prop), preString, postString);
         }
     } dvEndClassProperty;
@@ -236,7 +236,7 @@ static void writeRoot(
     } dvEndModuleClass;
     dvWrtemp(dvFile, "};\nextern struct %0RootType_ %0RootData;\n\n", dvPrefix);
     dvWrtemp(dvFile,
-        "static utInlineC uint32 %0Hash(void) {return %0RootData.hash;}\n", dvPrefix);
+        "utInlineC uint32 %0Hash(void) {return %0RootData.hash;}\n", dvPrefix);
     dvForeachModuleClass(module, theClass) {
         writeClassRootMacros(theClass);
     } dvEndModuleClass;
@@ -450,7 +450,7 @@ static void writeCompareFunction(
     uint32 numKeys = 0;
 
     dvWrtemp(dvFile,
-        "static utInlineC int %0%1Compare%2%3(%5%3 left, %5%3 right) {return ",
+        "utInlineC int %0%1Compare%2%3(%5%3 left, %5%3 right) {return ",
         dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
              dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
              dvRelationshipGetParentLabel(relationship));
@@ -509,8 +509,8 @@ static void writeClassRelExternFuncs(
         if(dvRelationshipAccessChild(relationship)) {
             if(type == REL_POINTER && dvRelationshipAccessParent(relationship)) {
                 dvWrtemp(dvFile,
-                    "static utInlineC void %0%1Insert%2%3(%4%1 %1, %5%3 _%3) {%0%1Set%2%3(%1, _%3); %0%3Set%6%1(_%3, %1);}\n"
-                    "static utInlineC void %0%1Remove%2%3(%4%1 %1, %5%3 _%3) {%0%1Set%2%3(%1, %5%3Null); "
+                    "utInlineC void %0%1Insert%2%3(%4%1 %1, %5%3 _%3) {%0%1Set%2%3(%1, _%3); %0%3Set%6%1(_%3, %1);}\n"
+                    "utInlineC void %0%1Remove%2%3(%4%1 %1, %5%3 _%3) {%0%1Set%2%3(%1, %5%3Null); "
                     "%0%3Set%6%1(_%3, %4%1Null);}\n",
                     dvPrefix, name, childLabel, childName,
                     dvClassGetPrefix(theClass), dvClassGetPrefix(childClass), parentLabel);
@@ -661,13 +661,13 @@ static void writeClassPropMacros(
             /* variable size array */
             dvWrtemp(dvFile,
                 "#if defined(DD_DEBUG)\n"
-                "static utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {utAssert(x < %0%1GetNum%2(%1)); return x;}\n"
+                "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {utAssert(x < %0%1GetNum%2(%1)); return x;}\n"
                 "#else\n"
-                "static utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {return x;}\n"
+                "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {return x;}\n"
                 "#endif\n"
-                "static utInlineC %5 %0%1Geti%2(%4%1 %1, uint32 x) {return %0%1s.%2[\n"
+                "utInlineC %5 %0%1Geti%2(%4%1 %1, uint32 x) {return %0%1s.%2[\n"
                 "    %0%1Get%2Index(%1) + %0%1Check%2Index(%1, x)];}\n"
-                "static utInlineC %5 *%0%1Get%2(%4%1 %1) {return %0%1s.%2 + %0%1Get%2Index(%1);}\n"
+                "utInlineC %5 *%0%1Get%2(%4%1 %1) {return %0%1s.%2 + %0%1Get%2Index(%1);}\n"
                 "#define %0%1Get%2s %0%1Get%2\n",
                 dvPrefix, name, propName, dvClassGetReferenceTypeName(theClass),
                 dvClassGetPrefix(theClass), propTypeString);
@@ -678,7 +678,7 @@ static void writeClassPropMacros(
                 "\n    utRecordArray(%0ModuleID, %3, %0%1Get%2Index(%1), %0%1GetNum%2(%1), false);\n",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
             dvWrtemp(dvFile,
-                "static utInlineC void %0%1Set%2(%6%1 %1, %3 *valuePtr, uint32 num%2) {\n"
+                "utInlineC void %0%1Set%2(%6%1 %1, %3 *valuePtr, uint32 num%2) {\n"
                 "    %0%1Resize%2s(%1, num%2);\n"
                 "%4    memcpy(%0%1Get%2s(%1), valuePtr, num%2*sizeof(%3));%5}\n",
                 dvPrefix, name, propName, propTypeString, preString, postString, dvClassGetPrefix(theClass));
@@ -689,30 +689,30 @@ static void writeClassPropMacros(
                 "\n    utRecordField(%0ModuleID, %3, %0%1Get%2Index(%1) + (x), false);",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
             dvWrtemp(dvFile,
-                    "static utInlineC void %0%1Seti%2(%5%1 %1, uint32 x, %6 value) {\n"
+                    "utInlineC void %0%1Seti%2(%5%1 %1, uint32 x, %6 value) {\n"
                     "%3    %0%1s.%2[%0%1Get%2Index(%1) + %0%1Check%2Index(%1, (x))] = value;%4}\n",
                 dvPrefix, name, propName, preString, postString, dvClassGetPrefix(theClass), propTypeString);
             if(dvPropertyGetRelationship(prop) == dvRelationshipNull) {
                 dvWrtemp(dvFile,
-                    "static utInlineC void %0%1Move%2s(%4%1 %1, uint32 from, uint32 to, uint32 count) {\n"
+                    "utInlineC void %0%1Move%2s(%4%1 %1, uint32 from, uint32 to, uint32 count) {\n"
                     "    utAssert((to+count) <= %0%1GetNum%2(%1));\n"
                     "    utAssert((from+count) <= %0%1GetNum%2(%1));\n"
                     "    memmove(%0%1Get%2s(%1)+to,%0%1Get%2s(%1)+from,((int32)count)*sizeof(%5));\n"
                     "}\n"
-                    "static utInlineC void %0%1Copy%2s(%4%1 %1, uint32 x, %5 * values, uint32 count) {\n"
+                    "utInlineC void %0%1Copy%2s(%4%1 %1, uint32 x, %5 * values, uint32 count) {\n"
                     "    utAssert((x+count) <= %0%1GetNum%2(%1));\n"
                     "    memcpy(%0%1Get%2s(%1)+x, values, count*sizeof(%5));\n"
                     "}\n"
-                    "static utInlineC void %0%1Append%2s(%4%1 %1, %5 * values, uint32 count) {\n"
+                    "utInlineC void %0%1Append%2s(%4%1 %1, %5 * values, uint32 count) {\n"
                     "    uint32 num = %0%1GetNum%2(%1);\n"
                     "    %0%1Resize%2s(%1, num+count);\n"
                     "    %0%1Copy%2s(%1, num, values, count);\n"
                     "}\n"
-                    "static utInlineC void %0%1Append%2(%4%1 %1, %5 %2) {\n"
+                    "utInlineC void %0%1Append%2(%4%1 %1, %5 %2) {\n"
                     "    %0%1Resize%2s(%1, %0%1GetNum%2(%1)+1);\n"
                     "    %0%1Seti%2(%1, %0%1GetNum%2(%1)-1, %2);\n"
                     "}\n"
-                    "static utInlineC void %0%1Insert%2s(%4%1 %1, uint32 x, %5 *%2, uint32 count) {\n"
+                    "utInlineC void %0%1Insert%2s(%4%1 %1, uint32 x, %5 *%2, uint32 count) {\n"
                     "    utAssert(x <= %0%1GetNum%2(%1));\n"
                     "    if(x < %0%1GetNum%2(%1)) {\n" 
                     "        %0%1Resize%2s(%1, %0%1GetNum%2(%1)+count);\n"
@@ -723,27 +723,27 @@ static void writeClassPropMacros(
                     "        %0%1Append%2s(%1, %2, count);\n"
                     "    }\n"
                     "}\n"
-                    "static utInlineC void %0%1Insert%2(%4%1 %1, uint32 x, %5 %2) {\n"
+                    "utInlineC void %0%1Insert%2(%4%1 %1, uint32 x, %5 %2) {\n"
                     "    %0%1Insert%2s(%1, x, &%2, 1);\n"
                     "}\n"
-                    "static utInlineC void %0%1Remove%2s(%4%1 %1, uint32 x, uint32 count) {\n"
+                    "utInlineC void %0%1Remove%2s(%4%1 %1, uint32 x, uint32 count) {\n"
                     "    utAssert((x+count) <= %0%1GetNum%2(%1));\n"
                     "    if((x+count) < %0%1GetNum%2(%1)) {\n"
                     "        %0%1Move%2s(%1, x+count,x,%0%1GetNum%2(%1)-x-count);\n"
                     "    }\n"
                     "    %0%1Resize%2s(%1, %0%1GetNum%2(%1)-(int32)count);\n"
                     "}\n"
-                    "static utInlineC void %0%1Remove%2(%4%1 %1, uint32 x) {\n"
+                    "utInlineC void %0%1Remove%2(%4%1 %1, uint32 x) {\n"
                     "    %0%1Remove%2s(%1, x, 1);\n"
                     "}\n"
-                    "static utInlineC void %0%1Swap%2(%4%1 %1, uint32 from, uint32 to) {\n"
+                    "utInlineC void %0%1Swap%2(%4%1 %1, uint32 from, uint32 to) {\n"
                     "    utAssert(from <= %0%1GetNum%2(%1));\n"
                     "    utAssert(to <= %0%1GetNum%2(%1));\n"
                     "    %5 tmp = %0%1Geti%2(%1, from);\n"
                     "    %0%1Seti%2(%1, from, %0%1Geti%2(%1, to));\n"
                     "    %0%1Seti%2(%1, to, tmp);\n"
                     "}\n"
-                    "static utInlineC void %0%1Swap%2s(%4%1 %1, uint32 from, uint32 to, uint32 count) {\n"
+                    "utInlineC void %0%1Swap%2s(%4%1 %1, uint32 from, uint32 to, uint32 count) {\n"
                     "    utAssert((from+count) < %0%1GetNum%2(%1));\n"
                     "    utAssert((to+count) < %0%1GetNum%2(%1));\n"
                     "    %5 tmp[count];\n"
@@ -793,15 +793,15 @@ static void writeClassPropMacros(
             /* Fixed sized arrays */
             dvWrtemp(dvFile,
                 "#if defined(DD_DEBUG)\n"
-                "static utInlineC uint32 %0%1Check%2Index(%5%1 %1, uint32 x) {\n"
+                "utInlineC uint32 %0%1Check%2Index(%5%1 %1, uint32 x) {\n"
                 "    utAssert(x < (%4));\n"
                 "    return x;}\n"
                 "#else\n"
-                "static utInlineC uint32 %0%1Check%2Index(%5%1 %1, uint32 x) {return x;}\n"
+                "utInlineC uint32 %0%1Check%2Index(%5%1 %1, uint32 x) {return x;}\n"
                 "#endif\n"
-                "static utInlineC %6 %0%1Geti%2(%5%1 %1, uint32 x) {\n"
+                "utInlineC %6 %0%1Geti%2(%5%1 %1, uint32 x) {\n"
                 "    return %0%1s.%2[%0%12Index(%1)*(%4) + %0%1Check%2Index(%1, x)];}\n"
-                "static utInlineC %6 *%0%1Get%2(%5%1 %1) {return %0%1s.%2 + %0%12Index(%1)*(%4);}\n"
+                "utInlineC %6 *%0%1Get%2(%5%1 %1) {return %0%1s.%2 + %0%12Index(%1)*(%4);}\n"
                 "#define %0%1Get%2s %0%1Get%2\n",
                 dvPrefix, name, propName, dvClassGetReferenceTypeName(theClass), dvPropertyGetIndex(prop),
                 dvClassGetPrefix(theClass), propTypeString);
@@ -812,7 +812,7 @@ static void writeClassPropMacros(
                 "\n    utRecordArray(%0ModuleID, %3, %0%12Index(%1)*(%4), (%4), false);",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop));
             dvWrtemp(dvFile,
-                "static utInlineC void %0%1Set%2(%6%1 %1, %3 *valuePtr, uint32 num%2) {\n"
+                "utInlineC void %0%1Set%2(%6%1 %1, %3 *valuePtr, uint32 num%2) {\n"
                 "%4    memcpy(%0%1Get%2s(%1), valuePtr, num%2*sizeof(%3));%5}\n",
                 dvPrefix, name, propName, propTypeString, preString, postString, dvClassGetPrefix(theClass));
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
@@ -822,7 +822,7 @@ static void writeClassPropMacros(
                 "\n    utRecordField(%0ModuleID, %3, %0%12Index(%1)*(%4) + (x), false);",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop));
             dvWrtemp(dvFile,
-                    "static utInlineC void %0%1Seti%2(%6%1 %1, uint32 x, %7 value) {\n"
+                    "utInlineC void %0%1Seti%2(%6%1 %1, uint32 x, %7 value) {\n"
                     "%4    %0%1s.%2[%0%12Index(%1)*(%3) + %0%1Check%2Index(%1, x)] = value;%5}\n",
                 dvPrefix, name, propName, dvPropertyGetIndex(prop), preString, postString, dvClassGetPrefix(theClass),
                 propTypeString);
@@ -872,31 +872,31 @@ static void writeClassPropMacros(
             }
             else if(dvPropertyGetType(prop) == PROP_BIT) {
                 dvWrtemp(dvFile,
-                    "static utInlineC bool %0%1%2(%3%1 %1) {\n"
+                    "utInlineC bool %0%1%2(%3%1 %1) {\n"
                     "    return (%0%1s.%2[%3%12ValidIndex(%1) >> 3] >> (%3%12ValidIndex(%1) & 7)) & 1;}\n"
-                    "static utInlineC void %0%1Set%2(%3%1 %1, bool value) {\n"
+                    "utInlineC void %0%1Set%2(%3%1 %1, bool value) {\n"
                     "%4    %0%1s.%2[%3%12ValidIndex(%1) >> 3] = (uint8)((%0%1s.%2[%3%12ValidIndex(%1) >> 3] &\n"
                     "        ~(1 << (%3%12ValidIndex(%1) & 7))) | ((value != 0) << (%3%12ValidIndex(%1) & 7)));%5}\n",
                     dvPrefix, name, propName, dvClassGetPrefix(theClass), preString, postString);
             } else {
                 if(theUnion == dvUnionNull && cache == dvCacheNull) {
                     dvWrtemp(dvFile,
-                        "static utInlineC %7 %0%1%3%2(%4%1 %1) {return %0%1s.%2[%4%12ValidIndex(%1)];}\n"
-                        "static utInlineC void %0%1Set%2(%4%1 %1, %7 value) {%5%0%1s.%2[%4%12ValidIndex(%1)] = "
+                        "utInlineC %7 %0%1%3%2(%4%1 %1) {return %0%1s.%2[%4%12ValidIndex(%1)];}\n"
+                        "utInlineC void %0%1Set%2(%4%1 %1, %7 value) {%5%0%1s.%2[%4%12ValidIndex(%1)] = "
                         "value;%6}\n",
                         dvPrefix, name, propName, accessString,
                         dvClassGetPrefix(theClass), preString, postString, propTypeString);
                 } else if(theUnion != dvUnionNull) {
                     dvWrtemp(dvFile,
-                        "static utInlineC %8 %0%1%3%2(%4%1 %1) {return %0%1s.%7[%4%12ValidIndex(%1)].%2;}\n"
-                        "static utInlineC void %0%1Set%2(%4%1 %1, %8 value) {\n"
+                        "utInlineC %8 %0%1%3%2(%4%1 %1) {return %0%1s.%7[%4%12ValidIndex(%1)].%2;}\n"
+                        "utInlineC void %0%1Set%2(%4%1 %1, %8 value) {\n"
                         "%5    %0%1s.%7[%4%12ValidIndex(%1)].%2 = value;%6}\n",
                         dvPrefix, name, propName, accessString, dvClassGetPrefix(theClass), preString, postString,
                         dvUnionGetFieldName(theUnion), propTypeString);
                 } else {
                     dvWrtemp(dvFile,
-                        "static utInlineC %6 %0%1%3%2(%4%1 %1) {return %0%1s.%5[%4%12ValidIndex(%1)].%2;}\n"
-                        "static utInlineC void %0%1Set%2(%4%1 %1, %6 value) {\n"
+                        "utInlineC %6 %0%1%3%2(%4%1 %1) {return %0%1s.%5[%4%12ValidIndex(%1)].%2;}\n"
+                        "utInlineC void %0%1Set%2(%4%1 %1, %6 value) {\n"
                         "    %0%1s.%5[%4%12ValidIndex(%1)].%2 = value;}\n",
                         dvPrefix, name, propName, accessString, dvClassGetPrefix(theClass), dvCacheGetFieldName(cache),
                         propTypeString);
@@ -969,7 +969,7 @@ static void writeClassChildRelMacros(
                         dvClassGetName(childClass), dvClassGetPrefix(theClass),
                         dvClassGetPrefix(childClass));
                     dvWrtemp(dvFile,
-                        "static utInlineC char *%0%2Get%1Name(%3%2 %2) {return utSymGetName(%0%2Get%1Sym(%2));}\n",
+                        "utInlineC char *%0%2Get%1Name(%3%2 %2) {return utSymGetName(%0%2Get%1Sym(%2));}\n",
                         dvPrefix, dvRelationshipGetChildLabel(relationship), dvClassGetName(childClass),
                         dvClassGetPrefix(childClass));
                 }
@@ -1089,7 +1089,7 @@ static void writeCreateMacrosForFreeListClass(
     char *name = dvClassGetName(theClass);
 
     dvWrtemp(dvFile,
-        "static utInlineC %0%1 %0%1AllocRaw(void) {\n"
+        "utInlineC %0%1 %0%1AllocRaw(void) {\n"
         "    %0%1 %1;\n"
         "    if(%0RootData.firstFree%1 != %0%1Null) {\n"
         "        %1 = %0RootData.firstFree%1;\n"
@@ -1104,7 +1104,7 @@ static void writeCreateMacrosForFreeListClass(
         "    return %1;}\n",
         dvPrefix, name);
     dvWrtemp(dvFile,
-        "static utInlineC %0%1 %0%1Alloc(void) {\n"
+        "utInlineC %0%1 %0%1Alloc(void) {\n"
         "    %0%1 %1 = %0%1AllocRaw();\n",
         dvPrefix, name);
     writePropertyInits(theClass);
@@ -1121,7 +1121,7 @@ static void writeCreateMacrosForCreateOnlyClass(
     char *name = dvClassGetName(theClass);
 
     dvWrtemp(dvFile,
-        "static utInlineC %0%1 %0%1AllocRaw(void) {\n"
+        "utInlineC %0%1 %0%1AllocRaw(void) {\n"
         "    %0%1 %1;\n"
         "    if(%0RootData.used%1 == %0RootData.allocated%1) {\n"
         "        %0%1AllocMore();\n"
@@ -1131,7 +1131,7 @@ static void writeCreateMacrosForCreateOnlyClass(
         "    return %1;}\n",
         dvPrefix, name);
     dvWrtemp(dvFile,
-        "static utInlineC %0%1 %0%1Alloc(void) {\n"
+        "utInlineC %0%1 %0%1Alloc(void) {\n"
         "    %0%1 %1 = %0%1AllocRaw();\n",
         dvPrefix, name);
     writePropertyInits(theClass);
@@ -1163,7 +1163,7 @@ static void writeClassInitMacro(
     char *name = dvClassGetName(theClass);
 
     dvWrtemp(dvFile,
-        "static utInlineC void %0%1Init(%2%1 %1) {\n",
+        "utInlineC void %0%1Init(%2%1 %1) {\n",
         dvPrefix, name, dvClassGetPrefix(theClass));
     writePropertyInits(theClass);
     writeClassConstructorCallback(theClass);
@@ -1181,22 +1181,22 @@ static void writeClassMiscMacros(
     char *preString, *postString;
 
     dvWrtemp(dvFile,
-        "static utInlineC void %0%1SetConstructorCallback(void(*func)(%0%1)) {%0%1ConstructorCallback = func;}\n"
-        "static utInlineC %0%1CallbackType %0%1GetConstructorCallback(void) {return %0%1ConstructorCallback;}\n",
+        "utInlineC void %0%1SetConstructorCallback(void(*func)(%0%1)) {%0%1ConstructorCallback = func;}\n"
+        "utInlineC %0%1CallbackType %0%1GetConstructorCallback(void) {return %0%1ConstructorCallback;}\n",
         dvPrefix, name);
     if(dvClassGetMemoryStyle(theClass) == MEM_CREATE_ONLY) {
         dvWrtemp(dvFile,
-            "static utInlineC %0%1 %0First%1(void) {return %0RootData.used%1 == 1? %0%1Null : %0Index2%1(1);}\n"
-            "static utInlineC %0%1 %0Last%1(void) {return %0RootData.used%1 == 1? %0%1Null :\n"
+            "utInlineC %0%1 %0First%1(void) {return %0RootData.used%1 == 1? %0%1Null : %0Index2%1(1);}\n"
+            "utInlineC %0%1 %0Last%1(void) {return %0RootData.used%1 == 1? %0%1Null :\n"
             "    %0Index2%1(%0RootData.used%1 - 1);}\n"
-            "static %0%1 %0Next%1(%0%1 %1) {return %0%12ValidIndex(%1) + 1 == %0RootData.used%1? %0%1Null :\n"
+            "utInlineC %0%1 %0Next%1(%0%1 %1) {return %0%12ValidIndex(%1) + 1 == %0RootData.used%1? %0%1Null :\n"
             "    %1 + 1;}\n"
-            "static utInlineC %0%1 %0Prev%1(%0%1 %1) {return %0%12ValidIndex(%1) == 1? %0%1Null : %1 - 1;}\n"
+            "utInlineC %0%1 %0Prev%1(%0%1 %1) {return %0%12ValidIndex(%1) == 1? %0%1Null : %1 - 1;}\n"
             "#define %0Foreach%1(var) \\\n"
             "    for(var = %0Index2%1(1); %0%12Index(var) != %0RootData.used%1; var++)\n"
             "#define %0End%1\n",
             dvPrefix, name, dvClassGetReferenceTypeName(theClass));
-        dvWrtemp(dvFile, "static utInlineC void %0%1FreeAll(void) {%0SetUsed%1(1);", dvPrefix, name);
+        dvWrtemp(dvFile, "utInlineC void %0%1FreeAll(void) {%0SetUsed%1(1);", dvPrefix, name);
         dvForeachClassProperty(theClass, prop) {
             if(dvPropertyArray(prop) && !dvPropertyFixedSize(prop) && !dvPropertyView(prop)) {
                 dvWrtemp(dvFile, " %0SetUsed%1%2(0);" , dvPrefix, name,
@@ -1207,11 +1207,11 @@ static void writeClassMiscMacros(
     } else if(dvClassGetMemoryStyle(theClass) == MEM_FREE_LIST) {
         prop = dvClassGetFreeListProperty(theClass);
         dvWrtemp(dvFile,
-            "static utInlineC void %0%1SetDestructorCallback(void(*func)(%0%1)) {%0%1DestructorCallback = func;}\n"
-            "static utInlineC %0%1CallbackType %0%1GetDestructorCallback(void) {return %0%1DestructorCallback;}\n",
+            "utInlineC void %0%1SetDestructorCallback(void(*func)(%0%1)) {%0%1DestructorCallback = func;}\n"
+            "utInlineC %0%1CallbackType %0%1GetDestructorCallback(void) {return %0%1DestructorCallback;}\n",
             dvPrefix, name);
         dvWrtemp(dvFile,
-            "static utInlineC %0%1 %0%1NextFree(%0%1 %1) {return ((%0%1 *)(void *)(%0%1s.%2))[%0%12ValidIndex(%1)];}\n",
+            "utInlineC %0%1 %0%1NextFree(%0%1 %1) {return ((%0%1 *)(void *)(%0%1s.%2))[%0%12ValidIndex(%1)];}\n",
             dvPrefix, name, dvPropertyGetName(prop));
         preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
             "\n    utRecordField(%0ModuleID, %2, %0%12ValidIndex(%1), true);\n    ",
@@ -1220,11 +1220,11 @@ static void writeClassMiscMacros(
             "\n    utRecordField(%0ModuleID, %2, %0%12ValidIndex(%1), false);",
             dvPrefix, name, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
         dvWrtemp(dvFile,
-            "static utInlineC void %0%1SetNextFree(%0%1 %1, %0%1 value) {\n"
+            "utInlineC void %0%1SetNextFree(%0%1 %1, %0%1 value) {\n"
             "%3    ((%0%1 *)(void *)(%0%1s.%2))[%0%12ValidIndex(%1)] = value;%4}\n",
             dvPrefix, name, dvPropertyGetName(prop), preString, postString);
         dvWrtemp(dvFile,
-            "static utInlineC void %0%1Free(%0%1 %1) {\n",
+            "utInlineC void %0%1Free(%0%1 %1) {\n",
             dvPrefix, name);
         dvForeachClassProperty(theClass, prop) {
             if(dvPropertyArray(prop) && !dvPropertyFixedSize(prop) && !dvPropertyView(prop)) {
@@ -1248,7 +1248,7 @@ static void writeAttributeShortcuts(
     dvClass theClass)
 {
     dvWrtemp(dvFile,
-        "static utInlineC %0Attribute %0%1FindAttribute(%2%1 %1, utSym sym) {\n"
+        "utInlineC %0Attribute %0%1FindAttribute(%2%1 %1, utSym sym) {\n"
         "    return %0%1GetAttrlist(%1) == %0AttrlistNull? %0AttributeNull :\n"
         "        %0AttrlistFindAttribute(%0%1GetAttrlist(%1), (sym));}\n"
         "void %0%1DeleteAttribute(%2%1 _%1, utSym sym);\n"
@@ -1264,7 +1264,7 @@ static void writeAttributeShortcuts(
         "void %0%1SetSymAttribute(%2%1 _%1, utSym sym, utSym value);\n"
         "void %0%1SetStringAttribute(%2%1 _%1, utSym sym, char *string);\n"
         "void %0%1SetBlobAttribute(%2%1 _%1, utSym sym, uint8 *data, uint32 length);\n"
-        "static utInlineC %0Attribute %0%1GetFirstAttribute(%2%1 %1) {\n"
+        "utInlineC %0Attribute %0%1GetFirstAttribute(%2%1 %1) {\n"
         "    %0Attrlist attrlist = %0%1GetAttrlist(%1);\n"
         "    return attrlist == %0AttrlistNull? %0AttributeNull : %0AttrlistGetFirstAttribute(attrlist);}\n"
         "#define %0Foreach%1Attribute(_%1, attribute) \\\n"
@@ -1349,7 +1349,7 @@ static void writeValidateMacros(
     dvForeachModuleClass(module, theClass) {
         if(dvClassGetBaseClass(theClass) == dvClassNull) {
             dvWrtemp(dvFile,
-                "static utInlineC %0%1 %0Valid%1(%0%1 %1) {\n"
+                "utInlineC %0%1 %0Valid%1(%0%1 %1) {\n"
                 "    utAssert(utLikely(%1 != %0%1Null && (%2)(%1 - (%0%1)0) < %0RootData.used%1));\n"
                 "    return %1;}\n",
                 dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass));
@@ -1359,7 +1359,7 @@ static void writeValidateMacros(
     dvForeachModuleClass(module, theClass) {
         if(dvClassGetBaseClass(theClass) == dvClassNull) {
             dvWrtemp(dvFile,
-                "static utInlineC %0%1 %0Valid%1(%0%1 %1) {return %1;}\n",
+                "utInlineC %0%1 %0Valid%1(%0%1 %1) {return %1;}\n",
                 dvPrefix, dvClassGetName(theClass));
         }
     } dvEndModuleClass;
@@ -1460,9 +1460,9 @@ static void writeTypeConversionMacros(
     dvForeachModuleClass(module, theClass) {
         if(dvClassGetBaseClass(theClass) == dvClassNull) {
             dvWrtemp(dvFile,
-                "static utInlineC %2 %0%12Index(%0%1 %1) {return %1 - (%0%1)0;}\n"
-                "static %2 %0%12ValidIndex(%0%1 %1) {return %0Valid%1(%1) - (%0%1)0;}\n"
-                "static %0%1 %0Index2%1(%2 x%1) {return (%0%1)(x%1 + (%0%1)(0));}\n",
+                "utInlineC %2 %0%12Index(%0%1 %1) {return %1 - (%0%1)0;}\n"
+                "utInlineC %2 %0%12ValidIndex(%0%1 %1) {return %0Valid%1(%1) - (%0%1)0;}\n"
+                "utInlineC %0%1 %0Index2%1(%2 x%1) {return (%0%1)(x%1 + (%0%1)(0));}\n",
                 dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass));
         }
     } dvEndModuleClass;
@@ -1470,9 +1470,9 @@ static void writeTypeConversionMacros(
     dvForeachModuleClass(module, theClass) {
         if(dvClassGetBaseClass(theClass) == dvClassNull) {
             dvWrtemp(dvFile,
-                "static utInlineC %2 %0%12Index(%0%1 %1) {return %1;}\n"
-                "static utInlineC %2 %0%12ValidIndex(%0%1 %1) {return %0Valid%1(%1);}\n"
-                "static utInlineC %0%1 %0Index2%1(%2 x%1) {return x%1;}\n",
+                "utInlineC %2 %0%12Index(%0%1 %1) {return %1;}\n"
+                "utInlineC %2 %0%12ValidIndex(%0%1 %1) {return %0Valid%1(%1);}\n"
+                "utInlineC %0%1 %0Index2%1(%2 x%1) {return x%1;}\n",
                 dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass));
         }
     } dvEndModuleClass;

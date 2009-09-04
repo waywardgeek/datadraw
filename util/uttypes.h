@@ -13,7 +13,7 @@
 #ifndef UTTYPES_H
 #define UTTYPES_H
 
-#if defined(_WIN32) && !defined(__GNUC__)
+#if defined(_WIN32)
 #define true 1
 #define false 0
 typedef unsigned char bool;
@@ -161,11 +161,12 @@ typedef signed char int8;        /* Signed >= 8 bits */
   GCC is more tolerant.
 */
 #ifdef _MSC_VER
-#  define utInlineC __inline
-#else /* _MSC_VER */
-#  define utInlineC inline
-#endif /* _MSC_VER */
-
+#  define utInlineC static __inline
+#elif defined(__GNUC__)
+#  define utInlineC extern inline __attribute__((gnu_inline))
+#else
+#  define utInlineC static inline
+#endif
 
 #endif
 
