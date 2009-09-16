@@ -162,8 +162,6 @@ typedef signed char int8;        /* Signed >= 8 bits */
 */
 #ifdef _MSC_VER
 #  define utInlineC static __inline
-#elif defined(__GNUC__)
-#  define utInlineC static inline __attribute__((gnu_inline))
 #else
 #  define utInlineC static inline
 #endif
