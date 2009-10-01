@@ -959,6 +959,32 @@ void *utCallocTrace(
 }
 
 /*--------------------------------------------------------------------------------------------------
+  Just like calloc, but pass file name and line number.
+--------------------------------------------------------------------------------------------------*/
+void *utCallocTraceInitFirst(
+    size_t sStruct,
+    size_t size,
+    char *fileName,
+    uint32 line)
+{
+    size_t sByte = sStruct*size;
+    void *memPtr;
+    char *cptr;
+    char c = (char)170; /*10101010*/
+    uint8 x;
+
+    memPtr = utMallocTrace(sStruct, size, fileName, line);
+    if(memPtr) {
+        memset((void *)memPtr, 0, sByte);
+    }
+    cptr = (char*)memPtr;
+    for(x = 0;x < size;x++) {
+        cptr[x] = c;
+    }
+    return memPtr;
+}
+
+/*--------------------------------------------------------------------------------------------------
   Just like mtFree, but pass file name and line number.
 --------------------------------------------------------------------------------------------------*/
 void utFreeTrace(
@@ -1379,8 +1405,8 @@ char *utFindInPath(
     char *p = buf;
     char *next, *fileName, *directory;
 
-    while(p && p != '\0') {
-        next = strchr(p, UTPATHSEP/*':'*/);
+    while(*p != '\0') {
+        next = strchr(p, UTPATHSEP);
         if(next != NULL) {
             *next++ = '\0';
         }

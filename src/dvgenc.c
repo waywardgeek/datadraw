@@ -976,7 +976,7 @@ static void writeClassPropFieldAllocs(
             }
             else if(!dvPropertyArray(prop)) {
                 dvWrtemp(dvFile, 
-                    "    %0%1s.%2 = utNewA(%4, (%3Allocated%1()%5);\n",
+                    "    %0%1s.%2 = utNewAInitFirst(%4, (%3Allocated%1()%5);\n",
                     dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass),
                     dvPropertyGetTypeName(prop),
                     dvPropertyGetType(prop) == PROP_BIT? " + 7) >> 3" : ")");
@@ -988,12 +988,12 @@ static void writeClassPropFieldAllocs(
                     "    %0SetUsed%1%2(0);\n"
                     "    %0SetAllocated%1%2(2);\n"
                     "    %0SetFree%1%2(0);\n"
-                    "    %0%1s.%2 = utNewA(%4, %0Allocated%1%2());\n",
+                    "    %0%1s.%2 = utNewAInitFirst(%4, %0Allocated%1%2());\n",
                     dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass),
                     dvPropertyGetTypeName(prop));
             } else {
                 dvWrtemp(dvFile, 
-                    "    %0%1s.%2 = utNewA(%4, %3Allocated%1()*(%5));\n",
+                    "    %0%1s.%2 = utNewAInitFirst(%4, %3Allocated%1()*(%5));\n",
                     dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass),
                     dvPropertyGetTypeName(prop), dvPropertyGetIndex(prop));
                 if(dvClassGetBaseClass(theClass) != dvClassNull) {
@@ -1005,7 +1005,7 @@ static void writeClassPropFieldAllocs(
     } dvEndClassProperty;
     dvForeachClassUnion(theClass, theUnion) {
         dvWrtemp(dvFile, 
-            "    %0%1s.%3 = utNewA(%4, %2Allocated%1());\n",
+            "    %0%1s.%3 = utNewAInitFirst(%4, %2Allocated%1());\n",
             dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass),
             dvUnionGetFieldName(theUnion), dvUnionGetTypeName(theUnion));
         if(dvClassGetBaseClass(theClass) != dvClassNull) {
@@ -1015,7 +1015,7 @@ static void writeClassPropFieldAllocs(
     } dvEndClassUnion;
     dvForeachClassCache(theClass, cache) {
         dvWrtemp(dvFile, 
-            "    %0%1s.%3 = utNewA(%4, %2Allocated%1());\n",
+            "    %0%1s.%3 = utNewAInitFirst(%4, %2Allocated%1());\n",
             dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass),
             dvCacheGetFieldName(cache), dvCacheGetTypeName(cache));
         if(dvClassGetBaseClass(theClass) != dvClassNull) {

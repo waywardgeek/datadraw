@@ -38,13 +38,13 @@ static void allocSymtabs(void)
 {
     utSetAllocatedSymtab(2);
     utSetUsedSymtab(1);
-    utSymtabs.TableIndex = utNewA(uint32, (utAllocatedSymtab()));
-    utSymtabs.NumTable = utNewA(uint32, (utAllocatedSymtab()));
+    utSymtabs.TableIndex = utNewAInitFirst(uint32, (utAllocatedSymtab()));
+    utSymtabs.NumTable = utNewAInitFirst(uint32, (utAllocatedSymtab()));
     utSetUsedSymtabTable(0);
     utSetAllocatedSymtabTable(2);
     utSetFreeSymtabTable(0);
-    utSymtabs.Table = utNewA(utSym, utAllocatedSymtabTable());
-    utSymtabs.NumSym = utNewA(uint32, (utAllocatedSymtab()));
+    utSymtabs.Table = utNewAInitFirst(utSym, utAllocatedSymtabTable());
+    utSymtabs.NumSym = utNewAInitFirst(uint32, (utAllocatedSymtab()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -289,14 +289,14 @@ static void allocSyms(void)
 {
     utSetAllocatedSym(2);
     utSetUsedSym(1);
-    utSyms.NameIndex = utNewA(uint32, (utAllocatedSym()));
-    utSyms.NumName = utNewA(uint32, (utAllocatedSym()));
+    utSyms.NameIndex = utNewAInitFirst(uint32, (utAllocatedSym()));
+    utSyms.NumName = utNewAInitFirst(uint32, (utAllocatedSym()));
     utSetUsedSymName(0);
     utSetAllocatedSymName(2);
     utSetFreeSymName(0);
-    utSyms.Name = utNewA(char, utAllocatedSymName());
-    utSyms.HashValue = utNewA(uint32, (utAllocatedSym()));
-    utSyms.Next = utNewA(utSym, (utAllocatedSym()));
+    utSyms.Name = utNewAInitFirst(char, utAllocatedSymName());
+    utSyms.HashValue = utNewAInitFirst(uint32, (utAllocatedSym()));
+    utSyms.Next = utNewAInitFirst(utSym, (utAllocatedSym()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -554,16 +554,16 @@ static void allocDynarrays(void)
     utSetAllocatedDynarray(2);
     utSetUsedDynarray(1);
     utSetFirstFreeDynarray(utDynarrayNull);
-    utDynarrays.ValueIndex = utNewA(uint32, (utAllocatedDynarray()));
-    utDynarrays.NumValue = utNewA(uint32, (utAllocatedDynarray()));
+    utDynarrays.ValueIndex = utNewAInitFirst(uint32, (utAllocatedDynarray()));
+    utDynarrays.NumValue = utNewAInitFirst(uint32, (utAllocatedDynarray()));
     utSetUsedDynarrayValue(0);
     utSetAllocatedDynarrayValue(2);
     utSetFreeDynarrayValue(0);
-    utDynarrays.Value = utNewA(uint8, utAllocatedDynarrayValue());
-    utDynarrays.ValueSize = utNewA(uint16, (utAllocatedDynarray()));
-    utDynarrays.UsedValue = utNewA(uint32, (utAllocatedDynarray()));
-    utDynarrays.Size = utNewA(uint32, (utAllocatedDynarray()));
-    utDynarrays.FreeList = utNewA(utDynarray, (utAllocatedDynarray()));
+    utDynarrays.Value = utNewAInitFirst(uint8, utAllocatedDynarrayValue());
+    utDynarrays.ValueSize = utNewAInitFirst(uint16, (utAllocatedDynarray()));
+    utDynarrays.UsedValue = utNewAInitFirst(uint32, (utAllocatedDynarray()));
+    utDynarrays.Size = utNewAInitFirst(uint32, (utAllocatedDynarray()));
+    utDynarrays.FreeList = utNewAInitFirst(utDynarray, (utAllocatedDynarray()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -825,14 +825,14 @@ static void allocSymArrays(void)
     utSetAllocatedSymArray(2);
     utSetUsedSymArray(1);
     utSetFirstFreeSymArray(utSymArrayNull);
-    utSymArrays.SymIndex = utNewA(uint32, (utAllocatedSymArray()));
-    utSymArrays.NumSym = utNewA(uint32, (utAllocatedSymArray()));
+    utSymArrays.SymIndex = utNewAInitFirst(uint32, (utAllocatedSymArray()));
+    utSymArrays.NumSym = utNewAInitFirst(uint32, (utAllocatedSymArray()));
     utSetUsedSymArraySym(0);
     utSetAllocatedSymArraySym(2);
     utSetFreeSymArraySym(0);
-    utSymArrays.Sym = utNewA(utSym, utAllocatedSymArraySym());
-    utSymArrays.UsedSym = utNewA(uint32, (utAllocatedSymArray()));
-    utSymArrays.FreeList = utNewA(utSymArray, (utAllocatedSymArray()));
+    utSymArrays.Sym = utNewAInitFirst(utSym, utAllocatedSymArraySym());
+    utSymArrays.UsedSym = utNewAInitFirst(uint32, (utAllocatedSymArray()));
+    utSymArrays.FreeList = utNewAInitFirst(utSymArray, (utAllocatedSymArray()));
 }
 
 /*----------------------------------------------------------------------------------------

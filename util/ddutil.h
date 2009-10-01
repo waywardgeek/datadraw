@@ -131,12 +131,15 @@ extern uint64 utUsedMem;
 #define utMalloc(sStruct, size) utMallocTrace(sStruct, size, __FILE__, __LINE__)
 #define utCalloc(sStruct, size) utCallocTrace(sStruct, size, \
       __FILE__, __LINE__)
+#define utCallocInitFirst(sStruct, size) utCallocTraceInitFirst(sStruct, size, \
+      __FILE__, __LINE__)
 #define utRealloc(mem, numBlocks, size) \
       utReallocTrace((void *)mem, numBlocks, size, __FILE__, __LINE__)
 #define utResizeArray(array, num) \
         ((array) = utRealloc((void *)(array), (num), sizeof(*(array))))
 #define utNew(type) (type *)utCalloc(1, sizeof(type))
 #define utNewA(type, num) (type *)utCalloc((num), sizeof(type))
+#define utNewAInitFirst(type, num) (type *)utCallocInitFirst((num), sizeof(type))
 #define utFree(p) utFreeTrace(p, __FILE__, __LINE__)
 #define utAllocString(string) strcpy(utNewA(char, strlen(string) + 1), string)
 
@@ -144,6 +147,7 @@ void * utReallocTrace(void *memPtr, size_t numBlocks, size_t size, char *fileNam
     uint32 line);
 void *utMallocTrace(size_t sStruct, size_t size, char *fileName, uint32 line);
 void *utCallocTrace(size_t sStruct, size_t size, char *fileName, uint32 line);
+void *utCallocTraceInitFirst(size_t sStruct, size_t size, char *fileName, uint32 line);
 void utFreeTrace(void *memPtr, char *fileName, uint32 line);
 
 /* maxmimum memory usage */
