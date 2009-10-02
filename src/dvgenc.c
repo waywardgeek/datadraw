@@ -3075,7 +3075,7 @@ static bool declareClassParents(
                 !dvRelationshipSharedParent(relationship)) {
             parentClass = dvRelationshipGetParentClass(relationship);
             dvWrtemp(dvFile, 
-                "    %0%1 owning%2%1 /* = %3%4Get%2%1(%4) */ ;\n",
+                "    %0%1 owning%2%1 = %3%4Get%2%1(%4);\n",
                 dvClassGetPrefix(parentClass), dvClassGetName(parentClass),
                 dvRelationshipGetParentLabel(relationship), dvPrefix, dvClassGetName(theClass));
             declaredSomething = true;
@@ -3169,7 +3169,6 @@ static void removeChildFromRelationship(
     if(dvRelationshipAccessParent(relationship) && dvRelationshipAccessChild(relationship)) {
         if(dvRelationshipGetType(relationship) != REL_POINTER) {
             dvWrtemp(dvFile,
-                "    owning%5%2 = %4%3Get%5%2(%3);\n"
                 "    if(owning%5%2 != %0%2Null) {\n"
                 "        %4%2Remove%1%3(owning%5%2, %3);\n",
                 dvClassGetPrefix(parentClass), dvRelationshipGetChildLabel(relationship),
@@ -3177,7 +3176,6 @@ static void removeChildFromRelationship(
                 dvRelationshipGetParentLabel(relationship));
         } else {
             dvWrtemp(dvFile, 
-                "    owning%6%2 = %4%3Get%6%2(%3);\n"
                 "    if(owning%6%2 != %0%2Null) {\n"
                 "        %4%2Set%1%3(owning%6%2, %5%3Null);\n",
                 dvClassGetPrefix(parentClass), dvRelationshipGetChildLabel(relationship),
