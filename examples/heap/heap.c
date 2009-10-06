@@ -53,7 +53,7 @@ static void readWriteTree(
     }
     while(fscanf(file, "%s", buffer) >= 0) {
         node = prNodeCreate(utSymCreate(buffer));
-        prRootAppendNode(prTheRoot, node);
+        prRootPushNode(prTheRoot, node);
     }
     fclose(file);
     utDo {

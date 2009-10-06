@@ -933,20 +933,20 @@ static void writePropertyInits(
 
     if(strcmp(initValue, "0") || cache != dvCacheNull) {
         if(theUnion != dvUnionNull) {
-            fieldName = utSprintf("%s[x%s].%s", dvUnionGetFieldName(theUnion), name, propName);
+            fieldName = utSprintf("%s[xValue].%s", dvUnionGetFieldName(theUnion), propName);
         } else if(cache != dvCacheNull) {
-            fieldName = utSprintf("%s[x%s].%s", dvCacheGetFieldName(cache), name, propName);
+            fieldName = utSprintf("%s[xValue].%s", dvCacheGetFieldName(cache), propName);
         } else {
-            fieldName = utSprintf("%s[x%s]", propName, name);
+            fieldName = utSprintf("%s[xValue]", propName);
         }
         dvWrtemp(dvFile,
-            "%7    {\n"
-            "%7        %2 x%1;\n"
-            "%7        for(x%1 = (%2)(%3); x%1 < %3 + %4; x%1++) {\n"
-            "%7            %0%1s.%6 = %5;\n"
-            "%7        }\n"
-            "%7    }\n",
-            dvPrefix, name, dvClassGetReferenceTypeName(theClass), firstIndex, numValues, initValue, fieldName, indent);
+            "%6    {\n"
+            "%6        uint32 xValue;\n"
+            "%6        for(xValue = (uint32)(%2); xValue < %2 + %3; xValue++) {\n"
+            "%6            %0%1s.%5 = %4;\n"
+            "%6        }\n"
+            "%6    }\n",
+            dvPrefix, name, firstIndex, numValues, initValue, fieldName, indent);
     } else {
         dvWrtemp(dvFile,
             "%7    memset(%0%1s.%2 + %5, 0, ((%6%4)*sizeof(%3));\n",
