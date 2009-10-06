@@ -1958,7 +1958,6 @@ static void writeRelationshipBinaryHeapFunctions(
         "        %l1Swap%2%3(%1, parentIndex, x);\n"
         "        x = parentIndex;\n"
         "    } utRepeat\n"
-        "    %l1HeapDown%2%3(%1, x);\n"
         "}\n"
         "\n"
         "/*----------------------------------------------------------------------------------------\n"
@@ -2017,6 +2016,7 @@ static void writeRelationshipBinaryHeapFunctions(
         "    uint32 _index = %0%3Get%1%2Index(_%3);\n"
         "\n"
         "    %l1HeapUp%2%3(%1, _index);\n"
+        "    %l1HeapDown%2%3(%1, _index);\n"
         "}\n"
         "\n",
         dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
