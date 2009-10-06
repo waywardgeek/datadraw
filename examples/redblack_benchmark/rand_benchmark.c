@@ -7,10 +7,9 @@ static void nodeCreate(
     olRoot root,
     uint32 key)
 {
-    olNode node = olNodeAllocRaw();
+    olNode node = olNodeAlloc();
 
     olNodeSetKey(node, key);
-    olNodeSetRoot(node, root);
     olRootInsertNode(root, node);
 }
 
@@ -57,8 +56,8 @@ int main(
         /* olDumpOrderedList(root);
         olVerifyOrderedList(root); */
     }
-    /* olVerifyOrderedList(root);
-    olReportStats(root); */
+    olVerifyOrderedList(root);
+    olReportStats(root);
     olSafeForeachRootNode(root, node) {
         olRootRemoveNode(root, node);
         olNodeFree(node);

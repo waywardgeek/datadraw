@@ -6,10 +6,9 @@ static olNode nodeCreate(
     olRoot root,
     uint32 key)
 {
-    olNode node = olNodeAllocRaw();
+    olNode node = olNodeAlloc();
 
     olNodeSetKey(node, key);
-    olNodeSetRoot(node, root);
     olRootInsertNode(root, node);
     return node;
 }

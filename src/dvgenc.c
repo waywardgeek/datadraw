@@ -2304,14 +2304,15 @@ static void writeOrderedListFunctions(
 
     dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
-        "  Ensure tree consistency to a certain extend\n"
+        "  Ensure tree consistency to a certain extent.\n"
         "----------------------------------------------------------------------------------------*/\n"
         "#if defined(DD_DEBUG)\n"
-        "static void assert%1%2%3(\n"
+        "void %0Verify%1%2%3(\n"
         "    %4%1 %1)\n"
         "{\n"
         "    int treeblackcount = 0, currentblackcount;\n"
         "    %5%3 current, previous = %0%1GetFirst%2%3(%1), counter;\n"
+	"\n"
         "    utAssert(%0%1GetRoot%2%3(%1) == %5%3Null || !%0%3IsRed%1%2%3(%0%1GetRoot%2%3(%1)));\n"
         "    %0Foreach%1%2%3(%1,current) {\n"
         "        utAssert(%0%1Compare%2%3(previous, current) >= 0);\n"
@@ -2355,8 +2356,6 @@ static void writeOrderedListFunctions(
         "    }\n"
         "    %0End%1%2%3;\n"
         "}\n"
-        "#else\n"
-        "#define assert%1%2%3(x) do{}while(0)\n"
         "#endif\n"
         "\n"
          "/*----------------------------------------------------------------------------------------\n"
@@ -2720,7 +2719,6 @@ static void writeOrderedListFunctions(
         "        %0%1SetRoot%2%3(%1, _%3);\n"
         "        %0%3SetIsRed%1%2%3(_%3, false);\n"
         "    }\n"
-        "    assert%1%2%3(%1);\n"
         "}\n"
         "\n"
         "/*----------------------------------------------------------------------------------------\n"
@@ -2929,16 +2927,10 @@ static void writeOrderedListFunctions(
             "    %0%2Set%3%1(_%2, %4%1Null);\n",
             dvPrefix, dvClassGetName(parent), dvClassGetName(child), dvRelationshipGetParentLabel(relationship));
     }
-     dvWrtemp(dvFile,
-        "    assert%1%2%3(%1);\n"
-        "}\n\n"
-        ,
-         dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
-             dvRelationshipGetParentLabel(relationship));
+    dvWrtemp(dvFile, "}\n\n");
 
     if(dvRelationshipAccessParent(relationship)) {
-     dvWrtemp(dvFile,
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Replaces and returns %5%3 equals to _%3 by _%3 in %1.\n"
         "  %5%3 from %1 tree will become part of _%3 tree if exists, otherwise removed.\n"
@@ -2953,7 +2945,6 @@ static void writeOrderedListFunctions(
         "    int comparison;\n"
         "\n"
         "    if(%0%3Get%6%1(_%3) == %1) {\n"
-        "        assert%1%2%3(%1);\n"
         "        return %5%3Null;\n"
         "    }\n"
         "\n"
@@ -3006,7 +2997,6 @@ static void writeOrderedListFunctions(
         "        }\n"
         "    }\n"
         "\n"
-        "    assert%1%2%3(%1);\n"
         "    return leaf;\n"
         "}\n\n"
         ,
