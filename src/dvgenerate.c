@@ -670,7 +670,7 @@ static void createArrayFields(
             if(dvPropertyArray(property) && !dvPropertyExpanded(property) && !dvPropertyFixedSize(property)) {
                 dvPropertySetExpanded(property, true);
                 /* Index into heap for first element */
-                sym = utSymCreateFormatted("%sIndex", utCopyString(dvPropertyGetName(property)));
+                sym = utSymCreateFormatted("%sIndex_", utCopyString(dvPropertyGetName(property)));
                 newProp = dvPropertyCreate(theClass, dvUnionNull, PROP_UINT, sym);
                 dvPropertySetWidth(newProp, 32);
                 dvPropertySetFirstElementProp(property, newProp);

@@ -1501,7 +1501,7 @@ static void writeArrayCompact(
             dvPropertyGetID(property));
     }
     dvWrtemp(dvFile, 
-        "            %0%1Set%2Index(%1, toPtr - %0%1s.%2 + usedHeaderSize);\n"
+        "            %0%1Set%2Index_(%1, toPtr - %0%1s.%2 + usedHeaderSize);\n"
         "            toPtr += size;\n"
         "        } else {\n"
         "            /* Just skip it */\n"
@@ -1606,7 +1606,7 @@ static void writeArrayAlloc(
         "    if(freeSpace < spaceNeeded) {\n"
         "        allocMore%1%2s(spaceNeeded);\n"
         "    }\n"
-        "    %0%1Set%2Index(%1, %0Used%1%2() + usedHeaderSize);\n"
+        "    %0%1Set%2Index_(%1, %0Used%1%2() + usedHeaderSize);\n"
         "    %0%1SetNum%2(%1, num%2s);\n",
         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property), dvClassGetPrefix(theClass),
         dvPropertyGetTypeName(property));
@@ -1619,7 +1619,7 @@ static void writeArrayAlloc(
     dvWrtemp(dvFile,
         "    *(%3%1 *)(void *)(%0%1s.%2 + %0Used%1%2()) = %1;\n",
         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property), dvClassGetPrefix(theClass));
-    writePropertyInits(property, dvSwrtemp("%0%1Get%2Index(%1)", dvPrefix, dvClassGetName(theClass),
+    writePropertyInits(property, dvSwrtemp("%0%1Get%2Index_(%1)", dvPrefix, dvClassGetName(theClass),
         dvPropertyGetName(property)), utSprintf("num%ss", dvPropertyGetName(property)), "");
     if(dvClassRedo(theClass)) {
         dvWrtemp(dvFile,
@@ -1654,7 +1654,7 @@ static void writeArrayAlloc(
         "{\n"
         "    %3%1 %1 = %3Index2%1((%4)objectNumber);\n"
         "\n"
-        "    %0%1Set%2Index(%1, 0);\n"
+        "    %0%1Set%2Index_(%1, 0);\n"
         "    %0%1SetNum%2(%1, 0);\n"
         "    if(numValues == 0) {\n"
         "        return NULL;\n"
@@ -1823,7 +1823,7 @@ static void writeArrayResize(
     }
     dvWrtemp(dvFile,
         "    %0SetFree%1%2(%0Free%1%2() + oldSize);\n"
-        "    %0%1Set%2Index(%1, %0Used%1%2() + usedHeaderSize);\n"
+        "    %0%1Set%2Index_(%1, %0Used%1%2() + usedHeaderSize);\n"
         "    %0%1SetNum%2(%1, num%2s);\n"
         "    %0SetUsed%1%2(%0Used%1%2() + newSize);\n"
         "}\n\n",
@@ -2312,7 +2312,7 @@ static void writeOrderedListFunctions(
         "{\n"
         "    int treeblackcount = 0, currentblackcount;\n"
         "    %5%3 current, previous = %0%1GetFirst%2%3(%1), counter;\n"
-	"\n"
+        "\n"
         "    utAssert(%0%1GetRoot%2%3(%1) == %5%3Null || !%0%3IsRed%1%2%3(%0%1GetRoot%2%3(%1)));\n"
         "    %0Foreach%1%2%3(%1,current) {\n"
         "        utAssert(%0%1Compare%2%3(previous, current) >= 0);\n"

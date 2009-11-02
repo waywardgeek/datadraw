@@ -666,16 +666,16 @@ static void writeClassPropMacros(
                 "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {return x;}\n"
                 "#endif\n"
                 "utInlineC %5 %0%1Geti%2(%4%1 %1, uint32 x) {return %0%1s.%2[\n"
-                "    %0%1Get%2Index(%1) + %0%1Check%2Index(%1, x)];}\n"
-                "utInlineC %5 *%0%1Get%2(%4%1 %1) {return %0%1s.%2 + %0%1Get%2Index(%1);}\n"
+                "    %0%1Get%2Index_(%1) + %0%1Check%2Index(%1, x)];}\n"
+                "utInlineC %5 *%0%1Get%2(%4%1 %1) {return %0%1s.%2 + %0%1Get%2Index_(%1);}\n"
                 "#define %0%1Get%2s %0%1Get%2\n",
                 dvPrefix, name, propName, dvClassGetReferenceTypeName(theClass),
                 dvClassGetPrefix(theClass), propTypeString);
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
-                "\n    utRecordArray(%0ModuleID, %3, %0%1Get%2Index(%1), %0%1GetNum%2(%1), true);\n    ",
+                "\n    utRecordArray(%0ModuleID, %3, %0%1Get%2Index_(%1), %0%1GetNum%2(%1), true);\n    ",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
             postString = dvSwrtemp(!dvClassRedo(theClass)? "" :
-                "\n    utRecordArray(%0ModuleID, %3, %0%1Get%2Index(%1), %0%1GetNum%2(%1), false);\n",
+                "\n    utRecordArray(%0ModuleID, %3, %0%1Get%2Index_(%1), %0%1GetNum%2(%1), false);\n",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
             dvWrtemp(dvFile,
                 "utInlineC void %0%1Set%2(%6%1 %1, %3 *valuePtr, uint32 num%2) {\n"
@@ -683,14 +683,14 @@ static void writeClassPropMacros(
                 "%4    memcpy(%0%1Get%2s(%1), valuePtr, num%2*sizeof(%3));%5}\n",
                 dvPrefix, name, propName, propTypeString, preString, postString, dvClassGetPrefix(theClass));
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
-                "\n    utRecordField(%0ModuleID, %3, %0%1Get%2Index(%1) + (x), true);\n",
+                "\n    utRecordField(%0ModuleID, %3, %0%1Get%2Index_(%1) + (x), true);\n",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
             postString = dvSwrtemp(!dvClassRedo(theClass)? "" :
-                "\n    utRecordField(%0ModuleID, %3, %0%1Get%2Index(%1) + (x), false);",
+                "\n    utRecordField(%0ModuleID, %3, %0%1Get%2Index_(%1) + (x), false);",
                 dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)));
             dvWrtemp(dvFile,
                     "utInlineC void %0%1Seti%2(%5%1 %1, uint32 x, %6 value) {\n"
-                    "%3    %0%1s.%2[%0%1Get%2Index(%1) + %0%1Check%2Index(%1, (x))] = value;%4}\n",
+                    "%3    %0%1s.%2[%0%1Get%2Index_(%1) + %0%1Check%2Index(%1, (x))] = value;%4}\n",
                 dvPrefix, name, propName, preString, postString, dvClassGetPrefix(theClass), propTypeString);
             if(dvPropertyGetRelationship(prop) == dvRelationshipNull) {
                 dvWrtemp(dvFile,
