@@ -1411,9 +1411,6 @@ static void writeExtendedClassInitFunc(
         "        realloc%1s(%2Allocated%1());\n"
         "    }\n"
         "    %0%1Init(%1);\n"
-        "    if(%0%1ConstructorCallback != NULL) {\n"
-        "        %0%1ConstructorCallback(%1);\n"
-        "    }\n"
         "}\n\n",
         dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass), dvClassGetReferenceTypeName(theClass));
 }
