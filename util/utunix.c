@@ -276,3 +276,26 @@ bool utDeleteFile(
 {
     return !unlink(fileName);
 }
+
+/*--------------------------------------------------------------------------------------------------
+  Call a callback function for each file in the directory.
+--------------------------------------------------------------------------------------------------*/
+void utForeachDirectoryFile(
+    char *dirName,
+    void (*func)(char *fileName))
+{
+    struct dirent **namelist;
+    char *fileName;
+    int n;
+
+    if(!utDirectoryExists(dirName)) {
+	return;
+    }
+    n = scandir(dirName, &namelist, NULL, alphasort);
+    while(n-- > 0) {
+	fileName = namelist[n]->d_name;
+	func(fileName);
+        free(namelist[n]);           
+    }
+}
+
