@@ -636,7 +636,14 @@ void utSetReportFile(
 void utInitLogFile(
     char *fileName)
 {
-    utSetLogFile(fileName);
+    if(utLogFile != NULL) {
+        fclose(utLogFile);
+    }
+    if(utLogFileName != NULL) {
+        utFree(utLogFileName);
+    }
+    utLogFileName = utAllocString(fileName);
+    utLogFile = fopen(fileName, "w");
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -667,9 +674,8 @@ void utSetLogFile(
     if(utLogFileName != NULL) {
         utFree(utLogFileName);
     }
-    utLogFileName = utNewA(char, strlen(fileName) + 1);
-    strcpy(utLogFileName, fileName);
-    utLogFile = fopen(fileName, "w");
+    utLogFileName = utAllocString(fileName);
+    utLogFile = fopen(fileName, "a");
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -1194,6 +1200,24 @@ char *utVsprintf(
     returnBuffer = utMakeString(strlen(buffer) + 1);
     strcpy(returnBuffer, buffer);
     return returnBuffer;
+}
+
+/*--------------------------------------------------------------------------------------------------
+  Create a new string which is the specified string with the specified
+  suffix appended
+  ------------------------------------------------------------------------------------------------*/
+char* utAddSuffix(
+    char* originalName,
+    char* suffix)
+{
+    char* result = NULL;
+    uint32 length = strlen(originalName) + strlen(suffix) + 1;
+
+    result = (char*)utMalloc(1,length);
+    strcpy(result, originalName);
+    strcat(result, suffix);
+    
+    return result;
 }
 
 /*--------------------------------------------------------------------------------------------------

@@ -176,6 +176,7 @@ char *utStringToUpperCase(char *string);
 char *utStringToLowerCase(char *string);
 char *utSprintf(char *format, ...);
 char *utReplaceSuffix(char *originalName, char *newSuffix);
+char *utAddSuffix(char *originalName, char *suffix);
 char *utSuffix(char *name);
 char *utBaseName(char *name);
 char *utDirName(char *name);
