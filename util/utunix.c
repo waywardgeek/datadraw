@@ -282,7 +282,7 @@ bool utDeleteFile(
 --------------------------------------------------------------------------------------------------*/
 void utForeachDirectoryFile(
     char *dirName,
-    void (*func)(char *fileName))
+    void (*func)(char *dirName, char *fileName))
 {
     struct dirent **namelist;
     char *fileName;
@@ -294,7 +294,7 @@ void utForeachDirectoryFile(
     n = scandir(dirName, &namelist, NULL, alphasort);
     while(n-- > 0) {
 	fileName = namelist[n]->d_name;
-	func(fileName);
+	func(dirName, fileName);
         free(namelist[n]);           
     }
 }

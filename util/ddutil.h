@@ -110,7 +110,7 @@ bool utFileExists(char *fileName);
 bool utDirectoryExists(char *dirName);
 bool utAccess(char *name, char *mode);
 uint64 utFindFileSize(char *fileName);
-void utForeachDirectoryFile(char *dirName, void (*func)(char *fileName));
+void utForeachDirectoryFile(char *dirName, void (*func)(char *dirName, char *fileName));
 char *utExecPath(char *name);
 char *utFullPath(char *relativePath);
 char *utFindInPath(char *name, char *path);
