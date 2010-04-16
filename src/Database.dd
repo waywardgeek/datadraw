@@ -44,6 +44,7 @@ class Module create_only
     uint16 numFields // The total number of fields to be tracked
     uint32 numClasses // The number of classes in the module
     uint32 numEnums // The number of classes in the module
+    bit elaborated // Set true after generating all the fields for relationships
 
 // Helper class to break many-to-many relationship between modules and modules they import
 class Link create_only

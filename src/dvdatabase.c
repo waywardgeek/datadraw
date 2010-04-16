@@ -71,24 +71,24 @@ static void allocRoots(void)
 {
     dvSetAllocatedRoot(2);
     dvSetUsedRoot(1);
-    dvRoots.FirstModpath = utNewA(dvModpath, (dvAllocatedRoot()));
-    dvRoots.LastModpath = utNewA(dvModpath, (dvAllocatedRoot()));
-    dvRoots.ModpathTableIndex = utNewA(uint32, (dvAllocatedRoot()));
-    dvRoots.NumModpathTable = utNewA(uint32, (dvAllocatedRoot()));
+    dvRoots.FirstModpath = utNewAInitFirst(dvModpath, (dvAllocatedRoot()));
+    dvRoots.LastModpath = utNewAInitFirst(dvModpath, (dvAllocatedRoot()));
+    dvRoots.ModpathTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedRoot()));
+    dvRoots.NumModpathTable = utNewAInitFirst(uint32, (dvAllocatedRoot()));
     dvSetUsedRootModpathTable(0);
     dvSetAllocatedRootModpathTable(2);
     dvSetFreeRootModpathTable(0);
-    dvRoots.ModpathTable = utNewA(dvModpath, dvAllocatedRootModpathTable());
-    dvRoots.NumModpath = utNewA(uint32, (dvAllocatedRoot()));
-    dvRoots.FirstModule = utNewA(dvModule, (dvAllocatedRoot()));
-    dvRoots.LastModule = utNewA(dvModule, (dvAllocatedRoot()));
-    dvRoots.ModuleTableIndex = utNewA(uint32, (dvAllocatedRoot()));
-    dvRoots.NumModuleTable = utNewA(uint32, (dvAllocatedRoot()));
+    dvRoots.ModpathTable = utNewAInitFirst(dvModpath, dvAllocatedRootModpathTable());
+    dvRoots.NumModpath = utNewAInitFirst(uint32, (dvAllocatedRoot()));
+    dvRoots.FirstModule = utNewAInitFirst(dvModule, (dvAllocatedRoot()));
+    dvRoots.LastModule = utNewAInitFirst(dvModule, (dvAllocatedRoot()));
+    dvRoots.ModuleTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedRoot()));
+    dvRoots.NumModuleTable = utNewAInitFirst(uint32, (dvAllocatedRoot()));
     dvSetUsedRootModuleTable(0);
     dvSetAllocatedRootModuleTable(2);
     dvSetFreeRootModuleTable(0);
-    dvRoots.ModuleTable = utNewA(dvModule, dvAllocatedRootModuleTable());
-    dvRoots.NumModule = utNewA(uint32, (dvAllocatedRoot()));
+    dvRoots.ModuleTable = utNewAInitFirst(dvModule, dvAllocatedRootModuleTable());
+    dvRoots.NumModule = utNewAInitFirst(uint32, (dvAllocatedRoot()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -99,12 +99,12 @@ static void reallocRoots(
 {
     utResizeArray(dvRoots.FirstModpath, (newSize));
     utResizeArray(dvRoots.LastModpath, (newSize));
-    utResizeArray(dvRoots.ModpathTableIndex, (newSize));
+    utResizeArray(dvRoots.ModpathTableIndex_, (newSize));
     utResizeArray(dvRoots.NumModpathTable, (newSize));
     utResizeArray(dvRoots.NumModpath, (newSize));
     utResizeArray(dvRoots.FirstModule, (newSize));
     utResizeArray(dvRoots.LastModule, (newSize));
-    utResizeArray(dvRoots.ModuleTableIndex, (newSize));
+    utResizeArray(dvRoots.ModuleTableIndex_, (newSize));
     utResizeArray(dvRoots.NumModuleTable, (newSize));
     utResizeArray(dvRoots.NumModule, (newSize));
     dvSetAllocatedRoot(newSize);
@@ -137,7 +137,7 @@ void dvCompactRootModpathTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvRootGetNumModpathTable(Root) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvRootSetModpathTableIndex(Root, toPtr - dvRoots.ModpathTable + usedHeaderSize);
+            dvRootSetModpathTableIndex_(Root, toPtr - dvRoots.ModpathTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -190,13 +190,13 @@ void dvRootAllocModpathTables(
     if(freeSpace < spaceNeeded) {
         allocMoreRootModpathTables(spaceNeeded);
     }
-    dvRootSetModpathTableIndex(Root, dvUsedRootModpathTable() + usedHeaderSize);
+    dvRootSetModpathTableIndex_(Root, dvUsedRootModpathTable() + usedHeaderSize);
     dvRootSetNumModpathTable(Root, numModpathTables);
     *(dvRoot *)(void *)(dvRoots.ModpathTable + dvUsedRootModpathTable()) = Root;
     {
-        uint32 xRoot;
-        for(xRoot = (uint32)(dvRootGetModpathTableIndex(Root)); xRoot < dvRootGetModpathTableIndex(Root) + numModpathTables; xRoot++) {
-            dvRoots.ModpathTable[xRoot] = dvModpathNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvRootGetModpathTableIndex_(Root)); xValue < dvRootGetModpathTableIndex_(Root) + numModpathTables; xValue++) {
+            dvRoots.ModpathTable[xValue] = dvModpathNull;
         }
     }
     dvSetUsedRootModpathTable(dvUsedRootModpathTable() + spaceNeeded);
@@ -224,7 +224,7 @@ static void *allocRootModpathTables(
 {
     dvRoot Root = dvIndex2Root((uint32)objectNumber);
 
-    dvRootSetModpathTableIndex(Root, 0);
+    dvRootSetModpathTableIndex_(Root, 0);
     dvRootSetNumModpathTable(Root, 0);
     if(numValues == 0) {
         return NULL;
@@ -288,16 +288,16 @@ void dvRootResizeModpathTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xRoot;
-            for(xRoot = (uint32)(dvUsedRootModpathTable() + oldSize); xRoot < dvUsedRootModpathTable() + oldSize + newSize - oldSize; xRoot++) {
-                dvRoots.ModpathTable[xRoot] = dvModpathNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedRootModpathTable() + oldSize); xValue < dvUsedRootModpathTable() + oldSize + newSize - oldSize; xValue++) {
+                dvRoots.ModpathTable[xValue] = dvModpathNull;
             }
         }
     }
     *(dvRoot *)(void *)dataPtr = dvRootNull;
     *(uint32 *)(void *)(((dvRoot *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeRootModpathTable(dvFreeRootModpathTable() + oldSize);
-    dvRootSetModpathTableIndex(Root, dvUsedRootModpathTable() + usedHeaderSize);
+    dvRootSetModpathTableIndex_(Root, dvUsedRootModpathTable() + usedHeaderSize);
     dvRootSetNumModpathTable(Root, numModpathTables);
     dvSetUsedRootModpathTable(dvUsedRootModpathTable() + newSize);
 }
@@ -321,7 +321,7 @@ void dvCompactRootModuleTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvRootGetNumModuleTable(Root) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvRootSetModuleTableIndex(Root, toPtr - dvRoots.ModuleTable + usedHeaderSize);
+            dvRootSetModuleTableIndex_(Root, toPtr - dvRoots.ModuleTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -374,13 +374,13 @@ void dvRootAllocModuleTables(
     if(freeSpace < spaceNeeded) {
         allocMoreRootModuleTables(spaceNeeded);
     }
-    dvRootSetModuleTableIndex(Root, dvUsedRootModuleTable() + usedHeaderSize);
+    dvRootSetModuleTableIndex_(Root, dvUsedRootModuleTable() + usedHeaderSize);
     dvRootSetNumModuleTable(Root, numModuleTables);
     *(dvRoot *)(void *)(dvRoots.ModuleTable + dvUsedRootModuleTable()) = Root;
     {
-        uint32 xRoot;
-        for(xRoot = (uint32)(dvRootGetModuleTableIndex(Root)); xRoot < dvRootGetModuleTableIndex(Root) + numModuleTables; xRoot++) {
-            dvRoots.ModuleTable[xRoot] = dvModuleNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvRootGetModuleTableIndex_(Root)); xValue < dvRootGetModuleTableIndex_(Root) + numModuleTables; xValue++) {
+            dvRoots.ModuleTable[xValue] = dvModuleNull;
         }
     }
     dvSetUsedRootModuleTable(dvUsedRootModuleTable() + spaceNeeded);
@@ -408,7 +408,7 @@ static void *allocRootModuleTables(
 {
     dvRoot Root = dvIndex2Root((uint32)objectNumber);
 
-    dvRootSetModuleTableIndex(Root, 0);
+    dvRootSetModuleTableIndex_(Root, 0);
     dvRootSetNumModuleTable(Root, 0);
     if(numValues == 0) {
         return NULL;
@@ -472,16 +472,16 @@ void dvRootResizeModuleTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xRoot;
-            for(xRoot = (uint32)(dvUsedRootModuleTable() + oldSize); xRoot < dvUsedRootModuleTable() + oldSize + newSize - oldSize; xRoot++) {
-                dvRoots.ModuleTable[xRoot] = dvModuleNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedRootModuleTable() + oldSize); xValue < dvUsedRootModuleTable() + oldSize + newSize - oldSize; xValue++) {
+                dvRoots.ModuleTable[xValue] = dvModuleNull;
             }
         }
     }
     *(dvRoot *)(void *)dataPtr = dvRootNull;
     *(uint32 *)(void *)(((dvRoot *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeRootModuleTable(dvFreeRootModuleTable() + oldSize);
-    dvRootSetModuleTableIndex(Root, dvUsedRootModuleTable() + usedHeaderSize);
+    dvRootSetModuleTableIndex_(Root, dvUsedRootModuleTable() + usedHeaderSize);
     dvRootSetNumModuleTable(Root, numModuleTables);
     dvSetUsedRootModuleTable(dvUsedRootModuleTable() + newSize);
 }
@@ -1031,11 +1031,11 @@ static void allocModpaths(void)
 {
     dvSetAllocatedModpath(2);
     dvSetUsedModpath(1);
-    dvModpaths.Sym = utNewA(utSym, (dvAllocatedModpath()));
-    dvModpaths.Root = utNewA(dvRoot, (dvAllocatedModpath()));
-    dvModpaths.NextRootModpath = utNewA(dvModpath, (dvAllocatedModpath()));
-    dvModpaths.PrevRootModpath = utNewA(dvModpath, (dvAllocatedModpath()));
-    dvModpaths.NextTableRootModpath = utNewA(dvModpath, (dvAllocatedModpath()));
+    dvModpaths.Sym = utNewAInitFirst(utSym, (dvAllocatedModpath()));
+    dvModpaths.Root = utNewAInitFirst(dvRoot, (dvAllocatedModpath()));
+    dvModpaths.NextRootModpath = utNewAInitFirst(dvModpath, (dvAllocatedModpath()));
+    dvModpaths.PrevRootModpath = utNewAInitFirst(dvModpath, (dvAllocatedModpath()));
+    dvModpaths.NextTableRootModpath = utNewAInitFirst(dvModpath, (dvAllocatedModpath()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -1097,57 +1097,58 @@ static void allocModules(void)
 {
     dvSetAllocatedModule(2);
     dvSetUsedModule(1);
-    dvModules.Sym = utNewA(utSym, (dvAllocatedModule()));
-    dvModules.PrefixSym = utNewA(utSym, (dvAllocatedModule()));
-    dvModules.Persistent = utNewA(uint8, (dvAllocatedModule() + 7) >> 3);
-    dvModules.UndoRedo = utNewA(uint8, (dvAllocatedModule() + 7) >> 3);
-    dvModules.HasSparseData = utNewA(uint8, (dvAllocatedModule() + 7) >> 3);
-    dvModules.NumFields = utNewA(uint16, (dvAllocatedModule()));
-    dvModules.NumClasses = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.NumEnums = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.NextRootModule = utNewA(dvModule, (dvAllocatedModule()));
-    dvModules.PrevRootModule = utNewA(dvModule, (dvAllocatedModule()));
-    dvModules.NextTableRootModule = utNewA(dvModule, (dvAllocatedModule()));
-    dvModules.FirstClass = utNewA(dvClass, (dvAllocatedModule()));
-    dvModules.LastClass = utNewA(dvClass, (dvAllocatedModule()));
-    dvModules.ClassTableIndex = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.NumClassTable = utNewA(uint32, (dvAllocatedModule()));
+    dvModules.Sym = utNewAInitFirst(utSym, (dvAllocatedModule()));
+    dvModules.PrefixSym = utNewAInitFirst(utSym, (dvAllocatedModule()));
+    dvModules.Persistent = utNewAInitFirst(uint8, (dvAllocatedModule() + 7) >> 3);
+    dvModules.UndoRedo = utNewAInitFirst(uint8, (dvAllocatedModule() + 7) >> 3);
+    dvModules.HasSparseData = utNewAInitFirst(uint8, (dvAllocatedModule() + 7) >> 3);
+    dvModules.NumFields = utNewAInitFirst(uint16, (dvAllocatedModule()));
+    dvModules.NumClasses = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.NumEnums = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.Elaborated = utNewAInitFirst(uint8, (dvAllocatedModule() + 7) >> 3);
+    dvModules.NextRootModule = utNewAInitFirst(dvModule, (dvAllocatedModule()));
+    dvModules.PrevRootModule = utNewAInitFirst(dvModule, (dvAllocatedModule()));
+    dvModules.NextTableRootModule = utNewAInitFirst(dvModule, (dvAllocatedModule()));
+    dvModules.FirstClass = utNewAInitFirst(dvClass, (dvAllocatedModule()));
+    dvModules.LastClass = utNewAInitFirst(dvClass, (dvAllocatedModule()));
+    dvModules.ClassTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.NumClassTable = utNewAInitFirst(uint32, (dvAllocatedModule()));
     dvSetUsedModuleClassTable(0);
     dvSetAllocatedModuleClassTable(2);
     dvSetFreeModuleClassTable(0);
-    dvModules.ClassTable = utNewA(dvClass, dvAllocatedModuleClassTable());
-    dvModules.NumClass = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.FirstEnum = utNewA(dvEnum, (dvAllocatedModule()));
-    dvModules.LastEnum = utNewA(dvEnum, (dvAllocatedModule()));
-    dvModules.EnumTableIndex = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.NumEnumTable = utNewA(uint32, (dvAllocatedModule()));
+    dvModules.ClassTable = utNewAInitFirst(dvClass, dvAllocatedModuleClassTable());
+    dvModules.NumClass = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.FirstEnum = utNewAInitFirst(dvEnum, (dvAllocatedModule()));
+    dvModules.LastEnum = utNewAInitFirst(dvEnum, (dvAllocatedModule()));
+    dvModules.EnumTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.NumEnumTable = utNewAInitFirst(uint32, (dvAllocatedModule()));
     dvSetUsedModuleEnumTable(0);
     dvSetAllocatedModuleEnumTable(2);
     dvSetFreeModuleEnumTable(0);
-    dvModules.EnumTable = utNewA(dvEnum, dvAllocatedModuleEnumTable());
-    dvModules.NumEnum = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.FirstTypedef = utNewA(dvTypedef, (dvAllocatedModule()));
-    dvModules.LastTypedef = utNewA(dvTypedef, (dvAllocatedModule()));
-    dvModules.TypedefTableIndex = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.NumTypedefTable = utNewA(uint32, (dvAllocatedModule()));
+    dvModules.EnumTable = utNewAInitFirst(dvEnum, dvAllocatedModuleEnumTable());
+    dvModules.NumEnum = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.FirstTypedef = utNewAInitFirst(dvTypedef, (dvAllocatedModule()));
+    dvModules.LastTypedef = utNewAInitFirst(dvTypedef, (dvAllocatedModule()));
+    dvModules.TypedefTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.NumTypedefTable = utNewAInitFirst(uint32, (dvAllocatedModule()));
     dvSetUsedModuleTypedefTable(0);
     dvSetAllocatedModuleTypedefTable(2);
     dvSetFreeModuleTypedefTable(0);
-    dvModules.TypedefTable = utNewA(dvTypedef, dvAllocatedModuleTypedefTable());
-    dvModules.NumTypedef = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.FirstSchema = utNewA(dvSchema, (dvAllocatedModule()));
-    dvModules.LastSchema = utNewA(dvSchema, (dvAllocatedModule()));
-    dvModules.SchemaTableIndex = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.NumSchemaTable = utNewA(uint32, (dvAllocatedModule()));
+    dvModules.TypedefTable = utNewAInitFirst(dvTypedef, dvAllocatedModuleTypedefTable());
+    dvModules.NumTypedef = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.FirstSchema = utNewAInitFirst(dvSchema, (dvAllocatedModule()));
+    dvModules.LastSchema = utNewAInitFirst(dvSchema, (dvAllocatedModule()));
+    dvModules.SchemaTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.NumSchemaTable = utNewAInitFirst(uint32, (dvAllocatedModule()));
     dvSetUsedModuleSchemaTable(0);
     dvSetAllocatedModuleSchemaTable(2);
     dvSetFreeModuleSchemaTable(0);
-    dvModules.SchemaTable = utNewA(dvSchema, dvAllocatedModuleSchemaTable());
-    dvModules.NumSchema = utNewA(uint32, (dvAllocatedModule()));
-    dvModules.FirstImportLink = utNewA(dvLink, (dvAllocatedModule()));
-    dvModules.LastImportLink = utNewA(dvLink, (dvAllocatedModule()));
-    dvModules.FirstExportLink = utNewA(dvLink, (dvAllocatedModule()));
-    dvModules.LastExportLink = utNewA(dvLink, (dvAllocatedModule()));
+    dvModules.SchemaTable = utNewAInitFirst(dvSchema, dvAllocatedModuleSchemaTable());
+    dvModules.NumSchema = utNewAInitFirst(uint32, (dvAllocatedModule()));
+    dvModules.FirstImportLink = utNewAInitFirst(dvLink, (dvAllocatedModule()));
+    dvModules.LastImportLink = utNewAInitFirst(dvLink, (dvAllocatedModule()));
+    dvModules.FirstExportLink = utNewAInitFirst(dvLink, (dvAllocatedModule()));
+    dvModules.LastExportLink = utNewAInitFirst(dvLink, (dvAllocatedModule()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -1164,27 +1165,28 @@ static void reallocModules(
     utResizeArray(dvModules.NumFields, (newSize));
     utResizeArray(dvModules.NumClasses, (newSize));
     utResizeArray(dvModules.NumEnums, (newSize));
+    utResizeArray(dvModules.Elaborated, (newSize + 7) >> 3);
     utResizeArray(dvModules.NextRootModule, (newSize));
     utResizeArray(dvModules.PrevRootModule, (newSize));
     utResizeArray(dvModules.NextTableRootModule, (newSize));
     utResizeArray(dvModules.FirstClass, (newSize));
     utResizeArray(dvModules.LastClass, (newSize));
-    utResizeArray(dvModules.ClassTableIndex, (newSize));
+    utResizeArray(dvModules.ClassTableIndex_, (newSize));
     utResizeArray(dvModules.NumClassTable, (newSize));
     utResizeArray(dvModules.NumClass, (newSize));
     utResizeArray(dvModules.FirstEnum, (newSize));
     utResizeArray(dvModules.LastEnum, (newSize));
-    utResizeArray(dvModules.EnumTableIndex, (newSize));
+    utResizeArray(dvModules.EnumTableIndex_, (newSize));
     utResizeArray(dvModules.NumEnumTable, (newSize));
     utResizeArray(dvModules.NumEnum, (newSize));
     utResizeArray(dvModules.FirstTypedef, (newSize));
     utResizeArray(dvModules.LastTypedef, (newSize));
-    utResizeArray(dvModules.TypedefTableIndex, (newSize));
+    utResizeArray(dvModules.TypedefTableIndex_, (newSize));
     utResizeArray(dvModules.NumTypedefTable, (newSize));
     utResizeArray(dvModules.NumTypedef, (newSize));
     utResizeArray(dvModules.FirstSchema, (newSize));
     utResizeArray(dvModules.LastSchema, (newSize));
-    utResizeArray(dvModules.SchemaTableIndex, (newSize));
+    utResizeArray(dvModules.SchemaTableIndex_, (newSize));
     utResizeArray(dvModules.NumSchemaTable, (newSize));
     utResizeArray(dvModules.NumSchema, (newSize));
     utResizeArray(dvModules.FirstImportLink, (newSize));
@@ -1221,7 +1223,7 @@ void dvCompactModuleClassTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumClassTable(Module) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvModuleSetClassTableIndex(Module, toPtr - dvModules.ClassTable + usedHeaderSize);
+            dvModuleSetClassTableIndex_(Module, toPtr - dvModules.ClassTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -1274,13 +1276,13 @@ void dvModuleAllocClassTables(
     if(freeSpace < spaceNeeded) {
         allocMoreModuleClassTables(spaceNeeded);
     }
-    dvModuleSetClassTableIndex(Module, dvUsedModuleClassTable() + usedHeaderSize);
+    dvModuleSetClassTableIndex_(Module, dvUsedModuleClassTable() + usedHeaderSize);
     dvModuleSetNumClassTable(Module, numClassTables);
     *(dvModule *)(void *)(dvModules.ClassTable + dvUsedModuleClassTable()) = Module;
     {
-        uint32 xModule;
-        for(xModule = (uint32)(dvModuleGetClassTableIndex(Module)); xModule < dvModuleGetClassTableIndex(Module) + numClassTables; xModule++) {
-            dvModules.ClassTable[xModule] = dvClassNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvModuleGetClassTableIndex_(Module)); xValue < dvModuleGetClassTableIndex_(Module) + numClassTables; xValue++) {
+            dvModules.ClassTable[xValue] = dvClassNull;
         }
     }
     dvSetUsedModuleClassTable(dvUsedModuleClassTable() + spaceNeeded);
@@ -1308,7 +1310,7 @@ static void *allocModuleClassTables(
 {
     dvModule Module = dvIndex2Module((uint32)objectNumber);
 
-    dvModuleSetClassTableIndex(Module, 0);
+    dvModuleSetClassTableIndex_(Module, 0);
     dvModuleSetNumClassTable(Module, 0);
     if(numValues == 0) {
         return NULL;
@@ -1372,16 +1374,16 @@ void dvModuleResizeClassTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xModule;
-            for(xModule = (uint32)(dvUsedModuleClassTable() + oldSize); xModule < dvUsedModuleClassTable() + oldSize + newSize - oldSize; xModule++) {
-                dvModules.ClassTable[xModule] = dvClassNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedModuleClassTable() + oldSize); xValue < dvUsedModuleClassTable() + oldSize + newSize - oldSize; xValue++) {
+                dvModules.ClassTable[xValue] = dvClassNull;
             }
         }
     }
     *(dvModule *)(void *)dataPtr = dvModuleNull;
     *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeModuleClassTable(dvFreeModuleClassTable() + oldSize);
-    dvModuleSetClassTableIndex(Module, dvUsedModuleClassTable() + usedHeaderSize);
+    dvModuleSetClassTableIndex_(Module, dvUsedModuleClassTable() + usedHeaderSize);
     dvModuleSetNumClassTable(Module, numClassTables);
     dvSetUsedModuleClassTable(dvUsedModuleClassTable() + newSize);
 }
@@ -1405,7 +1407,7 @@ void dvCompactModuleEnumTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumEnumTable(Module) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvModuleSetEnumTableIndex(Module, toPtr - dvModules.EnumTable + usedHeaderSize);
+            dvModuleSetEnumTableIndex_(Module, toPtr - dvModules.EnumTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -1458,13 +1460,13 @@ void dvModuleAllocEnumTables(
     if(freeSpace < spaceNeeded) {
         allocMoreModuleEnumTables(spaceNeeded);
     }
-    dvModuleSetEnumTableIndex(Module, dvUsedModuleEnumTable() + usedHeaderSize);
+    dvModuleSetEnumTableIndex_(Module, dvUsedModuleEnumTable() + usedHeaderSize);
     dvModuleSetNumEnumTable(Module, numEnumTables);
     *(dvModule *)(void *)(dvModules.EnumTable + dvUsedModuleEnumTable()) = Module;
     {
-        uint32 xModule;
-        for(xModule = (uint32)(dvModuleGetEnumTableIndex(Module)); xModule < dvModuleGetEnumTableIndex(Module) + numEnumTables; xModule++) {
-            dvModules.EnumTable[xModule] = dvEnumNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvModuleGetEnumTableIndex_(Module)); xValue < dvModuleGetEnumTableIndex_(Module) + numEnumTables; xValue++) {
+            dvModules.EnumTable[xValue] = dvEnumNull;
         }
     }
     dvSetUsedModuleEnumTable(dvUsedModuleEnumTable() + spaceNeeded);
@@ -1492,7 +1494,7 @@ static void *allocModuleEnumTables(
 {
     dvModule Module = dvIndex2Module((uint32)objectNumber);
 
-    dvModuleSetEnumTableIndex(Module, 0);
+    dvModuleSetEnumTableIndex_(Module, 0);
     dvModuleSetNumEnumTable(Module, 0);
     if(numValues == 0) {
         return NULL;
@@ -1556,16 +1558,16 @@ void dvModuleResizeEnumTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xModule;
-            for(xModule = (uint32)(dvUsedModuleEnumTable() + oldSize); xModule < dvUsedModuleEnumTable() + oldSize + newSize - oldSize; xModule++) {
-                dvModules.EnumTable[xModule] = dvEnumNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedModuleEnumTable() + oldSize); xValue < dvUsedModuleEnumTable() + oldSize + newSize - oldSize; xValue++) {
+                dvModules.EnumTable[xValue] = dvEnumNull;
             }
         }
     }
     *(dvModule *)(void *)dataPtr = dvModuleNull;
     *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeModuleEnumTable(dvFreeModuleEnumTable() + oldSize);
-    dvModuleSetEnumTableIndex(Module, dvUsedModuleEnumTable() + usedHeaderSize);
+    dvModuleSetEnumTableIndex_(Module, dvUsedModuleEnumTable() + usedHeaderSize);
     dvModuleSetNumEnumTable(Module, numEnumTables);
     dvSetUsedModuleEnumTable(dvUsedModuleEnumTable() + newSize);
 }
@@ -1589,7 +1591,7 @@ void dvCompactModuleTypedefTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumTypedefTable(Module) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvModuleSetTypedefTableIndex(Module, toPtr - dvModules.TypedefTable + usedHeaderSize);
+            dvModuleSetTypedefTableIndex_(Module, toPtr - dvModules.TypedefTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -1642,13 +1644,13 @@ void dvModuleAllocTypedefTables(
     if(freeSpace < spaceNeeded) {
         allocMoreModuleTypedefTables(spaceNeeded);
     }
-    dvModuleSetTypedefTableIndex(Module, dvUsedModuleTypedefTable() + usedHeaderSize);
+    dvModuleSetTypedefTableIndex_(Module, dvUsedModuleTypedefTable() + usedHeaderSize);
     dvModuleSetNumTypedefTable(Module, numTypedefTables);
     *(dvModule *)(void *)(dvModules.TypedefTable + dvUsedModuleTypedefTable()) = Module;
     {
-        uint32 xModule;
-        for(xModule = (uint32)(dvModuleGetTypedefTableIndex(Module)); xModule < dvModuleGetTypedefTableIndex(Module) + numTypedefTables; xModule++) {
-            dvModules.TypedefTable[xModule] = dvTypedefNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvModuleGetTypedefTableIndex_(Module)); xValue < dvModuleGetTypedefTableIndex_(Module) + numTypedefTables; xValue++) {
+            dvModules.TypedefTable[xValue] = dvTypedefNull;
         }
     }
     dvSetUsedModuleTypedefTable(dvUsedModuleTypedefTable() + spaceNeeded);
@@ -1676,7 +1678,7 @@ static void *allocModuleTypedefTables(
 {
     dvModule Module = dvIndex2Module((uint32)objectNumber);
 
-    dvModuleSetTypedefTableIndex(Module, 0);
+    dvModuleSetTypedefTableIndex_(Module, 0);
     dvModuleSetNumTypedefTable(Module, 0);
     if(numValues == 0) {
         return NULL;
@@ -1740,16 +1742,16 @@ void dvModuleResizeTypedefTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xModule;
-            for(xModule = (uint32)(dvUsedModuleTypedefTable() + oldSize); xModule < dvUsedModuleTypedefTable() + oldSize + newSize - oldSize; xModule++) {
-                dvModules.TypedefTable[xModule] = dvTypedefNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedModuleTypedefTable() + oldSize); xValue < dvUsedModuleTypedefTable() + oldSize + newSize - oldSize; xValue++) {
+                dvModules.TypedefTable[xValue] = dvTypedefNull;
             }
         }
     }
     *(dvModule *)(void *)dataPtr = dvModuleNull;
     *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeModuleTypedefTable(dvFreeModuleTypedefTable() + oldSize);
-    dvModuleSetTypedefTableIndex(Module, dvUsedModuleTypedefTable() + usedHeaderSize);
+    dvModuleSetTypedefTableIndex_(Module, dvUsedModuleTypedefTable() + usedHeaderSize);
     dvModuleSetNumTypedefTable(Module, numTypedefTables);
     dvSetUsedModuleTypedefTable(dvUsedModuleTypedefTable() + newSize);
 }
@@ -1773,7 +1775,7 @@ void dvCompactModuleSchemaTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumSchemaTable(Module) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvModuleSetSchemaTableIndex(Module, toPtr - dvModules.SchemaTable + usedHeaderSize);
+            dvModuleSetSchemaTableIndex_(Module, toPtr - dvModules.SchemaTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -1826,13 +1828,13 @@ void dvModuleAllocSchemaTables(
     if(freeSpace < spaceNeeded) {
         allocMoreModuleSchemaTables(spaceNeeded);
     }
-    dvModuleSetSchemaTableIndex(Module, dvUsedModuleSchemaTable() + usedHeaderSize);
+    dvModuleSetSchemaTableIndex_(Module, dvUsedModuleSchemaTable() + usedHeaderSize);
     dvModuleSetNumSchemaTable(Module, numSchemaTables);
     *(dvModule *)(void *)(dvModules.SchemaTable + dvUsedModuleSchemaTable()) = Module;
     {
-        uint32 xModule;
-        for(xModule = (uint32)(dvModuleGetSchemaTableIndex(Module)); xModule < dvModuleGetSchemaTableIndex(Module) + numSchemaTables; xModule++) {
-            dvModules.SchemaTable[xModule] = dvSchemaNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvModuleGetSchemaTableIndex_(Module)); xValue < dvModuleGetSchemaTableIndex_(Module) + numSchemaTables; xValue++) {
+            dvModules.SchemaTable[xValue] = dvSchemaNull;
         }
     }
     dvSetUsedModuleSchemaTable(dvUsedModuleSchemaTable() + spaceNeeded);
@@ -1860,7 +1862,7 @@ static void *allocModuleSchemaTables(
 {
     dvModule Module = dvIndex2Module((uint32)objectNumber);
 
-    dvModuleSetSchemaTableIndex(Module, 0);
+    dvModuleSetSchemaTableIndex_(Module, 0);
     dvModuleSetNumSchemaTable(Module, 0);
     if(numValues == 0) {
         return NULL;
@@ -1924,16 +1926,16 @@ void dvModuleResizeSchemaTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xModule;
-            for(xModule = (uint32)(dvUsedModuleSchemaTable() + oldSize); xModule < dvUsedModuleSchemaTable() + oldSize + newSize - oldSize; xModule++) {
-                dvModules.SchemaTable[xModule] = dvSchemaNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedModuleSchemaTable() + oldSize); xValue < dvUsedModuleSchemaTable() + oldSize + newSize - oldSize; xValue++) {
+                dvModules.SchemaTable[xValue] = dvSchemaNull;
             }
         }
     }
     *(dvModule *)(void *)dataPtr = dvModuleNull;
     *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeModuleSchemaTable(dvFreeModuleSchemaTable() + oldSize);
-    dvModuleSetSchemaTableIndex(Module, dvUsedModuleSchemaTable() + usedHeaderSize);
+    dvModuleSetSchemaTableIndex_(Module, dvUsedModuleSchemaTable() + usedHeaderSize);
     dvModuleSetNumSchemaTable(Module, numSchemaTables);
     dvSetUsedModuleSchemaTable(dvUsedModuleSchemaTable() + newSize);
 }
@@ -1952,6 +1954,7 @@ void dvModuleCopyProps(
     dvModuleSetNumFields(newModule, dvModuleGetNumFields(oldModule));
     dvModuleSetNumClasses(newModule, dvModuleGetNumClasses(oldModule));
     dvModuleSetNumEnums(newModule, dvModuleGetNumEnums(oldModule));
+    dvModuleSetElaborated(newModule, dvModuleElaborated(oldModule));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -1966,6 +1969,7 @@ uint32 dvModuleGetBitfield(
     bitfield |= dvModulePersistent(_Module) << xLevel++;
     bitfield |= dvModuleUndoRedo(_Module) << xLevel++;
     bitfield |= dvModuleHasSparseData(_Module) << xLevel++;
+    bitfield |= dvModuleElaborated(_Module) << xLevel++;
     return bitfield;
 }
 
@@ -1981,6 +1985,8 @@ void dvModuleSetBitfield(
     dvModuleSetUndoRedo(_Module, bitfield & 1);
     bitfield >>= 1;
     dvModuleSetHasSparseData(_Module, bitfield & 1);
+    bitfield >>= 1;
+    dvModuleSetElaborated(_Module, bitfield & 1);
     bitfield >>= 1;
 }
 
@@ -3294,10 +3300,10 @@ static void allocLinks(void)
 {
     dvSetAllocatedLink(2);
     dvSetUsedLink(1);
-    dvLinks.ImportModule = utNewA(dvModule, (dvAllocatedLink()));
-    dvLinks.NextModuleImportLink = utNewA(dvLink, (dvAllocatedLink()));
-    dvLinks.ExportModule = utNewA(dvModule, (dvAllocatedLink()));
-    dvLinks.NextModuleExportLink = utNewA(dvLink, (dvAllocatedLink()));
+    dvLinks.ImportModule = utNewAInitFirst(dvModule, (dvAllocatedLink()));
+    dvLinks.NextModuleImportLink = utNewAInitFirst(dvLink, (dvAllocatedLink()));
+    dvLinks.ExportModule = utNewAInitFirst(dvModule, (dvAllocatedLink()));
+    dvLinks.NextModuleExportLink = utNewAInitFirst(dvLink, (dvAllocatedLink()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -3358,13 +3364,13 @@ static void allocSchemas(void)
 {
     dvSetAllocatedSchema(2);
     dvSetUsedSchema(1);
-    dvSchemas.Sym = utNewA(utSym, (dvAllocatedSchema()));
-    dvSchemas.Module = utNewA(dvModule, (dvAllocatedSchema()));
-    dvSchemas.NextModuleSchema = utNewA(dvSchema, (dvAllocatedSchema()));
-    dvSchemas.PrevModuleSchema = utNewA(dvSchema, (dvAllocatedSchema()));
-    dvSchemas.NextTableModuleSchema = utNewA(dvSchema, (dvAllocatedSchema()));
-    dvSchemas.FirstRelationship = utNewA(dvRelationship, (dvAllocatedSchema()));
-    dvSchemas.LastRelationship = utNewA(dvRelationship, (dvAllocatedSchema()));
+    dvSchemas.Sym = utNewAInitFirst(utSym, (dvAllocatedSchema()));
+    dvSchemas.Module = utNewAInitFirst(dvModule, (dvAllocatedSchema()));
+    dvSchemas.NextModuleSchema = utNewAInitFirst(dvSchema, (dvAllocatedSchema()));
+    dvSchemas.PrevModuleSchema = utNewAInitFirst(dvSchema, (dvAllocatedSchema()));
+    dvSchemas.NextTableModuleSchema = utNewAInitFirst(dvSchema, (dvAllocatedSchema()));
+    dvSchemas.FirstRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedSchema()));
+    dvSchemas.LastRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedSchema()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -3545,22 +3551,22 @@ static void allocEnums(void)
 {
     dvSetAllocatedEnum(2);
     dvSetUsedEnum(1);
-    dvEnums.Sym = utNewA(utSym, (dvAllocatedEnum()));
-    dvEnums.PrefixSym = utNewA(utSym, (dvAllocatedEnum()));
-    dvEnums.NumEntries = utNewA(uint16, (dvAllocatedEnum()));
-    dvEnums.Module = utNewA(dvModule, (dvAllocatedEnum()));
-    dvEnums.NextModuleEnum = utNewA(dvEnum, (dvAllocatedEnum()));
-    dvEnums.PrevModuleEnum = utNewA(dvEnum, (dvAllocatedEnum()));
-    dvEnums.NextTableModuleEnum = utNewA(dvEnum, (dvAllocatedEnum()));
-    dvEnums.FirstEntry = utNewA(dvEntry, (dvAllocatedEnum()));
-    dvEnums.LastEntry = utNewA(dvEntry, (dvAllocatedEnum()));
-    dvEnums.EntryTableIndex = utNewA(uint32, (dvAllocatedEnum()));
-    dvEnums.NumEntryTable = utNewA(uint32, (dvAllocatedEnum()));
+    dvEnums.Sym = utNewAInitFirst(utSym, (dvAllocatedEnum()));
+    dvEnums.PrefixSym = utNewAInitFirst(utSym, (dvAllocatedEnum()));
+    dvEnums.NumEntries = utNewAInitFirst(uint16, (dvAllocatedEnum()));
+    dvEnums.Module = utNewAInitFirst(dvModule, (dvAllocatedEnum()));
+    dvEnums.NextModuleEnum = utNewAInitFirst(dvEnum, (dvAllocatedEnum()));
+    dvEnums.PrevModuleEnum = utNewAInitFirst(dvEnum, (dvAllocatedEnum()));
+    dvEnums.NextTableModuleEnum = utNewAInitFirst(dvEnum, (dvAllocatedEnum()));
+    dvEnums.FirstEntry = utNewAInitFirst(dvEntry, (dvAllocatedEnum()));
+    dvEnums.LastEntry = utNewAInitFirst(dvEntry, (dvAllocatedEnum()));
+    dvEnums.EntryTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedEnum()));
+    dvEnums.NumEntryTable = utNewAInitFirst(uint32, (dvAllocatedEnum()));
     dvSetUsedEnumEntryTable(0);
     dvSetAllocatedEnumEntryTable(2);
     dvSetFreeEnumEntryTable(0);
-    dvEnums.EntryTable = utNewA(dvEntry, dvAllocatedEnumEntryTable());
-    dvEnums.NumEntry = utNewA(uint32, (dvAllocatedEnum()));
+    dvEnums.EntryTable = utNewAInitFirst(dvEntry, dvAllocatedEnumEntryTable());
+    dvEnums.NumEntry = utNewAInitFirst(uint32, (dvAllocatedEnum()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -3578,7 +3584,7 @@ static void reallocEnums(
     utResizeArray(dvEnums.NextTableModuleEnum, (newSize));
     utResizeArray(dvEnums.FirstEntry, (newSize));
     utResizeArray(dvEnums.LastEntry, (newSize));
-    utResizeArray(dvEnums.EntryTableIndex, (newSize));
+    utResizeArray(dvEnums.EntryTableIndex_, (newSize));
     utResizeArray(dvEnums.NumEntryTable, (newSize));
     utResizeArray(dvEnums.NumEntry, (newSize));
     dvSetAllocatedEnum(newSize);
@@ -3611,7 +3617,7 @@ void dvCompactEnumEntryTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvEnumGetNumEntryTable(Enum) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvEnumSetEntryTableIndex(Enum, toPtr - dvEnums.EntryTable + usedHeaderSize);
+            dvEnumSetEntryTableIndex_(Enum, toPtr - dvEnums.EntryTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -3664,13 +3670,13 @@ void dvEnumAllocEntryTables(
     if(freeSpace < spaceNeeded) {
         allocMoreEnumEntryTables(spaceNeeded);
     }
-    dvEnumSetEntryTableIndex(Enum, dvUsedEnumEntryTable() + usedHeaderSize);
+    dvEnumSetEntryTableIndex_(Enum, dvUsedEnumEntryTable() + usedHeaderSize);
     dvEnumSetNumEntryTable(Enum, numEntryTables);
     *(dvEnum *)(void *)(dvEnums.EntryTable + dvUsedEnumEntryTable()) = Enum;
     {
-        uint32 xEnum;
-        for(xEnum = (uint32)(dvEnumGetEntryTableIndex(Enum)); xEnum < dvEnumGetEntryTableIndex(Enum) + numEntryTables; xEnum++) {
-            dvEnums.EntryTable[xEnum] = dvEntryNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvEnumGetEntryTableIndex_(Enum)); xValue < dvEnumGetEntryTableIndex_(Enum) + numEntryTables; xValue++) {
+            dvEnums.EntryTable[xValue] = dvEntryNull;
         }
     }
     dvSetUsedEnumEntryTable(dvUsedEnumEntryTable() + spaceNeeded);
@@ -3698,7 +3704,7 @@ static void *allocEnumEntryTables(
 {
     dvEnum Enum = dvIndex2Enum((uint32)objectNumber);
 
-    dvEnumSetEntryTableIndex(Enum, 0);
+    dvEnumSetEntryTableIndex_(Enum, 0);
     dvEnumSetNumEntryTable(Enum, 0);
     if(numValues == 0) {
         return NULL;
@@ -3762,16 +3768,16 @@ void dvEnumResizeEntryTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xEnum;
-            for(xEnum = (uint32)(dvUsedEnumEntryTable() + oldSize); xEnum < dvUsedEnumEntryTable() + oldSize + newSize - oldSize; xEnum++) {
-                dvEnums.EntryTable[xEnum] = dvEntryNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedEnumEntryTable() + oldSize); xValue < dvUsedEnumEntryTable() + oldSize + newSize - oldSize; xValue++) {
+                dvEnums.EntryTable[xValue] = dvEntryNull;
             }
         }
     }
     *(dvEnum *)(void *)dataPtr = dvEnumNull;
     *(uint32 *)(void *)(((dvEnum *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeEnumEntryTable(dvFreeEnumEntryTable() + oldSize);
-    dvEnumSetEntryTableIndex(Enum, dvUsedEnumEntryTable() + usedHeaderSize);
+    dvEnumSetEntryTableIndex_(Enum, dvUsedEnumEntryTable() + usedHeaderSize);
     dvEnumSetNumEntryTable(Enum, numEntryTables);
     dvSetUsedEnumEntryTable(dvUsedEnumEntryTable() + newSize);
 }
@@ -4077,14 +4083,14 @@ static void allocEntrys(void)
 {
     dvSetAllocatedEntry(2);
     dvSetUsedEntry(1);
-    dvEntrys.Sym = utNewA(utSym, (dvAllocatedEntry()));
-    dvEntrys.Value = utNewA(uint32, (dvAllocatedEntry()));
-    dvEntrys.Enum = utNewA(dvEnum, (dvAllocatedEntry()));
-    dvEntrys.NextEnumEntry = utNewA(dvEntry, (dvAllocatedEntry()));
-    dvEntrys.PrevEnumEntry = utNewA(dvEntry, (dvAllocatedEntry()));
-    dvEntrys.NextTableEnumEntry = utNewA(dvEntry, (dvAllocatedEntry()));
-    dvEntrys.FirstCase = utNewA(dvCase, (dvAllocatedEntry()));
-    dvEntrys.LastCase = utNewA(dvCase, (dvAllocatedEntry()));
+    dvEntrys.Sym = utNewAInitFirst(utSym, (dvAllocatedEntry()));
+    dvEntrys.Value = utNewAInitFirst(uint32, (dvAllocatedEntry()));
+    dvEntrys.Enum = utNewAInitFirst(dvEnum, (dvAllocatedEntry()));
+    dvEntrys.NextEnumEntry = utNewAInitFirst(dvEntry, (dvAllocatedEntry()));
+    dvEntrys.PrevEnumEntry = utNewAInitFirst(dvEntry, (dvAllocatedEntry()));
+    dvEntrys.NextTableEnumEntry = utNewAInitFirst(dvEntry, (dvAllocatedEntry()));
+    dvEntrys.FirstCase = utNewAInitFirst(dvCase, (dvAllocatedEntry()));
+    dvEntrys.LastCase = utNewAInitFirst(dvCase, (dvAllocatedEntry()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -4267,17 +4273,17 @@ static void allocTypedefs(void)
 {
     dvSetAllocatedTypedef(2);
     dvSetUsedTypedef(1);
-    dvTypedefs.Sym = utNewA(utSym, (dvAllocatedTypedef()));
-    dvTypedefs.InitializerIndex = utNewA(uint32, (dvAllocatedTypedef()));
-    dvTypedefs.NumInitializer = utNewA(uint32, (dvAllocatedTypedef()));
+    dvTypedefs.Sym = utNewAInitFirst(utSym, (dvAllocatedTypedef()));
+    dvTypedefs.InitializerIndex_ = utNewAInitFirst(uint32, (dvAllocatedTypedef()));
+    dvTypedefs.NumInitializer = utNewAInitFirst(uint32, (dvAllocatedTypedef()));
     dvSetUsedTypedefInitializer(0);
     dvSetAllocatedTypedefInitializer(2);
     dvSetFreeTypedefInitializer(0);
-    dvTypedefs.Initializer = utNewA(char, dvAllocatedTypedefInitializer());
-    dvTypedefs.Module = utNewA(dvModule, (dvAllocatedTypedef()));
-    dvTypedefs.NextModuleTypedef = utNewA(dvTypedef, (dvAllocatedTypedef()));
-    dvTypedefs.PrevModuleTypedef = utNewA(dvTypedef, (dvAllocatedTypedef()));
-    dvTypedefs.NextTableModuleTypedef = utNewA(dvTypedef, (dvAllocatedTypedef()));
+    dvTypedefs.Initializer = utNewAInitFirst(char, dvAllocatedTypedefInitializer());
+    dvTypedefs.Module = utNewAInitFirst(dvModule, (dvAllocatedTypedef()));
+    dvTypedefs.NextModuleTypedef = utNewAInitFirst(dvTypedef, (dvAllocatedTypedef()));
+    dvTypedefs.PrevModuleTypedef = utNewAInitFirst(dvTypedef, (dvAllocatedTypedef()));
+    dvTypedefs.NextTableModuleTypedef = utNewAInitFirst(dvTypedef, (dvAllocatedTypedef()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -4287,7 +4293,7 @@ static void reallocTypedefs(
     uint32 newSize)
 {
     utResizeArray(dvTypedefs.Sym, (newSize));
-    utResizeArray(dvTypedefs.InitializerIndex, (newSize));
+    utResizeArray(dvTypedefs.InitializerIndex_, (newSize));
     utResizeArray(dvTypedefs.NumInitializer, (newSize));
     utResizeArray(dvTypedefs.Module, (newSize));
     utResizeArray(dvTypedefs.NextModuleTypedef, (newSize));
@@ -4323,7 +4329,7 @@ void dvCompactTypedefInitializers(void)
             /* Need to move it to toPtr */
             size = utMax(dvTypedefGetNumInitializer(Typedef) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvTypedefSetInitializerIndex(Typedef, toPtr - dvTypedefs.Initializer + usedHeaderSize);
+            dvTypedefSetInitializerIndex_(Typedef, toPtr - dvTypedefs.Initializer + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -4376,10 +4382,10 @@ void dvTypedefAllocInitializers(
     if(freeSpace < spaceNeeded) {
         allocMoreTypedefInitializers(spaceNeeded);
     }
-    dvTypedefSetInitializerIndex(Typedef, dvUsedTypedefInitializer() + usedHeaderSize);
+    dvTypedefSetInitializerIndex_(Typedef, dvUsedTypedefInitializer() + usedHeaderSize);
     dvTypedefSetNumInitializer(Typedef, numInitializers);
     *(dvTypedef *)(void *)(dvTypedefs.Initializer + dvUsedTypedefInitializer()) = Typedef;
-    memset(dvTypedefs.Initializer + dvTypedefGetInitializerIndex(Typedef), 0, ((numInitializers))*sizeof(char));
+    memset(dvTypedefs.Initializer + dvTypedefGetInitializerIndex_(Typedef), 0, ((numInitializers))*sizeof(char));
     dvSetUsedTypedefInitializer(dvUsedTypedefInitializer() + spaceNeeded);
 }
 
@@ -4405,7 +4411,7 @@ static void *allocTypedefInitializers(
 {
     dvTypedef Typedef = dvIndex2Typedef((uint32)objectNumber);
 
-    dvTypedefSetInitializerIndex(Typedef, 0);
+    dvTypedefSetInitializerIndex_(Typedef, 0);
     dvTypedefSetNumInitializer(Typedef, 0);
     if(numValues == 0) {
         return NULL;
@@ -4473,7 +4479,7 @@ void dvTypedefResizeInitializers(
     *(dvTypedef *)(void *)dataPtr = dvTypedefNull;
     *(uint32 *)(void *)(((dvTypedef *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeTypedefInitializer(dvFreeTypedefInitializer() + oldSize);
-    dvTypedefSetInitializerIndex(Typedef, dvUsedTypedefInitializer() + usedHeaderSize);
+    dvTypedefSetInitializerIndex_(Typedef, dvUsedTypedefInitializer() + usedHeaderSize);
     dvTypedefSetNumInitializer(Typedef, numInitializers);
     dvSetUsedTypedefInitializer(dvUsedTypedefInitializer() + newSize);
 }
@@ -4515,50 +4521,50 @@ static void allocClasss(void)
 {
     dvSetAllocatedClass(2);
     dvSetUsedClass(1);
-    dvClasss.Sym = utNewA(utSym, (dvAllocatedClass()));
-    dvClasss.MemoryStyle = utNewA(dvMemoryStyle, (dvAllocatedClass()));
-    dvClasss.ReferenceSize = utNewA(uint8, (dvAllocatedClass()));
-    dvClasss.GenerateArrayClass = utNewA(uint8, (dvAllocatedClass() + 7) >> 3);
-    dvClasss.GenerateAttributes = utNewA(uint8, (dvAllocatedClass() + 7) >> 3);
-    dvClasss.Sparse = utNewA(uint8, (dvAllocatedClass() + 7) >> 3);
-    dvClasss.NumFields = utNewA(uint16, (dvAllocatedClass()));
-    dvClasss.Number = utNewA(uint16, (dvAllocatedClass()));
-    dvClasss.BaseClassSym = utNewA(utSym, (dvAllocatedClass()));
-    dvClasss.Module = utNewA(dvModule, (dvAllocatedClass()));
-    dvClasss.NextModuleClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.PrevModuleClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.NextTableModuleClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.FirstProperty = utNewA(dvProperty, (dvAllocatedClass()));
-    dvClasss.LastProperty = utNewA(dvProperty, (dvAllocatedClass()));
-    dvClasss.PropertyTableIndex = utNewA(uint32, (dvAllocatedClass()));
-    dvClasss.NumPropertyTable = utNewA(uint32, (dvAllocatedClass()));
+    dvClasss.Sym = utNewAInitFirst(utSym, (dvAllocatedClass()));
+    dvClasss.MemoryStyle = utNewAInitFirst(dvMemoryStyle, (dvAllocatedClass()));
+    dvClasss.ReferenceSize = utNewAInitFirst(uint8, (dvAllocatedClass()));
+    dvClasss.GenerateArrayClass = utNewAInitFirst(uint8, (dvAllocatedClass() + 7) >> 3);
+    dvClasss.GenerateAttributes = utNewAInitFirst(uint8, (dvAllocatedClass() + 7) >> 3);
+    dvClasss.Sparse = utNewAInitFirst(uint8, (dvAllocatedClass() + 7) >> 3);
+    dvClasss.NumFields = utNewAInitFirst(uint16, (dvAllocatedClass()));
+    dvClasss.Number = utNewAInitFirst(uint16, (dvAllocatedClass()));
+    dvClasss.BaseClassSym = utNewAInitFirst(utSym, (dvAllocatedClass()));
+    dvClasss.Module = utNewAInitFirst(dvModule, (dvAllocatedClass()));
+    dvClasss.NextModuleClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.PrevModuleClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.NextTableModuleClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.FirstProperty = utNewAInitFirst(dvProperty, (dvAllocatedClass()));
+    dvClasss.LastProperty = utNewAInitFirst(dvProperty, (dvAllocatedClass()));
+    dvClasss.PropertyTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedClass()));
+    dvClasss.NumPropertyTable = utNewAInitFirst(uint32, (dvAllocatedClass()));
     dvSetUsedClassPropertyTable(0);
     dvSetAllocatedClassPropertyTable(2);
     dvSetFreeClassPropertyTable(0);
-    dvClasss.PropertyTable = utNewA(dvProperty, dvAllocatedClassPropertyTable());
-    dvClasss.NumProperty = utNewA(uint32, (dvAllocatedClass()));
-    dvClasss.FreeListProperty = utNewA(dvProperty, (dvAllocatedClass()));
-    dvClasss.FirstSparsegroup = utNewA(dvSparsegroup, (dvAllocatedClass()));
-    dvClasss.LastSparsegroup = utNewA(dvSparsegroup, (dvAllocatedClass()));
-    dvClasss.SparsegroupTableIndex = utNewA(uint32, (dvAllocatedClass()));
-    dvClasss.NumSparsegroupTable = utNewA(uint32, (dvAllocatedClass()));
+    dvClasss.PropertyTable = utNewAInitFirst(dvProperty, dvAllocatedClassPropertyTable());
+    dvClasss.NumProperty = utNewAInitFirst(uint32, (dvAllocatedClass()));
+    dvClasss.FreeListProperty = utNewAInitFirst(dvProperty, (dvAllocatedClass()));
+    dvClasss.FirstSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedClass()));
+    dvClasss.LastSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedClass()));
+    dvClasss.SparsegroupTableIndex_ = utNewAInitFirst(uint32, (dvAllocatedClass()));
+    dvClasss.NumSparsegroupTable = utNewAInitFirst(uint32, (dvAllocatedClass()));
     dvSetUsedClassSparsegroupTable(0);
     dvSetAllocatedClassSparsegroupTable(2);
     dvSetFreeClassSparsegroupTable(0);
-    dvClasss.SparsegroupTable = utNewA(dvSparsegroup, dvAllocatedClassSparsegroupTable());
-    dvClasss.NumSparsegroup = utNewA(uint32, (dvAllocatedClass()));
-    dvClasss.BaseClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.FirstDerivedClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.NextClassDerivedClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.LastDerivedClass = utNewA(dvClass, (dvAllocatedClass()));
-    dvClasss.FirstChildRelationship = utNewA(dvRelationship, (dvAllocatedClass()));
-    dvClasss.LastChildRelationship = utNewA(dvRelationship, (dvAllocatedClass()));
-    dvClasss.FirstParentRelationship = utNewA(dvRelationship, (dvAllocatedClass()));
-    dvClasss.LastParentRelationship = utNewA(dvRelationship, (dvAllocatedClass()));
-    dvClasss.FirstUnion = utNewA(dvUnion, (dvAllocatedClass()));
-    dvClasss.LastUnion = utNewA(dvUnion, (dvAllocatedClass()));
-    dvClasss.FirstCache = utNewA(dvCache, (dvAllocatedClass()));
-    dvClasss.LastCache = utNewA(dvCache, (dvAllocatedClass()));
+    dvClasss.SparsegroupTable = utNewAInitFirst(dvSparsegroup, dvAllocatedClassSparsegroupTable());
+    dvClasss.NumSparsegroup = utNewAInitFirst(uint32, (dvAllocatedClass()));
+    dvClasss.BaseClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.FirstDerivedClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.NextClassDerivedClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.LastDerivedClass = utNewAInitFirst(dvClass, (dvAllocatedClass()));
+    dvClasss.FirstChildRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedClass()));
+    dvClasss.LastChildRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedClass()));
+    dvClasss.FirstParentRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedClass()));
+    dvClasss.LastParentRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedClass()));
+    dvClasss.FirstUnion = utNewAInitFirst(dvUnion, (dvAllocatedClass()));
+    dvClasss.LastUnion = utNewAInitFirst(dvUnion, (dvAllocatedClass()));
+    dvClasss.FirstCache = utNewAInitFirst(dvCache, (dvAllocatedClass()));
+    dvClasss.LastCache = utNewAInitFirst(dvCache, (dvAllocatedClass()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -4582,13 +4588,13 @@ static void reallocClasss(
     utResizeArray(dvClasss.NextTableModuleClass, (newSize));
     utResizeArray(dvClasss.FirstProperty, (newSize));
     utResizeArray(dvClasss.LastProperty, (newSize));
-    utResizeArray(dvClasss.PropertyTableIndex, (newSize));
+    utResizeArray(dvClasss.PropertyTableIndex_, (newSize));
     utResizeArray(dvClasss.NumPropertyTable, (newSize));
     utResizeArray(dvClasss.NumProperty, (newSize));
     utResizeArray(dvClasss.FreeListProperty, (newSize));
     utResizeArray(dvClasss.FirstSparsegroup, (newSize));
     utResizeArray(dvClasss.LastSparsegroup, (newSize));
-    utResizeArray(dvClasss.SparsegroupTableIndex, (newSize));
+    utResizeArray(dvClasss.SparsegroupTableIndex_, (newSize));
     utResizeArray(dvClasss.NumSparsegroupTable, (newSize));
     utResizeArray(dvClasss.NumSparsegroup, (newSize));
     utResizeArray(dvClasss.BaseClass, (newSize));
@@ -4633,7 +4639,7 @@ void dvCompactClassPropertyTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvClassGetNumPropertyTable(Class) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvClassSetPropertyTableIndex(Class, toPtr - dvClasss.PropertyTable + usedHeaderSize);
+            dvClassSetPropertyTableIndex_(Class, toPtr - dvClasss.PropertyTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -4686,13 +4692,13 @@ void dvClassAllocPropertyTables(
     if(freeSpace < spaceNeeded) {
         allocMoreClassPropertyTables(spaceNeeded);
     }
-    dvClassSetPropertyTableIndex(Class, dvUsedClassPropertyTable() + usedHeaderSize);
+    dvClassSetPropertyTableIndex_(Class, dvUsedClassPropertyTable() + usedHeaderSize);
     dvClassSetNumPropertyTable(Class, numPropertyTables);
     *(dvClass *)(void *)(dvClasss.PropertyTable + dvUsedClassPropertyTable()) = Class;
     {
-        uint32 xClass;
-        for(xClass = (uint32)(dvClassGetPropertyTableIndex(Class)); xClass < dvClassGetPropertyTableIndex(Class) + numPropertyTables; xClass++) {
-            dvClasss.PropertyTable[xClass] = dvPropertyNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvClassGetPropertyTableIndex_(Class)); xValue < dvClassGetPropertyTableIndex_(Class) + numPropertyTables; xValue++) {
+            dvClasss.PropertyTable[xValue] = dvPropertyNull;
         }
     }
     dvSetUsedClassPropertyTable(dvUsedClassPropertyTable() + spaceNeeded);
@@ -4720,7 +4726,7 @@ static void *allocClassPropertyTables(
 {
     dvClass Class = dvIndex2Class((uint32)objectNumber);
 
-    dvClassSetPropertyTableIndex(Class, 0);
+    dvClassSetPropertyTableIndex_(Class, 0);
     dvClassSetNumPropertyTable(Class, 0);
     if(numValues == 0) {
         return NULL;
@@ -4784,16 +4790,16 @@ void dvClassResizePropertyTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xClass;
-            for(xClass = (uint32)(dvUsedClassPropertyTable() + oldSize); xClass < dvUsedClassPropertyTable() + oldSize + newSize - oldSize; xClass++) {
-                dvClasss.PropertyTable[xClass] = dvPropertyNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedClassPropertyTable() + oldSize); xValue < dvUsedClassPropertyTable() + oldSize + newSize - oldSize; xValue++) {
+                dvClasss.PropertyTable[xValue] = dvPropertyNull;
             }
         }
     }
     *(dvClass *)(void *)dataPtr = dvClassNull;
     *(uint32 *)(void *)(((dvClass *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeClassPropertyTable(dvFreeClassPropertyTable() + oldSize);
-    dvClassSetPropertyTableIndex(Class, dvUsedClassPropertyTable() + usedHeaderSize);
+    dvClassSetPropertyTableIndex_(Class, dvUsedClassPropertyTable() + usedHeaderSize);
     dvClassSetNumPropertyTable(Class, numPropertyTables);
     dvSetUsedClassPropertyTable(dvUsedClassPropertyTable() + newSize);
 }
@@ -4817,7 +4823,7 @@ void dvCompactClassSparsegroupTables(void)
             /* Need to move it to toPtr */
             size = utMax(dvClassGetNumSparsegroupTable(Class) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvClassSetSparsegroupTableIndex(Class, toPtr - dvClasss.SparsegroupTable + usedHeaderSize);
+            dvClassSetSparsegroupTableIndex_(Class, toPtr - dvClasss.SparsegroupTable + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -4870,13 +4876,13 @@ void dvClassAllocSparsegroupTables(
     if(freeSpace < spaceNeeded) {
         allocMoreClassSparsegroupTables(spaceNeeded);
     }
-    dvClassSetSparsegroupTableIndex(Class, dvUsedClassSparsegroupTable() + usedHeaderSize);
+    dvClassSetSparsegroupTableIndex_(Class, dvUsedClassSparsegroupTable() + usedHeaderSize);
     dvClassSetNumSparsegroupTable(Class, numSparsegroupTables);
     *(dvClass *)(void *)(dvClasss.SparsegroupTable + dvUsedClassSparsegroupTable()) = Class;
     {
-        uint32 xClass;
-        for(xClass = (uint32)(dvClassGetSparsegroupTableIndex(Class)); xClass < dvClassGetSparsegroupTableIndex(Class) + numSparsegroupTables; xClass++) {
-            dvClasss.SparsegroupTable[xClass] = dvSparsegroupNull;
+        uint32 xValue;
+        for(xValue = (uint32)(dvClassGetSparsegroupTableIndex_(Class)); xValue < dvClassGetSparsegroupTableIndex_(Class) + numSparsegroupTables; xValue++) {
+            dvClasss.SparsegroupTable[xValue] = dvSparsegroupNull;
         }
     }
     dvSetUsedClassSparsegroupTable(dvUsedClassSparsegroupTable() + spaceNeeded);
@@ -4904,7 +4910,7 @@ static void *allocClassSparsegroupTables(
 {
     dvClass Class = dvIndex2Class((uint32)objectNumber);
 
-    dvClassSetSparsegroupTableIndex(Class, 0);
+    dvClassSetSparsegroupTableIndex_(Class, 0);
     dvClassSetNumSparsegroupTable(Class, 0);
     if(numValues == 0) {
         return NULL;
@@ -4968,16 +4974,16 @@ void dvClassResizeSparsegroupTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xClass;
-            for(xClass = (uint32)(dvUsedClassSparsegroupTable() + oldSize); xClass < dvUsedClassSparsegroupTable() + oldSize + newSize - oldSize; xClass++) {
-                dvClasss.SparsegroupTable[xClass] = dvSparsegroupNull;
+            uint32 xValue;
+            for(xValue = (uint32)(dvUsedClassSparsegroupTable() + oldSize); xValue < dvUsedClassSparsegroupTable() + oldSize + newSize - oldSize; xValue++) {
+                dvClasss.SparsegroupTable[xValue] = dvSparsegroupNull;
             }
         }
     }
     *(dvClass *)(void *)dataPtr = dvClassNull;
     *(uint32 *)(void *)(((dvClass *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreeClassSparsegroupTable(dvFreeClassSparsegroupTable() + oldSize);
-    dvClassSetSparsegroupTableIndex(Class, dvUsedClassSparsegroupTable() + usedHeaderSize);
+    dvClassSetSparsegroupTableIndex_(Class, dvUsedClassSparsegroupTable() + usedHeaderSize);
     dvClassSetNumSparsegroupTable(Class, numSparsegroupTables);
     dvSetUsedClassSparsegroupTable(dvUsedClassSparsegroupTable() + newSize);
 }
@@ -6166,48 +6172,48 @@ static void allocPropertys(void)
 {
     dvSetAllocatedProperty(2);
     dvSetUsedProperty(1);
-    dvPropertys.Sym = utNewA(utSym, (dvAllocatedProperty()));
-    dvPropertys.Type = utNewA(dvPropertyType, (dvAllocatedProperty()));
-    dvPropertys.Array = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.Cascade = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.Sparse = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.View = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.Expanded = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.FieldNumber = utNewA(uint32, (dvAllocatedProperty()));
-    dvPropertys.FirstElementProp = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.NumElementsProp = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.Hidden = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.InitializerIndex = utNewA(uint32, (dvAllocatedProperty()));
-    dvPropertys.NumInitializer = utNewA(uint32, (dvAllocatedProperty()));
+    dvPropertys.Sym = utNewAInitFirst(utSym, (dvAllocatedProperty()));
+    dvPropertys.Type = utNewAInitFirst(dvPropertyType, (dvAllocatedProperty()));
+    dvPropertys.Array = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.Cascade = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.Sparse = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.View = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.Expanded = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.FieldNumber = utNewAInitFirst(uint32, (dvAllocatedProperty()));
+    dvPropertys.FirstElementProp = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.NumElementsProp = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.Hidden = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.InitializerIndex_ = utNewAInitFirst(uint32, (dvAllocatedProperty()));
+    dvPropertys.NumInitializer = utNewAInitFirst(uint32, (dvAllocatedProperty()));
     dvSetUsedPropertyInitializer(0);
     dvSetAllocatedPropertyInitializer(2);
     dvSetFreePropertyInitializer(0);
-    dvPropertys.Initializer = utNewA(char, dvAllocatedPropertyInitializer());
-    dvPropertys.FixedSize = utNewA(uint8, (dvAllocatedProperty() + 7) >> 3);
-    dvPropertys.IndexIndex = utNewA(uint32, (dvAllocatedProperty()));
-    dvPropertys.NumIndex = utNewA(uint32, (dvAllocatedProperty()));
+    dvPropertys.Initializer = utNewAInitFirst(char, dvAllocatedPropertyInitializer());
+    dvPropertys.FixedSize = utNewAInitFirst(uint8, (dvAllocatedProperty() + 7) >> 3);
+    dvPropertys.IndexIndex_ = utNewAInitFirst(uint32, (dvAllocatedProperty()));
+    dvPropertys.NumIndex = utNewAInitFirst(uint32, (dvAllocatedProperty()));
     dvSetUsedPropertyIndex(0);
     dvSetAllocatedPropertyIndex(2);
     dvSetFreePropertyIndex(0);
-    dvPropertys.Index = utNewA(char, dvAllocatedPropertyIndex());
-    dvPropertys.Line = utNewA(uint32, (dvAllocatedProperty()));
-    dvPropertys.Class = utNewA(dvClass, (dvAllocatedProperty()));
-    dvPropertys.NextClassProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.PrevClassProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.NextTableClassProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.FirstCase = utNewA(dvCase, (dvAllocatedProperty()));
-    dvPropertys.LastCase = utNewA(dvCase, (dvAllocatedProperty()));
-    dvPropertys.FirstKeyproperty = utNewA(dvKeyproperty, (dvAllocatedProperty()));
-    dvPropertys.LastKeyproperty = utNewA(dvKeyproperty, (dvAllocatedProperty()));
-    dvPropertys.Sparsegroup = utNewA(dvSparsegroup, (dvAllocatedProperty()));
-    dvPropertys.NextSparsegroupProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.Relationship = utNewA(dvRelationship, (dvAllocatedProperty()));
-    dvPropertys.NextRelationshipProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.Union = utNewA(dvUnion, (dvAllocatedProperty()));
-    dvPropertys.NextUnionProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.Cache = utNewA(dvCache, (dvAllocatedProperty()));
-    dvPropertys.NextCacheProperty = utNewA(dvProperty, (dvAllocatedProperty()));
-    dvPropertys.union1 = utNewA(dvPropertyUnion1, dvAllocatedProperty());
+    dvPropertys.Index = utNewAInitFirst(char, dvAllocatedPropertyIndex());
+    dvPropertys.Line = utNewAInitFirst(uint32, (dvAllocatedProperty()));
+    dvPropertys.Class = utNewAInitFirst(dvClass, (dvAllocatedProperty()));
+    dvPropertys.NextClassProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.PrevClassProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.NextTableClassProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.FirstCase = utNewAInitFirst(dvCase, (dvAllocatedProperty()));
+    dvPropertys.LastCase = utNewAInitFirst(dvCase, (dvAllocatedProperty()));
+    dvPropertys.FirstKeyproperty = utNewAInitFirst(dvKeyproperty, (dvAllocatedProperty()));
+    dvPropertys.LastKeyproperty = utNewAInitFirst(dvKeyproperty, (dvAllocatedProperty()));
+    dvPropertys.Sparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedProperty()));
+    dvPropertys.NextSparsegroupProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.Relationship = utNewAInitFirst(dvRelationship, (dvAllocatedProperty()));
+    dvPropertys.NextRelationshipProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.Union = utNewAInitFirst(dvUnion, (dvAllocatedProperty()));
+    dvPropertys.NextUnionProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.Cache = utNewAInitFirst(dvCache, (dvAllocatedProperty()));
+    dvPropertys.NextCacheProperty = utNewAInitFirst(dvProperty, (dvAllocatedProperty()));
+    dvPropertys.union1 = utNewAInitFirst(dvPropertyUnion1, dvAllocatedProperty());
 }
 
 /*----------------------------------------------------------------------------------------
@@ -6227,10 +6233,10 @@ static void reallocPropertys(
     utResizeArray(dvPropertys.FirstElementProp, (newSize));
     utResizeArray(dvPropertys.NumElementsProp, (newSize));
     utResizeArray(dvPropertys.Hidden, (newSize + 7) >> 3);
-    utResizeArray(dvPropertys.InitializerIndex, (newSize));
+    utResizeArray(dvPropertys.InitializerIndex_, (newSize));
     utResizeArray(dvPropertys.NumInitializer, (newSize));
     utResizeArray(dvPropertys.FixedSize, (newSize + 7) >> 3);
-    utResizeArray(dvPropertys.IndexIndex, (newSize));
+    utResizeArray(dvPropertys.IndexIndex_, (newSize));
     utResizeArray(dvPropertys.NumIndex, (newSize));
     utResizeArray(dvPropertys.Line, (newSize));
     utResizeArray(dvPropertys.Class, (newSize));
@@ -6280,7 +6286,7 @@ void dvCompactPropertyInitializers(void)
             /* Need to move it to toPtr */
             size = utMax(dvPropertyGetNumInitializer(Property) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvPropertySetInitializerIndex(Property, toPtr - dvPropertys.Initializer + usedHeaderSize);
+            dvPropertySetInitializerIndex_(Property, toPtr - dvPropertys.Initializer + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -6333,10 +6339,10 @@ void dvPropertyAllocInitializers(
     if(freeSpace < spaceNeeded) {
         allocMorePropertyInitializers(spaceNeeded);
     }
-    dvPropertySetInitializerIndex(Property, dvUsedPropertyInitializer() + usedHeaderSize);
+    dvPropertySetInitializerIndex_(Property, dvUsedPropertyInitializer() + usedHeaderSize);
     dvPropertySetNumInitializer(Property, numInitializers);
     *(dvProperty *)(void *)(dvPropertys.Initializer + dvUsedPropertyInitializer()) = Property;
-    memset(dvPropertys.Initializer + dvPropertyGetInitializerIndex(Property), 0, ((numInitializers))*sizeof(char));
+    memset(dvPropertys.Initializer + dvPropertyGetInitializerIndex_(Property), 0, ((numInitializers))*sizeof(char));
     dvSetUsedPropertyInitializer(dvUsedPropertyInitializer() + spaceNeeded);
 }
 
@@ -6362,7 +6368,7 @@ static void *allocPropertyInitializers(
 {
     dvProperty Property = dvIndex2Property((uint32)objectNumber);
 
-    dvPropertySetInitializerIndex(Property, 0);
+    dvPropertySetInitializerIndex_(Property, 0);
     dvPropertySetNumInitializer(Property, 0);
     if(numValues == 0) {
         return NULL;
@@ -6430,7 +6436,7 @@ void dvPropertyResizeInitializers(
     *(dvProperty *)(void *)dataPtr = dvPropertyNull;
     *(uint32 *)(void *)(((dvProperty *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreePropertyInitializer(dvFreePropertyInitializer() + oldSize);
-    dvPropertySetInitializerIndex(Property, dvUsedPropertyInitializer() + usedHeaderSize);
+    dvPropertySetInitializerIndex_(Property, dvUsedPropertyInitializer() + usedHeaderSize);
     dvPropertySetNumInitializer(Property, numInitializers);
     dvSetUsedPropertyInitializer(dvUsedPropertyInitializer() + newSize);
 }
@@ -6454,7 +6460,7 @@ void dvCompactPropertyIndexs(void)
             /* Need to move it to toPtr */
             size = utMax(dvPropertyGetNumIndex(Property) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            dvPropertySetIndexIndex(Property, toPtr - dvPropertys.Index + usedHeaderSize);
+            dvPropertySetIndexIndex_(Property, toPtr - dvPropertys.Index + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -6507,10 +6513,10 @@ void dvPropertyAllocIndexs(
     if(freeSpace < spaceNeeded) {
         allocMorePropertyIndexs(spaceNeeded);
     }
-    dvPropertySetIndexIndex(Property, dvUsedPropertyIndex() + usedHeaderSize);
+    dvPropertySetIndexIndex_(Property, dvUsedPropertyIndex() + usedHeaderSize);
     dvPropertySetNumIndex(Property, numIndexs);
     *(dvProperty *)(void *)(dvPropertys.Index + dvUsedPropertyIndex()) = Property;
-    memset(dvPropertys.Index + dvPropertyGetIndexIndex(Property), 0, ((numIndexs))*sizeof(char));
+    memset(dvPropertys.Index + dvPropertyGetIndexIndex_(Property), 0, ((numIndexs))*sizeof(char));
     dvSetUsedPropertyIndex(dvUsedPropertyIndex() + spaceNeeded);
 }
 
@@ -6536,7 +6542,7 @@ static void *allocPropertyIndexs(
 {
     dvProperty Property = dvIndex2Property((uint32)objectNumber);
 
-    dvPropertySetIndexIndex(Property, 0);
+    dvPropertySetIndexIndex_(Property, 0);
     dvPropertySetNumIndex(Property, 0);
     if(numValues == 0) {
         return NULL;
@@ -6604,7 +6610,7 @@ void dvPropertyResizeIndexs(
     *(dvProperty *)(void *)dataPtr = dvPropertyNull;
     *(uint32 *)(void *)(((dvProperty *)(void *)dataPtr) + 1) = oldSize;
     dvSetFreePropertyIndex(dvFreePropertyIndex() + oldSize);
-    dvPropertySetIndexIndex(Property, dvUsedPropertyIndex() + usedHeaderSize);
+    dvPropertySetIndexIndex_(Property, dvUsedPropertyIndex() + usedHeaderSize);
     dvPropertySetNumIndex(Property, numIndexs);
     dvSetUsedPropertyIndex(dvUsedPropertyIndex() + newSize);
 }
@@ -6922,8 +6928,8 @@ void dvSparsegroupDestroy(
     dvSparsegroup Sparsegroup)
 {
     dvProperty Property_;
-    dvClass owningClass /* = dvSparsegroupGetClass(Sparsegroup) */ ;
-    dvRelationship owningRelationship /* = dvSparsegroupGetRelationship(Sparsegroup) */ ;
+    dvClass owningClass = dvSparsegroupGetClass(Sparsegroup);
+    dvRelationship owningRelationship = dvSparsegroupGetRelationship(Sparsegroup);
 
     if(dvSparsegroupDestructorCallback != NULL) {
         dvSparsegroupDestructorCallback(Sparsegroup);
@@ -6931,7 +6937,6 @@ void dvSparsegroupDestroy(
     dvSafeForeachSparsegroupProperty(Sparsegroup, Property_) {
         dvPropertySetSparsegroup(Property_, dvSparsegroupNull);
     } dvEndSafeSparsegroupProperty;
-    owningClass = dvSparsegroupGetClass(Sparsegroup);
     if(owningClass != dvClassNull) {
         dvClassRemoveSparsegroup(owningClass, Sparsegroup);
 #if defined(DD_DEBUG)
@@ -6939,11 +6944,9 @@ void dvSparsegroupDestroy(
         utExit("Sparsegroup without owning Class");
 #endif
     }
-    owningRelationship = dvSparsegroupGetRelationship(Sparsegroup);
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipSetParentSparsegroup(owningRelationship, dvSparsegroupNull);
     }
-    owningRelationship = dvSparsegroupGetRelationship(Sparsegroup);
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipSetChildSparsegroup(owningRelationship, dvSparsegroupNull);
     }
@@ -6977,14 +6980,14 @@ static void allocSparsegroups(void)
     dvSetAllocatedSparsegroup(2);
     dvSetUsedSparsegroup(1);
     dvSetFirstFreeSparsegroup(dvSparsegroupNull);
-    dvSparsegroups.Sym = utNewA(utSym, (dvAllocatedSparsegroup()));
-    dvSparsegroups.Class = utNewA(dvClass, (dvAllocatedSparsegroup()));
-    dvSparsegroups.NextClassSparsegroup = utNewA(dvSparsegroup, (dvAllocatedSparsegroup()));
-    dvSparsegroups.PrevClassSparsegroup = utNewA(dvSparsegroup, (dvAllocatedSparsegroup()));
-    dvSparsegroups.NextTableClassSparsegroup = utNewA(dvSparsegroup, (dvAllocatedSparsegroup()));
-    dvSparsegroups.FirstProperty = utNewA(dvProperty, (dvAllocatedSparsegroup()));
-    dvSparsegroups.LastProperty = utNewA(dvProperty, (dvAllocatedSparsegroup()));
-    dvSparsegroups.Relationship = utNewA(dvRelationship, (dvAllocatedSparsegroup()));
+    dvSparsegroups.Sym = utNewAInitFirst(utSym, (dvAllocatedSparsegroup()));
+    dvSparsegroups.Class = utNewAInitFirst(dvClass, (dvAllocatedSparsegroup()));
+    dvSparsegroups.NextClassSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedSparsegroup()));
+    dvSparsegroups.PrevClassSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedSparsegroup()));
+    dvSparsegroups.NextTableClassSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedSparsegroup()));
+    dvSparsegroups.FirstProperty = utNewAInitFirst(dvProperty, (dvAllocatedSparsegroup()));
+    dvSparsegroups.LastProperty = utNewAInitFirst(dvProperty, (dvAllocatedSparsegroup()));
+    dvSparsegroups.Relationship = utNewAInitFirst(dvRelationship, (dvAllocatedSparsegroup()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -7166,29 +7169,29 @@ static void allocRelationships(void)
 {
     dvSetAllocatedRelationship(2);
     dvSetUsedRelationship(1);
-    dvRelationships.Type = utNewA(dvRelationshipType, (dvAllocatedRelationship()));
-    dvRelationships.ParentLabelSym = utNewA(utSym, (dvAllocatedRelationship()));
-    dvRelationships.ChildLabelSym = utNewA(utSym, (dvAllocatedRelationship()));
-    dvRelationships.Mandatory = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.Cascade = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.AccessChild = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.AccessParent = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.SharedParent = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.Sparse = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.Expanded = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.Unordered = utNewA(uint8, (dvAllocatedRelationship() + 7) >> 3);
-    dvRelationships.Schema = utNewA(dvSchema, (dvAllocatedRelationship()));
-    dvRelationships.NextSchemaRelationship = utNewA(dvRelationship, (dvAllocatedRelationship()));
-    dvRelationships.ParentClass = utNewA(dvClass, (dvAllocatedRelationship()));
-    dvRelationships.NextClassChildRelationship = utNewA(dvRelationship, (dvAllocatedRelationship()));
-    dvRelationships.ChildClass = utNewA(dvClass, (dvAllocatedRelationship()));
-    dvRelationships.NextClassParentRelationship = utNewA(dvRelationship, (dvAllocatedRelationship()));
-    dvRelationships.FirstProperty = utNewA(dvProperty, (dvAllocatedRelationship()));
-    dvRelationships.LastProperty = utNewA(dvProperty, (dvAllocatedRelationship()));
-    dvRelationships.FirstKey = utNewA(dvKey, (dvAllocatedRelationship()));
-    dvRelationships.LastKey = utNewA(dvKey, (dvAllocatedRelationship()));
-    dvRelationships.ParentSparsegroup = utNewA(dvSparsegroup, (dvAllocatedRelationship()));
-    dvRelationships.ChildSparsegroup = utNewA(dvSparsegroup, (dvAllocatedRelationship()));
+    dvRelationships.Type = utNewAInitFirst(dvRelationshipType, (dvAllocatedRelationship()));
+    dvRelationships.ParentLabelSym = utNewAInitFirst(utSym, (dvAllocatedRelationship()));
+    dvRelationships.ChildLabelSym = utNewAInitFirst(utSym, (dvAllocatedRelationship()));
+    dvRelationships.Mandatory = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.Cascade = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.AccessChild = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.AccessParent = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.SharedParent = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.Sparse = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.Expanded = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.Unordered = utNewAInitFirst(uint8, (dvAllocatedRelationship() + 7) >> 3);
+    dvRelationships.Schema = utNewAInitFirst(dvSchema, (dvAllocatedRelationship()));
+    dvRelationships.NextSchemaRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedRelationship()));
+    dvRelationships.ParentClass = utNewAInitFirst(dvClass, (dvAllocatedRelationship()));
+    dvRelationships.NextClassChildRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedRelationship()));
+    dvRelationships.ChildClass = utNewAInitFirst(dvClass, (dvAllocatedRelationship()));
+    dvRelationships.NextClassParentRelationship = utNewAInitFirst(dvRelationship, (dvAllocatedRelationship()));
+    dvRelationships.FirstProperty = utNewAInitFirst(dvProperty, (dvAllocatedRelationship()));
+    dvRelationships.LastProperty = utNewAInitFirst(dvProperty, (dvAllocatedRelationship()));
+    dvRelationships.FirstKey = utNewAInitFirst(dvKey, (dvAllocatedRelationship()));
+    dvRelationships.LastKey = utNewAInitFirst(dvKey, (dvAllocatedRelationship()));
+    dvRelationships.ParentSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedRelationship()));
+    dvRelationships.ChildSparsegroup = utNewAInitFirst(dvSparsegroup, (dvAllocatedRelationship()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -7548,7 +7551,7 @@ void dvKeyDestroy(
     dvKey Key)
 {
     dvKeyproperty Keyproperty_;
-    dvRelationship owningRelationship /* = dvKeyGetRelationship(Key) */ ;
+    dvRelationship owningRelationship = dvKeyGetRelationship(Key);
 
     if(dvKeyDestructorCallback != NULL) {
         dvKeyDestructorCallback(Key);
@@ -7556,7 +7559,6 @@ void dvKeyDestroy(
     dvSafeForeachKeyKeyproperty(Key, Keyproperty_) {
         dvKeypropertyDestroy(Keyproperty_);
     } dvEndSafeKeyKeyproperty;
-    owningRelationship = dvKeyGetRelationship(Key);
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipRemoveKey(owningRelationship, Key);
 #if defined(DD_DEBUG)
@@ -7594,11 +7596,11 @@ static void allocKeys(void)
     dvSetAllocatedKey(2);
     dvSetUsedKey(1);
     dvSetFirstFreeKey(dvKeyNull);
-    dvKeys.LineNum = utNewA(uint32, (dvAllocatedKey()));
-    dvKeys.Relationship = utNewA(dvRelationship, (dvAllocatedKey()));
-    dvKeys.NextRelationshipKey = utNewA(dvKey, (dvAllocatedKey()));
-    dvKeys.FirstKeyproperty = utNewA(dvKeyproperty, (dvAllocatedKey()));
-    dvKeys.LastKeyproperty = utNewA(dvKeyproperty, (dvAllocatedKey()));
+    dvKeys.LineNum = utNewAInitFirst(uint32, (dvAllocatedKey()));
+    dvKeys.Relationship = utNewAInitFirst(dvRelationship, (dvAllocatedKey()));
+    dvKeys.NextRelationshipKey = utNewAInitFirst(dvKey, (dvAllocatedKey()));
+    dvKeys.FirstKeyproperty = utNewAInitFirst(dvKeyproperty, (dvAllocatedKey()));
+    dvKeys.LastKeyproperty = utNewAInitFirst(dvKeyproperty, (dvAllocatedKey()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -7767,13 +7769,12 @@ void dvShowKey(
 void dvKeypropertyDestroy(
     dvKeyproperty Keyproperty)
 {
-    dvKey owningKey /* = dvKeypropertyGetKey(Keyproperty) */ ;
-    dvProperty owningProperty /* = dvKeypropertyGetProperty(Keyproperty) */ ;
+    dvKey owningKey = dvKeypropertyGetKey(Keyproperty);
+    dvProperty owningProperty = dvKeypropertyGetProperty(Keyproperty);
 
     if(dvKeypropertyDestructorCallback != NULL) {
         dvKeypropertyDestructorCallback(Keyproperty);
     }
-    owningKey = dvKeypropertyGetKey(Keyproperty);
     if(owningKey != dvKeyNull) {
         dvKeyRemoveKeyproperty(owningKey, Keyproperty);
 #if defined(DD_DEBUG)
@@ -7781,7 +7782,6 @@ void dvKeypropertyDestroy(
         utExit("Keyproperty without owning Key");
 #endif
     }
-    owningProperty = dvKeypropertyGetProperty(Keyproperty);
     if(owningProperty != dvPropertyNull) {
         dvPropertyRemoveKeyproperty(owningProperty, Keyproperty);
 #if defined(DD_DEBUG)
@@ -7819,11 +7819,11 @@ static void allocKeypropertys(void)
     dvSetAllocatedKeyproperty(2);
     dvSetUsedKeyproperty(1);
     dvSetFirstFreeKeyproperty(dvKeypropertyNull);
-    dvKeypropertys.PropertySym = utNewA(utSym, (dvAllocatedKeyproperty()));
-    dvKeypropertys.Property = utNewA(dvProperty, (dvAllocatedKeyproperty()));
-    dvKeypropertys.NextPropertyKeyproperty = utNewA(dvKeyproperty, (dvAllocatedKeyproperty()));
-    dvKeypropertys.Key = utNewA(dvKey, (dvAllocatedKeyproperty()));
-    dvKeypropertys.NextKeyKeyproperty = utNewA(dvKeyproperty, (dvAllocatedKeyproperty()));
+    dvKeypropertys.PropertySym = utNewAInitFirst(utSym, (dvAllocatedKeyproperty()));
+    dvKeypropertys.Property = utNewAInitFirst(dvProperty, (dvAllocatedKeyproperty()));
+    dvKeypropertys.NextPropertyKeyproperty = utNewAInitFirst(dvKeyproperty, (dvAllocatedKeyproperty()));
+    dvKeypropertys.Key = utNewAInitFirst(dvKey, (dvAllocatedKeyproperty()));
+    dvKeypropertys.NextKeyKeyproperty = utNewAInitFirst(dvKeyproperty, (dvAllocatedKeyproperty()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -7876,7 +7876,7 @@ void dvUnionDestroy(
     dvUnion Union)
 {
     dvProperty Property_;
-    dvClass owningClass /* = dvUnionGetClass(Union) */ ;
+    dvClass owningClass = dvUnionGetClass(Union);
 
     if(dvUnionDestructorCallback != NULL) {
         dvUnionDestructorCallback(Union);
@@ -7884,7 +7884,6 @@ void dvUnionDestroy(
     dvSafeForeachUnionProperty(Union, Property_) {
         dvPropertySetUnion(Property_, dvUnionNull);
     } dvEndSafeUnionProperty;
-    owningClass = dvUnionGetClass(Union);
     if(owningClass != dvClassNull) {
         dvClassRemoveUnion(owningClass, Union);
 #if defined(DD_DEBUG)
@@ -7922,16 +7921,16 @@ static void allocUnions(void)
     dvSetAllocatedUnion(2);
     dvSetUsedUnion(1);
     dvSetFirstFreeUnion(dvUnionNull);
-    dvUnions.PropertySym = utNewA(utSym, (dvAllocatedUnion()));
-    dvUnions.TypeProperty = utNewA(dvProperty, (dvAllocatedUnion()));
-    dvUnions.Line = utNewA(uint32, (dvAllocatedUnion()));
-    dvUnions.Number = utNewA(uint16, (dvAllocatedUnion()));
-    dvUnions.FieldNumber = utNewA(uint32, (dvAllocatedUnion()));
-    dvUnions.NumCases = utNewA(uint16, (dvAllocatedUnion()));
-    dvUnions.Class = utNewA(dvClass, (dvAllocatedUnion()));
-    dvUnions.NextClassUnion = utNewA(dvUnion, (dvAllocatedUnion()));
-    dvUnions.FirstProperty = utNewA(dvProperty, (dvAllocatedUnion()));
-    dvUnions.LastProperty = utNewA(dvProperty, (dvAllocatedUnion()));
+    dvUnions.PropertySym = utNewAInitFirst(utSym, (dvAllocatedUnion()));
+    dvUnions.TypeProperty = utNewAInitFirst(dvProperty, (dvAllocatedUnion()));
+    dvUnions.Line = utNewAInitFirst(uint32, (dvAllocatedUnion()));
+    dvUnions.Number = utNewAInitFirst(uint16, (dvAllocatedUnion()));
+    dvUnions.FieldNumber = utNewAInitFirst(uint32, (dvAllocatedUnion()));
+    dvUnions.NumCases = utNewAInitFirst(uint16, (dvAllocatedUnion()));
+    dvUnions.Class = utNewAInitFirst(dvClass, (dvAllocatedUnion()));
+    dvUnions.NextClassUnion = utNewAInitFirst(dvUnion, (dvAllocatedUnion()));
+    dvUnions.FirstProperty = utNewAInitFirst(dvProperty, (dvAllocatedUnion()));
+    dvUnions.LastProperty = utNewAInitFirst(dvProperty, (dvAllocatedUnion()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -8109,13 +8108,12 @@ void dvShowUnion(
 void dvCaseDestroy(
     dvCase Case)
 {
-    dvEntry owningEntry /* = dvCaseGetEntry(Case) */ ;
-    dvProperty owningProperty /* = dvCaseGetProperty(Case) */ ;
+    dvEntry owningEntry = dvCaseGetEntry(Case);
+    dvProperty owningProperty = dvCaseGetProperty(Case);
 
     if(dvCaseDestructorCallback != NULL) {
         dvCaseDestructorCallback(Case);
     }
-    owningEntry = dvCaseGetEntry(Case);
     if(owningEntry != dvEntryNull) {
         dvEntryRemoveCase(owningEntry, Case);
 #if defined(DD_DEBUG)
@@ -8123,7 +8121,6 @@ void dvCaseDestroy(
         utExit("Case without owning Entry");
 #endif
     }
-    owningProperty = dvCaseGetProperty(Case);
     if(owningProperty != dvPropertyNull) {
         dvPropertyRemoveCase(owningProperty, Case);
 #if defined(DD_DEBUG)
@@ -8161,11 +8158,11 @@ static void allocCases(void)
     dvSetAllocatedCase(2);
     dvSetUsedCase(1);
     dvSetFirstFreeCase(dvCaseNull);
-    dvCases.EntrySym = utNewA(utSym, (dvAllocatedCase()));
-    dvCases.Entry = utNewA(dvEntry, (dvAllocatedCase()));
-    dvCases.NextEntryCase = utNewA(dvCase, (dvAllocatedCase()));
-    dvCases.Property = utNewA(dvProperty, (dvAllocatedCase()));
-    dvCases.NextPropertyCase = utNewA(dvCase, (dvAllocatedCase()));
+    dvCases.EntrySym = utNewAInitFirst(utSym, (dvAllocatedCase()));
+    dvCases.Entry = utNewAInitFirst(dvEntry, (dvAllocatedCase()));
+    dvCases.NextEntryCase = utNewAInitFirst(dvCase, (dvAllocatedCase()));
+    dvCases.Property = utNewAInitFirst(dvProperty, (dvAllocatedCase()));
+    dvCases.NextPropertyCase = utNewAInitFirst(dvCase, (dvAllocatedCase()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -8219,7 +8216,7 @@ void dvCacheDestroy(
 {
     dvProperty Property_;
     dvPropident Propident_;
-    dvClass owningClass /* = dvCacheGetClass(Cache) */ ;
+    dvClass owningClass = dvCacheGetClass(Cache);
 
     if(dvCacheDestructorCallback != NULL) {
         dvCacheDestructorCallback(Cache);
@@ -8230,7 +8227,6 @@ void dvCacheDestroy(
     dvSafeForeachCachePropident(Cache, Propident_) {
         dvPropidentDestroy(Propident_);
     } dvEndSafeCachePropident;
-    owningClass = dvCacheGetClass(Cache);
     if(owningClass != dvClassNull) {
         dvClassRemoveCache(owningClass, Cache);
 #if defined(DD_DEBUG)
@@ -8268,14 +8264,14 @@ static void allocCaches(void)
     dvSetAllocatedCache(2);
     dvSetUsedCache(1);
     dvSetFirstFreeCache(dvCacheNull);
-    dvCaches.Number = utNewA(uint16, (dvAllocatedCache()));
-    dvCaches.Line = utNewA(uint32, (dvAllocatedCache()));
-    dvCaches.Class = utNewA(dvClass, (dvAllocatedCache()));
-    dvCaches.NextClassCache = utNewA(dvCache, (dvAllocatedCache()));
-    dvCaches.FirstProperty = utNewA(dvProperty, (dvAllocatedCache()));
-    dvCaches.LastProperty = utNewA(dvProperty, (dvAllocatedCache()));
-    dvCaches.FirstPropident = utNewA(dvPropident, (dvAllocatedCache()));
-    dvCaches.LastPropident = utNewA(dvPropident, (dvAllocatedCache()));
+    dvCaches.Number = utNewAInitFirst(uint16, (dvAllocatedCache()));
+    dvCaches.Line = utNewAInitFirst(uint32, (dvAllocatedCache()));
+    dvCaches.Class = utNewAInitFirst(dvClass, (dvAllocatedCache()));
+    dvCaches.NextClassCache = utNewAInitFirst(dvCache, (dvAllocatedCache()));
+    dvCaches.FirstProperty = utNewAInitFirst(dvProperty, (dvAllocatedCache()));
+    dvCaches.LastProperty = utNewAInitFirst(dvProperty, (dvAllocatedCache()));
+    dvCaches.FirstPropident = utNewAInitFirst(dvPropident, (dvAllocatedCache()));
+    dvCaches.LastPropident = utNewAInitFirst(dvPropident, (dvAllocatedCache()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -8565,12 +8561,11 @@ void dvShowCache(
 void dvPropidentDestroy(
     dvPropident Propident)
 {
-    dvCache owningCache /* = dvPropidentGetCache(Propident) */ ;
+    dvCache owningCache = dvPropidentGetCache(Propident);
 
     if(dvPropidentDestructorCallback != NULL) {
         dvPropidentDestructorCallback(Propident);
     }
-    owningCache = dvPropidentGetCache(Propident);
     if(owningCache != dvCacheNull) {
         dvCacheRemovePropident(owningCache, Propident);
 #if defined(DD_DEBUG)
@@ -8608,9 +8603,9 @@ static void allocPropidents(void)
     dvSetAllocatedPropident(2);
     dvSetUsedPropident(1);
     dvSetFirstFreePropident(dvPropidentNull);
-    dvPropidents.Sym = utNewA(utSym, (dvAllocatedPropident()));
-    dvPropidents.Cache = utNewA(dvCache, (dvAllocatedPropident()));
-    dvPropidents.NextCachePropident = utNewA(dvPropident, (dvAllocatedPropident()));
+    dvPropidents.Sym = utNewAInitFirst(utSym, (dvAllocatedPropident()));
+    dvPropidents.Cache = utNewAInitFirst(dvCache, (dvAllocatedPropident()));
+    dvPropidents.NextCachePropident = utNewAInitFirst(dvPropident, (dvAllocatedPropident()));
 }
 
 /*----------------------------------------------------------------------------------------
@@ -8661,13 +8656,13 @@ void dvDatabaseStop(void)
 {
     utFree(dvRoots.FirstModpath);
     utFree(dvRoots.LastModpath);
-    utFree(dvRoots.ModpathTableIndex);
+    utFree(dvRoots.ModpathTableIndex_);
     utFree(dvRoots.NumModpathTable);
     utFree(dvRoots.ModpathTable);
     utFree(dvRoots.NumModpath);
     utFree(dvRoots.FirstModule);
     utFree(dvRoots.LastModule);
-    utFree(dvRoots.ModuleTableIndex);
+    utFree(dvRoots.ModuleTableIndex_);
     utFree(dvRoots.NumModuleTable);
     utFree(dvRoots.ModuleTable);
     utFree(dvRoots.NumModule);
@@ -8684,30 +8679,31 @@ void dvDatabaseStop(void)
     utFree(dvModules.NumFields);
     utFree(dvModules.NumClasses);
     utFree(dvModules.NumEnums);
+    utFree(dvModules.Elaborated);
     utFree(dvModules.NextRootModule);
     utFree(dvModules.PrevRootModule);
     utFree(dvModules.NextTableRootModule);
     utFree(dvModules.FirstClass);
     utFree(dvModules.LastClass);
-    utFree(dvModules.ClassTableIndex);
+    utFree(dvModules.ClassTableIndex_);
     utFree(dvModules.NumClassTable);
     utFree(dvModules.ClassTable);
     utFree(dvModules.NumClass);
     utFree(dvModules.FirstEnum);
     utFree(dvModules.LastEnum);
-    utFree(dvModules.EnumTableIndex);
+    utFree(dvModules.EnumTableIndex_);
     utFree(dvModules.NumEnumTable);
     utFree(dvModules.EnumTable);
     utFree(dvModules.NumEnum);
     utFree(dvModules.FirstTypedef);
     utFree(dvModules.LastTypedef);
-    utFree(dvModules.TypedefTableIndex);
+    utFree(dvModules.TypedefTableIndex_);
     utFree(dvModules.NumTypedefTable);
     utFree(dvModules.TypedefTable);
     utFree(dvModules.NumTypedef);
     utFree(dvModules.FirstSchema);
     utFree(dvModules.LastSchema);
-    utFree(dvModules.SchemaTableIndex);
+    utFree(dvModules.SchemaTableIndex_);
     utFree(dvModules.NumSchemaTable);
     utFree(dvModules.SchemaTable);
     utFree(dvModules.NumSchema);
@@ -8735,7 +8731,7 @@ void dvDatabaseStop(void)
     utFree(dvEnums.NextTableModuleEnum);
     utFree(dvEnums.FirstEntry);
     utFree(dvEnums.LastEntry);
-    utFree(dvEnums.EntryTableIndex);
+    utFree(dvEnums.EntryTableIndex_);
     utFree(dvEnums.NumEntryTable);
     utFree(dvEnums.EntryTable);
     utFree(dvEnums.NumEntry);
@@ -8748,7 +8744,7 @@ void dvDatabaseStop(void)
     utFree(dvEntrys.FirstCase);
     utFree(dvEntrys.LastCase);
     utFree(dvTypedefs.Sym);
-    utFree(dvTypedefs.InitializerIndex);
+    utFree(dvTypedefs.InitializerIndex_);
     utFree(dvTypedefs.NumInitializer);
     utFree(dvTypedefs.Initializer);
     utFree(dvTypedefs.Module);
@@ -8770,14 +8766,14 @@ void dvDatabaseStop(void)
     utFree(dvClasss.NextTableModuleClass);
     utFree(dvClasss.FirstProperty);
     utFree(dvClasss.LastProperty);
-    utFree(dvClasss.PropertyTableIndex);
+    utFree(dvClasss.PropertyTableIndex_);
     utFree(dvClasss.NumPropertyTable);
     utFree(dvClasss.PropertyTable);
     utFree(dvClasss.NumProperty);
     utFree(dvClasss.FreeListProperty);
     utFree(dvClasss.FirstSparsegroup);
     utFree(dvClasss.LastSparsegroup);
-    utFree(dvClasss.SparsegroupTableIndex);
+    utFree(dvClasss.SparsegroupTableIndex_);
     utFree(dvClasss.NumSparsegroupTable);
     utFree(dvClasss.SparsegroupTable);
     utFree(dvClasss.NumSparsegroup);
@@ -8804,11 +8800,11 @@ void dvDatabaseStop(void)
     utFree(dvPropertys.FirstElementProp);
     utFree(dvPropertys.NumElementsProp);
     utFree(dvPropertys.Hidden);
-    utFree(dvPropertys.InitializerIndex);
+    utFree(dvPropertys.InitializerIndex_);
     utFree(dvPropertys.NumInitializer);
     utFree(dvPropertys.Initializer);
     utFree(dvPropertys.FixedSize);
-    utFree(dvPropertys.IndexIndex);
+    utFree(dvPropertys.IndexIndex_);
     utFree(dvPropertys.NumIndex);
     utFree(dvPropertys.Index);
     utFree(dvPropertys.Line);
@@ -8907,8 +8903,8 @@ void dvDatabaseStart(void)
     if(!utInitialized()) {
         utStart();
     }
-    dvRootData.hash = 0xcc4b9c29;
-    dvModuleID = utRegisterModule("dv", false, dvHash(), 18, 237, 3, sizeof(struct dvRootType_),
+    dvRootData.hash = 0xf96c7007;
+    dvModuleID = utRegisterModule("dv", false, dvHash(), 18, 238, 3, sizeof(struct dvRootType_),
         &dvRootData, dvDatabaseStart, dvDatabaseStop);
     utRegisterEnum("RelationshipType", 9);
     utRegisterEntry("LINKED_LIST", 0);
@@ -8940,7 +8936,7 @@ void dvDatabaseStart(void)
         NULL, 65535, 4, allocRoot, NULL);
     utRegisterField("FirstModpath", &dvRoots.FirstModpath, sizeof(dvModpath), UT_POINTER, "Modpath");
     utRegisterField("LastModpath", &dvRoots.LastModpath, sizeof(dvModpath), UT_POINTER, "Modpath");
-    utRegisterField("ModpathTableIndex", &dvRoots.ModpathTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("ModpathTableIndex_", &dvRoots.ModpathTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumModpathTable", &dvRoots.NumModpathTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -8950,7 +8946,7 @@ void dvDatabaseStart(void)
     utRegisterField("NumModpath", &dvRoots.NumModpath, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("FirstModule", &dvRoots.FirstModule, sizeof(dvModule), UT_POINTER, "Module");
     utRegisterField("LastModule", &dvRoots.LastModule, sizeof(dvModule), UT_POINTER, "Module");
-    utRegisterField("ModuleTableIndex", &dvRoots.ModuleTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("ModuleTableIndex_", &dvRoots.ModuleTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumModuleTable", &dvRoots.NumModuleTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -8965,7 +8961,7 @@ void dvDatabaseStart(void)
     utRegisterField("NextRootModpath", &dvModpaths.NextRootModpath, sizeof(dvModpath), UT_POINTER, "Modpath");
     utRegisterField("PrevRootModpath", &dvModpaths.PrevRootModpath, sizeof(dvModpath), UT_POINTER, "Modpath");
     utRegisterField("NextTableRootModpath", &dvModpaths.NextTableRootModpath, sizeof(dvModpath), UT_POINTER, "Modpath");
-    utRegisterClass("Module", 39, &dvRootData.usedModule, &dvRootData.allocatedModule,
+    utRegisterClass("Module", 40, &dvRootData.usedModule, &dvRootData.allocatedModule,
         NULL, 65535, 4, allocModule, NULL);
     utRegisterField("Sym", &dvModules.Sym, sizeof(utSym), UT_SYM, NULL);
     utRegisterField("PrefixSym", &dvModules.PrefixSym, sizeof(utSym), UT_SYM, NULL);
@@ -8975,12 +8971,13 @@ void dvDatabaseStart(void)
     utRegisterField("NumFields", &dvModules.NumFields, sizeof(uint16), UT_UINT, NULL);
     utRegisterField("NumClasses", &dvModules.NumClasses, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("NumEnums", &dvModules.NumEnums, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("Elaborated", &dvModules.Elaborated, sizeof(uint8), UT_BIT, NULL);
     utRegisterField("NextRootModule", &dvModules.NextRootModule, sizeof(dvModule), UT_POINTER, "Module");
     utRegisterField("PrevRootModule", &dvModules.PrevRootModule, sizeof(dvModule), UT_POINTER, "Module");
     utRegisterField("NextTableRootModule", &dvModules.NextTableRootModule, sizeof(dvModule), UT_POINTER, "Module");
     utRegisterField("FirstClass", &dvModules.FirstClass, sizeof(dvClass), UT_POINTER, "Class");
     utRegisterField("LastClass", &dvModules.LastClass, sizeof(dvClass), UT_POINTER, "Class");
-    utRegisterField("ClassTableIndex", &dvModules.ClassTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("ClassTableIndex_", &dvModules.ClassTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumClassTable", &dvModules.NumClassTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -8990,7 +8987,7 @@ void dvDatabaseStart(void)
     utRegisterField("NumClass", &dvModules.NumClass, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("FirstEnum", &dvModules.FirstEnum, sizeof(dvEnum), UT_POINTER, "Enum");
     utRegisterField("LastEnum", &dvModules.LastEnum, sizeof(dvEnum), UT_POINTER, "Enum");
-    utRegisterField("EnumTableIndex", &dvModules.EnumTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("EnumTableIndex_", &dvModules.EnumTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumEnumTable", &dvModules.NumEnumTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9000,7 +8997,7 @@ void dvDatabaseStart(void)
     utRegisterField("NumEnum", &dvModules.NumEnum, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("FirstTypedef", &dvModules.FirstTypedef, sizeof(dvTypedef), UT_POINTER, "Typedef");
     utRegisterField("LastTypedef", &dvModules.LastTypedef, sizeof(dvTypedef), UT_POINTER, "Typedef");
-    utRegisterField("TypedefTableIndex", &dvModules.TypedefTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("TypedefTableIndex_", &dvModules.TypedefTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumTypedefTable", &dvModules.NumTypedefTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9010,7 +9007,7 @@ void dvDatabaseStart(void)
     utRegisterField("NumTypedef", &dvModules.NumTypedef, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("FirstSchema", &dvModules.FirstSchema, sizeof(dvSchema), UT_POINTER, "Schema");
     utRegisterField("LastSchema", &dvModules.LastSchema, sizeof(dvSchema), UT_POINTER, "Schema");
-    utRegisterField("SchemaTableIndex", &dvModules.SchemaTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("SchemaTableIndex_", &dvModules.SchemaTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumSchemaTable", &dvModules.NumSchemaTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9048,7 +9045,7 @@ void dvDatabaseStart(void)
     utRegisterField("NextTableModuleEnum", &dvEnums.NextTableModuleEnum, sizeof(dvEnum), UT_POINTER, "Enum");
     utRegisterField("FirstEntry", &dvEnums.FirstEntry, sizeof(dvEntry), UT_POINTER, "Entry");
     utRegisterField("LastEntry", &dvEnums.LastEntry, sizeof(dvEntry), UT_POINTER, "Entry");
-    utRegisterField("EntryTableIndex", &dvEnums.EntryTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("EntryTableIndex_", &dvEnums.EntryTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumEntryTable", &dvEnums.NumEntryTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9069,7 +9066,7 @@ void dvDatabaseStart(void)
     utRegisterClass("Typedef", 8, &dvRootData.usedTypedef, &dvRootData.allocatedTypedef,
         NULL, 65535, 4, allocTypedef, NULL);
     utRegisterField("Sym", &dvTypedefs.Sym, sizeof(utSym), UT_SYM, NULL);
-    utRegisterField("InitializerIndex", &dvTypedefs.InitializerIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("InitializerIndex_", &dvTypedefs.InitializerIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumInitializer", &dvTypedefs.NumInitializer, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9097,7 +9094,7 @@ void dvDatabaseStart(void)
     utRegisterField("NextTableModuleClass", &dvClasss.NextTableModuleClass, sizeof(dvClass), UT_POINTER, "Class");
     utRegisterField("FirstProperty", &dvClasss.FirstProperty, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("LastProperty", &dvClasss.LastProperty, sizeof(dvProperty), UT_POINTER, "Property");
-    utRegisterField("PropertyTableIndex", &dvClasss.PropertyTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("PropertyTableIndex_", &dvClasss.PropertyTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumPropertyTable", &dvClasss.NumPropertyTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9108,7 +9105,7 @@ void dvDatabaseStart(void)
     utRegisterField("FreeListProperty", &dvClasss.FreeListProperty, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("FirstSparsegroup", &dvClasss.FirstSparsegroup, sizeof(dvSparsegroup), UT_POINTER, "Sparsegroup");
     utRegisterField("LastSparsegroup", &dvClasss.LastSparsegroup, sizeof(dvSparsegroup), UT_POINTER, "Sparsegroup");
-    utRegisterField("SparsegroupTableIndex", &dvClasss.SparsegroupTableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("SparsegroupTableIndex_", &dvClasss.SparsegroupTableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumSparsegroupTable", &dvClasss.NumSparsegroupTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9141,7 +9138,7 @@ void dvDatabaseStart(void)
     utRegisterField("FirstElementProp", &dvPropertys.FirstElementProp, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("NumElementsProp", &dvPropertys.NumElementsProp, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("Hidden", &dvPropertys.Hidden, sizeof(uint8), UT_BIT, NULL);
-    utRegisterField("InitializerIndex", &dvPropertys.InitializerIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("InitializerIndex_", &dvPropertys.InitializerIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumInitializer", &dvPropertys.NumInitializer, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9149,7 +9146,7 @@ void dvDatabaseStart(void)
     utRegisterArray(&dvRootData.usedPropertyInitializer, &dvRootData.allocatedPropertyInitializer,
         getPropertyInitializers, allocPropertyInitializers, dvCompactPropertyInitializers);
     utRegisterField("FixedSize", &dvPropertys.FixedSize, sizeof(uint8), UT_BIT, NULL);
-    utRegisterField("IndexIndex", &dvPropertys.IndexIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("IndexIndex_", &dvPropertys.IndexIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumIndex", &dvPropertys.NumIndex, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -9182,7 +9179,7 @@ void dvDatabaseStart(void)
     utRegisterUnionCase(0, UT_UINT, sizeof(uint8));
     utRegisterUnionCase(1, UT_UINT, sizeof(uint8));
     utRegisterClass("Sparsegroup", 8, &dvRootData.usedSparsegroup, &dvRootData.allocatedSparsegroup,
-        &dvRootData.firstFreeSparsegroup, 170, 4, allocSparsegroup, destroySparsegroup);
+        &dvRootData.firstFreeSparsegroup, 171, 4, allocSparsegroup, destroySparsegroup);
     utRegisterField("Sym", &dvSparsegroups.Sym, sizeof(utSym), UT_SYM, NULL);
     utRegisterField("Class", &dvSparsegroups.Class, sizeof(dvClass), UT_POINTER, "Class");
     utRegisterField("NextClassSparsegroup", &dvSparsegroups.NextClassSparsegroup, sizeof(dvSparsegroup), UT_POINTER, "Sparsegroup");
@@ -9217,21 +9214,21 @@ void dvDatabaseStart(void)
     utRegisterField("ParentSparsegroup", &dvRelationships.ParentSparsegroup, sizeof(dvSparsegroup), UT_POINTER, "Sparsegroup");
     utRegisterField("ChildSparsegroup", &dvRelationships.ChildSparsegroup, sizeof(dvSparsegroup), UT_POINTER, "Sparsegroup");
     utRegisterClass("Key", 5, &dvRootData.usedKey, &dvRootData.allocatedKey,
-        &dvRootData.firstFreeKey, 202, 4, allocKey, destroyKey);
+        &dvRootData.firstFreeKey, 203, 4, allocKey, destroyKey);
     utRegisterField("LineNum", &dvKeys.LineNum, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("Relationship", &dvKeys.Relationship, sizeof(dvRelationship), UT_POINTER, "Relationship");
     utRegisterField("NextRelationshipKey", &dvKeys.NextRelationshipKey, sizeof(dvKey), UT_POINTER, "Key");
     utRegisterField("FirstKeyproperty", &dvKeys.FirstKeyproperty, sizeof(dvKeyproperty), UT_POINTER, "Keyproperty");
     utRegisterField("LastKeyproperty", &dvKeys.LastKeyproperty, sizeof(dvKeyproperty), UT_POINTER, "Keyproperty");
     utRegisterClass("Keyproperty", 5, &dvRootData.usedKeyproperty, &dvRootData.allocatedKeyproperty,
-        &dvRootData.firstFreeKeyproperty, 206, 4, allocKeyproperty, destroyKeyproperty);
+        &dvRootData.firstFreeKeyproperty, 207, 4, allocKeyproperty, destroyKeyproperty);
     utRegisterField("PropertySym", &dvKeypropertys.PropertySym, sizeof(utSym), UT_SYM, NULL);
     utRegisterField("Property", &dvKeypropertys.Property, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("NextPropertyKeyproperty", &dvKeypropertys.NextPropertyKeyproperty, sizeof(dvKeyproperty), UT_POINTER, "Keyproperty");
     utRegisterField("Key", &dvKeypropertys.Key, sizeof(dvKey), UT_POINTER, "Key");
     utRegisterField("NextKeyKeyproperty", &dvKeypropertys.NextKeyKeyproperty, sizeof(dvKeyproperty), UT_POINTER, "Keyproperty");
     utRegisterClass("Union", 10, &dvRootData.usedUnion, &dvRootData.allocatedUnion,
-        &dvRootData.firstFreeUnion, 211, 4, allocUnion, destroyUnion);
+        &dvRootData.firstFreeUnion, 212, 4, allocUnion, destroyUnion);
     utRegisterField("PropertySym", &dvUnions.PropertySym, sizeof(utSym), UT_SYM, NULL);
     utRegisterField("TypeProperty", &dvUnions.TypeProperty, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("Line", &dvUnions.Line, sizeof(uint32), UT_UINT, NULL);
@@ -9243,14 +9240,14 @@ void dvDatabaseStart(void)
     utRegisterField("FirstProperty", &dvUnions.FirstProperty, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("LastProperty", &dvUnions.LastProperty, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterClass("Case", 5, &dvRootData.usedCase, &dvRootData.allocatedCase,
-        &dvRootData.firstFreeCase, 221, 4, allocCase, destroyCase);
+        &dvRootData.firstFreeCase, 222, 4, allocCase, destroyCase);
     utRegisterField("EntrySym", &dvCases.EntrySym, sizeof(utSym), UT_SYM, NULL);
     utRegisterField("Entry", &dvCases.Entry, sizeof(dvEntry), UT_POINTER, "Entry");
     utRegisterField("NextEntryCase", &dvCases.NextEntryCase, sizeof(dvCase), UT_POINTER, "Case");
     utRegisterField("Property", &dvCases.Property, sizeof(dvProperty), UT_POINTER, "Property");
     utRegisterField("NextPropertyCase", &dvCases.NextPropertyCase, sizeof(dvCase), UT_POINTER, "Case");
     utRegisterClass("Cache", 8, &dvRootData.usedCache, &dvRootData.allocatedCache,
-        &dvRootData.firstFreeCache, 228, 4, allocCache, destroyCache);
+        &dvRootData.firstFreeCache, 229, 4, allocCache, destroyCache);
     utRegisterField("Number", &dvCaches.Number, sizeof(uint16), UT_UINT, NULL);
     utRegisterField("Line", &dvCaches.Line, sizeof(uint32), UT_UINT, NULL);
     utRegisterField("Class", &dvCaches.Class, sizeof(dvClass), UT_POINTER, "Class");
@@ -9260,7 +9257,7 @@ void dvDatabaseStart(void)
     utRegisterField("FirstPropident", &dvCaches.FirstPropident, sizeof(dvPropident), UT_POINTER, "Propident");
     utRegisterField("LastPropident", &dvCaches.LastPropident, sizeof(dvPropident), UT_POINTER, "Propident");
     utRegisterClass("Propident", 3, &dvRootData.usedPropident, &dvRootData.allocatedPropident,
-        &dvRootData.firstFreePropident, 234, 4, allocPropident, destroyPropident);
+        &dvRootData.firstFreePropident, 235, 4, allocPropident, destroyPropident);
     utRegisterField("Sym", &dvPropidents.Sym, sizeof(utSym), UT_SYM, NULL);
     utRegisterField("Cache", &dvPropidents.Cache, sizeof(dvCache), UT_POINTER, "Cache");
     utRegisterField("NextCachePropident", &dvPropidents.NextCachePropident, sizeof(dvPropident), UT_POINTER, "Propident");

@@ -591,25 +591,6 @@ char *dvPropertyFindInitializer(
 }
 
 /*--------------------------------------------------------------------------------------------------
-  Look up a property on a class, given that it migh be on a base class, rather than this one.
---------------------------------------------------------------------------------------------------*/
-dvProperty dvClassLookupProperty(
-    dvClass theClass,
-    utSym sym)
-{
-    dvProperty property;
-
-    do {
-        property = dvClassFindProperty(theClass, sym);
-        if(property != dvPropertyNull) {
-            return property;
-        }
-        theClass = dvClassGetBaseClass(theClass);
-    } while(theClass != dvClassNull);
-    return dvPropertyNull;
-}
-
-/*--------------------------------------------------------------------------------------------------
   Format a access function for just this property.
 --------------------------------------------------------------------------------------------------*/
 char *dvPropertyGetAccessMacro(

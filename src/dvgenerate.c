@@ -839,10 +839,8 @@ static void setPropertyFieldNumbers(
 /*--------------------------------------------------------------------------------------------------
   Generate code from the file.
 --------------------------------------------------------------------------------------------------*/
-bool dvGenerateCode(
-    dvModule module,
-    char *includeFile,
-    char *sourceFile)
+void dvElaborateModule(
+    dvModule module)
 {
     createClassDynamicArrayClasses(module);
     if(dvModuleHasClassAttributes(module)) {
@@ -856,11 +854,47 @@ bool dvGenerateCode(
     createSparseDataClasses(module);
     createModuleRelationshipFields(module);
     createArrayFields(module);
+    dvModuleSetElaborated(module, true);
     bindKeysToProperties(module); /* Wait until here, so we can use generated fields for hash keys */
     bindCacheToProperties(module);
     setFreeListFields(module);
     setPropertyFieldNumbers(module);
+}
+
+/*--------------------------------------------------------------------------------------------------
+  Generate code from the file.
+--------------------------------------------------------------------------------------------------*/
+bool dvGenerateCode(
+    dvModule module,
+    char *includeFile,
+    char *sourceFile)
+{
+    dvElaborateModule(module);
     dvWriteHeaderFile(module, includeFile);
     dvWriteCFile(module, sourceFile);
     return true;
+}
+
+/*--------------------------------------------------------------------------------------------------
+  Look up a property on a class, given that it migh be on a base class, rather than this one.
+--------------------------------------------------------------------------------------------------*/
+dvProperty dvClassLookupProperty(
+    dvClass theClass,
+    utSym sym)
+{
+    dvModule module;
+    dvProperty property;
+
+    do {
+        module = dvClassGetModule(theClass);
+        if(!dvModuleElaborated(module)) {
+            dvElaborateModule(module); /* This insures we can find generated properties */
+        }
+        property = dvClassFindProperty(theClass, sym);
+        if(property != dvPropertyNull) {
+            return property;
+        }
+        theClass = dvClassGetBaseClass(theClass);
+    } while(theClass != dvClassNull);
+    return dvPropertyNull;
 }
