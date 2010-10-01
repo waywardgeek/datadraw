@@ -663,7 +663,7 @@ static void writeClassPropMacros(
                 "#if defined(DD_DEBUG)\n"
                 "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {utAssert(x < %0%1GetNum%2(%1)); return x;}\n"
                 "#else\n"
-                "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {return x;}\n"
+                "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) { (void)%1; return x;}\n"
                 "#endif\n"
                 "utInlineC %5 %0%1Geti%2(%4%1 %1, uint32 x) {return %0%1s.%2[\n"
                 "    %0%1Get%2Index_(%1) + %0%1Check%2Index(%1, x)];}\n"

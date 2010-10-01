@@ -3467,6 +3467,8 @@ static void writeClassCopyPropFuncs(
     if(dvClassGenerateAttributes(theClass)) {
         dvWrtemp(dvFile, "    %0%1CopyAttributes(old%1, new%1);\n", dvPrefix, name);
     }
+    dvWrtemp(dvFile, "    (void)old%0; /* to prevent compilation warning */\n", name);
+    dvWrtemp(dvFile, "    (void)new%0; /* to prevent compilation warning */\n", name);
     dvWrtemp(dvFile, "}\n\n");
 }
 

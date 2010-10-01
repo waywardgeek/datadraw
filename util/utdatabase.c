@@ -38,7 +38,7 @@ static void allocSymtabs(void)
 {
     utSetAllocatedSymtab(2);
     utSetUsedSymtab(1);
-    utSymtabs.TableIndex = utNewAInitFirst(uint32, (utAllocatedSymtab()));
+    utSymtabs.TableIndex_ = utNewAInitFirst(uint32, (utAllocatedSymtab()));
     utSymtabs.NumTable = utNewAInitFirst(uint32, (utAllocatedSymtab()));
     utSetUsedSymtabTable(0);
     utSetAllocatedSymtabTable(2);
@@ -53,7 +53,7 @@ static void allocSymtabs(void)
 static void reallocSymtabs(
     uint32 newSize)
 {
-    utResizeArray(utSymtabs.TableIndex, (newSize));
+    utResizeArray(utSymtabs.TableIndex_, (newSize));
     utResizeArray(utSymtabs.NumTable, (newSize));
     utResizeArray(utSymtabs.NumSym, (newSize));
     utSetAllocatedSymtab(newSize);
@@ -86,7 +86,7 @@ void utCompactSymtabTables(void)
             /* Need to move it to toPtr */
             size = utMax(utSymtabGetNumTable(Symtab) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            utSymtabSetTableIndex(Symtab, toPtr - utSymtabs.Table + usedHeaderSize);
+            utSymtabSetTableIndex_(Symtab, toPtr - utSymtabs.Table + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -139,13 +139,13 @@ void utSymtabAllocTables(
     if(freeSpace < spaceNeeded) {
         allocMoreSymtabTables(spaceNeeded);
     }
-    utSymtabSetTableIndex(Symtab, utUsedSymtabTable() + usedHeaderSize);
+    utSymtabSetTableIndex_(Symtab, utUsedSymtabTable() + usedHeaderSize);
     utSymtabSetNumTable(Symtab, numTables);
     *(utSymtab *)(void *)(utSymtabs.Table + utUsedSymtabTable()) = Symtab;
     {
-        uint32 xSymtab;
-        for(xSymtab = (uint32)(utSymtabGetTableIndex(Symtab)); xSymtab < utSymtabGetTableIndex(Symtab) + numTables; xSymtab++) {
-            utSymtabs.Table[xSymtab] = utSymNull;
+        uint32 xValue;
+        for(xValue = (uint32)(utSymtabGetTableIndex_(Symtab)); xValue < utSymtabGetTableIndex_(Symtab) + numTables; xValue++) {
+            utSymtabs.Table[xValue] = utSymNull;
         }
     }
     utSetUsedSymtabTable(utUsedSymtabTable() + spaceNeeded);
@@ -173,7 +173,7 @@ static void *allocSymtabTables(
 {
     utSymtab Symtab = utIndex2Symtab((uint32)objectNumber);
 
-    utSymtabSetTableIndex(Symtab, 0);
+    utSymtabSetTableIndex_(Symtab, 0);
     utSymtabSetNumTable(Symtab, 0);
     if(numValues == 0) {
         return NULL;
@@ -237,16 +237,16 @@ void utSymtabResizeTables(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xSymtab;
-            for(xSymtab = (uint32)(utUsedSymtabTable() + oldSize); xSymtab < utUsedSymtabTable() + oldSize + newSize - oldSize; xSymtab++) {
-                utSymtabs.Table[xSymtab] = utSymNull;
+            uint32 xValue;
+            for(xValue = (uint32)(utUsedSymtabTable() + oldSize); xValue < utUsedSymtabTable() + oldSize + newSize - oldSize; xValue++) {
+                utSymtabs.Table[xValue] = utSymNull;
             }
         }
     }
     *(utSymtab *)(void *)dataPtr = utSymtabNull;
     *(uint32 *)(void *)(((utSymtab *)(void *)dataPtr) + 1) = oldSize;
     utSetFreeSymtabTable(utFreeSymtabTable() + oldSize);
-    utSymtabSetTableIndex(Symtab, utUsedSymtabTable() + usedHeaderSize);
+    utSymtabSetTableIndex_(Symtab, utUsedSymtabTable() + usedHeaderSize);
     utSymtabSetNumTable(Symtab, numTables);
     utSetUsedSymtabTable(utUsedSymtabTable() + newSize);
 }
@@ -259,6 +259,8 @@ void utSymtabCopyProps(
     utSymtab newSymtab)
 {
     utSymtabSetNumSym(newSymtab, utSymtabGetNumSym(oldSymtab));
+    (void)oldSymtab; /* to prevent compilation warning */
+    (void)newSymtab; /* to prevent compilation warning */
 }
 
 #if defined(DD_DEBUG)
@@ -289,7 +291,7 @@ static void allocSyms(void)
 {
     utSetAllocatedSym(2);
     utSetUsedSym(1);
-    utSyms.NameIndex = utNewAInitFirst(uint32, (utAllocatedSym()));
+    utSyms.NameIndex_ = utNewAInitFirst(uint32, (utAllocatedSym()));
     utSyms.NumName = utNewAInitFirst(uint32, (utAllocatedSym()));
     utSetUsedSymName(0);
     utSetAllocatedSymName(2);
@@ -305,7 +307,7 @@ static void allocSyms(void)
 static void reallocSyms(
     uint32 newSize)
 {
-    utResizeArray(utSyms.NameIndex, (newSize));
+    utResizeArray(utSyms.NameIndex_, (newSize));
     utResizeArray(utSyms.NumName, (newSize));
     utResizeArray(utSyms.HashValue, (newSize));
     utResizeArray(utSyms.Next, (newSize));
@@ -339,7 +341,7 @@ void utCompactSymNames(void)
             /* Need to move it to toPtr */
             size = utMax(utSymGetNumName(Sym) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            utSymSetNameIndex(Sym, toPtr - utSyms.Name + usedHeaderSize);
+            utSymSetNameIndex_(Sym, toPtr - utSyms.Name + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -392,10 +394,10 @@ void utSymAllocNames(
     if(freeSpace < spaceNeeded) {
         allocMoreSymNames(spaceNeeded);
     }
-    utSymSetNameIndex(Sym, utUsedSymName() + usedHeaderSize);
+    utSymSetNameIndex_(Sym, utUsedSymName() + usedHeaderSize);
     utSymSetNumName(Sym, numNames);
     *(utSym *)(void *)(utSyms.Name + utUsedSymName()) = Sym;
-    memset(utSyms.Name + utSymGetNameIndex(Sym), 0, ((numNames))*sizeof(char));
+    memset(utSyms.Name + utSymGetNameIndex_(Sym), 0, ((numNames))*sizeof(char));
     utSetUsedSymName(utUsedSymName() + spaceNeeded);
 }
 
@@ -421,7 +423,7 @@ static void *allocSymNames(
 {
     utSym Sym = utIndex2Sym((uint32)objectNumber);
 
-    utSymSetNameIndex(Sym, 0);
+    utSymSetNameIndex_(Sym, 0);
     utSymSetNumName(Sym, 0);
     if(numValues == 0) {
         return NULL;
@@ -489,7 +491,7 @@ void utSymResizeNames(
     *(utSym *)(void *)dataPtr = utSymNull;
     *(uint32 *)(void *)(((utSym *)(void *)dataPtr) + 1) = oldSize;
     utSetFreeSymName(utFreeSymName() + oldSize);
-    utSymSetNameIndex(Sym, utUsedSymName() + usedHeaderSize);
+    utSymSetNameIndex_(Sym, utUsedSymName() + usedHeaderSize);
     utSymSetNumName(Sym, numNames);
     utSetUsedSymName(utUsedSymName() + newSize);
 }
@@ -502,6 +504,8 @@ void utSymCopyProps(
     utSym newSym)
 {
     utSymSetHashValue(newSym, utSymGetHashValue(oldSym));
+    (void)oldSym; /* to prevent compilation warning */
+    (void)newSym; /* to prevent compilation warning */
 }
 
 #if defined(DD_DEBUG)
@@ -554,7 +558,7 @@ static void allocDynarrays(void)
     utSetAllocatedDynarray(2);
     utSetUsedDynarray(1);
     utSetFirstFreeDynarray(utDynarrayNull);
-    utDynarrays.ValueIndex = utNewAInitFirst(uint32, (utAllocatedDynarray()));
+    utDynarrays.ValueIndex_ = utNewAInitFirst(uint32, (utAllocatedDynarray()));
     utDynarrays.NumValue = utNewAInitFirst(uint32, (utAllocatedDynarray()));
     utSetUsedDynarrayValue(0);
     utSetAllocatedDynarrayValue(2);
@@ -572,7 +576,7 @@ static void allocDynarrays(void)
 static void reallocDynarrays(
     uint32 newSize)
 {
-    utResizeArray(utDynarrays.ValueIndex, (newSize));
+    utResizeArray(utDynarrays.ValueIndex_, (newSize));
     utResizeArray(utDynarrays.NumValue, (newSize));
     utResizeArray(utDynarrays.ValueSize, (newSize));
     utResizeArray(utDynarrays.UsedValue, (newSize));
@@ -608,7 +612,7 @@ void utCompactDynarrayValues(void)
             /* Need to move it to toPtr */
             size = utMax(utDynarrayGetNumValue(Dynarray) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            utDynarraySetValueIndex(Dynarray, toPtr - utDynarrays.Value + usedHeaderSize);
+            utDynarraySetValueIndex_(Dynarray, toPtr - utDynarrays.Value + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -661,10 +665,10 @@ void utDynarrayAllocValues(
     if(freeSpace < spaceNeeded) {
         allocMoreDynarrayValues(spaceNeeded);
     }
-    utDynarraySetValueIndex(Dynarray, utUsedDynarrayValue() + usedHeaderSize);
+    utDynarraySetValueIndex_(Dynarray, utUsedDynarrayValue() + usedHeaderSize);
     utDynarraySetNumValue(Dynarray, numValues);
     *(utDynarray *)(void *)(utDynarrays.Value + utUsedDynarrayValue()) = Dynarray;
-    memset(utDynarrays.Value + utDynarrayGetValueIndex(Dynarray), 0, ((numValues))*sizeof(uint8));
+    memset(utDynarrays.Value + utDynarrayGetValueIndex_(Dynarray), 0, ((numValues))*sizeof(uint8));
     utSetUsedDynarrayValue(utUsedDynarrayValue() + spaceNeeded);
 }
 
@@ -690,7 +694,7 @@ static void *allocDynarrayValues(
 {
     utDynarray Dynarray = utIndex2Dynarray((uint32)objectNumber);
 
-    utDynarraySetValueIndex(Dynarray, 0);
+    utDynarraySetValueIndex_(Dynarray, 0);
     utDynarraySetNumValue(Dynarray, 0);
     if(numValues == 0) {
         return NULL;
@@ -758,7 +762,7 @@ void utDynarrayResizeValues(
     *(utDynarray *)(void *)dataPtr = utDynarrayNull;
     *(uint32 *)(void *)(((utDynarray *)(void *)dataPtr) + 1) = oldSize;
     utSetFreeDynarrayValue(utFreeDynarrayValue() + oldSize);
-    utDynarraySetValueIndex(Dynarray, utUsedDynarrayValue() + usedHeaderSize);
+    utDynarraySetValueIndex_(Dynarray, utUsedDynarrayValue() + usedHeaderSize);
     utDynarraySetNumValue(Dynarray, numValues);
     utSetUsedDynarrayValue(utUsedDynarrayValue() + newSize);
 }
@@ -773,6 +777,8 @@ void utDynarrayCopyProps(
     utDynarraySetValueSize(newDynarray, utDynarrayGetValueSize(oldDynarray));
     utDynarraySetUsedValue(newDynarray, utDynarrayGetUsedValue(oldDynarray));
     utDynarraySetSize(newDynarray, utDynarrayGetSize(oldDynarray));
+    (void)oldDynarray; /* to prevent compilation warning */
+    (void)newDynarray; /* to prevent compilation warning */
 }
 
 #if defined(DD_DEBUG)
@@ -825,7 +831,7 @@ static void allocSymArrays(void)
     utSetAllocatedSymArray(2);
     utSetUsedSymArray(1);
     utSetFirstFreeSymArray(utSymArrayNull);
-    utSymArrays.SymIndex = utNewAInitFirst(uint32, (utAllocatedSymArray()));
+    utSymArrays.SymIndex_ = utNewAInitFirst(uint32, (utAllocatedSymArray()));
     utSymArrays.NumSym = utNewAInitFirst(uint32, (utAllocatedSymArray()));
     utSetUsedSymArraySym(0);
     utSetAllocatedSymArraySym(2);
@@ -841,7 +847,7 @@ static void allocSymArrays(void)
 static void reallocSymArrays(
     uint32 newSize)
 {
-    utResizeArray(utSymArrays.SymIndex, (newSize));
+    utResizeArray(utSymArrays.SymIndex_, (newSize));
     utResizeArray(utSymArrays.NumSym, (newSize));
     utResizeArray(utSymArrays.UsedSym, (newSize));
     utResizeArray(utSymArrays.FreeList, (newSize));
@@ -875,7 +881,7 @@ void utCompactSymArraySyms(void)
             /* Need to move it to toPtr */
             size = utMax(utSymArrayGetNumSym(SymArray) + usedHeaderSize, freeHeaderSize);
             memmove((void *)toPtr, (void *)fromPtr, size*elementSize);
-            utSymArraySetSymIndex(SymArray, toPtr - utSymArrays.Sym + usedHeaderSize);
+            utSymArraySetSymIndex_(SymArray, toPtr - utSymArrays.Sym + usedHeaderSize);
             toPtr += size;
         } else {
             /* Just skip it */
@@ -928,13 +934,13 @@ void utSymArrayAllocSyms(
     if(freeSpace < spaceNeeded) {
         allocMoreSymArraySyms(spaceNeeded);
     }
-    utSymArraySetSymIndex(SymArray, utUsedSymArraySym() + usedHeaderSize);
+    utSymArraySetSymIndex_(SymArray, utUsedSymArraySym() + usedHeaderSize);
     utSymArraySetNumSym(SymArray, numSyms);
     *(utSymArray *)(void *)(utSymArrays.Sym + utUsedSymArraySym()) = SymArray;
     {
-        uint32 xSymArray;
-        for(xSymArray = (uint32)(utSymArrayGetSymIndex(SymArray)); xSymArray < utSymArrayGetSymIndex(SymArray) + numSyms; xSymArray++) {
-            utSymArrays.Sym[xSymArray] = utSymNull;
+        uint32 xValue;
+        for(xValue = (uint32)(utSymArrayGetSymIndex_(SymArray)); xValue < utSymArrayGetSymIndex_(SymArray) + numSyms; xValue++) {
+            utSymArrays.Sym[xValue] = utSymNull;
         }
     }
     utSetUsedSymArraySym(utUsedSymArraySym() + spaceNeeded);
@@ -962,7 +968,7 @@ static void *allocSymArraySyms(
 {
     utSymArray SymArray = utIndex2SymArray((uint32)objectNumber);
 
-    utSymArraySetSymIndex(SymArray, 0);
+    utSymArraySetSymIndex_(SymArray, 0);
     utSymArraySetNumSym(SymArray, 0);
     if(numValues == 0) {
         return NULL;
@@ -1026,16 +1032,16 @@ void utSymArrayResizeSyms(
         elementSize*utMin(oldSize, newSize));
     if(newSize > oldSize) {
         {
-            uint32 xSymArray;
-            for(xSymArray = (uint32)(utUsedSymArraySym() + oldSize); xSymArray < utUsedSymArraySym() + oldSize + newSize - oldSize; xSymArray++) {
-                utSymArrays.Sym[xSymArray] = utSymNull;
+            uint32 xValue;
+            for(xValue = (uint32)(utUsedSymArraySym() + oldSize); xValue < utUsedSymArraySym() + oldSize + newSize - oldSize; xValue++) {
+                utSymArrays.Sym[xValue] = utSymNull;
             }
         }
     }
     *(utSymArray *)(void *)dataPtr = utSymArrayNull;
     *(uint32 *)(void *)(((utSymArray *)(void *)dataPtr) + 1) = oldSize;
     utSetFreeSymArraySym(utFreeSymArraySym() + oldSize);
-    utSymArraySetSymIndex(SymArray, utUsedSymArraySym() + usedHeaderSize);
+    utSymArraySetSymIndex_(SymArray, utUsedSymArraySym() + usedHeaderSize);
     utSymArraySetNumSym(SymArray, numSyms);
     utSetUsedSymArraySym(utUsedSymArraySym() + newSize);
 }
@@ -1047,6 +1053,8 @@ void utSymArrayCopyProps(
     utSymArray oldSymArray,
     utSymArray newSymArray)
 {
+    (void)oldSymArray; /* to prevent compilation warning */
+    (void)newSymArray; /* to prevent compilation warning */
 }
 
 /*----------------------------------------------------------------------------------------
@@ -1103,23 +1111,23 @@ void utShowSymArray(
 ----------------------------------------------------------------------------------------*/
 void utDatabaseStop(void)
 {
-    utFree(utSymtabs.TableIndex);
+    utFree(utSymtabs.TableIndex_);
     utFree(utSymtabs.NumTable);
     utFree(utSymtabs.Table);
     utFree(utSymtabs.NumSym);
-    utFree(utSyms.NameIndex);
+    utFree(utSyms.NameIndex_);
     utFree(utSyms.NumName);
     utFree(utSyms.Name);
     utFree(utSyms.HashValue);
     utFree(utSyms.Next);
-    utFree(utDynarrays.ValueIndex);
+    utFree(utDynarrays.ValueIndex_);
     utFree(utDynarrays.NumValue);
     utFree(utDynarrays.Value);
     utFree(utDynarrays.ValueSize);
     utFree(utDynarrays.UsedValue);
     utFree(utDynarrays.Size);
     utFree(utDynarrays.FreeList);
-    utFree(utSymArrays.SymIndex);
+    utFree(utSymArrays.SymIndex_);
     utFree(utSymArrays.NumSym);
     utFree(utSymArrays.Sym);
     utFree(utSymArrays.UsedSym);
@@ -1135,7 +1143,7 @@ void utDatabaseStart(void)
     if(!utInitialized()) {
         utStart();
     }
-    utRootData.hash = 0x36c29ca6;
+    utRootData.hash = 0xd24e2862;
     utModuleID = utRegisterModule("ut", false, utHash(), 4, 21, 1, sizeof(struct utRootType_),
         &utRootData, utDatabaseStart, utDatabaseStop);
     utRegisterEnum("FieldType", 12);
@@ -1153,7 +1161,7 @@ void utDatabaseStart(void)
     utRegisterEntry("UT_UNION", 11);
     utRegisterClass("Symtab", 4, &utRootData.usedSymtab, &utRootData.allocatedSymtab,
         NULL, 65535, 4, allocSymtab, NULL);
-    utRegisterField("TableIndex", &utSymtabs.TableIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("TableIndex_", &utSymtabs.TableIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumTable", &utSymtabs.NumTable, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -1163,7 +1171,7 @@ void utDatabaseStart(void)
     utRegisterField("NumSym", &utSymtabs.NumSym, sizeof(uint32), UT_UINT, NULL);
     utRegisterClass("Sym", 5, &utRootData.usedSym, &utRootData.allocatedSym,
         NULL, 65535, 4, allocSym, NULL);
-    utRegisterField("NameIndex", &utSyms.NameIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("NameIndex_", &utSyms.NameIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumName", &utSyms.NumName, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -1174,7 +1182,7 @@ void utDatabaseStart(void)
     utRegisterField("Next", &utSyms.Next, sizeof(utSym), UT_POINTER, "Sym");
     utRegisterClass("Dynarray", 7, &utRootData.usedDynarray, &utRootData.allocatedDynarray,
         &utRootData.firstFreeDynarray, 15, 4, allocDynarray, destroyDynarray);
-    utRegisterField("ValueIndex", &utDynarrays.ValueIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("ValueIndex_", &utDynarrays.ValueIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumValue", &utDynarrays.NumValue, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
@@ -1188,7 +1196,7 @@ void utDatabaseStart(void)
     utSetFieldHidden();
     utRegisterClass("SymArray", 5, &utRootData.usedSymArray, &utRootData.allocatedSymArray,
         &utRootData.firstFreeSymArray, 20, 4, allocSymArray, destroySymArray);
-    utRegisterField("SymIndex", &utSymArrays.SymIndex, sizeof(uint32), UT_UINT, NULL);
+    utRegisterField("SymIndex_", &utSymArrays.SymIndex_, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();
     utRegisterField("NumSym", &utSymArrays.NumSym, sizeof(uint32), UT_UINT, NULL);
     utSetFieldHidden();

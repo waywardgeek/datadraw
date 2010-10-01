@@ -181,7 +181,7 @@ utInlineC utSymArray utIndex2SymArray(uint32 xSymArray) {return xSymArray;}
   Fields for class Symtab.
 ----------------------------------------------------------------------------------------*/
 struct utSymtabFields {
-    uint32 *TableIndex;
+    uint32 *TableIndex_;
     uint32 *NumTable;
     utSym *Table;
     uint32 *NumSym;
@@ -194,24 +194,24 @@ void utSymtabAllocTables(utSymtab Symtab, uint32 numTables);
 void utSymtabResizeTables(utSymtab Symtab, uint32 numTables);
 void utSymtabFreeTables(utSymtab Symtab);
 void utCompactSymtabTables(void);
-utInlineC uint32 utSymtabGetTableIndex(utSymtab Symtab) {return utSymtabs.TableIndex[utSymtab2ValidIndex(Symtab)];}
-utInlineC void utSymtabSetTableIndex(utSymtab Symtab, uint32 value) {utSymtabs.TableIndex[utSymtab2ValidIndex(Symtab)] = value;}
+utInlineC uint32 utSymtabGetTableIndex_(utSymtab Symtab) {return utSymtabs.TableIndex_[utSymtab2ValidIndex(Symtab)];}
+utInlineC void utSymtabSetTableIndex_(utSymtab Symtab, uint32 value) {utSymtabs.TableIndex_[utSymtab2ValidIndex(Symtab)] = value;}
 utInlineC uint32 utSymtabGetNumTable(utSymtab Symtab) {return utSymtabs.NumTable[utSymtab2ValidIndex(Symtab)];}
 utInlineC void utSymtabSetNumTable(utSymtab Symtab, uint32 value) {utSymtabs.NumTable[utSymtab2ValidIndex(Symtab)] = value;}
 #if defined(DD_DEBUG)
 utInlineC uint32 utSymtabCheckTableIndex(utSymtab Symtab, uint32 x) {utAssert(x < utSymtabGetNumTable(Symtab)); return x;}
 #else
-utInlineC uint32 utSymtabCheckTableIndex(utSymtab Symtab, uint32 x) {return x;}
+utInlineC uint32 utSymtabCheckTableIndex(utSymtab Symtab, uint32 x) { (void)Symtab; return x;}
 #endif
 utInlineC utSym utSymtabGetiTable(utSymtab Symtab, uint32 x) {return utSymtabs.Table[
-    utSymtabGetTableIndex(Symtab) + utSymtabCheckTableIndex(Symtab, x)];}
-utInlineC utSym *utSymtabGetTable(utSymtab Symtab) {return utSymtabs.Table + utSymtabGetTableIndex(Symtab);}
+    utSymtabGetTableIndex_(Symtab) + utSymtabCheckTableIndex(Symtab, x)];}
+utInlineC utSym *utSymtabGetTable(utSymtab Symtab) {return utSymtabs.Table + utSymtabGetTableIndex_(Symtab);}
 #define utSymtabGetTables utSymtabGetTable
 utInlineC void utSymtabSetTable(utSymtab Symtab, utSym *valuePtr, uint32 numTable) {
     utSymtabResizeTables(Symtab, numTable);
     memcpy(utSymtabGetTables(Symtab), valuePtr, numTable*sizeof(utSym));}
 utInlineC void utSymtabSetiTable(utSymtab Symtab, uint32 x, utSym value) {
-    utSymtabs.Table[utSymtabGetTableIndex(Symtab) + utSymtabCheckTableIndex(Symtab, (x))] = value;}
+    utSymtabs.Table[utSymtabGetTableIndex_(Symtab) + utSymtabCheckTableIndex(Symtab, (x))] = value;}
 utInlineC void utSymtabMoveTables(utSymtab Symtab, uint32 from, uint32 to, uint32 count) {
     utAssert((to+count) <= utSymtabGetNumTable(Symtab));
     utAssert((from+count) <= utSymtabGetNumTable(Symtab));
@@ -298,7 +298,7 @@ utInlineC utSymtab utSymtabAllocRaw(void) {
     return Symtab;}
 utInlineC utSymtab utSymtabAlloc(void) {
     utSymtab Symtab = utSymtabAllocRaw();
-    utSymtabSetTableIndex(Symtab, 0);
+    utSymtabSetTableIndex_(Symtab, 0);
     utSymtabSetNumTable(Symtab, 0);
     utSymtabSetNumTable(Symtab, 0);
     utSymtabSetNumSym(Symtab, 0);
@@ -311,7 +311,7 @@ utInlineC utSymtab utSymtabAlloc(void) {
   Fields for class Sym.
 ----------------------------------------------------------------------------------------*/
 struct utSymFields {
-    uint32 *NameIndex;
+    uint32 *NameIndex_;
     uint32 *NumName;
     char *Name;
     uint32 *HashValue;
@@ -325,24 +325,24 @@ void utSymAllocNames(utSym Sym, uint32 numNames);
 void utSymResizeNames(utSym Sym, uint32 numNames);
 void utSymFreeNames(utSym Sym);
 void utCompactSymNames(void);
-utInlineC uint32 utSymGetNameIndex(utSym Sym) {return utSyms.NameIndex[utSym2ValidIndex(Sym)];}
-utInlineC void utSymSetNameIndex(utSym Sym, uint32 value) {utSyms.NameIndex[utSym2ValidIndex(Sym)] = value;}
+utInlineC uint32 utSymGetNameIndex_(utSym Sym) {return utSyms.NameIndex_[utSym2ValidIndex(Sym)];}
+utInlineC void utSymSetNameIndex_(utSym Sym, uint32 value) {utSyms.NameIndex_[utSym2ValidIndex(Sym)] = value;}
 utInlineC uint32 utSymGetNumName(utSym Sym) {return utSyms.NumName[utSym2ValidIndex(Sym)];}
 utInlineC void utSymSetNumName(utSym Sym, uint32 value) {utSyms.NumName[utSym2ValidIndex(Sym)] = value;}
 #if defined(DD_DEBUG)
 utInlineC uint32 utSymCheckNameIndex(utSym Sym, uint32 x) {utAssert(x < utSymGetNumName(Sym)); return x;}
 #else
-utInlineC uint32 utSymCheckNameIndex(utSym Sym, uint32 x) {return x;}
+utInlineC uint32 utSymCheckNameIndex(utSym Sym, uint32 x) { (void)Sym; return x;}
 #endif
 utInlineC char utSymGetiName(utSym Sym, uint32 x) {return utSyms.Name[
-    utSymGetNameIndex(Sym) + utSymCheckNameIndex(Sym, x)];}
-utInlineC char *utSymGetName(utSym Sym) {return utSyms.Name + utSymGetNameIndex(Sym);}
+    utSymGetNameIndex_(Sym) + utSymCheckNameIndex(Sym, x)];}
+utInlineC char *utSymGetName(utSym Sym) {return utSyms.Name + utSymGetNameIndex_(Sym);}
 #define utSymGetNames utSymGetName
 utInlineC void utSymSetName(utSym Sym, char *valuePtr, uint32 numName) {
     utSymResizeNames(Sym, numName);
     memcpy(utSymGetNames(Sym), valuePtr, numName*sizeof(char));}
 utInlineC void utSymSetiName(utSym Sym, uint32 x, char value) {
-    utSyms.Name[utSymGetNameIndex(Sym) + utSymCheckNameIndex(Sym, (x))] = value;}
+    utSyms.Name[utSymGetNameIndex_(Sym) + utSymCheckNameIndex(Sym, (x))] = value;}
 utInlineC void utSymMoveNames(utSym Sym, uint32 from, uint32 to, uint32 count) {
     utAssert((to+count) <= utSymGetNumName(Sym));
     utAssert((from+count) <= utSymGetNumName(Sym));
@@ -431,7 +431,7 @@ utInlineC utSym utSymAllocRaw(void) {
     return Sym;}
 utInlineC utSym utSymAlloc(void) {
     utSym Sym = utSymAllocRaw();
-    utSymSetNameIndex(Sym, 0);
+    utSymSetNameIndex_(Sym, 0);
     utSymSetNumName(Sym, 0);
     utSymSetNumName(Sym, 0);
     utSymSetHashValue(Sym, 0);
@@ -445,7 +445,7 @@ utInlineC utSym utSymAlloc(void) {
   Fields for class Dynarray.
 ----------------------------------------------------------------------------------------*/
 struct utDynarrayFields {
-    uint32 *ValueIndex;
+    uint32 *ValueIndex_;
     uint32 *NumValue;
     uint8 *Value;
     uint16 *ValueSize;
@@ -461,24 +461,24 @@ void utDynarrayAllocValues(utDynarray Dynarray, uint32 numValues);
 void utDynarrayResizeValues(utDynarray Dynarray, uint32 numValues);
 void utDynarrayFreeValues(utDynarray Dynarray);
 void utCompactDynarrayValues(void);
-utInlineC uint32 utDynarrayGetValueIndex(utDynarray Dynarray) {return utDynarrays.ValueIndex[utDynarray2ValidIndex(Dynarray)];}
-utInlineC void utDynarraySetValueIndex(utDynarray Dynarray, uint32 value) {utDynarrays.ValueIndex[utDynarray2ValidIndex(Dynarray)] = value;}
+utInlineC uint32 utDynarrayGetValueIndex_(utDynarray Dynarray) {return utDynarrays.ValueIndex_[utDynarray2ValidIndex(Dynarray)];}
+utInlineC void utDynarraySetValueIndex_(utDynarray Dynarray, uint32 value) {utDynarrays.ValueIndex_[utDynarray2ValidIndex(Dynarray)] = value;}
 utInlineC uint32 utDynarrayGetNumValue(utDynarray Dynarray) {return utDynarrays.NumValue[utDynarray2ValidIndex(Dynarray)];}
 utInlineC void utDynarraySetNumValue(utDynarray Dynarray, uint32 value) {utDynarrays.NumValue[utDynarray2ValidIndex(Dynarray)] = value;}
 #if defined(DD_DEBUG)
 utInlineC uint32 utDynarrayCheckValueIndex(utDynarray Dynarray, uint32 x) {utAssert(x < utDynarrayGetNumValue(Dynarray)); return x;}
 #else
-utInlineC uint32 utDynarrayCheckValueIndex(utDynarray Dynarray, uint32 x) {return x;}
+utInlineC uint32 utDynarrayCheckValueIndex(utDynarray Dynarray, uint32 x) { (void)Dynarray; return x;}
 #endif
 utInlineC uint8 utDynarrayGetiValue(utDynarray Dynarray, uint32 x) {return utDynarrays.Value[
-    utDynarrayGetValueIndex(Dynarray) + utDynarrayCheckValueIndex(Dynarray, x)];}
-utInlineC uint8 *utDynarrayGetValue(utDynarray Dynarray) {return utDynarrays.Value + utDynarrayGetValueIndex(Dynarray);}
+    utDynarrayGetValueIndex_(Dynarray) + utDynarrayCheckValueIndex(Dynarray, x)];}
+utInlineC uint8 *utDynarrayGetValue(utDynarray Dynarray) {return utDynarrays.Value + utDynarrayGetValueIndex_(Dynarray);}
 #define utDynarrayGetValues utDynarrayGetValue
 utInlineC void utDynarraySetValue(utDynarray Dynarray, uint8 *valuePtr, uint32 numValue) {
     utDynarrayResizeValues(Dynarray, numValue);
     memcpy(utDynarrayGetValues(Dynarray), valuePtr, numValue*sizeof(uint8));}
 utInlineC void utDynarraySetiValue(utDynarray Dynarray, uint32 x, uint8 value) {
-    utDynarrays.Value[utDynarrayGetValueIndex(Dynarray) + utDynarrayCheckValueIndex(Dynarray, (x))] = value;}
+    utDynarrays.Value[utDynarrayGetValueIndex_(Dynarray) + utDynarrayCheckValueIndex(Dynarray, (x))] = value;}
 utInlineC void utDynarrayMoveValues(utDynarray Dynarray, uint32 from, uint32 to, uint32 count) {
     utAssert((to+count) <= utDynarrayGetNumValue(Dynarray));
     utAssert((from+count) <= utDynarrayGetNumValue(Dynarray));
@@ -576,7 +576,7 @@ utInlineC utDynarray utDynarrayAllocRaw(void) {
     return Dynarray;}
 utInlineC utDynarray utDynarrayAlloc(void) {
     utDynarray Dynarray = utDynarrayAllocRaw();
-    utDynarraySetValueIndex(Dynarray, 0);
+    utDynarraySetValueIndex_(Dynarray, 0);
     utDynarraySetNumValue(Dynarray, 0);
     utDynarraySetNumValue(Dynarray, 0);
     utDynarraySetValueSize(Dynarray, 0);
@@ -592,7 +592,7 @@ utInlineC utDynarray utDynarrayAlloc(void) {
   Fields for class SymArray.
 ----------------------------------------------------------------------------------------*/
 struct utSymArrayFields {
-    uint32 *SymIndex;
+    uint32 *SymIndex_;
     uint32 *NumSym;
     utSym *Sym;
     uint32 *UsedSym;
@@ -606,24 +606,24 @@ void utSymArrayAllocSyms(utSymArray SymArray, uint32 numSyms);
 void utSymArrayResizeSyms(utSymArray SymArray, uint32 numSyms);
 void utSymArrayFreeSyms(utSymArray SymArray);
 void utCompactSymArraySyms(void);
-utInlineC uint32 utSymArrayGetSymIndex(utSymArray SymArray) {return utSymArrays.SymIndex[utSymArray2ValidIndex(SymArray)];}
-utInlineC void utSymArraySetSymIndex(utSymArray SymArray, uint32 value) {utSymArrays.SymIndex[utSymArray2ValidIndex(SymArray)] = value;}
+utInlineC uint32 utSymArrayGetSymIndex_(utSymArray SymArray) {return utSymArrays.SymIndex_[utSymArray2ValidIndex(SymArray)];}
+utInlineC void utSymArraySetSymIndex_(utSymArray SymArray, uint32 value) {utSymArrays.SymIndex_[utSymArray2ValidIndex(SymArray)] = value;}
 utInlineC uint32 utSymArrayGetNumSym(utSymArray SymArray) {return utSymArrays.NumSym[utSymArray2ValidIndex(SymArray)];}
 utInlineC void utSymArraySetNumSym(utSymArray SymArray, uint32 value) {utSymArrays.NumSym[utSymArray2ValidIndex(SymArray)] = value;}
 #if defined(DD_DEBUG)
 utInlineC uint32 utSymArrayCheckSymIndex(utSymArray SymArray, uint32 x) {utAssert(x < utSymArrayGetNumSym(SymArray)); return x;}
 #else
-utInlineC uint32 utSymArrayCheckSymIndex(utSymArray SymArray, uint32 x) {return x;}
+utInlineC uint32 utSymArrayCheckSymIndex(utSymArray SymArray, uint32 x) { (void)SymArray; return x;}
 #endif
 utInlineC utSym utSymArrayGetiSym(utSymArray SymArray, uint32 x) {return utSymArrays.Sym[
-    utSymArrayGetSymIndex(SymArray) + utSymArrayCheckSymIndex(SymArray, x)];}
-utInlineC utSym *utSymArrayGetSym(utSymArray SymArray) {return utSymArrays.Sym + utSymArrayGetSymIndex(SymArray);}
+    utSymArrayGetSymIndex_(SymArray) + utSymArrayCheckSymIndex(SymArray, x)];}
+utInlineC utSym *utSymArrayGetSym(utSymArray SymArray) {return utSymArrays.Sym + utSymArrayGetSymIndex_(SymArray);}
 #define utSymArrayGetSyms utSymArrayGetSym
 utInlineC void utSymArraySetSym(utSymArray SymArray, utSym *valuePtr, uint32 numSym) {
     utSymArrayResizeSyms(SymArray, numSym);
     memcpy(utSymArrayGetSyms(SymArray), valuePtr, numSym*sizeof(utSym));}
 utInlineC void utSymArraySetiSym(utSymArray SymArray, uint32 x, utSym value) {
-    utSymArrays.Sym[utSymArrayGetSymIndex(SymArray) + utSymArrayCheckSymIndex(SymArray, (x))] = value;}
+    utSymArrays.Sym[utSymArrayGetSymIndex_(SymArray) + utSymArrayCheckSymIndex(SymArray, (x))] = value;}
 utInlineC uint32 utSymArrayGetUsedSym(utSymArray SymArray) {return utSymArrays.UsedSym[utSymArray2ValidIndex(SymArray)];}
 utInlineC void utSymArraySetUsedSym(utSymArray SymArray, uint32 value) {utSymArrays.UsedSym[utSymArray2ValidIndex(SymArray)] = value;}
 utInlineC utSymArray utSymArrayGetFreeList(utSymArray SymArray) {return utSymArrays.FreeList[utSymArray2ValidIndex(SymArray)];}
@@ -655,7 +655,7 @@ utInlineC utSymArray utSymArrayAllocRaw(void) {
     return SymArray;}
 utInlineC utSymArray utSymArrayAlloc(void) {
     utSymArray SymArray = utSymArrayAllocRaw();
-    utSymArraySetSymIndex(SymArray, 0);
+    utSymArraySetSymIndex_(SymArray, 0);
     utSymArraySetNumSym(SymArray, 0);
     utSymArraySetNumSym(SymArray, 0);
     utSymArraySetUsedSym(SymArray, 0);
