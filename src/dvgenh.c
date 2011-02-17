@@ -663,7 +663,7 @@ static void writeClassPropMacros(
                 "#if defined(DD_DEBUG)\n"
                 "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {utAssert(x < %0%1GetNum%2(%1)); return x;}\n"
                 "#else\n"
-                "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) { (void)%1; return x;}\n"
+                "utInlineC uint32 %0%1Check%2Index(%4%1 %1, uint32 x) {return x;}\n"
                 "#endif\n"
                 "utInlineC %5 %0%1Geti%2(%4%1 %1, uint32 x) {return %0%1s.%2[\n"
                 "    %0%1Get%2Index_(%1) + %0%1Check%2Index(%1, x)];}\n"
@@ -800,30 +800,30 @@ static void writeClassPropMacros(
                 "utInlineC uint32 %0%1Check%2Index(%5%1 %1, uint32 x) {return x;}\n"
                 "#endif\n"
                 "utInlineC %6 %0%1Geti%2(%5%1 %1, uint32 x) {\n"
-                "    return %0%1s.%2[%0%12Index(%1)*(%4) + %0%1Check%2Index(%1, x)];}\n"
-                "utInlineC %6 *%0%1Get%2(%5%1 %1) {return %0%1s.%2 + %0%12Index(%1)*(%4);}\n"
+                "    return %0%1s.%2[%5%12Index(%1)*(%4) + %0%1Check%2Index(%1, x)];}\n"/*zxcv*/
+                "utInlineC %6 *%0%1Get%2(%5%1 %1) {return %0%1s.%2 + %5%12Index(%1)*(%4);}\n"
                 "#define %0%1Get%2s %0%1Get%2\n",
                 dvPrefix, name, propName, dvClassGetReferenceTypeName(theClass), dvPropertyGetIndex(prop),
                 dvClassGetPrefix(theClass), propTypeString);
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
-                "    utRecordArray(%0ModuleID, %3, %0%12Index(%1)*(%4), (%4), true);\n",
-                dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop));
+                "    utRecordArray(%0ModuleID, %3, %5%12Index(%1)*(%4), (%4), true);\n",
+                                  dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop), dvClassGetPrefix(theClass));
             postString = dvSwrtemp(!dvClassRedo(theClass)? "" :
-                "\n    utRecordArray(%0ModuleID, %3, %0%12Index(%1)*(%4), (%4), false);",
-                dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop));
+                "\n    utRecordArray(%0ModuleID, %3, %5%12Index(%1)*(%4), (%4), false);",
+                                   dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop), dvClassGetPrefix(theClass));
             dvWrtemp(dvFile,
                 "utInlineC void %0%1Set%2(%6%1 %1, %3 *valuePtr, uint32 num%2) {\n"
                 "%4    memcpy(%0%1Get%2s(%1), valuePtr, num%2*sizeof(%3));%5}\n",
                 dvPrefix, name, propName, propTypeString, preString, postString, dvClassGetPrefix(theClass));
             preString = dvSwrtemp(!dvClassUndo(theClass)? "" :
-                "\n    utRecordField(%0ModuleID, %3, %0%12Index(%1)*(%4) + (x), true);\n    ",
-                dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop));
+                "\n    utRecordField(%0ModuleID, %3, %5%12Index(%1)*(%4) + (x), true);\n    ",
+                                  dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop), dvClassGetPrefix(theClass));
             postString = dvSwrtemp(!dvClassRedo(theClass)? "" :
-                "\n    utRecordField(%0ModuleID, %3, %0%12Index(%1)*(%4) + (x), false);",
-                dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop));
+                "\n    utRecordField(%0ModuleID, %3, %5%12Index(%1)*(%4) + (x), false);",
+                                   dvPrefix, name, propName, utSprintf("%u", dvPropertyGetFieldNumber(prop)), dvPropertyGetIndex(prop), dvClassGetPrefix(theClass));
             dvWrtemp(dvFile,
                     "utInlineC void %0%1Seti%2(%6%1 %1, uint32 x, %7 value) {\n"
-                    "%4    %0%1s.%2[%0%12Index(%1)*(%3) + %0%1Check%2Index(%1, x)] = value;%5}\n",
+                    "%4    %0%1s.%2[%6%12Index(%1)*(%3) + %0%1Check%2Index(%1, x)] = value;%5}\n",
                 dvPrefix, name, propName, dvPropertyGetIndex(prop), preString, postString, dvClassGetPrefix(theClass),
                 propTypeString);
         } else if(dvPropertySparse(prop) && !dvPropertyView(prop)) {
@@ -1193,9 +1193,9 @@ static void writeClassMiscMacros(
             "    %1 + 1;}\n"
             "utInlineC %0%1 %0Prev%1(%0%1 %1) {return %0%12ValidIndex(%1) == 1? %0%1Null : %1 - 1;}\n"
             "#define %0Foreach%1(var) \\\n"
-            "    for(var = %0Index2%1(1); %0%12Index(var) != %0RootData.used%1; var++)\n"
+            "    for(var = %0Index2%1(1); %3%12Index(var) != %0RootData.used%1; var++)\n"
             "#define %0End%1\n",
-            dvPrefix, name, dvClassGetReferenceTypeName(theClass));
+                 dvPrefix, name, dvClassGetReferenceTypeName(theClass), dvClassGetPrefix(theClass));
         dvWrtemp(dvFile, "utInlineC void %0%1FreeAll(void) {%0SetUsed%1(1);", dvPrefix, name);
         dvForeachClassProperty(theClass, prop) {
             if(dvPropertyArray(prop) && !dvPropertyFixedSize(prop) && !dvPropertyView(prop)) {
@@ -1460,20 +1460,22 @@ static void writeTypeConversionMacros(
     dvForeachModuleClass(module, theClass) {
         if(dvClassGetBaseClass(theClass) == dvClassNull) {
             dvWrtemp(dvFile,
-                "utInlineC %2 %0%12Index(%0%1 %1) {return %1 - (%0%1)0;}\n"
-                "utInlineC %2 %0%12ValidIndex(%0%1 %1) {return %0Valid%1(%1) - (%0%1)0;}\n"
-                "utInlineC %0%1 %0Index2%1(%2 x%1) {return (%0%1)(x%1 + (%0%1)(0));}\n",
-                dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass));
+                "utInlineC %2 %3%12Index(%0%1 %1) {return %1 - (%0%1)0;}\n"
+                "utInlineC %2 %3%12ValidIndex(%0%1 %1) {return %3Valid%1(%1) - (%0%1)0;}\n"
+                "utInlineC %0%1 %3Index2%1(%2 x%1) {return (%0%1)(x%1 + (%0%1)(0));}\n",
+                     dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass),
+                     dvClassGetPrefix(theClass));
         }
     } dvEndModuleClass;
     fputs("#else\n", dvFile);
     dvForeachModuleClass(module, theClass) {
         if(dvClassGetBaseClass(theClass) == dvClassNull) {
             dvWrtemp(dvFile,
-                "utInlineC %2 %0%12Index(%0%1 %1) {return %1;}\n"
-                "utInlineC %2 %0%12ValidIndex(%0%1 %1) {return %0Valid%1(%1);}\n"
-                "utInlineC %0%1 %0Index2%1(%2 x%1) {return x%1;}\n",
-                dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass));
+                "utInlineC %2 %3%12Index(%3%1 %1) {return %1;}\n"
+                "utInlineC %2 %3%12ValidIndex(%0%1 %1) {return %3Valid%1(%1);}\n"
+                "utInlineC %3%1 %3Index2%1(%2 x%1) {return x%1;}\n",
+                     dvPrefix, dvClassGetName(theClass), dvClassGetReferenceTypeName(theClass),
+                     dvClassGetPrefix(theClass));
         }
     } dvEndModuleClass;
     fputs("#endif\n\n", dvFile);

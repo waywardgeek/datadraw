@@ -556,10 +556,10 @@ static void ripUpandReroute(
 {
     dvRelationship relationship;
      
-    randomizeRelationships(); /*zxcbreak*/
-    dwForeachRelationshipArrayRelationship(dwRandRelationships, relationship) { /*zxcbreak*/
-        dwRipRelationshipRoutes(relationship); /*zxcbreak*/
-        routeRelationship(relationship); /*zxcbreak*/
+    randomizeRelationships(); 
+    dwForeachRelationshipArrayRelationship(dwRandRelationships, relationship) { 
+        dwRipRelationshipRoutes(relationship); 
+        routeRelationship(relationship); 
     } dwEndRelationshipArrayRelationship;
 }
 
@@ -571,7 +571,7 @@ static void routeUntilComplete(
 {
     uint32 dwCycle = 0;
 
-    fillRelationshipArray(schema); /*zxcbreak*/ 
+    fillRelationshipArray(schema);  
     do{
         utIfDebug(1) {
             utLogDebug("cycles = %d overconstraints = %d", dwCycle, dwOverconstraints);
@@ -591,7 +591,7 @@ uint32 dwRouteSchema(
     dwRandRelationships = dwRelationshipArrayAlloc();
     dwBucketFreeAll();
     dwBundFreeAll();
-    dwAdjFreeAll(); /*zxcbreak*/
+    dwAdjFreeAll(); 
     dwRandBunds = dwBundArrayAlloc();
     buildRoutingGraph(schema);
     addClassesToGraph(schema);

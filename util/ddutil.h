@@ -204,7 +204,7 @@ typedef enum {
     UT_MESSAGE_REPORT,
 } utMessageType;
 void utEnableMessageHeaders(bool value);
-void utLogMessageType(utMessageType msgType, char *format, ...);
+void utLogMessageType(utMessageType msgType, bool alsoLog, char *format, ...);
 void utLogMessage(char *format, ...);
 void utLogString(char *format, ...);
 void utLogDebug(char *format, ...);
@@ -221,7 +221,15 @@ void utExit_ (char *format, ...);
 typedef void(*utExitProcType)(char *format, ...);
 utExitProcType utSetFileAndLineAndReturnExitFunc(char *fileName, uint32 lineNum);
 #define utExit utSetFileAndLineAndReturnExitFunc(__FILE__, __LINE__)
-void utWarning(char *format, ...);
+    void utWarning_(uint32 count, char *format, ...);
+#define utMaxWarnings 10
+#define  utWarning(format, ...) {               \
+        static int32 count = 0;                 \
+        if(count <= utMaxWarnings) {            \
+            ++count;                            \
+        }                                       \
+        utWarning_(count, format, ## __VA_ARGS__);      \
+    }
 void utNote(char *format, ...);
 void utError(char *format, ...);
 void utCriticalError(char *format, ...);

@@ -245,7 +245,7 @@ static void generateRelationshipFields(
         dvPropertySetArray(prop, true);
         if(dvRelationshipAccessParent(relationship)) {
             /* Index on parent */
-            sym = utSymCreateFormatted("%s%sIndex", parentName, childLabel);
+            sym = utSymCreateFormatted("%s%sIndex", parentLabel, parentName);
             prop = relPropertyCreate(child, relationship, PROP_UINT, sym);
             dvPropertySetWidth(prop, 32);
             if(type == REL_ARRAY) { // TODO: Only array?  I don't know about heaps, to be double-checked.  Richard 

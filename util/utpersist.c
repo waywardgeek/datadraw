@@ -1674,10 +1674,14 @@ void utDumpRecentChanges(void)
     char *fileName = utSprintf("%s%crecentChanges", utDatabaseDirectory, UTDIRSEP);
     uint32 fileSize = utFindFileSize(fileName);
     uint8 *commands = utNewA(uint8, fileSize);
-
+    uint32 sizeRead;
+    
     fclose(utRecentChangesFile);
     openRecentChanges("rb");
-    fread(commands, sizeof(uint8), fileSize, utRecentChangesFile);
+    sizeRead = fread(commands, sizeof(uint8), fileSize, utRecentChangesFile);
+    if(sizeRead != fileSize) {
+	utError("an error occurred while reading file: %s", fileName);
+    }
     fclose(utRecentChangesFile);
     dumpCommands(commands, fileSize);
     openRecentChanges("ab");

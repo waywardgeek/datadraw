@@ -779,10 +779,9 @@ static void writeClassArrayInsertFunction(
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName);
     if(dvRelationshipAccessParent(relationship)) {
         dvWrtemp(dvFile, 
-            "    %0%3Set%1%4Index(_%3, x);\n"
+            "    %0%3Set%2%1Index(_%3, x);\n"
             "    %0%3Set%2%1(_%3, %1);\n",
-            dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName,
-            dvRelationshipGetChildLabel(relationship));
+            dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName);
     }
     dvWrtemp(dvFile, "}\n\n");
 }
@@ -834,10 +833,10 @@ static void writeClassArrayAppendFunction(
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
         dvWrtemp(dvFile,
-            "    %0%3Set%1%4Index(_%3, used%4%3);\n"
-            "    %0%3Set%2%1(_%3, %1);\n",
-            dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName,
-            dvRelationshipGetChildLabel(relationship));
+            "    %0%3Set%4%1Index(_%3, used%2%3);\n"
+            "    %0%3Set%4%1(_%3, %1);\n",
+                 dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
+                 dvRelationshipGetParentLabel(relationship));
     }
     if(isHeap) {
         dvWrtemp(dvFile,
@@ -888,10 +887,11 @@ static void writeClassRemoveArray(
     if(!isHeap) {
         dvWrtemp(dvFile, 
             "#endif\n"
-            "    %0%1Seti%2%3(%1, %0%3Get%1%2Index(_%3), %5%3Null);\n"
-            "    %0%3Set%1%2Index(_%3, UINT32_MAX);\n",
-            dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
-            dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
+            "    %0%1Seti%6%3(%1, %0%3Get%2%1Index(_%3), %5%3Null);\n"
+            "    %0%3Set%2%1Index(_%3, UINT32_MAX);\n",
+            dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName,
+            dvClassGetPrefix(theClass), dvClassGetPrefix(childClass),
+                 dvRelationshipGetChildLabel(relationship));
         if(dvRelationshipAccessParent(relationship)) {
             dvWrtemp(dvFile,
                 "    %0%1Set%2%3(_%1, %4%3Null);\n",
@@ -901,9 +901,9 @@ static void writeClassRemoveArray(
     } else {
         dvWrtemp(dvFile, 
             "#endif\n"
-            "    %l1Pop%2%3(%1, %0%3Get%1%2Index(_%3));\n",
-            dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
-            dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
+            "    %l1Pop%4%3(%1, %0%3Get%2%1Index(_%3));\n",
+            dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName,
+            dvRelationshipGetChildLabel(relationship));
     }
     dvWrtemp(dvFile, "}\n\n");
 }
@@ -1502,7 +1502,7 @@ static void writeArrayCompact(
         "            toPtr += size;\n"
         "        } else {\n"
         "            /* Just skip it */\n"
-        "            size = *(uint32 *)(void *)(((%3%1 *)(void *)fromPtr) + 1);\n"
+        "            size = utMax(*(uint32 *)(void *)(((%3%1 *)(void *)fromPtr) + 1), freeHeaderSize);\n"
         "        }\n"
         "        fromPtr += size;\n"
         "    }\n"
@@ -1534,7 +1534,23 @@ static void writeArrayAllocMore(
         "    uint32 spaceNeeded)\n"
         "{\n"
         "    uint32 freeSpace = %0Allocated%1%2() - %0Used%1%2();\n"
+        "    uint32 elementSize = sizeof(%4);\n"
+        "    uint32 usedHeaderSize = (sizeof(%3%1) + elementSize - 1)/elementSize;\n"
+        "    uint32 freeHeaderSize = (sizeof(%3%1) + sizeof(uint32) + elementSize - 1)/elementSize;\n"
+        "    %4 *ptr = %0%1s.%2;\n"
+        "    %3%1 %1;\n"
+        "    uint32 size;\n"
         "\n"
+        "    while(ptr < %0%1s.%2 + %0Used%1%2()) {\n"
+        "        %1 = *(%3%1*)(void*)ptr;\n"
+        "        if(%1 != %3%1Null) {\n"
+        "            %3Valid%1(%1);\n"
+        "            size = utMax(%0%1GetNum%2(%1) + usedHeaderSize, freeHeaderSize);\n"
+        "        } else {\n"
+        "            size = utMax(*(uint32 *)(void *)(((%3%1 *)(void *)ptr) + 1), freeHeaderSize);\n"
+        "        }\n"
+        "        ptr += size;\n"
+        "    }\n"     
         "    if((%0Free%1%2() << 2) > %0Used%1%2()) {\n"
         "        %0Compact%1%2s();\n"
         "        freeSpace = %0Allocated%1%2() - %0Used%1%2();\n"
@@ -1891,8 +1907,8 @@ static void writeRelationshipBinaryHeapFunctions(
         "\n"
         "    %0%1Seti%2%3(%1, x, newX);\n"
         "    %0%1Seti%2%3(%1, y, newY);\n"
-        "    %0%3Set%1%2Index(newX, x);\n"
-        "    %0%3Set%1%2Index(newY, y);\n"
+        "    %0%3Set%6%1Index(newX, x);\n"
+        "    %0%3Set%6%1Index(newY, y);\n"
         "}\n"
         "\n"
         "/*----------------------------------------------------------------------------------------\n"
@@ -1985,7 +2001,7 @@ static void writeRelationshipBinaryHeapFunctions(
         "    if(newNum != 0) {\n"
         "        cur = %0%1Geti%2%3(%1, newNum);\n"
         "        %0%1Seti%2%3(%1, index, cur);\n"
-        "        %0%3Set%1%2Index(cur, index);\n"
+        "        %0%3Set%6%1Index(cur, index);\n"
         "        %l1HeapDown%2%3(%1, index);\n"
         "    }\n"
         "    return retval;\n"
@@ -2010,7 +2026,7 @@ static void writeRelationshipBinaryHeapFunctions(
         "    %4%1 %1,\n"
         "    %5%3 _%3)\n"
         "{\n"
-        "    uint32 _index = %0%3Get%1%2Index(_%3);\n"
+        "    uint32 _index = %0%3Get%6%1Index(_%3);\n"
         "\n"
         "    %l1HeapUp%2%3(%1, _index);\n"
         "    %l1HeapDown%2%3(%1, _index);\n"
@@ -2700,7 +2716,7 @@ static void writeOrderedListFunctions(
         dvWrtemp(dvFile,
             "    utAssert(%0%2Get%3%1(_%2) == %4%1Null);\n"
             "    %0%2Set%3%1(_%2, %1);\n",
-            dvPrefix, dvClassGetName(parent), dvClassGetName(child), dvRelationshipGetParentLabel(relationship));
+            dvPrefix, dvClassGetName(parent), dvClassGetName(child), dvRelationshipGetParentLabel(relationship), dvClassGetPrefix(parent));
     }
     dvWrtemp(dvFile,
         "    utAssert(%0%3GetParent%1%2%3(_%3) == %5%3Null);\n"
@@ -3100,7 +3116,7 @@ static void processClassChildren(
                 needsValidTest = false;  /* test already in for loop */
             } else if(type == REL_ARRAY || type == REL_HEAP) {
                 dvWrtemp(dvFile, 
-                    "    for(x%1%2 = 0; x%1%2 < %4%3GetNum%1%2(%3); x%1%2++) {\n"
+                    "    for(x%1%2 = 0; x%1%2 < %4%3GetUsed%1%2(%3); x%1%2++) {\n"
                     "        %1%2_ = %4%3Geti%1%2(%3, x%1%2);\n",
                     dvClassGetPrefix(childClass), dvRelationshipGetChildLabel(relationship),
                     dvClassGetName(childClass), dvClassGetName(theClass), dvPrefix);
@@ -3279,7 +3295,8 @@ static void writeClassDestructor(
 {
     bool isExtension = dvClassGetBaseClass(theClass) != dvClassNull;
     bool declaredSomething;
-
+    dvProperty prop;
+    
     if(dvClassGetMemoryStyle(theClass) == MEM_CREATE_ONLY) {
         return;
     }
@@ -3317,6 +3334,14 @@ static void writeClassDestructor(
     if(!isExtension) {
         dvWrtemp(dvFile, 
         "    %0%1Free(%1);\n", dvPrefix, dvClassGetName(theClass));
+    } else {
+        dvForeachClassProperty(theClass, prop) {
+            if(dvPropertyArray(prop) && !dvPropertyFixedSize(prop) && !dvPropertyView(prop)) {
+                dvWrtemp(dvFile,
+                         "    %0%1Free%2s(%1);\n",
+                         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(prop));
+            }
+        } dvEndClassProperty;
     }
     fprintf(dvFile, "}\n\n");
 }
@@ -3467,8 +3492,6 @@ static void writeClassCopyPropFuncs(
     if(dvClassGenerateAttributes(theClass)) {
         dvWrtemp(dvFile, "    %0%1CopyAttributes(old%1, new%1);\n", dvPrefix, name);
     }
-    dvWrtemp(dvFile, "    (void)old%0; /* to prevent compilation warning */\n", name);
-    dvWrtemp(dvFile, "    (void)new%0; /* to prevent compilation warning */\n", name);
     dvWrtemp(dvFile, "}\n\n");
 }
 

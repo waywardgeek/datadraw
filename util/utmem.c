@@ -316,15 +316,17 @@ void utMemCheckTrace (
     utStackRef stack;
     utMemRef mem;
     uint8 picket;
+    static uint64 count = 0;
 
+    count++;
     for (stack = utfStack(); uttStackExists(stack); stack = utnStack(stack)) {
         for (mem = utfStackMem(stack); uttMemExists(mem);
                 mem = utnStackMem(stack, mem)) {
             picket = *(((uint8 *)utgMemPtr(mem)) + utgMemSize(mem) - 1);
             if (picket != utgMemPicket(mem)) {
-                utExit("utMemCheck: Invoked from %s, line %u: Picket hosed for "
-                        "memory allocated in %s, " "line %u", fileName, line,
-                        utgMemName(mem), utgMemLine(mem));
+                utExit("utMemCheck %lu: Invoked from %s, line %u: Picket hosed for "
+                        "memory allocated in %s, " "line %u", count, fileName, 
+                        line, utgMemName(mem), utgMemLine(mem));
             }
         }
     }

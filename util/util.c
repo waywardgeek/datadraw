@@ -20,9 +20,11 @@ char *utConfigDirectory = NULL;
 static char *utExeDirectory = NULL;
 static char *utExeFullPath = NULL;
 static FILE *utLogFile = NULL;
+static FILE *utWarnFile = NULL;
 static FILE *utReportFile = NULL;
 static FILE *utDebugFile = NULL;
 static char *utLogFileName = NULL;
+static char *utWarnFileName = NULL;
 static char *utReportFileName = NULL;
 static char *utDebugFileName = NULL;
 uint32 utDebugVal = 0;
@@ -87,6 +89,7 @@ static char* getMessageNameFromType(
 --------------------------------------------------------------------------------------------------*/
 void utLogMessageType(
     utMessageType msgType,
+    bool logAlso,
     char *format,
     ...)
 {
@@ -103,11 +106,14 @@ void utLogMessageType(
     if(utUserLogMessageProc != NULL) {
         (utUserLogMessageProc)(buff);
     }
-    if(utLogFile == NULL) {
-        return;
+    if((!(msgType == UT_MESSAGE_WARNING) || logAlso) && utLogFile != NULL) {
+        fputs(buff, utLogFile);
+        fflush(utLogFile);
     }
-    fputs(buff, utLogFile);
-    fflush(utLogFile);
+    if(msgType == UT_MESSAGE_WARNING && utWarnFile != NULL) {
+        fputs(buff, utWarnFile);
+        fflush(utWarnFile);
+    }
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -123,8 +129,8 @@ void utReport(
     buff = utVsprintf(format, ap);
     va_end(ap);
     if(utReportFile == NULL) {
-       utLogMessageType(UT_MESSAGE_REPORT, "%s", buff);
-       return;
+        utLogMessageType(UT_MESSAGE_REPORT, false, "%s", buff);
+        return;
     }
     fputs(buff, utReportFile);
     fflush(utReportFile);
@@ -144,7 +150,7 @@ bool utDebug(
     buff = utVsprintf((char *)format, ap);
     va_end(ap);
     if(utDebugFile == NULL) {
-        utLogMessageType(UT_MESSAGE_INTERNAL, "%s", buff);
+        utLogMessageType(UT_MESSAGE_INTERNAL, false, "%s", buff);
         return true;
     }
     fputs(buff, utDebugFile);
@@ -193,7 +199,7 @@ void utLogString(
         printf("%s", buff);
         fflush(stdout);
     }
-    utLogMessageType(UT_MESSAGE_INFO, "%s", buff);
+    utLogMessageType(UT_MESSAGE_INFO, false, "%s", buff);
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -215,7 +221,7 @@ void utLogMessage(
        printf("%s\n", buff);
        fflush(stdout);
     }
-    utLogMessageType(UT_MESSAGE_INFO, "%s\n", buff);
+    utLogMessageType(UT_MESSAGE_INFO, false, "%s\n", buff);
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -234,7 +240,7 @@ uint32 utStartTimer(
         va_start(ap, format);
         buff = utVsprintf((char *)format, ap);
         va_end(ap);
-        utLogMessageType(UT_MESSAGE_INFO, "%s\n", buff);
+        utLogMessageType(UT_MESSAGE_INFO, false, "%s\n", buff);
         if(utUserStatusProc != NULL) {
             utLogMessage("%s", buff);
         } else {
@@ -269,7 +275,7 @@ void utStopTimer(
     va_start(ap, format);
     buff = utVsprintf((char *)format, ap);
     va_end(ap);
-    utLogMessageType(UT_MESSAGE_INFO, "%s %u:%02u:%02u\n", buff, hours, minutes, seconds);
+    utLogMessageType(UT_MESSAGE_INFO, false, "%s %u:%02u:%02u\n", buff, hours, minutes, seconds);
     if(utUserStatusProc != NULL) {
         utStatus("%s %u:%02u:%02u\n", buff, hours, minutes, seconds);
     } else {
@@ -291,7 +297,7 @@ void utLogError(
     va_start(ap, format);
     buff = utVsprintf(format, ap);
     va_end(ap);
-    utLogMessageType(UT_MESSAGE_ERROR, "%s\n", buff);
+    utLogMessageType(UT_MESSAGE_ERROR, false, "%s\n", buff);
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -309,7 +315,7 @@ void utLogTimeStamp(
     va_start(ap, message);
     buff1 = utVsprintf(message, ap);
     va_end(ap);
-    utLogMessageType(UT_MESSAGE_INFO, "%s : %s", buff1, timeStr);
+    utLogMessageType(UT_MESSAGE_INFO, false, "%s : %s", buff1, timeStr);
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -355,9 +361,9 @@ void utExit_(
         fflush(stdout);
     }
     if(utExitFileName == NULL) {
-        utLogMessageType(UT_MESSAGE_EXIT, "%s\n", buff);
+        utLogMessageType(UT_MESSAGE_EXIT, false, "%s\n", buff);
     } else {    
-        utLogMessageType(UT_MESSAGE_EXIT, "%s:%u %s\n", utExitFileName, utExitLineNum, buff);
+        utLogMessageType(UT_MESSAGE_EXIT, false, "%s:%u %s\n", utExitFileName, utExitLineNum, buff);
     }    
     utDummyCount++;
     if(utDummyCount == 0) {
@@ -384,14 +390,15 @@ utExitProcType utSetFileAndLineAndReturnExitFunc(
 
 /*--------------------------------------------------------------------------------------------------
   Post a warning message.
---------------------------------------------------------------------------------------------------*/
-void utWarning(
+  --------------------------------------------------------------------------------------------------*/
+void utWarning_(
+    uint32 count,
     char *format,
     ...)
 {
     va_list ap;
     char *buff;
-
+    bool logAlso = false;
     va_start(ap, format);
     buff = utVsprintf((char *)format, ap);
     va_end(ap);
@@ -401,7 +408,16 @@ void utWarning(
         printf("%s\n", buff);
         fflush(stdout);
     }
-    utLogMessageType(UT_MESSAGE_WARNING, "%s\n", buff);
+    if(count <= utMaxWarnings) {
+        logAlso = true;
+    }
+    utLogMessageType(UT_MESSAGE_WARNING, logAlso, "%s\n", buff);
+    if(count == utMaxWarnings) {
+        utLogMessage("More warnings of this type will be suppressed");
+        if(utWarnFile != NULL && utWarnFileName != NULL) {
+            utLogMessage("Refer to the file, %s, for a complete list", utWarnFileName);
+        }
+    }
     if(utUserWarningProc != NULL) {
         (utUserWarningProc)(buff);
     }
@@ -438,12 +454,12 @@ void utError(
     buff = utVsprintf((char *)format, ap);
     va_end(ap);
     if(utUserStatusProc != NULL) {
-        utStatus("%s\n", buff);
+        utStatus("%s %s\n", getMessageNameFromType(UT_MESSAGE_ERROR), buff);
     } else if(!utMessageHeaderEnabled) {
         printf("%s\n", buff);
         fflush(stdout);
     }
-    utLogMessageType(UT_MESSAGE_ERROR, "%s\n", buff);
+    utLogMessageType(UT_MESSAGE_ERROR, false, "%s\n", buff);
     utLongjmp();
 }
 
@@ -460,7 +476,7 @@ void utCriticalError(
     va_start(ap, format);
     buff = utVsprintf((char *)format, ap);
     va_end(ap);
-    utLogMessageType(UT_MESSAGE_ERROR, "%s\n", buff);
+    utLogMessageType(UT_MESSAGE_ERROR, false, "%s\n", buff);
     exit(1);
 }
 
@@ -647,6 +663,22 @@ void utInitLogFile(
 }
 
 /*--------------------------------------------------------------------------------------------------
+  Set the name of the logging file and reset it.
+--------------------------------------------------------------------------------------------------*/
+void utInitWarnFile(
+    char *fileName)
+{
+    if(utWarnFile != NULL) {
+        fclose(utWarnFile);
+    }
+    if(utWarnFileName != NULL) {
+        utFree(utWarnFileName);
+    }
+    utWarnFileName = utAllocString(fileName);
+    utWarnFile = fopen(fileName, "w");
+}
+
+/*--------------------------------------------------------------------------------------------------
   Just return the logi file name.
 --------------------------------------------------------------------------------------------------*/
 char *utGetLogFileName(void)
@@ -657,9 +689,25 @@ char *utGetLogFileName(void)
 /*--------------------------------------------------------------------------------------------------
   Just return the logi file name.
 --------------------------------------------------------------------------------------------------*/
+char *utGetWarnFileName(void)
+{
+    return utWarnFileName;
+}
+
+/*--------------------------------------------------------------------------------------------------
+  Just return the logi file name.
+--------------------------------------------------------------------------------------------------*/
 FILE *utGetLogFile(void)
 {
     return utLogFile;
+}
+
+/*--------------------------------------------------------------------------------------------------
+  Just return the logi file name.
+--------------------------------------------------------------------------------------------------*/
+FILE *utGetWarnFile(void)
+{
+    return utWarnFile;
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -676,6 +724,22 @@ void utSetLogFile(
     }
     utLogFileName = utAllocString(fileName);
     utLogFile = fopen(fileName, "a");
+}
+
+/*--------------------------------------------------------------------------------------------------
+  Set the name of the logging file without resetting it.
+--------------------------------------------------------------------------------------------------*/
+void utSetWarnFile(
+    char *fileName)
+{
+    if(utWarnFile != NULL) {
+        fclose(utWarnFile);
+    }
+    if(utWarnFileName != NULL) {
+        utFree(utWarnFileName);
+    }
+    utWarnFileName = utAllocString(fileName);
+    utWarnFile = fopen(fileName, "a");
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -833,6 +897,13 @@ void utStop(
           utFree(utLogFileName);
           utLogFileName = NULL;
           utLogFile = NULL;
+        }
+        if(utWarnFile != NULL) {
+          fflush(utWarnFile);
+          fclose(utWarnFile);
+          utFree(utWarnFileName);
+          utWarnFileName = NULL;
+          utWarnFile = NULL;
         }
         if(utConfigDirectory != NULL) {
           utFree(utConfigDirectory);
@@ -1136,7 +1207,8 @@ utSym utSymCreate(
     }
     sym = utSymAlloc();
     length = strlen(name) + 1;
-    utSymSetName(sym, name, length);
+    // Cast to clear a compile warning into datadraw... ideally datadraw would be fixed
+    utSymSetName(sym, (char*)name, length);
     utSymSetHashValue(sym, hashValue); 
     addSymTableSym(sym);
     return sym;
@@ -1195,10 +1267,20 @@ char *utVsprintf(
 {
     char buffer[UTSTRLEN];
     char *returnBuffer;
+    unsigned int numWouldBePrinted;
+    char* tmpBuffer = NULL;
 
-    vsprintf((char *)buffer, (char *)format, ap);
-    returnBuffer = utMakeString(strlen(buffer) + 1);
-    strcpy(returnBuffer, buffer);
+    numWouldBePrinted = vsnprintf((char *)buffer, UTSTRLEN, (char *)format, ap);
+    if(numWouldBePrinted >= UTSTRLEN) {
+	tmpBuffer = malloc(numWouldBePrinted + 1);
+	vsprintf(tmpBuffer, (char*)format, ap);
+	returnBuffer = utMakeString(strlen(tmpBuffer) + 1);
+	strcpy(returnBuffer, tmpBuffer);
+	free(tmpBuffer);
+    } else {
+	returnBuffer = utMakeString(strlen(buffer) + 1);
+	strcpy(returnBuffer, buffer);
+    }
     return returnBuffer;
 }
 

@@ -146,8 +146,12 @@ bool utLaunchApp (
 char *utGetcwd(void)
 {
     char buffer[UTSTRLEN];
-
-    getcwd(buffer, UTSTRLEN);
+    char* returnValue;
+    
+    returnValue = getcwd(buffer, UTSTRLEN);
+    if(returnValue == NULL) {
+	utError("Unable to determine the current working directory");
+    }
     return utCopyString(buffer);
 }
 
@@ -265,7 +269,12 @@ void utTruncateFile(
     char *fileName,
     uint64 length)
 {
-    truncate(fileName, length);
+    int returnValue;
+    
+    returnValue = truncate(fileName, length);
+    if(returnValue == -1) {
+	utError("An error occurred while truncating file: %s", fileName);
+    }
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -289,12 +298,12 @@ void utForeachDirectoryFile(
     int n;
 
     if(!utDirectoryExists(dirName)) {
-	return;
+        return;
     }
     n = scandir(dirName, &namelist, NULL, alphasort);
     while(n-- > 0) {
-	fileName = namelist[n]->d_name;
-	func(dirName, fileName);
+        fileName = namelist[n]->d_name;
+        func(dirName, fileName);
         free(namelist[n]);           
     }
 }
