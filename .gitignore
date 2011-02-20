@@ -1,1 +1,5 @@
 *\.o
+*\.a
+*scan\.c
+*parse\.[ch]
+*database\.[ch]

@@ -1511,7 +1511,7 @@ char *utFindInPath(
     char *p = buf;
     char *next, *fileName, *directory;
 
-    while(*p != '\0') {
+    while(p != NULL && *p != '\0') {
         next = strchr(p, UTPATHSEP);
         if(next != NULL) {
             *next++ = '\0';
