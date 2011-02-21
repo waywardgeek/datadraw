@@ -3169,7 +3169,8 @@ static void removeChildFromRelationship(
     dvClass parentClass = dvRelationshipGetParentClass(relationship);
     dvClass childClass = dvRelationshipGetChildClass(relationship);
 
-    if(dvRelationshipAccessParent(relationship) && dvRelationshipAccessChild(relationship)) {
+    if(dvRelationshipAccessParent(relationship) && dvRelationshipAccessChild(relationship) &&
+            !dvRelationshipSharedParent(relationship)) {
         if(dvRelationshipGetType(relationship) != REL_POINTER) {
             dvWrtemp(dvFile,
                 "    if(owning%5%2 != %0%2Null) {\n"

@@ -141,7 +141,7 @@ void dvCompactRootModpathTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvRoot *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -156,7 +156,23 @@ static void allocMoreRootModpathTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedRootModpathTable() - dvUsedRootModpathTable();
+    uint32 elementSize = sizeof(dvModpath);
+    uint32 usedHeaderSize = (sizeof(dvRoot) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvRoot) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvModpath *ptr = dvRoots.ModpathTable;
+    dvRoot Root;
+    uint32 size;
 
+    while(ptr < dvRoots.ModpathTable + dvUsedRootModpathTable()) {
+        Root = *(dvRoot*)(void*)ptr;
+        if(Root != dvRootNull) {
+            dvValidRoot(Root);
+            size = utMax(dvRootGetNumModpathTable(Root) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeRootModpathTable() << 2) > dvUsedRootModpathTable()) {
         dvCompactRootModpathTables();
         freeSpace = dvAllocatedRootModpathTable() - dvUsedRootModpathTable();
@@ -325,7 +341,7 @@ void dvCompactRootModuleTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvRoot *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -340,7 +356,23 @@ static void allocMoreRootModuleTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedRootModuleTable() - dvUsedRootModuleTable();
+    uint32 elementSize = sizeof(dvModule);
+    uint32 usedHeaderSize = (sizeof(dvRoot) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvRoot) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvModule *ptr = dvRoots.ModuleTable;
+    dvRoot Root;
+    uint32 size;
 
+    while(ptr < dvRoots.ModuleTable + dvUsedRootModuleTable()) {
+        Root = *(dvRoot*)(void*)ptr;
+        if(Root != dvRootNull) {
+            dvValidRoot(Root);
+            size = utMax(dvRootGetNumModuleTable(Root) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeRootModuleTable() << 2) > dvUsedRootModuleTable()) {
         dvCompactRootModuleTables();
         freeSpace = dvAllocatedRootModuleTable() - dvUsedRootModuleTable();
@@ -1227,7 +1259,7 @@ void dvCompactModuleClassTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1242,7 +1274,23 @@ static void allocMoreModuleClassTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleClassTable() - dvUsedModuleClassTable();
+    uint32 elementSize = sizeof(dvClass);
+    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvClass *ptr = dvModules.ClassTable;
+    dvModule Module;
+    uint32 size;
 
+    while(ptr < dvModules.ClassTable + dvUsedModuleClassTable()) {
+        Module = *(dvModule*)(void*)ptr;
+        if(Module != dvModuleNull) {
+            dvValidModule(Module);
+            size = utMax(dvModuleGetNumClassTable(Module) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeModuleClassTable() << 2) > dvUsedModuleClassTable()) {
         dvCompactModuleClassTables();
         freeSpace = dvAllocatedModuleClassTable() - dvUsedModuleClassTable();
@@ -1411,7 +1459,7 @@ void dvCompactModuleEnumTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1426,7 +1474,23 @@ static void allocMoreModuleEnumTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleEnumTable() - dvUsedModuleEnumTable();
+    uint32 elementSize = sizeof(dvEnum);
+    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvEnum *ptr = dvModules.EnumTable;
+    dvModule Module;
+    uint32 size;
 
+    while(ptr < dvModules.EnumTable + dvUsedModuleEnumTable()) {
+        Module = *(dvModule*)(void*)ptr;
+        if(Module != dvModuleNull) {
+            dvValidModule(Module);
+            size = utMax(dvModuleGetNumEnumTable(Module) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeModuleEnumTable() << 2) > dvUsedModuleEnumTable()) {
         dvCompactModuleEnumTables();
         freeSpace = dvAllocatedModuleEnumTable() - dvUsedModuleEnumTable();
@@ -1595,7 +1659,7 @@ void dvCompactModuleTypedefTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1610,7 +1674,23 @@ static void allocMoreModuleTypedefTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleTypedefTable() - dvUsedModuleTypedefTable();
+    uint32 elementSize = sizeof(dvTypedef);
+    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvTypedef *ptr = dvModules.TypedefTable;
+    dvModule Module;
+    uint32 size;
 
+    while(ptr < dvModules.TypedefTable + dvUsedModuleTypedefTable()) {
+        Module = *(dvModule*)(void*)ptr;
+        if(Module != dvModuleNull) {
+            dvValidModule(Module);
+            size = utMax(dvModuleGetNumTypedefTable(Module) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeModuleTypedefTable() << 2) > dvUsedModuleTypedefTable()) {
         dvCompactModuleTypedefTables();
         freeSpace = dvAllocatedModuleTypedefTable() - dvUsedModuleTypedefTable();
@@ -1779,7 +1859,7 @@ void dvCompactModuleSchemaTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1794,7 +1874,23 @@ static void allocMoreModuleSchemaTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleSchemaTable() - dvUsedModuleSchemaTable();
+    uint32 elementSize = sizeof(dvSchema);
+    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvSchema *ptr = dvModules.SchemaTable;
+    dvModule Module;
+    uint32 size;
 
+    while(ptr < dvModules.SchemaTable + dvUsedModuleSchemaTable()) {
+        Module = *(dvModule*)(void*)ptr;
+        if(Module != dvModuleNull) {
+            dvValidModule(Module);
+            size = utMax(dvModuleGetNumSchemaTable(Module) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeModuleSchemaTable() << 2) > dvUsedModuleSchemaTable()) {
         dvCompactModuleSchemaTables();
         freeSpace = dvAllocatedModuleSchemaTable() - dvUsedModuleSchemaTable();
@@ -3621,7 +3717,7 @@ void dvCompactEnumEntryTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvEnum *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvEnum *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -3636,7 +3732,23 @@ static void allocMoreEnumEntryTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedEnumEntryTable() - dvUsedEnumEntryTable();
+    uint32 elementSize = sizeof(dvEntry);
+    uint32 usedHeaderSize = (sizeof(dvEnum) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvEnum) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvEntry *ptr = dvEnums.EntryTable;
+    dvEnum Enum;
+    uint32 size;
 
+    while(ptr < dvEnums.EntryTable + dvUsedEnumEntryTable()) {
+        Enum = *(dvEnum*)(void*)ptr;
+        if(Enum != dvEnumNull) {
+            dvValidEnum(Enum);
+            size = utMax(dvEnumGetNumEntryTable(Enum) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvEnum *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeEnumEntryTable() << 2) > dvUsedEnumEntryTable()) {
         dvCompactEnumEntryTables();
         freeSpace = dvAllocatedEnumEntryTable() - dvUsedEnumEntryTable();
@@ -4333,7 +4445,7 @@ void dvCompactTypedefInitializers(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvTypedef *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvTypedef *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -4348,7 +4460,23 @@ static void allocMoreTypedefInitializers(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedTypedefInitializer() - dvUsedTypedefInitializer();
+    uint32 elementSize = sizeof(char);
+    uint32 usedHeaderSize = (sizeof(dvTypedef) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvTypedef) + sizeof(uint32) + elementSize - 1)/elementSize;
+    char *ptr = dvTypedefs.Initializer;
+    dvTypedef Typedef;
+    uint32 size;
 
+    while(ptr < dvTypedefs.Initializer + dvUsedTypedefInitializer()) {
+        Typedef = *(dvTypedef*)(void*)ptr;
+        if(Typedef != dvTypedefNull) {
+            dvValidTypedef(Typedef);
+            size = utMax(dvTypedefGetNumInitializer(Typedef) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvTypedef *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeTypedefInitializer() << 2) > dvUsedTypedefInitializer()) {
         dvCompactTypedefInitializers();
         freeSpace = dvAllocatedTypedefInitializer() - dvUsedTypedefInitializer();
@@ -4643,7 +4771,7 @@ void dvCompactClassPropertyTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvClass *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -4658,7 +4786,23 @@ static void allocMoreClassPropertyTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedClassPropertyTable() - dvUsedClassPropertyTable();
+    uint32 elementSize = sizeof(dvProperty);
+    uint32 usedHeaderSize = (sizeof(dvClass) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvClass) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvProperty *ptr = dvClasss.PropertyTable;
+    dvClass Class;
+    uint32 size;
 
+    while(ptr < dvClasss.PropertyTable + dvUsedClassPropertyTable()) {
+        Class = *(dvClass*)(void*)ptr;
+        if(Class != dvClassNull) {
+            dvValidClass(Class);
+            size = utMax(dvClassGetNumPropertyTable(Class) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeClassPropertyTable() << 2) > dvUsedClassPropertyTable()) {
         dvCompactClassPropertyTables();
         freeSpace = dvAllocatedClassPropertyTable() - dvUsedClassPropertyTable();
@@ -4827,7 +4971,7 @@ void dvCompactClassSparsegroupTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvClass *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -4842,7 +4986,23 @@ static void allocMoreClassSparsegroupTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedClassSparsegroupTable() - dvUsedClassSparsegroupTable();
+    uint32 elementSize = sizeof(dvSparsegroup);
+    uint32 usedHeaderSize = (sizeof(dvClass) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvClass) + sizeof(uint32) + elementSize - 1)/elementSize;
+    dvSparsegroup *ptr = dvClasss.SparsegroupTable;
+    dvClass Class;
+    uint32 size;
 
+    while(ptr < dvClasss.SparsegroupTable + dvUsedClassSparsegroupTable()) {
+        Class = *(dvClass*)(void*)ptr;
+        if(Class != dvClassNull) {
+            dvValidClass(Class);
+            size = utMax(dvClassGetNumSparsegroupTable(Class) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreeClassSparsegroupTable() << 2) > dvUsedClassSparsegroupTable()) {
         dvCompactClassSparsegroupTables();
         freeSpace = dvAllocatedClassSparsegroupTable() - dvUsedClassSparsegroupTable();
@@ -6290,7 +6450,7 @@ void dvCompactPropertyInitializers(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvProperty *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -6305,7 +6465,23 @@ static void allocMorePropertyInitializers(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedPropertyInitializer() - dvUsedPropertyInitializer();
+    uint32 elementSize = sizeof(char);
+    uint32 usedHeaderSize = (sizeof(dvProperty) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvProperty) + sizeof(uint32) + elementSize - 1)/elementSize;
+    char *ptr = dvPropertys.Initializer;
+    dvProperty Property;
+    uint32 size;
 
+    while(ptr < dvPropertys.Initializer + dvUsedPropertyInitializer()) {
+        Property = *(dvProperty*)(void*)ptr;
+        if(Property != dvPropertyNull) {
+            dvValidProperty(Property);
+            size = utMax(dvPropertyGetNumInitializer(Property) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreePropertyInitializer() << 2) > dvUsedPropertyInitializer()) {
         dvCompactPropertyInitializers();
         freeSpace = dvAllocatedPropertyInitializer() - dvUsedPropertyInitializer();
@@ -6464,7 +6640,7 @@ void dvCompactPropertyIndexs(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((dvProperty *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -6479,7 +6655,23 @@ static void allocMorePropertyIndexs(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedPropertyIndex() - dvUsedPropertyIndex();
+    uint32 elementSize = sizeof(char);
+    uint32 usedHeaderSize = (sizeof(dvProperty) + elementSize - 1)/elementSize;
+    uint32 freeHeaderSize = (sizeof(dvProperty) + sizeof(uint32) + elementSize - 1)/elementSize;
+    char *ptr = dvPropertys.Index;
+    dvProperty Property;
+    uint32 size;
 
+    while(ptr < dvPropertys.Index + dvUsedPropertyIndex()) {
+        Property = *(dvProperty*)(void*)ptr;
+        if(Property != dvPropertyNull) {
+            dvValidProperty(Property);
+            size = utMax(dvPropertyGetNumIndex(Property) + usedHeaderSize, freeHeaderSize);
+        } else {
+            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)ptr) + 1), freeHeaderSize);
+        }
+        ptr += size;
+    }
     if((dvFreePropertyIndex() << 2) > dvUsedPropertyIndex()) {
         dvCompactPropertyIndexs();
         freeSpace = dvAllocatedPropertyIndex() - dvUsedPropertyIndex();
@@ -6946,9 +7138,6 @@ void dvSparsegroupDestroy(
     }
     if(owningRelationship != dvRelationshipNull) {
         dvRelationshipSetParentSparsegroup(owningRelationship, dvSparsegroupNull);
-    }
-    if(owningRelationship != dvRelationshipNull) {
-        dvRelationshipSetChildSparsegroup(owningRelationship, dvSparsegroupNull);
     }
     dvSparsegroupFree(Sparsegroup);
 }
