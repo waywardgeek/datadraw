@@ -1252,8 +1252,9 @@ static void writeRegisterFields(
             dvEnumGetName(theEnum), utSprintf("%u", dvEnumGetNumEntries(theEnum)));
         dvForeachEnumEntry(theEnum, entry) {
             dvWrtemp(dvFile,
-                "    utRegisterEntry(\"%0\", %1);\n",
-                dvEntryGetName(entry), utSprintf("%u", dvEntryGetValue(entry)));
+                "    utRegisterEntry(\"%0%1\", %2);\n",
+                utSymGetName(dvEnumGetPrefixSym(theEnum)), dvEntryGetName(entry),
+                utSprintf("%u", dvEntryGetValue(entry)));
         } dvEndEnumEntry;
     } dvEndModuleEnum;
     dvForeachModuleClass(module, theClass) {
@@ -3246,6 +3247,8 @@ static void processClassCascadeProperties(
     dvUnion theUnion;
     dvProperty property, typeProperty;
     dvCase theCase;
+    dvEntry entry;
+    dvEnum theEnum;
 
     dvForeachClassProperty(theClass, property) {
         if(dvPropertyCascade(property) && dvPropertyGetUnion(property) == dvUnionNull) {
@@ -3267,9 +3270,11 @@ static void processClassCascadeProperties(
             dvForeachUnionProperty(theUnion, property) {
                 if(dvPropertyCascade(property)) {
                     dvForeachPropertyCase(property, theCase) {
+                        entry = dvCaseGetEntry(theCase);
+                        theEnum = dvEntryGetEnum(entry);
                         dvWrtemp(dvFile,
-                            "    case %0:",
-                            dvEntryGetName(dvCaseGetEntry(theCase)));
+                            "    case %0%1:",
+                            utSymGetName(dvEnumGetPrefixSym(theEnum)), dvEntryGetName(entry));
                     } dvEndPropertyCase;
                     childClass = dvPropertyGetClassProp(property);
                     dvWrtemp(dvFile,
