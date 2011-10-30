@@ -194,7 +194,8 @@ static void generateRelationshipFields(
             if(dvPropertyGetClass(prop) != child ||
                     dvPropertyGetUnion(prop) != dvUnionNull ||
                     dvPropertyGetType(prop) != PROP_POINTER) {
-                utError("Property %s defined differently the second time", utSymGetName(sym));
+                utError("Property %s on class %s defined differently the second time",
+                    utSymGetName(sym), dvClassGetName(child));
             }
             /* Must be a duplicated relationship */
             dvRelationshipSetSharedParent(relationship, true);
