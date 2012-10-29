@@ -42,9 +42,6 @@ static void writeKeyHash(
     case PROP_DOUBLE:
         dvWrtemp(dvFile, "utHashDouble(%0)", dvKeyGetAccessMacro(key, useParamName, param));
         break;
-    case PROP_SYM:
-        dvWrtemp(dvFile, "utSymGetHashValue(%0)", dvKeyGetAccessMacro(key, useParamName, param));
-        break;
     case PROP_TYPEDEF:
         if(useParamName) {
             dvWrtemp(dvFile, "utHashData(&%0, sizeof(%1))",
@@ -58,6 +55,9 @@ static void writeKeyHash(
                 dvPropertyGetTypeName(property),
                 dvClassGetPrefix(childClass));
         }
+        break;
+    case PROP_SYM:
+        dvWrtemp(dvFile, "utSym2Index(%0)", dvKeyGetAccessMacro(key, useParamName, param));
         break;
     case PROP_POINTER:
         pointerClass = dvPropertyGetClassProp(property);
