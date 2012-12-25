@@ -14,8 +14,9 @@
 
 bool  _utInitialized = false;
 utSymtab utTheSymtab;
-uint32 utSetjmpLine[UT_MAX_SETJMP_DEPTH];
-char *utSetjmpFile[UT_MAX_SETJMP_DEPTH];
+struct utSetjmpStruct *utSetjmpStack;
+int32 utSetjmpDepth = 0;
+int32 utSetjmpStackSize = 0;
 char *utConfigDirectory = NULL;
 static char *utExeDirectory = NULL;
 static char *utExeFullPath = NULL;
@@ -37,7 +38,6 @@ static time_t utTimers[UT_MAX_BUFFERS];
 static uint16 utTimerDepth = 0;
 static utErrorProc utUserErrProc = NULL, utUserWarningProc = NULL, utUserStatusProc = NULL, utUserLogMessageProc = NULL;
 static char *utVersion = NULL;
-int16 utSetjmpDepth = 0;
 static uint32 utSymNextIndex;
 static bool utMessageHeaderEnabled = false;
 
@@ -862,8 +862,8 @@ void utStop(
     if(utInitialized()) {
         if(utSetjmpDepth > 0 && utSetjmpDepth < UT_MAX_SETJMP_DEPTH) {
             utWarning("utClose: utSetjmpDepth != 0 (file %s, line %u)",
-               utSetjmpFile[utSetjmpDepth - 1],
-               utSetjmpLine[utSetjmpDepth - 1]);
+               utSetjmpStack[utSetjmpDepth - 1].file,
+               utSetjmpStack[utSetjmpDepth - 1].line);
         } else if(utSetjmpDepth != 0) {
             utWarning("utClose: utSetjmpDepth has an invalid value");
             /* prevents crashes */
@@ -921,6 +921,7 @@ void utStop(
           utFree(utVersion);
           utVersion = NULL;
         }
+        utFree(utSetjmpStack);
         utMemStop(reportTimeAndMemory);
         freeBuffers();
     }
@@ -950,6 +951,8 @@ void utStart(void)
         utUserErrProc = 0;
         utInitialized() = true;
         utSetjmpDepth = 0;
+        utSetjmpStackSize = 42;
+        utSetjmpStack = utNewA(struct utSetjmpStruct, utSetjmpStackSize);
         utTimerDepth = 0;
         initBuffers();
         utStartTimer(NULL);

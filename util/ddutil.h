@@ -280,17 +280,34 @@ uint32 utHashDouble(double value);
 /*--------------------------------------------------------------------------------------------------
   Setjmp/longjmp stack.
 --------------------------------------------------------------------------------------------------*/
-extern int16 utSetjmpDepth;
-extern uint32 utSetjmpLine[UT_MAX_SETJMP_DEPTH];
-extern char *utSetjmpFile[UT_MAX_SETJMP_DEPTH];
+struct utSetjmpStruct {
+    uint64 data;
+    utSym reason;
+    uint32 line;
+    char *file;
+};
+extern int32 utSetjmpDepth, utSetjmpStackSize;
+extern struct utSetjmpStruct *utSetjmpStack;
 #define utUnsetjmp() (utSetjmpDepth--,\
-      !strcmp(utSetjmpFile[utSetjmpDepth],__FILE__) ||\
+      !strcmp(utSetjmpStack[utSetjmpDepth].file, __FILE__) ||\
       (utExit("Mismatched utUnsetjmp in file %s, line %u", __FILE__, __LINE__), 1))
-#define utSetjmp() (++utSetjmpDepth,\
-      utSetjmpFile[utSetjmpDepth - 1] = __FILE__,\
-      utSetjmpLine[utSetjmpDepth - 1] = __LINE__,\
-      setjmp(utJmpBuf[utSetjmpDepth - 1]))
+#define utSetjmp() (utSetjmpDepth == utSetjmpStackSize && \
+    (utSetjmpStackSize <<= 1, utResizeArray(utSetjmpStack, utSetjmpStackSize)), \
+    utSetjmpStack[utSetjmpDepth].file = __FILE__, \
+    utSetjmpStack[utSetjmpDepth].line = __LINE__, \
+    utSetjmpDepth++, \
+    setjmp(utJmpBuf[utSetjmpDepth - 1]))
 void utLongjmp(void);
+// A more modern throw/catch interface
+#define utTry if(!utSetjmp()) {
+#define utCatch(Reason, Data) utUnsetjmp(); } else { \
+    (Reason) = utSetjmpStack[utSetjmpDepth].reason; \
+    (Data) = utSetjmpStack[utSetjmpDepth].data;
+#define utEndCatch }
+#define utThrow(Reason, Data) ( \
+    utSetjmpStack[utSetjmpDepth - 1].reason = (Reason), \
+    utSetjmpStack[utSetjmpDepth - 1].data = (Data), \
+    utLongjmp())
 
 /*--------------------------------------------------------------------------------------------------
   Functions supporting database persistence.
