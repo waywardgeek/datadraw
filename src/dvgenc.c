@@ -57,7 +57,7 @@ static void writeKeyHash(
         }
         break;
     case PROP_SYM:
-        dvWrtemp(dvFile, "utSym2Index(%0)", dvKeyGetAccessMacro(key, useParamName, param));
+        dvWrtemp(dvFile, "(%0 == utSymNull? 0 : utSymGetHashValue(%0))", dvKeyGetAccessMacro(key, useParamName, param));
         break;
     case PROP_POINTER:
         pointerClass = dvPropertyGetClassProp(property);
