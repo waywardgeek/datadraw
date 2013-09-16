@@ -291,8 +291,8 @@ extern struct utSetjmpStruct *utSetjmpStack;
 #define utUnsetjmp() (utSetjmpDepth--,\
       !strcmp(utSetjmpStack[utSetjmpDepth].file, __FILE__) ||\
       (utExit("Mismatched utUnsetjmp in file %s, line %u", __FILE__, __LINE__), 1))
-#define utSetjmp() (utSetjmpDepth == utSetjmpStackSize && \
-    (utSetjmpStackSize <<= 1, utResizeArray(utSetjmpStack, utSetjmpStackSize)), \
+#define utSetjmp() ((void)(utSetjmpDepth == utSetjmpStackSize && \
+    (utSetjmpStackSize <<= 1, utResizeArray(utSetjmpStack, utSetjmpStackSize))), \
     utSetjmpStack[utSetjmpDepth].file = __FILE__, \
     utSetjmpStack[utSetjmpDepth].line = __LINE__, \
     utSetjmpDepth++, \

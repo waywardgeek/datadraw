@@ -47,38 +47,41 @@ struct utModuleStruct {
     void (*stop)(void);
     bool initialized;
     bool persistent;
+    bool saved; // Indicates this module is saved on save text or binary database
 };
 
 extern struct utModuleStruct *utModules;
 extern uint8 utAllocatedModules, utUsedModules;
-#define utModuleInitialized(module) module->initialized
-#define utModuleSetInitialized(module, value) (module->initialized = (value))
-#define utModulePersistent(module) module->persistent
-#define utModuleSetPersistent(module, value) (module->persistent = (value))
-#define utModuleGetHashValue(module) (module->hashValue)
-#define utModuleSetHashValue(module, value) (module->hashValue = (value))
-#define utModuleGetGlobalSize(module) (module->globalSize)
-#define utModuleSetGlobalSize(module, value) (module->globalSize = (value))
-#define utModuleGetPrefix(module) (module->prefix)
-#define utModuleSetPrefix(module, value) (module->prefix = (value))
-#define utModuleGetGlobalData(module) (module->globalData)
-#define utModuleSetGlobalData(module, value) (module->globalData = (value))
-#define utModuleGetStop(module) (module->stop)
-#define utModuleSetStop(module, value) (module->stop = (value))
-#define utModuleGetStart(module) (module->start)
-#define utModuleSetStart(module, value) (module->start = (value))
-#define utModuleGetFirstClassIndex(module) (module->firstClassIndex)
-#define utModuleSetFirstClassIndex(module, value) (module->firstClassIndex = (value))
-#define utModuleGetFirstFieldIndex(module) (module->firstFieldIndex)
-#define utModuleSetFirstFieldIndex(module, value) (module->firstFieldIndex = (value))
-#define utModuleGetFirstEnumIndex(module) (module->firstEnumIndex)
-#define utModuleSetFirstEnumIndex(module, value) (module->firstEnumIndex = (value))
-#define utModuleGetNumClasses(module) (module->numClasses)
-#define utModuleSetNumClasses(module, value) (module->numClasses = (value))
-#define utModuleGetNumFields(module) (module->numFields)
-#define utModuleSetNumFields(module, value) (module->numFields = (value))
-#define utModuleGetNumEnums(module) (module->numEnums)
-#define utModuleSetNumEnums(module, value) (module->numEnums = (value))
+#define utModuleInitialized(module) (module)->initialized
+#define utModuleSetInitialized(module, value) ((module)->initialized = (value))
+#define utModulePersistent(module) (module)->persistent
+#define utModuleSetPersistent(module, value) ((module)->persistent = (value))
+#define utModuleGetHashValue(module) ((module)->hashValue)
+#define utModuleSetHashValue(module, value) ((module)->hashValue = (value))
+#define utModuleGetGlobalSize(module) ((module)->globalSize)
+#define utModuleSetGlobalSize(module, value) ((module)->globalSize = (value))
+#define utModuleGetPrefix(module) ((module)->prefix)
+#define utModuleSetPrefix(module, value) ((module)->prefix = (value))
+#define utModuleGetGlobalData(module) ((module)->globalData)
+#define utModuleSetGlobalData(module, value) ((module)->globalData = (value))
+#define utModuleGetStop(module) ((module)->stop)
+#define utModuleSetStop(module, value) ((module)->stop = (value))
+#define utModuleGetStart(module) ((module)->start)
+#define utModuleSetStart(module, value) ((module)->start = (value))
+#define utModuleGetFirstClassIndex(module) ((module)->firstClassIndex)
+#define utModuleSetFirstClassIndex(module, value) ((module)->firstClassIndex = (value))
+#define utModuleGetFirstFieldIndex(module) ((module)->firstFieldIndex)
+#define utModuleSetFirstFieldIndex(module, value) ((module)->firstFieldIndex = (value))
+#define utModuleGetFirstEnumIndex(module) ((module)->firstEnumIndex)
+#define utModuleSetFirstEnumIndex(module, value) ((module)->firstEnumIndex = (value))
+#define utModuleGetNumClasses(module) ((module)->numClasses)
+#define utModuleSetNumClasses(module, value) ((module)->numClasses = (value))
+#define utModuleGetNumFields(module) ((module)->numFields)
+#define utModuleSetNumFields(module, value) ((module)->numFields = (value))
+#define utModuleGetNumEnums(module) ((module)->numEnums)
+#define utModuleSetNumEnums(module, value) ((module)->numEnums = (value))
+#define utModuleSaved(module) ((module)->saved)
+#define utModuleSetSaved(module, value) ((module)->saved = (value))
 #define utModuleGetNextModule(module) \
     ((((module) + 1) >= (utModules + utUsedModules))?utModuleNull:((module) + 1))
 #define utForeachModule(module) \

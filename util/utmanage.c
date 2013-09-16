@@ -350,7 +350,7 @@ static uint32 countNonprintableChars(
     uint32 nonPrintableChars = 0;
 
     while(*string) {
-        if(!isprint(*string)) {
+        if(!isprint((unsigned char)*string)) {
             nonPrintableChars++;
         }
         string++;
@@ -369,7 +369,7 @@ static char *mungeString(
     char intValue[4];
 
     while(*string != '\0') {
-        if(isprint(*string)) {
+        if(isprint((unsigned char)*string)) {
             if(*string == '"' || *string == '\\') {
                 *p++ = '\\';
             }
@@ -771,7 +771,7 @@ bool utParseInteger(
     if(*string == '0' && *(string + 1) == 'x') {
         string += 2;
         while(*string) {
-            c = toupper(*string++);
+            c = toupper((unsigned char)*string++);
             if(c >= '0' && c <= '9') {
                 digit = c - '0';
             } else if(c >= 'A' && c <= 'F') {
@@ -879,7 +879,7 @@ static bool readHex(
     uint8 *dest,
     char *value)
 {
-    char c = toupper(*value++);
+    char c = toupper((unsigned char)*value++);
     uint8 byte;
 
     if(c >= '0' && c <= '9') {
@@ -890,7 +890,7 @@ static bool readHex(
         return false;
     }
     byte <<= 4;
-    c = toupper(*value);
+    c = toupper((unsigned char)*value);
     if(c >= '0' && c <= '9') {
         byte |= c - '0';
     } else if(c >= 'A' && c <= 'F') {
@@ -951,7 +951,7 @@ static char *unmungeString(
                 *p++ = *string++;
             }
         } else {
-            if(!isprint(*string)) {
+            if(!isprint((unsigned char)*string)) {
                 return NULL;
             }
             *p++ = *string++;
@@ -1107,7 +1107,7 @@ static char *skipToNextComma(
     if(*valueList == ',') {
         valueList++;
     }
-    while(isspace(*valueList)) {
+    while(isspace((unsigned char)*valueList)) {
         valueList++;
     }
     if(*valueList == '"') {
@@ -1121,7 +1121,7 @@ static char *skipToNextComma(
         do {
             valueList = skipToNextComma(valueList);
             prevChar = valueList - 1;
-            while(isspace(*prevChar)) {
+            while(isspace((unsigned char)*prevChar)) {
                 prevChar--;
             }
         } while(valueList != NULL && *prevChar != ')');
@@ -1146,7 +1146,7 @@ static uint32 countListValues(
 {
     uint32 numValues = 0;
 
-    while(isspace(*valueList)) {
+    while(isspace((unsigned char)*valueList)) {
         valueList++;
     }
     while(valueList != NULL && *valueList != '\0') {
@@ -1169,7 +1169,7 @@ static char *parseArrayValue(
     uint32 length;
     bool isArray;
 
-    while(isspace(**valueList)) {
+    while(isspace((unsigned char)**valueList)) {
         (*valueList)++;
     }
     isArray = **valueList == '(';
@@ -1181,7 +1181,7 @@ static char *parseArrayValue(
     if(isArray) {
         (*valueList)++;
         prevChar = end - 1;
-        while(isspace(*prevChar)) {
+        while(isspace((unsigned char)*prevChar)) {
             prevChar--;
         }
     }
@@ -1347,12 +1347,12 @@ static uint32 findTokenLength(void)
     if(c == '\0') {
         return 0;
     }
-    if(!isalnum(c) && c != '_') {
+    if(!isalnum((unsigned char)c) && c != '_') {
         return 1;
     }
     do {
         c = utLineBuffer[linePosition++];
-    } while(isalnum(c) || c == '_');
+    } while(isalnum((unsigned char)c) || c == '_');
     return linePosition - utLinePosition - 1;
 }
 
@@ -1361,7 +1361,7 @@ static uint32 findTokenLength(void)
 --------------------------------------------------------------------------------------------------*/
 void skipSpace(void)
 {
-    while(isspace(utLineBuffer[utLinePosition])) {
+    while(isspace((unsigned char)utLineBuffer[utLinePosition])) {
         utLinePosition++;
     }
 }
@@ -2208,7 +2208,8 @@ void utSaveTextDatabase(
     utOutputFile = file;
     utForeachModule(module) {
         if(strcmp(utModuleGetPrefix(module), "ut") && utModuleInitialized(module) &&
-                (utModulePersistent(module) || !utPersistenceInitialized)) {
+                (utModulePersistent(module) || !utPersistenceInitialized) &&
+                utModuleSaved(module)) {
             fprintf(utOutputFile, "module %s\n\n", utModuleGetPrefix(module));
             utForeachModuleClass(module, theClass) {
                 showClass(module, theClass);

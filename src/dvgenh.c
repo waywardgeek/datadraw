@@ -361,6 +361,7 @@ static void writeHeaderBot(
     dvWrtemp(dvFile,
         "void %0DatabaseStart(void);\n"
         "void %0DatabaseStop(void);\n"
+        "utInlineC void %0DatabaseSetSaved(bool value) {utModuleSetSaved(utModules + %0ModuleID, value);}\n"
         "#if defined __cplusplus\n"
         "}\n"
         "#endif\n\n"

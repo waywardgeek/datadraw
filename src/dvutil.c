@@ -55,7 +55,7 @@ static uint32 countArgs(
                 temp++;
                 c = *temp;
             }
-            if(isdigit(c)) {
+            if(isdigit((unsigned char)c)) {
                 temp++;
                 xArg = c - '0';
                 if (xArg >= maxArg) {
@@ -156,7 +156,7 @@ static void wrtemp(
                 caps = true;
                 c = *++string;
             }
-            if(isdigit(c)) {
+            if(isdigit((unsigned char)c)) {
                 string++;
                 xArg = c - '0';
                 if(xArg >= sArg) {
@@ -164,17 +164,17 @@ static void wrtemp(
                 }
                 if (*args[xArg]) {
                     if(lowerCase) {
-                        appendChar((char)tolower(*(args[xArg])));
+                        appendChar((char)tolower((unsigned char)*(args[xArg])));
                         appendString((args[xArg]) + 1);
                         lowerCase = false;
                     } else if(upperCase) {
-                        appendChar((char)toupper(*(args[xArg])));
+                        appendChar((char)toupper((unsigned char)*(args[xArg])));
                         appendString((args[xArg]) + 1);
                         upperCase = false;
                     } else if(caps) {
                         arg = args[xArg];
                         while(*arg) {
-                            appendChar((char)toupper(*arg));
+                            appendChar((char)toupper((unsigned char)*arg));
                             arg++;
                         }
                         caps = false;
@@ -479,7 +479,7 @@ utSym dvUpperSym(
         return utSymNull;
     }
     name = utCopyString(utSymGetName(sym));
-    *name = toupper(*name);
+    *name = toupper((unsigned char)*name);
     return utSymCreate(name);
 }
 

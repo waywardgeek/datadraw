@@ -126,6 +126,7 @@ uint8 utRegisterModule(
     utModuleSetFirstEnumIndex(module, utUsedEnums);
     utModuleSetNumEnums(module, numEnums);
     utModuleSetInitialized(module,  true);
+    utModuleSetSaved(module,  true);
     utCurrentModule = module;
     return utUsedModules++;
 }
@@ -1123,7 +1124,7 @@ void utSaveBinaryDatabase(
         utExit("Could not write to %s", fileName);
     }
     utForeachModule(module) {
-        if(utModuleInitialized(module) && !saveModule(module, databaseFile)) {
+        if(utModuleInitialized(module) && utModuleSaved(module) && !saveModule(module, databaseFile)) {
             utExit("Could not save database");
         }
     } utEndModule;

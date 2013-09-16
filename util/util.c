@@ -1364,7 +1364,7 @@ char *utStringToUpperCase(
     char *p = buffer;
     
     while(*p != '\0') {
-        *p = toupper(*p);
+        *p = toupper((unsigned char)*p);
         p++;
     }
     return buffer;
@@ -1380,7 +1380,7 @@ char *utStringToLowerCase(
     char *p = buffer;
     
     while(*p != '\0') {
-        *p = tolower(*p);
+        *p = tolower((unsigned char)*p);
         p++;
     }
     return buffer;
@@ -1557,7 +1557,7 @@ static char *findMatchingBracket(
 static char *findFirstNonAlnumChar(
     char *string)
 {
-    while(isalnum(*string)) {
+    while(isalnum((unsigned char)*string)) {
         string++;
     }
     return string;
@@ -1662,7 +1662,7 @@ utSym utUniqueSymCreate(
 
     strcpy(buf, name);
     tail = buf + strlen(buf) - 1;
-    while(isdigit(*tail)) {
+    while(isdigit((unsigned char)*tail)) {
         tail--;
     }
     tail++;
