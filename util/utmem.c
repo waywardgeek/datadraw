@@ -47,7 +47,6 @@ utMemRef utcMem (void)
 --------------------------------------------------------------------------------------------------*/
 void utdMem (
     utMemRef mem,
-    bool farHeap,
     char *fileName,
     uint32 line)
 {
@@ -63,16 +62,6 @@ void utdMem (
     if (utgMemPicket(mem) != rightPicket) {
         utExit("utdMem: Memory allocated in %s on line %u and freed in %s "
                 "line %u lost right picket", utgMemName(mem),
-                utgMemLine(mem), fileName, line);
-    }
-    if (uttMemFarHeap(mem) && !farHeap) {
-        utExit("utdMem: Far memory allocated in %s on line %u is freed in %s "
-                "line %u to the near heap", utgMemName(mem),
-                utgMemLine(mem), fileName, line);
-    }
-    if (!uttMemFarHeap(mem) && farHeap) {
-        utExit("utdMem: Near memory allocated in %s on line %u is freed in %s "
-                "line %u to the far heap", utgMemName(mem),
                 utgMemLine(mem), fileName, line);
     }
     utdStackMem(stack, mem, fileName, line);
@@ -112,8 +101,7 @@ uint32 utMemRand (void)
 --------------------------------------------------------------------------------------------------*/
 utMemRef utBuildMem (
     void *memPtr,
-    uint32 size,
-    bool farHeap,
+    size_t size,
     char *file,
     uint32 line)
 {
@@ -133,7 +121,6 @@ utMemRef utBuildMem (
     utaStackMem(utlStack(), mem);
     utgMemPicket(mem) = (uint8)utMemRand();
     *(((uint8 *)memPtr) + size - 1) = utgMemPicket(mem);
-    uttMemFarHeap(mem) = farHeap;
     return mem;
 }
 

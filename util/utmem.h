@@ -50,8 +50,8 @@ struct utMem_ {
    utMemRef nMem;
    uint32 line;
    char *name;
-   uint32 size;
-   bool used, farHeap;
+   size_t size;
+   bool used;
 };
 
 extern struct utMem_ *utMems;
@@ -73,12 +73,9 @@ extern uint32 utfFreeMem, utfVirgMem_, utmMem;
 #define utgMemSize(mem) (utMems[mem].size)
 #define utoStackMem(mem) (utMems[mem].oStack)
 #define uttMemUsed(mem) (utMems[mem].used)
-#define uttMemFarHeap(mem) (utMems[mem].farHeap)
 extern utMemRef utcMem(void);
-extern void utdMem(utMemRef mem, bool farHeap,
-      char *fileName, uint32 line);
-extern utMemRef utBuildMem(void *memPtr, uint32 size,
-      bool farHeap, char *file, uint32 line);
+extern void utdMem(utMemRef mem, char *fileName, uint32 line);
+extern utMemRef utBuildMem(void *memPtr, size_t size, char *file, uint32 line);
 extern utMemRef utqMemPtr(void *memPtr);
 
 /*--------------------------------------------------------------------------------------------------

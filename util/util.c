@@ -985,10 +985,10 @@ void *utReallocTrace(
     if(!uttMemExists(mem)) {
         utExit("utRealloc: Bad memory pointer in %s, line %u", fileName, line);
     }
-    utdMem(mem, true, fileName, line);
+    utdMem(mem, fileName, line);
     memPtr = realloc(memPtr, (num + 1)*size);
     if(memPtr != NULL) {
-        utBuildMem(memPtr, newSize, true, fileName, line);
+        utBuildMem(memPtr, newSize, fileName, line);
     } else {
         utLogMessage("utRealloc: unable to allocate memory %lu.  Total used: %lu",
             num*(size+1), utUsedMem);
@@ -1011,7 +1011,7 @@ void *utMallocTrace(
 
     utMemCheckTrace(fileName, line);
     if(memPtr != NULL) {
-        utBuildMem(memPtr, sByte + 1, true, fileName, line);
+        utBuildMem(memPtr, sByte + 1, fileName, line);
     } else {
         utLogMessage("utRealloc: unable to allocate memory %lu.  Total used: %lu",
             sByte, utUsedMem);
@@ -1078,7 +1078,7 @@ void utFreeTrace(
     if(!uttMemExists(mem)) {
         utExit("utFree: Bad memory pointer in %s, line %u", fileName, line);
     }
-    utdMem(mem, true, fileName, line);
+    utdMem(mem, fileName, line);
     free(memPtr);
 }
 

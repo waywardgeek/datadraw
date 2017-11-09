@@ -1552,7 +1552,7 @@ static void dumpArray(
     utField field = utFields + xField;
     utClass theClass = utClasses + utFieldGetClassIndex(field);
     utModule module = utModules + utClassGetModuleIndex(theClass);
-    uint32 length, bytes;
+    uint32 length;
     uint32 dataIndex;
     uint32 xValue;
     bool firstTime = true;
@@ -1562,7 +1562,6 @@ static void dumpArray(
     command += 4;
     length = readUint32(command);
     command += 4;
-    bytes = utFieldGetSize(field)*length;
     utDebug("%s%ss.%s[%u] = (", utModuleGetPrefix(module), utClassGetName(theClass), utFieldGetName(field), dataIndex);
     for(xValue = 0; xValue < length; xValue++) {
         if(!firstTime) {
