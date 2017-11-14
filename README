@@ -26,11 +26,16 @@ Linux Installation
 If you just want to compile it now, before reading the manual, just type this:
 
     $ cd datadraw3.X.X
+    $ ./autogen.sh
     $ ./configure
     $ make
     $ su
     $ make install
     $ exit
+
+If you have any trouble, it may be that you do not have all the build tools
+installed.  Make sure to have automake, and in debian, build-essential
+installed.
 
 This should install a "datadraw" executable, which you can use on database description files
 (ending in ".dd").  The following will generate the C database:
