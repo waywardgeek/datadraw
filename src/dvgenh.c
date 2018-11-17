@@ -1415,12 +1415,6 @@ static void writeHeaderTop(
         "#include \"ddutil.h\"\n"
         "#endif\n\n",
         dvPrefix);
-    if(dvModuleGetFirstTypedef(module) != dvTypedefNull) {
-        dvWrtemp(dvFile,
-            "#include \"%0typedef.h\"\n",
-            dvPrefix);
-        hasHeader = true;
-    }
     dvForeachModuleImportLink(module, link) {
         dvWrtemp(dvFile,
             "#include \"%0database.h\"\n",
@@ -1506,6 +1500,9 @@ void dvWriteHeaderFile(
     dvPrefix = dvModuleGetPrefix(module);
     writeHeaderTop(module);
     writeTypes(module);
+    if(dvModuleGetFirstTypedef(module) != dvTypedefNull) {
+        dvWrtemp(dvFile, "#include \"%0typedef.h\"\n\n", dvPrefix);
+    }
     writeConstructorDestructorVariables(module);
     writeRoot(module);
     writeValidateMacros(module);
