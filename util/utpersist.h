@@ -314,7 +314,7 @@ extern uint16 utAllocatedUnioncases, utUsedUnioncases;
 uint64 utFindIntValue(void *values, uint8 size);
 void utSetInteger(uint8 *dest, uint64 value, uint8 width);
 
-/* This keeps us from writing the the unopened changes file before starting persistence */
+/* This keeps us from writing the unopened changes file before starting persistence */
 extern bool utPersistenceInitialized;
 extern char *utDatabaseDirectory;
 extern bool utUseTextDatabaseFormat;
