@@ -457,6 +457,7 @@ static char *findFieldValue(
         case 8: return utSprintf("%d", *(int64 *)values);
         }
         utExit("Invalid integer size");
+        break;
     case UT_UINT:
         switch(size) {
         case 1: return utSprintf("%u", *(uint8 *)values);
@@ -465,6 +466,7 @@ static char *findFieldValue(
         case 8: return utSprintf("%u", *(uint64 *)values);
         }
         utExit("Invalid integer size");
+        break;
     case UT_CHAR:
         if(isprint(*values)) {
             return utSprintf("'%c'", *values);

@@ -523,11 +523,25 @@ static void writeClassRelExternFuncs(
                     "void %0%1InsertAfter%2%3(%4%1 %1, %5%3 prev%3, %5%3 _%3);\n",
                     dvPrefix, name, childLabel, childName,
                     dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
+                if (theClass == childClass) {
+                  /* Allow dbNodeGetNextNodNode to be written as dbNodeGetNextNode. */
+                  dvWrtemp(dvFile,
+                      "#define %0%1GetNext%2%3 %0%1GetNext%1%2%3\n"
+                      "#define %0%1SetNext%2%3 %0%1SetNext%1%2%3\n",
+                    dvPrefix, name, childLabel, childName);
+                }
                 if(type != REL_LINKED_LIST) {
                     dvWrtemp(dvFile,
                         "void %0%1Append%2%3(%4%1 %1, %5%3 _%3);\n",
                         dvPrefix, name, childLabel, childName,
                         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
+                    if (theClass == childClass) {
+                      /* Allow dbNodeSetPrevNodNode to be written as dbNodeSetPrevNode. */
+                      dvWrtemp(dvFile,
+                          "#define %0%1GetPrev%2%3 %0%1GetPrev%1%2%3\n"
+                          "#define %0%1SetPrev%2%3 %0%1SetPrev%1%2%3\n",
+                        dvPrefix, name, childLabel, childName);
+                    }
                 }
             } else if((type == REL_HASHED && dvRelationshipUnordered(relationship)) || type == REL_ORDERED_LIST) {
                 dvWrtemp(dvFile,
