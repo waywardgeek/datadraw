@@ -1,0 +1,35 @@
+module JSON jn
+
+enum ValueType
+    JN_VAL_STRING
+    JN_VAL_NUMBER
+    JN_VAL_OBJECT
+    JN_VAL_ARRAY
+    JN_VAL_TRUE
+    JN_VAL_FALSE
+    JN_VAL_NULL
+
+class Value
+  ValueType type
+  union type
+    sym string: JN_VAL_STRING
+    // Note that rounding errors occur here when converting to/from ASCII representation.
+    // A number written, and then read, is not always exactly the same value.
+    double number: JN_VAL_NUMBER
+    Object object cascade: JN_VAL_OBJECT
+    // Class members can be capitalized to avoid colliding with keywords like "array".
+    Array Array cascade: JN_VAL_ARRAY
+
+// Objects contain a hash table of Entries, which are key:value pairs, where key is a sym.
+class Object
+
+class Entry
+  Value value cascade
+
+class Array
+
+// The parser will return Value objects that the caller should destroy.  Be careful not to destroy
+// a child object in the JSON tree without first removing it from a parent, since these
+// relationships are child_only.
+relationship Object Entry hashed child_only cascade
+relationship Array Value array child_only cascade

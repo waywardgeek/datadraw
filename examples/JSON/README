@@ -1,0 +1,6 @@
+This simple DataDraw was written by Bill Cox on May 28, 2019.  I place it into
+the public domain.  If your company or jurisdiction does not recognize the
+public domain, than you may use this under the Apache 2.0 license.
+
+This demo just shows how to represent JSON objects with DataDraw.  There are a
+few TODOs.  Feel free to finish it.
