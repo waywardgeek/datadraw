@@ -524,7 +524,7 @@ static void writeClassRelExternFuncs(
                     dvPrefix, name, childLabel, childName,
                     dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
                 if (theClass == childClass) {
-                  /* Allow dbNodeGetNextNodNode to be written as dbNodeGetNextNode. */
+                  /* Allow dbNodeGetNextNodeNode to be written as dbNodeGetNextNode. */
                   dvWrtemp(dvFile,
                       "#define %0%1GetNext%2%3 %0%1GetNext%1%2%3\n"
                       "#define %0%1SetNext%2%3 %0%1SetNext%1%2%3\n",
