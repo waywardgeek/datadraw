@@ -121,7 +121,6 @@ static jnEntry entryCreate(jnObject object, utSym key, jnValue value) {
   jnEntry entry = jnEntryAlloc();
   jnEntrySetSym(entry, key);
   jnEntrySetValue(entry, value);
-  jnObjectAppendEntry(object, entry);
   return entry;
 }
 
