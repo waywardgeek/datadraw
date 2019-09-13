@@ -1066,7 +1066,7 @@ void utLoadBinaryDatabase(
     }
     utForeachModule(module) {
         if(utModuleInitialized(module) && !loadModule(module, databaseFile)) {
-            utExit("Could not read from %s");
+            utExit("Could not read from %s module", utModuleGetPrefix(module));
         }
     } utEndModule;
     if(useDefault) {
