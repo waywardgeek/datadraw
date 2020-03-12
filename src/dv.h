@@ -48,7 +48,7 @@ dvCase dvCaseCreate(dvProperty property, dvEntry entry);
 dvSparsegroup dvSparsegroupCreate(dvClass theClass, utSym sym);
 dvCache dvCacheCreate(dvClass theClass);
 dvKeyproperty dvUnboundKeypropertyCreate(dvKey key, utSym sym);
-dvKey dvKeypropertyCreate(dvKey key, dvProperty property);
+dvKeyproperty dvKeypropertyCreate(dvKey key, dvProperty property);
 
 /* Utility functions */
 void prUtilStart(void);

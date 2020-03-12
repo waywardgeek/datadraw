@@ -50,7 +50,7 @@ static void writeKeyHash(
         } else {
             dvWrtemp(dvFile, "utHashData(%0%1s.%2 + %4%12Index(_%1), sizeof(%3))",
                 dvPrefix,
-                dvClassGetName(childClass), 
+                dvClassGetName(childClass),
                 dvPropertyGetName(property),
                 dvPropertyGetTypeName(property),
                 dvClassGetPrefix(childClass));
@@ -105,7 +105,7 @@ static void writeHashTableResizeFunction(
     dvProperty tablesProp = dvClassFindProperty(parentClass, propSym);
 
     utAssert(tablesProp != dvPropertyNull);
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Increase the size of the hash table.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -132,7 +132,7 @@ static void writeHashTableResizeFunction(
         dvPrefix, dvClassGetName(parentClass), dvRelationshipGetChildLabel(relationship),
         dvClassGetName(childClass), dvClassGetPrefix(parentClass), dvClassGetPrefix(childClass));
     writeHashFunction(dvRelationshipGetFirstKey(relationship), false);
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         ";\n"
         "            if(index != x%3) {\n"
         "                if(prev%3 == %5%3Null) {\n"
@@ -162,7 +162,7 @@ static void writeHashTableAddFunction(
     dvClass parentClass = dvRelationshipGetParentClass(relationship);
     dvClass childClass = dvRelationshipGetChildClass(relationship);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Add the %2%3 to the %1.  If the table is near full, build a new one twice\n"
         "  as big, delete the old one, and return the new one.\n"
@@ -181,7 +181,7 @@ static void writeHashTableAddFunction(
         dvPrefix, dvClassGetName(parentClass), dvRelationshipGetChildLabel(relationship),
         dvClassGetName(childClass), dvClassGetPrefix(parentClass), dvClassGetPrefix(childClass));
     writeHashFunction(dvRelationshipGetFirstKey(relationship), false);
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         ";\n"
         "    next%3 = %0%1Geti%2%3Table(%1, index);\n"
         "    %0%3SetNextTable%1%2%3(_%3, next%3);\n"
@@ -201,7 +201,7 @@ static void writeHashTableRemoveFunction(
     dvClass parentClass = dvRelationshipGetParentClass(relationship);
     dvClass childClass = dvRelationshipGetChildClass(relationship);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Remove the %2%3 from the hash table.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -213,7 +213,7 @@ static void writeHashTableRemoveFunction(
         dvPrefix, dvClassGetName(parentClass), dvRelationshipGetChildLabel(relationship),
         dvClassGetName(childClass), dvClassGetPrefix(parentClass), dvClassGetPrefix(childClass));
     writeHashFunction(dvRelationshipGetFirstKey(relationship), false);
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         ";\n"
         "    %5%3 prev%3, next%3;\n"
         "    \n"
@@ -387,7 +387,7 @@ static void writeClassInsertFunction(
     char *childName = dvClassGetName(childClass);
     dvRelationshipType type = dvRelationshipGetType(relationship);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Add the %2%3 to the head of the list on the %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -405,7 +405,7 @@ static void writeClassInsertFunction(
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%2Get%4%1(_%2) != %3%1Null) {\n"
             "        utExit(\"Attempting to add %2 to %1 twice\");\n"
             "    }\n",
@@ -415,7 +415,7 @@ static void writeClassInsertFunction(
     dvWrtemp(dvFile, "#endif\n");
     if(type != REL_HASHED || !dvRelationshipUnordered(relationship)) {
         if(type == REL_DOUBLY_LINKED || type == REL_HASHED) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    %0%3SetNext%1%2%3(_%3, %0%1GetFirst%2%3(%1));\n"
                 "    if(%0%1GetFirst%2%3(%1) != %5%3Null) {\n"
                 "        %0%3SetPrev%1%2%3(%0%1GetFirst%2%3(%1), _%3);\n"
@@ -428,7 +428,7 @@ static void writeClassInsertFunction(
                 dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
                 dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
         } else {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    %0%3SetNext%1%2%3(_%3, %0%1GetFirst%2%3(%1));\n"
                 "    %0%1SetFirst%2%3(%1, _%3);\n",
                 dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
@@ -475,7 +475,7 @@ static void writeClassAppendFunction(
     char *childName = dvClassGetName(childClass);
     dvRelationshipType type = dvRelationshipGetType(relationship);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Add the %2%3 to the end of the list on the %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -493,7 +493,7 @@ static void writeClassAppendFunction(
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%2Get%4%1(_%2) != %3%1Null) {\n"
             "        utExit(\"Attempting to add %2 to %1 twice\");\n"
             "    }\n",
@@ -502,7 +502,7 @@ static void writeClassAppendFunction(
     }
     dvWrtemp(dvFile, "#endif\n");
     if(type == REL_DOUBLY_LINKED || type == REL_HASHED) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %0%3SetPrev%1%2%3(_%3, %0%1GetLast%2%3(%1));\n"
             "    if(%0%1GetLast%2%3(%1) != %5%3Null) {\n"
             "        %0%3SetNext%1%2%3(%0%1GetLast%2%3(%1), _%3);\n"
@@ -515,7 +515,7 @@ static void writeClassAppendFunction(
             dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
             dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     } else {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%1GetLast%2%3(%1) != %5%3Null) {\n"
             "        %0%3SetNext%1%2%3(%0%1GetLast%2%3(%1), _%3);\n"
             "    } else {\n"
@@ -557,8 +557,8 @@ static void writeClassInsertAfter(
     dvClass childClass = dvRelationshipGetChildClass(relationship);
     char *childName = dvClassGetName(childClass);
     dvRelationshipType type = dvRelationshipGetType(relationship);
-    
-    dvWrtemp(dvFile, 
+
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Insert the %2%3 to the %1 after the previous %2%3.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -579,7 +579,7 @@ static void writeClassInsertAfter(
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%2Get%4%1(_%2) != %3%1Null) {\n"
             "        utExit(\"Attempting to add %2 to %1 twice\");\n"
             "    }\n",
@@ -587,13 +587,13 @@ static void writeClassInsertAfter(
             dvRelationshipGetParentLabel(relationship));
     }
     dvWrtemp(dvFile, "#endif\n");
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "    %0%3SetNext%1%2%3(_%3, next%3);\n"
         "    %0%3SetNext%1%2%3(prev%3, _%3);\n",
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(type == REL_DOUBLY_LINKED || type == REL_HASHED) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %0%3SetPrev%1%2%3(_%3, prev%3);\n"
             "    if(next%3 != %5%3Null) {\n"
             "        %0%3SetPrev%1%2%3(next%3, _%3);\n"
@@ -640,8 +640,8 @@ static void writeClassRemoveFunction(
     dvRelationshipType type = dvRelationshipGetType(relationship);
     char *childName = dvClassGetName(childClass);
     char *childLabel = dvRelationshipGetChildLabel(relationship);
-    
-    dvWrtemp(dvFile, 
+
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         " Remove the %2%3 from the %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -652,7 +652,7 @@ static void writeClassRemoveFunction(
         dvPrefix, parentName, childLabel, childName, dvClassGetPrefix(theClass),
         dvClassGetPrefix(childClass));
     if(type != REL_HASHED || !dvRelationshipUnordered(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %5%3 p%3, n%3;\n"
             "\n",
             dvPrefix, parentName, childLabel, childName, dvClassGetPrefix(theClass),
@@ -665,7 +665,7 @@ static void writeClassRemoveFunction(
         "    }\n", dvPrefix, parentName, childLabel, childName,
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%3Get%1%2(_%3) != %4%2Null && %0%3Get%1%2(_%3) != %2) {\n"
             "        utExit(\"Delete %3 from non-owning %2\");\n"
             "    }\n",
@@ -675,7 +675,7 @@ static void writeClassRemoveFunction(
     dvWrtemp(dvFile, "#endif\n");
     if(type != REL_HASHED || !dvRelationshipUnordered(relationship)) {
         if(type == REL_DOUBLY_LINKED || type == REL_HASHED) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    n%3 = %0%3GetNext%1%2%3(_%3);\n"
                 "    p%3 = %0%3GetPrev%1%2%3(_%3);\n"
                 "    if(p%3 != %5%3Null) {\n"
@@ -693,7 +693,7 @@ static void writeClassRemoveFunction(
                 dvPrefix, parentName, childLabel, childName,
                 dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
         } else {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    p%3 = %5%3Null;\n"
                 "    for(n%3 = %0%1GetFirst%2%3(%1); n%3 != %5%3Null && n%3 != _%3;\n"
                 "            n%3 = %0%3GetNext%1%2%3(n%3)) {\n"
@@ -708,7 +708,7 @@ static void writeClassRemoveFunction(
                 dvPrefix, parentName, childLabel, childName,
                 dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
             if(type == REL_TAIL_LINKED) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    if(%0%1GetLast%2%3(%1) == _%3) {\n"
                     "        %0%1SetLast%2%3(%1, p%3);\n"
                     "    }\n",
@@ -749,7 +749,7 @@ static void writeClassArrayInsertFunction(
     dvClass childClass = dvRelationshipGetChildClass(relationship);
     char *childName = dvClassGetName(childClass);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Add the indexed %2%3 to the %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -765,20 +765,20 @@ static void writeClassArrayInsertFunction(
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName,
         dvClassGetPrefix(theClass), dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%2Get%4%1(_%2) != %3%1Null) {\n"
             "        utExit(\"Attempting to add %2 to %1 twice\");\n"
             "    }\n",
             dvPrefix, parentName, childName, dvClassGetPrefix(theClass),
             dvRelationshipGetParentLabel(relationship));
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "#endif\n"
         "    %0%1Seti%2%3(%1, x, _%3);\n"
         "    %0%1SetUsed%2%3(%1, utMax(%0%1GetUsed%2%3(%1), x + 1));\n",
         dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName);
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %0%3Set%2%1Index(_%3, x);\n"
             "    %0%3Set%2%1(_%3, %1);\n",
             dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName);
@@ -799,21 +799,21 @@ static void writeClassArrayAppendFunction(
     char *childName = dvClassGetName(childClass);
 
     if(!isHeap) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "/*----------------------------------------------------------------------------------------\n"
             "  Add the %2%3 to the end of the %1%2%3% array.\n"
             "----------------------------------------------------------------------------------------*/\n"
             "void %0%1Append%2%3(\n",
             dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName);
     } else {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "/*----------------------------------------------------------------------------------------\n"
             "  Push the %2%3 onto the %1%2%3% heap.\n"
             "----------------------------------------------------------------------------------------*/\n"
             "void %0%1Push%2%3(\n",
             dvPrefix, parentName, dvRelationshipGetChildLabel(relationship), childName);
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "    %4%1 %1,\n"
         "    %5%3 _%3)\n"
         "{\n"
@@ -858,8 +858,8 @@ static void writeClassRemoveArray(
     dvClass childClass = dvRelationshipGetChildClass(relationship);
     char *childName = dvClassGetName(childClass);
     char *childLabel = dvRelationshipGetChildLabel(relationship);
-    
-    dvWrtemp(dvFile, 
+
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Remove the %2%3 from the %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -877,7 +877,7 @@ static void writeClassRemoveArray(
         dvPrefix, parentName, childLabel, childName, dvClassGetPrefix(theClass),
         dvClassGetPrefix(childClass));
     if(dvRelationshipAccessParent(relationship)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    if(%0%3Get%1%2(_%3) != %4%2Null && %0%3Get%1%2(_%3) != %2) {\n"
             "        utExit(\"Delete %3 from non-owning %2\");\n"
             "    }\n",
@@ -885,7 +885,7 @@ static void writeClassRemoveArray(
             dvClassGetPrefix(theClass));
     }
     if(!isHeap) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "#endif\n"
             "    %0%1Seti%6%3(%1, %0%3Get%2%1Index(_%3), %5%3Null);\n"
             "    %0%3Set%2%1Index(_%3, UINT32_MAX);\n",
@@ -899,7 +899,7 @@ static void writeClassRemoveArray(
                 dvClassGetPrefix(theClass));
         }
     } else {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "#endif\n"
             "    %l1Pop%4%3(%1, %0%3Get%2%1Index(_%3));\n",
             dvPrefix, parentName, dvRelationshipGetParentLabel(relationship), childName,
@@ -975,7 +975,7 @@ static void writeClassPropFieldAllocs(
                     dvPropertyGetName(prop));
             }
             else if(!dvPropertyArray(prop)) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0%1s.%2 = utNewAInitFirst(%4, (%3Allocated%1()%5);\n",
                     dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass),
                     dvPropertyGetTypeName(prop),
@@ -984,7 +984,7 @@ static void writeClassPropFieldAllocs(
                     writePropertyInits(prop, "0", utSprintf("%sAllocated%s()", dvClassGetPrefix(theClass), name), "");
                 }
             } else if(!dvPropertyFixedSize(prop)) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0SetUsed%1%2(0);\n"
                     "    %0SetAllocated%1%2(2);\n"
                     "    %0SetFree%1%2(0);\n"
@@ -992,7 +992,7 @@ static void writeClassPropFieldAllocs(
                     dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass),
                     dvPropertyGetTypeName(prop));
             } else {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0%1s.%2 = utNewAInitFirst(%4, %3Allocated%1()*(%5));\n",
                     dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass),
                     dvPropertyGetTypeName(prop), dvPropertyGetIndex(prop));
@@ -1004,7 +1004,7 @@ static void writeClassPropFieldAllocs(
         }
     } dvEndClassProperty;
     dvForeachClassUnion(theClass, theUnion) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %0%1s.%3 = utNewAInitFirst(%4, %2Allocated%1());\n",
             dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass),
             dvUnionGetFieldName(theUnion), dvUnionGetTypeName(theUnion));
@@ -1014,7 +1014,7 @@ static void writeClassPropFieldAllocs(
         }
     } dvEndClassUnion;
     dvForeachClassCache(theClass, cache) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %0%1s.%3 = utNewAInitFirst(%4, %2Allocated%1());\n",
             dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass),
             dvCacheGetFieldName(cache), dvCacheGetTypeName(cache));
@@ -1048,16 +1048,16 @@ static void writeClassPropFieldReallocs(
             shift = dvPropertyGetType(prop) == PROP_BIT? " + 7) >> 3" : ")";
             multiplier = dvPropertyFixedSize(prop)? utSprintf("*(%s)", dvPropertyGetIndex(prop)) : "";
             if(dvClassUndo(theClass)) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    utRecordResize(%0ModuleID, %3, (%2Allocated%1()%4%5, true);\n",
                     dvPrefix, name, dvClassGetPrefix(theClass),
                     utSprintf("%u", dvPropertyGetFieldNumber(prop)), shift, multiplier);
             }
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    utResizeArray(%0%1s.%2, (newSize%4%5);\n",
                 dvPrefix, name, dvPropertyGetName(prop), dvClassGetPrefix(theClass), shift, multiplier);
             if(dvClassRedo(theClass)) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    utRecordResize(%0ModuleID, %3, (newSize%4%5, false);\n",
                     dvPrefix, name, dvClassGetPrefix(theClass),
                     utSprintf("%u", dvPropertyGetFieldNumber(prop)), shift, multiplier);
@@ -1066,17 +1066,17 @@ static void writeClassPropFieldReallocs(
     } dvEndClassProperty;
     dvForeachClassUnion(theClass, theUnion) {
         if(dvClassUndo(theClass)) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    utRecordResize(%0ModuleID, %3, %2Allocated%1(), true);\n",
                 dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass),
                 utSprintf("%u", dvUnionGetFieldNumber(theUnion)));
         }
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    utResizeArray(%0%1s.%2, newSize);\n",
             dvPrefix, dvClassGetName(theClass), dvUnionGetFieldName(theUnion),
             dvClassGetPrefix(theClass));
         if(dvClassRedo(theClass)) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    utRecordResize(%0ModuleID, %3, newSize, false);\n",
                 dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass),
                 utSprintf("%u", dvPropertyGetFieldNumber(prop)));
@@ -1086,7 +1086,7 @@ static void writeClassPropFieldReallocs(
         return;
     }
     dvForeachClassCache(theClass, cache) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    utResizeArray(%0%1s.%2, newSize);\n",
             dvPrefix, dvClassGetName(theClass), dvCacheGetFieldName(cache), dvClassGetPrefix(theClass));
     } dvEndClassCache;
@@ -1110,18 +1110,18 @@ static void writeClassPropFieldFrees(
         }
         else if(dvPropertyGetUnion(prop) == dvUnionNull && dvPropertyGetCache(prop) == dvCacheNull &&
                 !dvPropertySparse(prop)) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    utFree(%0%1s.%2);\n",
                 dvPrefix, name, dvPropertyGetName(prop));
         }
     } dvEndClassProperty;
     dvForeachClassUnion(theClass, theUnion) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    utFree(%0%1s.%2);\n",
             dvPrefix, dvClassGetName(theClass), dvUnionGetFieldName(theUnion));
     } dvEndClassUnion;
     dvForeachClassCache(theClass, cache) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    utFree(%0%1s.%2);\n",
             dvPrefix, dvClassGetName(theClass), dvCacheGetFieldName(cache));
     } dvEndClassCache;
@@ -1135,7 +1135,7 @@ static void writeClassAllocs(
 {
     char *name = dvClassGetName(theClass);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Allocate the field arrays of %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1154,13 +1154,13 @@ static void writeClassAllocs(
     }
     writeClassPropFieldAllocs(theClass);
     if(dvClassGetBaseClass(theClass) != dvClassNull) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "    %0SetAllocated%1(%2Allocated%1());\n"
             "    %0%1ConstructorCallback = %2%1GetConstructorCallback();\n"
             "    %2%1SetConstructorCallback(init%1);\n",
             dvPrefix, name, dvClassGetPrefix(theClass));
         if(dvClassGetMemoryStyle(theClass) == MEM_FREE_LIST) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    %0%1DestructorCallback = %2%1GetDestructorCallback();\n"
                 "    %2%1SetDestructorCallback(destroy%1);\n",
                 dvPrefix, name, dvClassGetPrefix(theClass));
@@ -1175,7 +1175,7 @@ static void writeClassAllocs(
 static void writeClassReallocs(
     dvClass theClass)
 {
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Realloc the arrays of properties for class %0.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1198,7 +1198,7 @@ static void writeStop(
 {
     dvClass theClass;
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Free memory used by the %0 database.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1356,7 +1356,7 @@ static void writeStart(
 {
     dvClass theClass;
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Allocate memory used by the %0 database.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1382,7 +1382,7 @@ static void writeStart(
 static void writeClassAllocateMore(
     dvClass theClass)
 {
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Allocate more %1s.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1400,7 +1400,7 @@ static void writeClassAllocateMore(
 static void writeExtendedClassInitFunc(
     dvClass theClass)
 {
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "static void realloc%1s(%3 newSize);\n"
         "/*----------------------------------------------------------------------------------------\n"
         "  Initialize a new %1.  This is a constructor callback from the base class.\n"
@@ -1422,7 +1422,7 @@ static void writeExtendedClassInitFunc(
 static void writeConstructorDestructorWrappers(
     dvClass theClass)
 {
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Default constructor wrapper for the database manager.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1434,7 +1434,7 @@ static void writeConstructorDestructorWrappers(
         "}\n\n",
         dvPrefix, dvClassGetName(theClass));
     if(dvClassGetMemoryStyle(theClass) != MEM_CREATE_ONLY) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "/*-----------------------------------------------------"
             "-----------------------------------\n"
             "  Destructor wrapper for the database manager.\n"
@@ -1463,7 +1463,7 @@ static void writeArrayCompact(
         return;
     }
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Compact the %1.%2 heap to free memory.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1490,7 +1490,7 @@ static void writeArrayCompact(
             dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property),
             dvPropertyGetID(property));
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "            memmove((void *)toPtr, (void *)fromPtr, size*elementSize);\n");
     if(dvClassRedo(theClass)) {
         dvWrtemp(dvFile,
@@ -1498,7 +1498,7 @@ static void writeArrayCompact(
             dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property),
             dvPropertyGetID(property));
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "            %0%1Set%2Index_(%1, toPtr - %0%1s.%2 + usedHeaderSize);\n"
         "            toPtr += size;\n"
         "        } else {\n"
@@ -1527,7 +1527,7 @@ static void writeArrayAllocMore(
         return;
     }
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Allocate more memory for the %1.%2 heap.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1544,7 +1544,7 @@ static void writeArrayAllocMore(
         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property), dvClassGetPrefix(theClass),
         dvPropertyGetTypeName(property));
     if(dvClassUndo(theClass)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "        utRecordResize(%0ModuleID, %3, %0Allocated%1%2(), true);\n",
             dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property),
             utSprintf("%u", dvPropertyGetFieldNumber(property)));
@@ -1555,12 +1555,12 @@ static void writeArrayAllocMore(
         "        utResizeArray(%0%1s.%2, %0Allocated%1%2());\n",
         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property));
     if(dvClassRedo(theClass)) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "        utRecordResize(%0ModuleID, %3, %0Allocated%1%2(), false);\n",
             dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property),
             utSprintf("%u", dvPropertyGetFieldNumber(property)));
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "    }\n"
         "}\n\n");
 }
@@ -1581,7 +1581,7 @@ static void writeArrayAlloc(
         return;
     }
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Allocate memory for a new %1.%2 array.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1629,7 +1629,7 @@ static void writeArrayAlloc(
         "    %0SetUsed%1%2(%0Used%1%2() + spaceNeeded);\n"
         "}\n\n",
         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property));
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Wrapper around %0%1Get%2s for the database manager.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1673,7 +1673,7 @@ static void writeArrayGetValues(
 {
     dvClass theClass = dvPropertyGetClass(property);
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Wrapper around %0%1Get%2s for the database manager.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1705,7 +1705,7 @@ static void writeArrayFree(
         return;
     }
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Free memory used by the %1.%2 array.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -1729,7 +1729,7 @@ static void writeArrayFree(
             dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property),
             dvPropertyGetID(property));
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "    *(%1%0 *)(void *)(dataPtr) = %1%0Null;\n"
         "    *(uint32 *)(void *)(((%1%0 *)(void *)dataPtr) + 1) = size;\n",
         dvClassGetName(theClass), dvClassGetPrefix(theClass));
@@ -1739,7 +1739,7 @@ static void writeArrayFree(
             dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property),
             dvPropertyGetID(property));
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "    %0%1SetNum%2(%1, 0);\n"
         "    %0SetFree%1%2(%0Free%1%2() + size);\n"
         "}\n\n",
@@ -1760,7 +1760,7 @@ static void writeArrayResize(
         return;
     }
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Resize the %1.%2 array.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -2020,8 +2020,8 @@ static void writeRelationshipBinaryHeapFunctions(
         "    %l1HeapDown%2%3(%1, _index);\n"
         "}\n"
         "\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
 }
 
@@ -2098,8 +2098,8 @@ static void writeOrderedListFindNextFunction(
         "----------------------------------------------------------------------------------------*/\n"
         "%5%3 %0%1FindNext%2%3(\n"
         "    %4%1 %1",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     writeKeyParameters(relationship);
     dvWrtemp(dvFile,
@@ -2111,8 +2111,8 @@ static void writeOrderedListFindNextFunction(
         "\n"
         "    while(node != %5%3Null) {\n"
         "        next%3 = node;\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     writeOrderedListComparisons(relationship);
     dvWrtemp(dvFile,
@@ -2125,8 +2125,8 @@ static void writeOrderedListFindNextFunction(
         "            utDo {\n"
         "                node = %0%3GetRight%1%2%3(node);\n"
         "                if(node != %5%3Null) {\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
         dvRelationshipGetParentLabel(relationship));
     writeOrderedListComparisons(relationship);
     dvWrtemp(dvFile,
@@ -2150,8 +2150,8 @@ static void writeOrderedListFindNextFunction(
         "    return next%3;\n"
         "}\n"
         "\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
 }
 
@@ -2171,8 +2171,8 @@ static void writeOrderedListFindPrevFunction(
         "----------------------------------------------------------------------------------------*/\n"
         "%5%3 %0%1FindPrev%2%3(\n"
         "    %4%1 %1",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     writeKeyParameters(relationship);
     dvWrtemp(dvFile,
@@ -2184,8 +2184,8 @@ static void writeOrderedListFindPrevFunction(
         "\n"
         "    while(node != %5%3Null) {\n"
         "        prev%3 = node;\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
         dvRelationshipGetParentLabel(relationship));
     writeOrderedListComparisons(relationship);
     dvWrtemp(dvFile,
@@ -2198,8 +2198,8 @@ static void writeOrderedListFindPrevFunction(
         "            utDo {\n"
         "                node = %0%3GetLeft%1%2%3(node);\n"
         "                if(node != %5%3Null) {\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
         dvRelationshipGetParentLabel(relationship));
     writeOrderedListComparisons(relationship);
     dvWrtemp(dvFile,
@@ -2223,8 +2223,8 @@ static void writeOrderedListFindPrevFunction(
         "    return prev%3;\n"
         "}\n"
         "\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
         dvRelationshipGetParentLabel(relationship));
 }
 
@@ -2243,8 +2243,8 @@ static void writeOrderedListFindFunction(
         "----------------------------------------------------------------------------------------*/\n"
         "%5%3 %0%1Find%2%3(\n"
         "    %4%1 %1",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     writeKeyParameters(relationship);
     dvWrtemp(dvFile,
@@ -2255,8 +2255,8 @@ static void writeOrderedListFindFunction(
         "    int comparison;\n"
         "\n"
         "    while(node != %5%3Null) {\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     writeOrderedListComparisons(relationship);
     dvWrtemp(dvFile,
@@ -2269,8 +2269,8 @@ static void writeOrderedListFindFunction(
         "            utDo {\n"
         "                node = %0%3GetLeft%1%2%3(node);\n"
         "                if(node != %5%3Null) {\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+        dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
         dvRelationshipGetParentLabel(relationship));
     writeOrderedListComparisons(relationship);
     dvWrtemp(dvFile,
@@ -2289,8 +2289,8 @@ static void writeOrderedListFindFunction(
         "    return %5%3Null;\n"
         "}\n"
         "\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
 }
 
@@ -2318,15 +2318,15 @@ static void writeOrderedListFunctions(
         "    %0Foreach%1%2%3(%1,current) {\n"
         "        utAssert(%0%1Compare%2%3(previous, current) >= 0);\n"
         "        previous = current;\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
 
     if(dvRelationshipAccessParent(relationship)) {
         dvWrtemp(dvFile,
             "        utAssert(%0%3Get%6%1(current) == %1);\n",
-            dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-                 dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+            dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+                 dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
                  dvRelationshipGetParentLabel(relationship));
     }
 
@@ -2697,8 +2697,8 @@ static void writeOrderedListFunctions(
         "    %5%3 root = %0%1GetRoot%2%3(%1);\n"
         "\n"
         "    utAssert(root != _%3);\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     if(dvRelationshipAccessParent(relationship)) {
         dvWrtemp(dvFile,
@@ -2918,15 +2918,16 @@ static void writeOrderedListFunctions(
         "    if(child != %5%3Null) {\n"
         "        %0%3SetParent%1%2%3(child, parent);\n"
         "    }\n",
-        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+        dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
 
     if(dvRelationshipAccessParent(relationship)) {
         dvWrtemp(dvFile,
             "    utAssert(%0%2Get%3%1(_%2) != %4%1Null);\n"
             "    %0%2Set%3%1(_%2, %4%1Null);\n",
-            dvPrefix, dvClassGetName(parent), dvClassGetName(child), dvRelationshipGetParentLabel(relationship));
+            dvPrefix, dvClassGetName(parent), dvClassGetName(child), dvRelationshipGetParentLabel(relationship),
+            dvClassGetPrefix(parent));
     }
     dvWrtemp(dvFile, "}\n\n");
 
@@ -3001,8 +3002,8 @@ static void writeOrderedListFunctions(
         "    return leaf;\n"
         "}\n\n"
         ,
-         dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship), 
-             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child), 
+         dvPrefix, dvClassGetName(parent), dvRelationshipGetChildLabel(relationship),
+             dvClassGetName(child), dvClassGetPrefix(parent), dvClassGetPrefix(child),
              dvRelationshipGetParentLabel(relationship));
     }
     if(dvRelationshipGetFirstKey(relationship) != dvKeyNull) {
@@ -3029,18 +3030,18 @@ static bool declareClassChildren(
         if(needsChildrenProcessed(relationship)) {
             if(type == REL_LINKED_LIST || type == REL_DOUBLY_LINKED || type == REL_TAIL_LINKED ||
                     type == REL_HASHED || type == REL_ORDERED_LIST) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0%2 %1%2_;\n",
                     dvClassGetPrefix(childClass), dvRelationshipGetChildLabel(relationship),
                     dvClassGetName(childClass));
             } else if(type == REL_ARRAY || type == REL_HEAP) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0%2 %1%2_;\n"
                     "    uint32 x%1%2;\n",
                     dvClassGetPrefix(childClass), dvRelationshipGetChildLabel(relationship),
                     dvClassGetName(childClass));
             } else if(type == REL_POINTER) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0%2 %1%2_;\n", dvClassGetPrefix(childClass),
                     dvRelationshipGetChildLabel(relationship), dvClassGetName(childClass));
             }
@@ -3065,7 +3066,7 @@ static bool declareClassParents(
                 dvRelationshipAccessChild(relationship) &&
                 !dvRelationshipSharedParent(relationship)) {
             parentClass = dvRelationshipGetParentClass(relationship);
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    %0%1 owning%2%1 = %3%4Get%2%1(%4);\n",
                 dvClassGetPrefix(parentClass), dvClassGetName(parentClass),
                 dvRelationshipGetParentLabel(relationship), dvPrefix, dvClassGetName(theClass));
@@ -3095,7 +3096,7 @@ static void processClassChildren(
             needsValidTest = true;
             if(type == REL_LINKED_LIST || type == REL_DOUBLY_LINKED || type == REL_TAIL_LINKED ||
                     type == REL_HASHED || type == REL_ORDERED_LIST) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    %0SafeForeach%1%2%3(%1, %2%3_) {\n",
                     dvPrefix, dvClassGetName(theClass), dvRelationshipGetChildLabel(relationship),
                     dvClassGetName(childClass));
@@ -3103,7 +3104,7 @@ static void processClassChildren(
                 endSafeLoop = true;
                 needsValidTest = false;  /* test already in for loop */
             } else if(type == REL_ARRAY || type == REL_HEAP) {
-                dvWrtemp(dvFile, 
+                dvWrtemp(dvFile,
                     "    for(x%1%2 = 0; x%1%2 < %4%3GetUsed%1%2(%3); x%1%2++) {\n"
                     "        %1%2_ = %4%3Geti%1%2(%3, x%1%2);\n",
                     dvClassGetPrefix(childClass), dvRelationshipGetChildLabel(relationship),
@@ -3136,7 +3137,7 @@ static void processClassChildren(
             }
             if(indented) {
                 if(endSafeLoop) {
-                    dvWrtemp(dvFile, 
+                    dvWrtemp(dvFile,
                         "    } %0EndSafe%1%2%3;\n",
                         dvPrefix, dvClassGetName(theClass), dvRelationshipGetChildLabel(relationship),
                         dvClassGetName(childClass));
@@ -3167,7 +3168,7 @@ static void removeChildFromRelationship(
                 dvClassGetName(parentClass), dvClassGetName(childClass), dvPrefix,
                 dvRelationshipGetParentLabel(relationship));
         } else {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "    if(owning%6%2 != %0%2Null) {\n"
                 "        %4%2Set%1%3(owning%6%2, %5%3Null);\n",
                 dvClassGetPrefix(parentClass), dvRelationshipGetChildLabel(relationship),
@@ -3175,7 +3176,7 @@ static void removeChildFromRelationship(
                 dvClassGetPrefix(childClass), dvRelationshipGetParentLabel(relationship));
         }
         if(dvRelationshipMandatory(relationship)) {
-            dvWrtemp(dvFile, 
+            dvWrtemp(dvFile,
                 "#if defined(DD_DEBUG)\n"
                 "    } else {\n"
                 "        utExit(\"%2 without owning %1\");\n"
@@ -3289,23 +3290,23 @@ static void writeClassDestructor(
     bool isExtension = dvClassGetBaseClass(theClass) != dvClassNull;
     bool declaredSomething;
     dvProperty prop;
-    
+
     if(dvClassGetMemoryStyle(theClass) == MEM_CREATE_ONLY) {
         return;
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Destroy %0 including everything in it. Remove from parents.\n"
         "----------------------------------------------------------------------------------------*/\n"
         , dvClassGetName(theClass));
     if(isExtension) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "static void destroy%1(\n"
             "    %2%1 %1)\n"
             "{\n",
             dvPrefix, dvClassGetName(theClass), dvClassGetPrefix(theClass));
     } else {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
             "void %0%1Destroy(\n"
             "    %2%1 %1)\n"
             "{\n",
@@ -3316,7 +3317,7 @@ static void writeClassDestructor(
     if(declaredSomething) {
         dvWrtemp(dvFile, "\n");
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "    if(%0%1DestructorCallback != NULL) {\n"
         "        %0%1DestructorCallback(%1);\n"
         "    }\n",
@@ -3325,7 +3326,7 @@ static void writeClassDestructor(
     processClassParents(theClass);
     processClassCascadeProperties(theClass);
     if(!isExtension) {
-        dvWrtemp(dvFile, 
+        dvWrtemp(dvFile,
         "    %0%1Free(%1);\n", dvPrefix, dvClassGetName(theClass));
     } else {
         dvForeachClassProperty(theClass, prop) {
@@ -3365,7 +3366,7 @@ static void writeConstructorDestructorVariables(
 {
     dvClass theClass;
 
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Constructor/Destructor hooks.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -3390,7 +3391,7 @@ static void writeFileTop(
     if(!strcmp(dvModuleGetName(module), "DatadrawUtil")) {
         includeFile = "ddutil.h"; /* This hack breaks a recursive include loop */
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Database %0\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -3413,7 +3414,7 @@ static void writeFileTop(
 static void writeClassShowFunction(
     dvClass theClass)
 {
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "#if defined(DD_DEBUG)\n"
         "/*----------------------------------------------------------------------------------------\n"
         "  Write out all the fields of an object.\n"
@@ -3456,8 +3457,8 @@ static void writeClassCopyPropFuncs(
     dvPropertyType propType;
     char *name = dvClassGetName(theClass);
     char *propName;
-    
-    dvWrtemp(dvFile, 
+
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Copy the properties of %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -3512,7 +3513,7 @@ static void writeClassBitfieldFuncs(
     dvProperty prop;
     dvUnion theUnion;
     char *name, *propName, *prefix;
-    
+
     if(!classHasBitfields(theClass)) {
         return;
     }
@@ -3522,7 +3523,7 @@ static void writeClassBitfieldFuncs(
     } else {
         prefix = dvPrefix;
     }
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Return the integer equivalent for the bit fields in %1.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -3542,7 +3543,7 @@ static void writeClassBitfieldFuncs(
         }
     } dvEndClassProperty;
     dvWrtemp(dvFile, "    return bitfield;\n}\n\n");
-    dvWrtemp(dvFile, 
+    dvWrtemp(dvFile,
         "/*----------------------------------------------------------------------------------------\n"
         "  Set bit fields in %1 using bitfield.\n"
         "----------------------------------------------------------------------------------------*/\n"
@@ -3848,7 +3849,7 @@ static void writeSparseFieldAccessFunction(
     dvPropertyType type = dvPropertyGetType(property);
     dvSparsegroup sparsegroup = dvPropertyGetSparsegroup(property);
     if(dvPropertyView(property)) {
-    dvWrtemp(dvFile, "/* Getting and setting %0.%1 field is user provided */\n", 
+    dvWrtemp(dvFile, "/* Getting and setting %0.%1 field is user provided */\n",
         dvClassGetName(theClass), dvPropertyGetName(property));
         return;
     }

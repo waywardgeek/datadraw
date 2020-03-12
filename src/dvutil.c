@@ -553,7 +553,7 @@ bool dvRelationshipHashedByName(
     if(dvKeypropertyGetNextKeyKeyproperty(keyproperty) != dvKeypropertyNull) {
         return false;
     }
-    property = dvKeypropertyGetProperty(key);
+    property = dvKeypropertyGetProperty(keyproperty);
     if(strcmp(dvPropertyGetName(property), utSprintf("%sSym", dvRelationshipGetChildLabel(relationship)))) {
         return false;
     }

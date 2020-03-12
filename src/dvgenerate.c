@@ -579,7 +579,7 @@ static void bindKeysToProperties(
                         property = dvClassLookupProperty(keyClass, dvKeypropertyGetPropertySym(keyproperty));
                         if(property == dvPropertyNull) {
                             utError("Line %u: key %s not found on class %s", dvKeyGetLineNum(key),
-                                utSymGetName(dvKeypropertyGetPropertySym(key)), dvClassGetName(theClass));
+                                utSymGetName(dvKeypropertyGetPropertySym(keyproperty)), dvClassGetName(theClass));
                         }
                         dvPropertyAppendKeyproperty(property, keyproperty);
                     }
@@ -588,11 +588,11 @@ static void bindKeysToProperties(
                         if(dvPropertyFixedSize(property)) {
                                 utError("Line %u: only last element of a key chain is supported as variable size, here %s",
                                     dvKeyGetLineNum(key),
-                                    utSymGetName(dvKeypropertyGetPropertySym(key)));
+                                    utSymGetName(dvKeypropertyGetPropertySym(keyproperty)));
                         }
                         if(dvPropertyGetType(property) != PROP_POINTER) {
                             utError("Line %u: key %s must be bound to a class", dvKeyGetLineNum(key),
-                                utSymGetName(dvKeypropertyGetPropertySym(key)));
+                                utSymGetName(dvKeypropertyGetPropertySym(keyproperty)));
                         }
                     }
                     keyClass  = dvPropertyGetClassProp(property);

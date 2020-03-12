@@ -7,7 +7,6 @@ olNode olNodeCreate(
     olNode node = olNodeAlloc();
 
     olNodeSetName(node, name, strlen(name) + 1);
-    olNodeSetRoot(node, root);
     olRootInsertNode(root, node);
     return node;
 }
@@ -68,7 +67,7 @@ static void verifyOrderedList(
     }
 }
 
-static indent(
+static void indent(
     uint32 depth)
 {
     int32 xChar;
