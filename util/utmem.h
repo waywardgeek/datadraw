@@ -22,12 +22,14 @@
             memory leaks.  It is used in conjunction with the utCalloc
             functions.  It works for both the local and far versions.
 ============================================================================*/
+#ifndef UTMEM_H
+#define UTMEM_H
+
+#include <stddef.h>
+
 #ifndef UTTYPES_H
 #include "uttypes.h"
 #endif
-
-#ifndef UTMEM_H
-#define UTMEM_H
 
 #if __cplusplus
 extern "C" {

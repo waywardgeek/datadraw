@@ -10,8 +10,10 @@ extern "C" {
 #endif
 
 #ifndef DD_UTIL_H
-#include "ddutil.h"
+#include "uttypes.h"
 #endif
+
+#include <string.h>
 
 extern uint8 utModuleID;
 /* Class reference definitions */
@@ -126,6 +128,11 @@ utInlineC uint32 utFreeSymArraySym(void) {return utRootData.freeSymArraySym;}
 utInlineC void utSetUsedSymArraySym(uint32 value) {utRootData.usedSymArraySym = value;}
 utInlineC void utSetAllocatedSymArraySym(uint32 value) {utRootData.allocatedSymArraySym = value;}
 utInlineC void utSetFreeSymArraySym(int32 value) {utRootData.freeSymArraySym = value;}
+
+void utAssert_(char *fileName, uint32 line, char *text);
+#define utAssert(assertion)      \
+  ((void)(utLikely(assertion) || \
+          (utAssert_(__FILE__, __LINE__, #assertion), 0)))
 
 /* Validate macros */
 #if defined(DD_DEBUG)

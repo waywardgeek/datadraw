@@ -24,7 +24,7 @@ class Sym create_only array
     Sym next
 
 class Dynarray
-    array uint8 value 
+    array uint8 value
     uint16 valueSize
     uint32 usedValue
     uint32 size

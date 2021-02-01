@@ -483,6 +483,7 @@ static char *findFieldValue(
         case 4: return utSprintf("0x%x", *(uint32 *)values);
         case 8: return utSprintf("0x%x", *(uint64 *)values);
         }
+        break;
     case UT_TYPEDEF: case UT_UNION:
         return utFindHexString(values, size);
     case UT_ENUM:

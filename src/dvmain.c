@@ -21,7 +21,9 @@
 --------------------------------------------------------------------------------------------------*/
 #include <stdlib.h>
 #include <string.h>
+#ifndef VERSION
 #include "config.h"
+#endif
 #include "dv.h"
 
 static char *dvExecutableName;

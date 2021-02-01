@@ -4,6 +4,10 @@
 #ifndef UTPERSIST_H
 #define UTPERSIST_H
 
+#ifndef DD_UTIL_H
+#include "ddutil.h"
+#endif
+
 /* These are the commands supported in the recentChanges.  The high bit of a command byte is used
  * to indicate that the command is an undo command, rather than a redo command. */
 typedef enum {
