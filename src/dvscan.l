@@ -116,6 +116,7 @@ static void noDebug(char *foo, ...) {}
 %}
 
 %option prefix="dvlex"
+%option outfile="dvscan.c"
 
 %Start comment
 
