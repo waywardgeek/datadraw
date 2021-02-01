@@ -423,10 +423,8 @@ static void backtrace(
     dvRelationship relationship,
     dwBund bund)
 {
-    dwRoute route;
-
     do {
-        route = dwBuildRoute(relationship, bund);
+        dwBuildRoute(relationship, bund);
         bund = dwBundGetPrevBund(bund);
     } while(bund != dwBundNull);
 }
