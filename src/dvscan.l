@@ -116,7 +116,6 @@ static void noDebug(char *foo, ...) {}
 %}
 
 %option prefix="dvlex"
-%option outfile="lex.yy.c"
 
 %Start comment
 
