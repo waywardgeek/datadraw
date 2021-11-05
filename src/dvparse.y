@@ -18,15 +18,6 @@
 
 %{
 
-/* Substitute the variable and function names.  */
-#define yyparse         dvparse
-#define yylex           dvlex
-#define yyerror         dverror
-#define yydebug         dvdebug
-#define yynerrs         dvnerrs
-
-#define yylval          dvlval
-#define yychar          dvchar
 #include "dv.h"
 
 dvModule dvCurrentModule;

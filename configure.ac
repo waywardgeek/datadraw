@@ -42,7 +42,7 @@ AM_CONDITIONAL(MISSING_DATADRAW, test x$DATADRAW = xnotfound)
 
 # if we have gcc and we've asked for debugging then add lots of -W
 if test "x$GCC" = "xyes" ; then
-	for flag in -Wall -W -Wno-unused-parameter -Wno-unused-function ; do
+	for flag in -Wall -W -Wno-unused-parameter -Wno-unused-function; do
 		case " ${CFLAGS} " in
 			*\ ${flag}\ *)
 				# flag is already present

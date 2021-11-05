@@ -880,30 +880,38 @@ void utStop(
         if(utReportFile != NULL) {
           fflush(utReportFile);
           fclose(utReportFile);
+          utReportFile = NULL;
+        }
+        if(utReportFileName != NULL) {
           utFree(utReportFileName);
           utReportFileName = NULL;
-          utReportFile = NULL;
         }
         if(utDebugFile != NULL) {
           fflush(utDebugFile);
           fclose(utDebugFile);
+          utDebugFile = NULL;
+        }
+        if(utDebugFileName != NULL) {
           utFree(utDebugFileName);
           utDebugFileName = NULL;
-          utDebugFile = NULL;
         }
         if(utLogFile != NULL) {
           fflush(utLogFile);
           fclose(utLogFile);
+          utLogFile = NULL;
+        }
+        if(utLogFileName != NULL) {
           utFree(utLogFileName);
           utLogFileName = NULL;
-          utLogFile = NULL;
         }
         if(utWarnFile != NULL) {
           fflush(utWarnFile);
           fclose(utWarnFile);
+          utWarnFile = NULL;
+        }
+        if(utWarnFileName != NULL) {
           utFree(utWarnFileName);
           utWarnFileName = NULL;
-          utWarnFile = NULL;
         }
         if(utConfigDirectory != NULL) {
           utFree(utConfigDirectory);

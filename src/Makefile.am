@@ -7,13 +7,13 @@ bin_PROGRAMS=	datadraw
 datadraw_SOURCES= \
 	dv.h dvadmin.c dvbuild.c dvdatabase.c dvdatabase.h dvgenc.c dvgenh.c \
 	dvgenerate.c dvlexwrap.c dvmain.c dvparse.h dvparse.y dvread.c \
-	dvscan.l dvutil.c 
+	dvscan.l dvutil.c
 
 INCLUDES=	-I $(srcdir)/../util
 LDADD=	../util/libddutil-dbg.a
 
-AM_YFLAGS=	-d -p dv
-AM_LFLAGS=	-f
+AM_YFLAGS=	-d -Wno-yacc -p dv
+AM_LFLAGS=	-f -o dvscan.c
 
 # hopefully this won't cause a chicken and egg problem...
 DDR=	datadraw

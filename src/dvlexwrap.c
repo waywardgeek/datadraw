@@ -20,7 +20,12 @@
   This is a simple wrapper to allow KWEND to be returned multiple times in a row.
 --------------------------------------------------------------------------------------------------*/
 #include "dv.h"
+// Bazel-specific hack.
+#ifdef VERSION
+#include "third_party/datadraw/src/dvparse.h"
+#else
 #include "dvparse.h"
+#endif
 
 uint16 dvNumEndsRemaining;
 

@@ -174,7 +174,7 @@ static void listModules(void)
     fprintf(utOutputFile, "modules:\n");
     utForeachModule(module) {
         if(utModuleInitialized(module)) {
-            fprintf(utOutputFile, "    %s - %llu objects, %s memory\n", utModuleGetPrefix(module),
+            fprintf(utOutputFile, "    %s - %lu objects, %s memory\n", utModuleGetPrefix(module),
                 countModuleObjects(module), utMemoryUnits(findModuleMemory(module)));
         }
     } utEndModule;
@@ -192,7 +192,7 @@ static void listClasses(
     fprintf(utOutputFile, "Module %s classes:\n", utModuleGetPrefix(module));
     utForeachModuleClass(module, theClass) {
         numUsed = utFindIntValue(utClassGetNumUsedPtr(theClass), utClassGetReferenceSize(theClass));
-        fprintf(utOutputFile, "    %s - %llu objects, %s memory\n", utClassGetName(theClass), numUsed,
+        fprintf(utOutputFile, "    %s - %lu objects, %s memory\n", utClassGetName(theClass), numUsed,
             utMemoryUnits(findClassMemory(theClass)));
     } utEndModuleClass;
 }
@@ -635,7 +635,7 @@ static void showObjectFields(
     utField field;
     bool firstTime = true;
 
-    fprintf(utOutputFile, "0x%llx, ", objectNumber);
+    fprintf(utOutputFile, "0x%lx, ", objectNumber);
     utForeachClassField(theClass, field) {
         if(!utFieldHidden(field) || utShowHidden) {
             if(!firstTime) {
@@ -719,7 +719,7 @@ static void showClass(
         objectFree = calloc(spaceNeeded, sizeof(uint8));
         setObjectFreeFlags(theClass, objectFree);
     }
-    fprintf(utOutputFile, "class %s %llu\n", utClassGetName(theClass), numUsed);
+    fprintf(utOutputFile, "class %s %lu\n", utClassGetName(theClass), numUsed);
     printColumnHeaders(theClass);
     printColumnTypes(theClass);
     for(objectNumber = 1; objectNumber < numUsed; objectNumber++) {
@@ -1670,7 +1670,7 @@ static void processCreateCommand(void)
     if(!expectEnd()) {
         return;
     }
-    fprintf(utOutputFile, "New %s object 0x%llx\n", utClassGetName(theClass), utClassGetConstructor(theClass)());
+    fprintf(utOutputFile, "New %s object 0x%lx\n", utClassGetName(theClass), utClassGetConstructor(theClass)());
 }
 
 /*--------------------------------------------------------------------------------------------------
@@ -1703,7 +1703,7 @@ static void processDestroyCommand(void)
         return;
     }
     utClassGetDestructor(theClass)(objectNumber);
-    fprintf(utOutputFile, "Destroyed %s object 0x%llx\n", utClassGetName(theClass), objectNumber);
+    fprintf(utOutputFile, "Destroyed %s object 0x%lx\n", utClassGetName(theClass), objectNumber);
 }
 
 /*--------------------------------------------------------------------------------------------------

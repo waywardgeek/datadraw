@@ -11,8 +11,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License 
- * along with this program; if not, write to the Free Software 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA
  */
 
@@ -406,8 +406,8 @@ static dwRoute dwBuildRoute(
     dvRelationship relationship,
     dwBund bund)
 {
-    dwRoute route = dwRouteAlloc(); 
-    
+    dwRoute route = dwRouteAlloc();
+
     if(dwBundGetFirstRoute(bund) != dwRouteNull) {
         dwOverconstraints++;
     }
@@ -476,7 +476,7 @@ static void initialSolution(
     dvSchema schema)
 {
     dvRelationship relationship;
-    
+
 
     dvForeachSchemaRelationship(schema, relationship) {
         routeRelationship(relationship);
@@ -488,7 +488,7 @@ static void initialSolution(
 --------------------------------------------------------------------------------------------------*/
 static void dwRipRoute(
     dwRoute route)
-{    
+{
     dwBund bund = dwRouteGetBund(route);
     dwRoute firstRoute;
 
@@ -509,11 +509,11 @@ static void randomizeRelationships()
     uint32 numRelationships = dwRelationshipArrayGetUsedRelationship(dwRandRelationships);
 
     for(temp1 = 0; temp1 < numRelationships; temp1++) {
-        temp2 = temp1 + utRandN(numRelationships - temp1); 
-        relationship1 = dwRelationshipArrayGetiRelationship(dwRandRelationships, temp1); 
+        temp2 = temp1 + utRandN(numRelationships - temp1);
+        relationship1 = dwRelationshipArrayGetiRelationship(dwRandRelationships, temp1);
         relationship2 = dwRelationshipArrayGetiRelationship(dwRandRelationships, temp2);
-        dwRelationshipArraySetiRelationship(dwRandRelationships, temp1, relationship2); 
-        dwRelationshipArraySetiRelationship(dwRandRelationships, temp2, relationship1); 
+        dwRelationshipArraySetiRelationship(dwRandRelationships, temp1, relationship2);
+        dwRelationshipArraySetiRelationship(dwRandRelationships, temp2, relationship1);
     }
 }
 
@@ -539,8 +539,8 @@ static void fillRelationshipArray(
 {
     dvRelationship relationship;
 
-    dvForeachSchemaRelationship(schema, relationship) { 
-        dwRelationshipArrayAppendRelationship(dwRandRelationships, relationship); 
+    dvForeachSchemaRelationship(schema, relationship) {
+        dwRelationshipArrayAppendRelationship(dwRandRelationships, relationship);
     } dvEndSchemaRelationship;
 
 }
@@ -553,23 +553,23 @@ static void ripUpandReroute(
     dvSchema schema)
 {
     dvRelationship relationship;
-     
-    randomizeRelationships(); 
-    dwForeachRelationshipArrayRelationship(dwRandRelationships, relationship) { 
-        dwRipRelationshipRoutes(relationship); 
-        routeRelationship(relationship); 
+
+    randomizeRelationships();
+    dwForeachRelationshipArrayRelationship(dwRandRelationships, relationship) {
+        dwRipRelationshipRoutes(relationship);
+        routeRelationship(relationship);
     } dwEndRelationshipArrayRelationship;
 }
 
 /*--------------------------------------------------------------------------------------------------
-  Route Until Completion 
+  Route Until Completion
 --------------------------------------------------------------------------------------------------*/
 static void routeUntilComplete(
     dvSchema schema)
 {
     uint32 dwCycle = 0;
 
-    fillRelationshipArray(schema);  
+    fillRelationshipArray(schema);
     do{
         utIfDebug(1) {
             utLogDebug("cycles = %d overconstraints = %d", dwCycle, dwOverconstraints);
@@ -589,7 +589,7 @@ uint32 dwRouteSchema(
     dwRandRelationships = dwRelationshipArrayAlloc();
     dwBucketFreeAll();
     dwBundFreeAll();
-    dwAdjFreeAll(); 
+    dwAdjFreeAll();
     dwRandBunds = dwBundArrayAlloc();
     buildRoutingGraph(schema);
     addClassesToGraph(schema);

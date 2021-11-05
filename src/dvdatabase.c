@@ -156,23 +156,7 @@ static void allocMoreRootModpathTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedRootModpathTable() - dvUsedRootModpathTable();
-    uint32 elementSize = sizeof(dvModpath);
-    uint32 usedHeaderSize = (sizeof(dvRoot) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvRoot) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvModpath *ptr = dvRoots.ModpathTable;
-    dvRoot Root;
-    uint32 size;
 
-    while(ptr < dvRoots.ModpathTable + dvUsedRootModpathTable()) {
-        Root = *(dvRoot*)(void*)ptr;
-        if(Root != dvRootNull) {
-            dvValidRoot(Root);
-            size = utMax(dvRootGetNumModpathTable(Root) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeRootModpathTable() << 2) > dvUsedRootModpathTable()) {
         dvCompactRootModpathTables();
         freeSpace = dvAllocatedRootModpathTable() - dvUsedRootModpathTable();
@@ -277,6 +261,9 @@ void dvRootResizeModpathTables(
     dvRoot Root,
     uint32 numModpathTables)
 {
+    if (dvRootGetNumModpathTable(Root) == numModpathTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvModpath);
     uint32 usedHeaderSize = (sizeof(dvRoot) + elementSize - 1)/elementSize;
@@ -356,23 +343,7 @@ static void allocMoreRootModuleTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedRootModuleTable() - dvUsedRootModuleTable();
-    uint32 elementSize = sizeof(dvModule);
-    uint32 usedHeaderSize = (sizeof(dvRoot) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvRoot) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvModule *ptr = dvRoots.ModuleTable;
-    dvRoot Root;
-    uint32 size;
 
-    while(ptr < dvRoots.ModuleTable + dvUsedRootModuleTable()) {
-        Root = *(dvRoot*)(void*)ptr;
-        if(Root != dvRootNull) {
-            dvValidRoot(Root);
-            size = utMax(dvRootGetNumModuleTable(Root) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeRootModuleTable() << 2) > dvUsedRootModuleTable()) {
         dvCompactRootModuleTables();
         freeSpace = dvAllocatedRootModuleTable() - dvUsedRootModuleTable();
@@ -477,6 +448,9 @@ void dvRootResizeModuleTables(
     dvRoot Root,
     uint32 numModuleTables)
 {
+    if (dvRootGetNumModuleTable(Root) == numModuleTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvModule);
     uint32 usedHeaderSize = (sizeof(dvRoot) + elementSize - 1)/elementSize;
@@ -549,7 +523,7 @@ static void resizeRootModpathHashTable(
         prevModpath = dvModpathNull;
         while(_Modpath != dvModpathNull) {
             nextModpath = dvModpathGetNextTableRootModpath(_Modpath);
-            index = (newNumModpaths - 1) & utSymGetHashValue(dvModpathGetSym(_Modpath));
+            index = (newNumModpaths - 1) & (dvModpathGetSym(_Modpath) == utSymNull? 0 : utSymGetHashValue(dvModpathGetSym(_Modpath)));
             if(index != xModpath) {
                 if(prevModpath == dvModpathNull) {
                     dvRootSetiModpathTable(Root, xModpath, nextModpath);
@@ -580,7 +554,7 @@ static void addRootModpathToHashTable(
     if(dvRootGetNumModpath(Root) >> 1 >= dvRootGetNumModpathTable(Root)) {
         resizeRootModpathHashTable(Root);
     }
-    index = (dvRootGetNumModpathTable(Root) - 1) & utSymGetHashValue(dvModpathGetSym(_Modpath));
+    index = (dvRootGetNumModpathTable(Root) - 1) & (dvModpathGetSym(_Modpath) == utSymNull? 0 : utSymGetHashValue(dvModpathGetSym(_Modpath)));
     nextModpath = dvRootGetiModpathTable(Root, index);
     dvModpathSetNextTableRootModpath(_Modpath, nextModpath);
     dvRootSetiModpathTable(Root, index, _Modpath);
@@ -594,7 +568,7 @@ static void removeRootModpathFromHashTable(
     dvRoot Root,
     dvModpath _Modpath)
 {
-    uint32 index = (dvRootGetNumModpathTable(Root) - 1) & utSymGetHashValue(dvModpathGetSym(_Modpath));
+    uint32 index = (dvRootGetNumModpathTable(Root) - 1) & (dvModpathGetSym(_Modpath) == utSymNull? 0 : utSymGetHashValue(dvModpathGetSym(_Modpath)));
     dvModpath prevModpath, nextModpath;
     
     nextModpath = dvRootGetiModpathTable(Root, index);
@@ -622,7 +596,7 @@ dvModpath dvRootFindModpath(
     dvModpath _Modpath;
 
     if(mask + 1 != 0) {
-        _Modpath = dvRootGetiModpathTable(Root, utSymGetHashValue(Sym) & mask);
+        _Modpath = dvRootGetiModpathTable(Root, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Modpath != dvModpathNull) {
             if(dvModpathGetSym(_Modpath) == Sym) {
                 return _Modpath;
@@ -811,7 +785,7 @@ static void resizeRootModuleHashTable(
         prevModule = dvModuleNull;
         while(_Module != dvModuleNull) {
             nextModule = dvModuleGetNextTableRootModule(_Module);
-            index = (newNumModules - 1) & utSymGetHashValue(dvModuleGetSym(_Module));
+            index = (newNumModules - 1) & (dvModuleGetSym(_Module) == utSymNull? 0 : utSymGetHashValue(dvModuleGetSym(_Module)));
             if(index != xModule) {
                 if(prevModule == dvModuleNull) {
                     dvRootSetiModuleTable(Root, xModule, nextModule);
@@ -842,7 +816,7 @@ static void addRootModuleToHashTable(
     if(dvRootGetNumModule(Root) >> 1 >= dvRootGetNumModuleTable(Root)) {
         resizeRootModuleHashTable(Root);
     }
-    index = (dvRootGetNumModuleTable(Root) - 1) & utSymGetHashValue(dvModuleGetSym(_Module));
+    index = (dvRootGetNumModuleTable(Root) - 1) & (dvModuleGetSym(_Module) == utSymNull? 0 : utSymGetHashValue(dvModuleGetSym(_Module)));
     nextModule = dvRootGetiModuleTable(Root, index);
     dvModuleSetNextTableRootModule(_Module, nextModule);
     dvRootSetiModuleTable(Root, index, _Module);
@@ -856,7 +830,7 @@ static void removeRootModuleFromHashTable(
     dvRoot Root,
     dvModule _Module)
 {
-    uint32 index = (dvRootGetNumModuleTable(Root) - 1) & utSymGetHashValue(dvModuleGetSym(_Module));
+    uint32 index = (dvRootGetNumModuleTable(Root) - 1) & (dvModuleGetSym(_Module) == utSymNull? 0 : utSymGetHashValue(dvModuleGetSym(_Module)));
     dvModule prevModule, nextModule;
     
     nextModule = dvRootGetiModuleTable(Root, index);
@@ -884,7 +858,7 @@ dvModule dvRootFindModule(
     dvModule _Module;
 
     if(mask + 1 != 0) {
-        _Module = dvRootGetiModuleTable(Root, utSymGetHashValue(Sym) & mask);
+        _Module = dvRootGetiModuleTable(Root, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Module != dvModuleNull) {
             if(dvModuleGetSym(_Module) == Sym) {
                 return _Module;
@@ -1274,23 +1248,7 @@ static void allocMoreModuleClassTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleClassTable() - dvUsedModuleClassTable();
-    uint32 elementSize = sizeof(dvClass);
-    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvClass *ptr = dvModules.ClassTable;
-    dvModule Module;
-    uint32 size;
 
-    while(ptr < dvModules.ClassTable + dvUsedModuleClassTable()) {
-        Module = *(dvModule*)(void*)ptr;
-        if(Module != dvModuleNull) {
-            dvValidModule(Module);
-            size = utMax(dvModuleGetNumClassTable(Module) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeModuleClassTable() << 2) > dvUsedModuleClassTable()) {
         dvCompactModuleClassTables();
         freeSpace = dvAllocatedModuleClassTable() - dvUsedModuleClassTable();
@@ -1395,6 +1353,9 @@ void dvModuleResizeClassTables(
     dvModule Module,
     uint32 numClassTables)
 {
+    if (dvModuleGetNumClassTable(Module) == numClassTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvClass);
     uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
@@ -1474,23 +1435,7 @@ static void allocMoreModuleEnumTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleEnumTable() - dvUsedModuleEnumTable();
-    uint32 elementSize = sizeof(dvEnum);
-    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvEnum *ptr = dvModules.EnumTable;
-    dvModule Module;
-    uint32 size;
 
-    while(ptr < dvModules.EnumTable + dvUsedModuleEnumTable()) {
-        Module = *(dvModule*)(void*)ptr;
-        if(Module != dvModuleNull) {
-            dvValidModule(Module);
-            size = utMax(dvModuleGetNumEnumTable(Module) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeModuleEnumTable() << 2) > dvUsedModuleEnumTable()) {
         dvCompactModuleEnumTables();
         freeSpace = dvAllocatedModuleEnumTable() - dvUsedModuleEnumTable();
@@ -1595,6 +1540,9 @@ void dvModuleResizeEnumTables(
     dvModule Module,
     uint32 numEnumTables)
 {
+    if (dvModuleGetNumEnumTable(Module) == numEnumTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvEnum);
     uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
@@ -1674,23 +1622,7 @@ static void allocMoreModuleTypedefTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleTypedefTable() - dvUsedModuleTypedefTable();
-    uint32 elementSize = sizeof(dvTypedef);
-    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvTypedef *ptr = dvModules.TypedefTable;
-    dvModule Module;
-    uint32 size;
 
-    while(ptr < dvModules.TypedefTable + dvUsedModuleTypedefTable()) {
-        Module = *(dvModule*)(void*)ptr;
-        if(Module != dvModuleNull) {
-            dvValidModule(Module);
-            size = utMax(dvModuleGetNumTypedefTable(Module) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeModuleTypedefTable() << 2) > dvUsedModuleTypedefTable()) {
         dvCompactModuleTypedefTables();
         freeSpace = dvAllocatedModuleTypedefTable() - dvUsedModuleTypedefTable();
@@ -1795,6 +1727,9 @@ void dvModuleResizeTypedefTables(
     dvModule Module,
     uint32 numTypedefTables)
 {
+    if (dvModuleGetNumTypedefTable(Module) == numTypedefTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvTypedef);
     uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
@@ -1874,23 +1809,7 @@ static void allocMoreModuleSchemaTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedModuleSchemaTable() - dvUsedModuleSchemaTable();
-    uint32 elementSize = sizeof(dvSchema);
-    uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvModule) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvSchema *ptr = dvModules.SchemaTable;
-    dvModule Module;
-    uint32 size;
 
-    while(ptr < dvModules.SchemaTable + dvUsedModuleSchemaTable()) {
-        Module = *(dvModule*)(void*)ptr;
-        if(Module != dvModuleNull) {
-            dvValidModule(Module);
-            size = utMax(dvModuleGetNumSchemaTable(Module) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeModuleSchemaTable() << 2) > dvUsedModuleSchemaTable()) {
         dvCompactModuleSchemaTables();
         freeSpace = dvAllocatedModuleSchemaTable() - dvUsedModuleSchemaTable();
@@ -1995,6 +1914,9 @@ void dvModuleResizeSchemaTables(
     dvModule Module,
     uint32 numSchemaTables)
 {
+    if (dvModuleGetNumSchemaTable(Module) == numSchemaTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvSchema);
     uint32 usedHeaderSize = (sizeof(dvModule) + elementSize - 1)/elementSize;
@@ -2108,7 +2030,7 @@ static void resizeModuleClassHashTable(
         prevClass = dvClassNull;
         while(_Class != dvClassNull) {
             nextClass = dvClassGetNextTableModuleClass(_Class);
-            index = (newNumClasss - 1) & utSymGetHashValue(dvClassGetSym(_Class));
+            index = (newNumClasss - 1) & (dvClassGetSym(_Class) == utSymNull? 0 : utSymGetHashValue(dvClassGetSym(_Class)));
             if(index != xClass) {
                 if(prevClass == dvClassNull) {
                     dvModuleSetiClassTable(Module, xClass, nextClass);
@@ -2139,7 +2061,7 @@ static void addModuleClassToHashTable(
     if(dvModuleGetNumClass(Module) >> 1 >= dvModuleGetNumClassTable(Module)) {
         resizeModuleClassHashTable(Module);
     }
-    index = (dvModuleGetNumClassTable(Module) - 1) & utSymGetHashValue(dvClassGetSym(_Class));
+    index = (dvModuleGetNumClassTable(Module) - 1) & (dvClassGetSym(_Class) == utSymNull? 0 : utSymGetHashValue(dvClassGetSym(_Class)));
     nextClass = dvModuleGetiClassTable(Module, index);
     dvClassSetNextTableModuleClass(_Class, nextClass);
     dvModuleSetiClassTable(Module, index, _Class);
@@ -2153,7 +2075,7 @@ static void removeModuleClassFromHashTable(
     dvModule Module,
     dvClass _Class)
 {
-    uint32 index = (dvModuleGetNumClassTable(Module) - 1) & utSymGetHashValue(dvClassGetSym(_Class));
+    uint32 index = (dvModuleGetNumClassTable(Module) - 1) & (dvClassGetSym(_Class) == utSymNull? 0 : utSymGetHashValue(dvClassGetSym(_Class)));
     dvClass prevClass, nextClass;
     
     nextClass = dvModuleGetiClassTable(Module, index);
@@ -2181,7 +2103,7 @@ dvClass dvModuleFindClass(
     dvClass _Class;
 
     if(mask + 1 != 0) {
-        _Class = dvModuleGetiClassTable(Module, utSymGetHashValue(Sym) & mask);
+        _Class = dvModuleGetiClassTable(Module, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Class != dvClassNull) {
             if(dvClassGetSym(_Class) == Sym) {
                 return _Class;
@@ -2370,7 +2292,7 @@ static void resizeModuleEnumHashTable(
         prevEnum = dvEnumNull;
         while(_Enum != dvEnumNull) {
             nextEnum = dvEnumGetNextTableModuleEnum(_Enum);
-            index = (newNumEnums - 1) & utSymGetHashValue(dvEnumGetSym(_Enum));
+            index = (newNumEnums - 1) & (dvEnumGetSym(_Enum) == utSymNull? 0 : utSymGetHashValue(dvEnumGetSym(_Enum)));
             if(index != xEnum) {
                 if(prevEnum == dvEnumNull) {
                     dvModuleSetiEnumTable(Module, xEnum, nextEnum);
@@ -2401,7 +2323,7 @@ static void addModuleEnumToHashTable(
     if(dvModuleGetNumEnum(Module) >> 1 >= dvModuleGetNumEnumTable(Module)) {
         resizeModuleEnumHashTable(Module);
     }
-    index = (dvModuleGetNumEnumTable(Module) - 1) & utSymGetHashValue(dvEnumGetSym(_Enum));
+    index = (dvModuleGetNumEnumTable(Module) - 1) & (dvEnumGetSym(_Enum) == utSymNull? 0 : utSymGetHashValue(dvEnumGetSym(_Enum)));
     nextEnum = dvModuleGetiEnumTable(Module, index);
     dvEnumSetNextTableModuleEnum(_Enum, nextEnum);
     dvModuleSetiEnumTable(Module, index, _Enum);
@@ -2415,7 +2337,7 @@ static void removeModuleEnumFromHashTable(
     dvModule Module,
     dvEnum _Enum)
 {
-    uint32 index = (dvModuleGetNumEnumTable(Module) - 1) & utSymGetHashValue(dvEnumGetSym(_Enum));
+    uint32 index = (dvModuleGetNumEnumTable(Module) - 1) & (dvEnumGetSym(_Enum) == utSymNull? 0 : utSymGetHashValue(dvEnumGetSym(_Enum)));
     dvEnum prevEnum, nextEnum;
     
     nextEnum = dvModuleGetiEnumTable(Module, index);
@@ -2443,7 +2365,7 @@ dvEnum dvModuleFindEnum(
     dvEnum _Enum;
 
     if(mask + 1 != 0) {
-        _Enum = dvModuleGetiEnumTable(Module, utSymGetHashValue(Sym) & mask);
+        _Enum = dvModuleGetiEnumTable(Module, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Enum != dvEnumNull) {
             if(dvEnumGetSym(_Enum) == Sym) {
                 return _Enum;
@@ -2632,7 +2554,7 @@ static void resizeModuleTypedefHashTable(
         prevTypedef = dvTypedefNull;
         while(_Typedef != dvTypedefNull) {
             nextTypedef = dvTypedefGetNextTableModuleTypedef(_Typedef);
-            index = (newNumTypedefs - 1) & utSymGetHashValue(dvTypedefGetSym(_Typedef));
+            index = (newNumTypedefs - 1) & (dvTypedefGetSym(_Typedef) == utSymNull? 0 : utSymGetHashValue(dvTypedefGetSym(_Typedef)));
             if(index != xTypedef) {
                 if(prevTypedef == dvTypedefNull) {
                     dvModuleSetiTypedefTable(Module, xTypedef, nextTypedef);
@@ -2663,7 +2585,7 @@ static void addModuleTypedefToHashTable(
     if(dvModuleGetNumTypedef(Module) >> 1 >= dvModuleGetNumTypedefTable(Module)) {
         resizeModuleTypedefHashTable(Module);
     }
-    index = (dvModuleGetNumTypedefTable(Module) - 1) & utSymGetHashValue(dvTypedefGetSym(_Typedef));
+    index = (dvModuleGetNumTypedefTable(Module) - 1) & (dvTypedefGetSym(_Typedef) == utSymNull? 0 : utSymGetHashValue(dvTypedefGetSym(_Typedef)));
     nextTypedef = dvModuleGetiTypedefTable(Module, index);
     dvTypedefSetNextTableModuleTypedef(_Typedef, nextTypedef);
     dvModuleSetiTypedefTable(Module, index, _Typedef);
@@ -2677,7 +2599,7 @@ static void removeModuleTypedefFromHashTable(
     dvModule Module,
     dvTypedef _Typedef)
 {
-    uint32 index = (dvModuleGetNumTypedefTable(Module) - 1) & utSymGetHashValue(dvTypedefGetSym(_Typedef));
+    uint32 index = (dvModuleGetNumTypedefTable(Module) - 1) & (dvTypedefGetSym(_Typedef) == utSymNull? 0 : utSymGetHashValue(dvTypedefGetSym(_Typedef)));
     dvTypedef prevTypedef, nextTypedef;
     
     nextTypedef = dvModuleGetiTypedefTable(Module, index);
@@ -2705,7 +2627,7 @@ dvTypedef dvModuleFindTypedef(
     dvTypedef _Typedef;
 
     if(mask + 1 != 0) {
-        _Typedef = dvModuleGetiTypedefTable(Module, utSymGetHashValue(Sym) & mask);
+        _Typedef = dvModuleGetiTypedefTable(Module, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Typedef != dvTypedefNull) {
             if(dvTypedefGetSym(_Typedef) == Sym) {
                 return _Typedef;
@@ -2894,7 +2816,7 @@ static void resizeModuleSchemaHashTable(
         prevSchema = dvSchemaNull;
         while(_Schema != dvSchemaNull) {
             nextSchema = dvSchemaGetNextTableModuleSchema(_Schema);
-            index = (newNumSchemas - 1) & utSymGetHashValue(dvSchemaGetSym(_Schema));
+            index = (newNumSchemas - 1) & (dvSchemaGetSym(_Schema) == utSymNull? 0 : utSymGetHashValue(dvSchemaGetSym(_Schema)));
             if(index != xSchema) {
                 if(prevSchema == dvSchemaNull) {
                     dvModuleSetiSchemaTable(Module, xSchema, nextSchema);
@@ -2925,7 +2847,7 @@ static void addModuleSchemaToHashTable(
     if(dvModuleGetNumSchema(Module) >> 1 >= dvModuleGetNumSchemaTable(Module)) {
         resizeModuleSchemaHashTable(Module);
     }
-    index = (dvModuleGetNumSchemaTable(Module) - 1) & utSymGetHashValue(dvSchemaGetSym(_Schema));
+    index = (dvModuleGetNumSchemaTable(Module) - 1) & (dvSchemaGetSym(_Schema) == utSymNull? 0 : utSymGetHashValue(dvSchemaGetSym(_Schema)));
     nextSchema = dvModuleGetiSchemaTable(Module, index);
     dvSchemaSetNextTableModuleSchema(_Schema, nextSchema);
     dvModuleSetiSchemaTable(Module, index, _Schema);
@@ -2939,7 +2861,7 @@ static void removeModuleSchemaFromHashTable(
     dvModule Module,
     dvSchema _Schema)
 {
-    uint32 index = (dvModuleGetNumSchemaTable(Module) - 1) & utSymGetHashValue(dvSchemaGetSym(_Schema));
+    uint32 index = (dvModuleGetNumSchemaTable(Module) - 1) & (dvSchemaGetSym(_Schema) == utSymNull? 0 : utSymGetHashValue(dvSchemaGetSym(_Schema)));
     dvSchema prevSchema, nextSchema;
     
     nextSchema = dvModuleGetiSchemaTable(Module, index);
@@ -2967,7 +2889,7 @@ dvSchema dvModuleFindSchema(
     dvSchema _Schema;
 
     if(mask + 1 != 0) {
-        _Schema = dvModuleGetiSchemaTable(Module, utSymGetHashValue(Sym) & mask);
+        _Schema = dvModuleGetiSchemaTable(Module, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Schema != dvSchemaNull) {
             if(dvSchemaGetSym(_Schema) == Sym) {
                 return _Schema;
@@ -3732,23 +3654,7 @@ static void allocMoreEnumEntryTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedEnumEntryTable() - dvUsedEnumEntryTable();
-    uint32 elementSize = sizeof(dvEntry);
-    uint32 usedHeaderSize = (sizeof(dvEnum) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvEnum) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvEntry *ptr = dvEnums.EntryTable;
-    dvEnum Enum;
-    uint32 size;
 
-    while(ptr < dvEnums.EntryTable + dvUsedEnumEntryTable()) {
-        Enum = *(dvEnum*)(void*)ptr;
-        if(Enum != dvEnumNull) {
-            dvValidEnum(Enum);
-            size = utMax(dvEnumGetNumEntryTable(Enum) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvEnum *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeEnumEntryTable() << 2) > dvUsedEnumEntryTable()) {
         dvCompactEnumEntryTables();
         freeSpace = dvAllocatedEnumEntryTable() - dvUsedEnumEntryTable();
@@ -3853,6 +3759,9 @@ void dvEnumResizeEntryTables(
     dvEnum Enum,
     uint32 numEntryTables)
 {
+    if (dvEnumGetNumEntryTable(Enum) == numEntryTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvEntry);
     uint32 usedHeaderSize = (sizeof(dvEnum) + elementSize - 1)/elementSize;
@@ -3927,7 +3836,7 @@ static void resizeEnumEntryHashTable(
         prevEntry = dvEntryNull;
         while(_Entry != dvEntryNull) {
             nextEntry = dvEntryGetNextTableEnumEntry(_Entry);
-            index = (newNumEntrys - 1) & utSymGetHashValue(dvEntryGetSym(_Entry));
+            index = (newNumEntrys - 1) & (dvEntryGetSym(_Entry) == utSymNull? 0 : utSymGetHashValue(dvEntryGetSym(_Entry)));
             if(index != xEntry) {
                 if(prevEntry == dvEntryNull) {
                     dvEnumSetiEntryTable(Enum, xEntry, nextEntry);
@@ -3958,7 +3867,7 @@ static void addEnumEntryToHashTable(
     if(dvEnumGetNumEntry(Enum) >> 1 >= dvEnumGetNumEntryTable(Enum)) {
         resizeEnumEntryHashTable(Enum);
     }
-    index = (dvEnumGetNumEntryTable(Enum) - 1) & utSymGetHashValue(dvEntryGetSym(_Entry));
+    index = (dvEnumGetNumEntryTable(Enum) - 1) & (dvEntryGetSym(_Entry) == utSymNull? 0 : utSymGetHashValue(dvEntryGetSym(_Entry)));
     nextEntry = dvEnumGetiEntryTable(Enum, index);
     dvEntrySetNextTableEnumEntry(_Entry, nextEntry);
     dvEnumSetiEntryTable(Enum, index, _Entry);
@@ -3972,7 +3881,7 @@ static void removeEnumEntryFromHashTable(
     dvEnum Enum,
     dvEntry _Entry)
 {
-    uint32 index = (dvEnumGetNumEntryTable(Enum) - 1) & utSymGetHashValue(dvEntryGetSym(_Entry));
+    uint32 index = (dvEnumGetNumEntryTable(Enum) - 1) & (dvEntryGetSym(_Entry) == utSymNull? 0 : utSymGetHashValue(dvEntryGetSym(_Entry)));
     dvEntry prevEntry, nextEntry;
     
     nextEntry = dvEnumGetiEntryTable(Enum, index);
@@ -4000,7 +3909,7 @@ dvEntry dvEnumFindEntry(
     dvEntry _Entry;
 
     if(mask + 1 != 0) {
-        _Entry = dvEnumGetiEntryTable(Enum, utSymGetHashValue(Sym) & mask);
+        _Entry = dvEnumGetiEntryTable(Enum, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Entry != dvEntryNull) {
             if(dvEntryGetSym(_Entry) == Sym) {
                 return _Entry;
@@ -4460,23 +4369,7 @@ static void allocMoreTypedefInitializers(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedTypedefInitializer() - dvUsedTypedefInitializer();
-    uint32 elementSize = sizeof(char);
-    uint32 usedHeaderSize = (sizeof(dvTypedef) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvTypedef) + sizeof(uint32) + elementSize - 1)/elementSize;
-    char *ptr = dvTypedefs.Initializer;
-    dvTypedef Typedef;
-    uint32 size;
 
-    while(ptr < dvTypedefs.Initializer + dvUsedTypedefInitializer()) {
-        Typedef = *(dvTypedef*)(void*)ptr;
-        if(Typedef != dvTypedefNull) {
-            dvValidTypedef(Typedef);
-            size = utMax(dvTypedefGetNumInitializer(Typedef) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvTypedef *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeTypedefInitializer() << 2) > dvUsedTypedefInitializer()) {
         dvCompactTypedefInitializers();
         freeSpace = dvAllocatedTypedefInitializer() - dvUsedTypedefInitializer();
@@ -4576,6 +4469,9 @@ void dvTypedefResizeInitializers(
     dvTypedef Typedef,
     uint32 numInitializers)
 {
+    if (dvTypedefGetNumInitializer(Typedef) == numInitializers) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(char);
     uint32 usedHeaderSize = (sizeof(dvTypedef) + elementSize - 1)/elementSize;
@@ -4786,23 +4682,7 @@ static void allocMoreClassPropertyTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedClassPropertyTable() - dvUsedClassPropertyTable();
-    uint32 elementSize = sizeof(dvProperty);
-    uint32 usedHeaderSize = (sizeof(dvClass) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvClass) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvProperty *ptr = dvClasss.PropertyTable;
-    dvClass Class;
-    uint32 size;
 
-    while(ptr < dvClasss.PropertyTable + dvUsedClassPropertyTable()) {
-        Class = *(dvClass*)(void*)ptr;
-        if(Class != dvClassNull) {
-            dvValidClass(Class);
-            size = utMax(dvClassGetNumPropertyTable(Class) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeClassPropertyTable() << 2) > dvUsedClassPropertyTable()) {
         dvCompactClassPropertyTables();
         freeSpace = dvAllocatedClassPropertyTable() - dvUsedClassPropertyTable();
@@ -4907,6 +4787,9 @@ void dvClassResizePropertyTables(
     dvClass Class,
     uint32 numPropertyTables)
 {
+    if (dvClassGetNumPropertyTable(Class) == numPropertyTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvProperty);
     uint32 usedHeaderSize = (sizeof(dvClass) + elementSize - 1)/elementSize;
@@ -4986,23 +4869,7 @@ static void allocMoreClassSparsegroupTables(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedClassSparsegroupTable() - dvUsedClassSparsegroupTable();
-    uint32 elementSize = sizeof(dvSparsegroup);
-    uint32 usedHeaderSize = (sizeof(dvClass) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvClass) + sizeof(uint32) + elementSize - 1)/elementSize;
-    dvSparsegroup *ptr = dvClasss.SparsegroupTable;
-    dvClass Class;
-    uint32 size;
 
-    while(ptr < dvClasss.SparsegroupTable + dvUsedClassSparsegroupTable()) {
-        Class = *(dvClass*)(void*)ptr;
-        if(Class != dvClassNull) {
-            dvValidClass(Class);
-            size = utMax(dvClassGetNumSparsegroupTable(Class) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreeClassSparsegroupTable() << 2) > dvUsedClassSparsegroupTable()) {
         dvCompactClassSparsegroupTables();
         freeSpace = dvAllocatedClassSparsegroupTable() - dvUsedClassSparsegroupTable();
@@ -5107,6 +4974,9 @@ void dvClassResizeSparsegroupTables(
     dvClass Class,
     uint32 numSparsegroupTables)
 {
+    if (dvClassGetNumSparsegroupTable(Class) == numSparsegroupTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(dvSparsegroup);
     uint32 usedHeaderSize = (sizeof(dvClass) + elementSize - 1)/elementSize;
@@ -5217,7 +5087,7 @@ static void resizeClassPropertyHashTable(
         prevProperty = dvPropertyNull;
         while(_Property != dvPropertyNull) {
             nextProperty = dvPropertyGetNextTableClassProperty(_Property);
-            index = (newNumPropertys - 1) & utSymGetHashValue(dvPropertyGetSym(_Property));
+            index = (newNumPropertys - 1) & (dvPropertyGetSym(_Property) == utSymNull? 0 : utSymGetHashValue(dvPropertyGetSym(_Property)));
             if(index != xProperty) {
                 if(prevProperty == dvPropertyNull) {
                     dvClassSetiPropertyTable(Class, xProperty, nextProperty);
@@ -5248,7 +5118,7 @@ static void addClassPropertyToHashTable(
     if(dvClassGetNumProperty(Class) >> 1 >= dvClassGetNumPropertyTable(Class)) {
         resizeClassPropertyHashTable(Class);
     }
-    index = (dvClassGetNumPropertyTable(Class) - 1) & utSymGetHashValue(dvPropertyGetSym(_Property));
+    index = (dvClassGetNumPropertyTable(Class) - 1) & (dvPropertyGetSym(_Property) == utSymNull? 0 : utSymGetHashValue(dvPropertyGetSym(_Property)));
     nextProperty = dvClassGetiPropertyTable(Class, index);
     dvPropertySetNextTableClassProperty(_Property, nextProperty);
     dvClassSetiPropertyTable(Class, index, _Property);
@@ -5262,7 +5132,7 @@ static void removeClassPropertyFromHashTable(
     dvClass Class,
     dvProperty _Property)
 {
-    uint32 index = (dvClassGetNumPropertyTable(Class) - 1) & utSymGetHashValue(dvPropertyGetSym(_Property));
+    uint32 index = (dvClassGetNumPropertyTable(Class) - 1) & (dvPropertyGetSym(_Property) == utSymNull? 0 : utSymGetHashValue(dvPropertyGetSym(_Property)));
     dvProperty prevProperty, nextProperty;
     
     nextProperty = dvClassGetiPropertyTable(Class, index);
@@ -5290,7 +5160,7 @@ dvProperty dvClassFindProperty(
     dvProperty _Property;
 
     if(mask + 1 != 0) {
-        _Property = dvClassGetiPropertyTable(Class, utSymGetHashValue(Sym) & mask);
+        _Property = dvClassGetiPropertyTable(Class, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Property != dvPropertyNull) {
             if(dvPropertyGetSym(_Property) == Sym) {
                 return _Property;
@@ -5479,7 +5349,7 @@ static void resizeClassSparsegroupHashTable(
         prevSparsegroup = dvSparsegroupNull;
         while(_Sparsegroup != dvSparsegroupNull) {
             nextSparsegroup = dvSparsegroupGetNextTableClassSparsegroup(_Sparsegroup);
-            index = (newNumSparsegroups - 1) & utSymGetHashValue(dvSparsegroupGetSym(_Sparsegroup));
+            index = (newNumSparsegroups - 1) & (dvSparsegroupGetSym(_Sparsegroup) == utSymNull? 0 : utSymGetHashValue(dvSparsegroupGetSym(_Sparsegroup)));
             if(index != xSparsegroup) {
                 if(prevSparsegroup == dvSparsegroupNull) {
                     dvClassSetiSparsegroupTable(Class, xSparsegroup, nextSparsegroup);
@@ -5510,7 +5380,7 @@ static void addClassSparsegroupToHashTable(
     if(dvClassGetNumSparsegroup(Class) >> 1 >= dvClassGetNumSparsegroupTable(Class)) {
         resizeClassSparsegroupHashTable(Class);
     }
-    index = (dvClassGetNumSparsegroupTable(Class) - 1) & utSymGetHashValue(dvSparsegroupGetSym(_Sparsegroup));
+    index = (dvClassGetNumSparsegroupTable(Class) - 1) & (dvSparsegroupGetSym(_Sparsegroup) == utSymNull? 0 : utSymGetHashValue(dvSparsegroupGetSym(_Sparsegroup)));
     nextSparsegroup = dvClassGetiSparsegroupTable(Class, index);
     dvSparsegroupSetNextTableClassSparsegroup(_Sparsegroup, nextSparsegroup);
     dvClassSetiSparsegroupTable(Class, index, _Sparsegroup);
@@ -5524,7 +5394,7 @@ static void removeClassSparsegroupFromHashTable(
     dvClass Class,
     dvSparsegroup _Sparsegroup)
 {
-    uint32 index = (dvClassGetNumSparsegroupTable(Class) - 1) & utSymGetHashValue(dvSparsegroupGetSym(_Sparsegroup));
+    uint32 index = (dvClassGetNumSparsegroupTable(Class) - 1) & (dvSparsegroupGetSym(_Sparsegroup) == utSymNull? 0 : utSymGetHashValue(dvSparsegroupGetSym(_Sparsegroup)));
     dvSparsegroup prevSparsegroup, nextSparsegroup;
     
     nextSparsegroup = dvClassGetiSparsegroupTable(Class, index);
@@ -5552,7 +5422,7 @@ dvSparsegroup dvClassFindSparsegroup(
     dvSparsegroup _Sparsegroup;
 
     if(mask + 1 != 0) {
-        _Sparsegroup = dvClassGetiSparsegroupTable(Class, utSymGetHashValue(Sym) & mask);
+        _Sparsegroup = dvClassGetiSparsegroupTable(Class, (Sym == utSymNull? 0 : utSymGetHashValue(Sym)) & mask);
         while(_Sparsegroup != dvSparsegroupNull) {
             if(dvSparsegroupGetSym(_Sparsegroup) == Sym) {
                 return _Sparsegroup;
@@ -6465,23 +6335,7 @@ static void allocMorePropertyInitializers(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedPropertyInitializer() - dvUsedPropertyInitializer();
-    uint32 elementSize = sizeof(char);
-    uint32 usedHeaderSize = (sizeof(dvProperty) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvProperty) + sizeof(uint32) + elementSize - 1)/elementSize;
-    char *ptr = dvPropertys.Initializer;
-    dvProperty Property;
-    uint32 size;
 
-    while(ptr < dvPropertys.Initializer + dvUsedPropertyInitializer()) {
-        Property = *(dvProperty*)(void*)ptr;
-        if(Property != dvPropertyNull) {
-            dvValidProperty(Property);
-            size = utMax(dvPropertyGetNumInitializer(Property) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreePropertyInitializer() << 2) > dvUsedPropertyInitializer()) {
         dvCompactPropertyInitializers();
         freeSpace = dvAllocatedPropertyInitializer() - dvUsedPropertyInitializer();
@@ -6581,6 +6435,9 @@ void dvPropertyResizeInitializers(
     dvProperty Property,
     uint32 numInitializers)
 {
+    if (dvPropertyGetNumInitializer(Property) == numInitializers) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(char);
     uint32 usedHeaderSize = (sizeof(dvProperty) + elementSize - 1)/elementSize;
@@ -6655,23 +6512,7 @@ static void allocMorePropertyIndexs(
     uint32 spaceNeeded)
 {
     uint32 freeSpace = dvAllocatedPropertyIndex() - dvUsedPropertyIndex();
-    uint32 elementSize = sizeof(char);
-    uint32 usedHeaderSize = (sizeof(dvProperty) + elementSize - 1)/elementSize;
-    uint32 freeHeaderSize = (sizeof(dvProperty) + sizeof(uint32) + elementSize - 1)/elementSize;
-    char *ptr = dvPropertys.Index;
-    dvProperty Property;
-    uint32 size;
 
-    while(ptr < dvPropertys.Index + dvUsedPropertyIndex()) {
-        Property = *(dvProperty*)(void*)ptr;
-        if(Property != dvPropertyNull) {
-            dvValidProperty(Property);
-            size = utMax(dvPropertyGetNumIndex(Property) + usedHeaderSize, freeHeaderSize);
-        } else {
-            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)ptr) + 1), freeHeaderSize);
-        }
-        ptr += size;
-    }
     if((dvFreePropertyIndex() << 2) > dvUsedPropertyIndex()) {
         dvCompactPropertyIndexs();
         freeSpace = dvAllocatedPropertyIndex() - dvUsedPropertyIndex();
@@ -6771,6 +6612,9 @@ void dvPropertyResizeIndexs(
     dvProperty Property,
     uint32 numIndexs)
 {
+    if (dvPropertyGetNumIndex(Property) == numIndexs) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(char);
     uint32 usedHeaderSize = (sizeof(dvProperty) + elementSize - 1)/elementSize;
@@ -9096,31 +8940,31 @@ void dvDatabaseStart(void)
     dvModuleID = utRegisterModule("dv", false, dvHash(), 18, 238, 3, sizeof(struct dvRootType_),
         &dvRootData, dvDatabaseStart, dvDatabaseStop);
     utRegisterEnum("RelationshipType", 9);
-    utRegisterEntry("LINKED_LIST", 0);
-    utRegisterEntry("DOUBLY_LINKED", 1);
-    utRegisterEntry("TAIL_LINKED", 2);
-    utRegisterEntry("POINTER", 3);
-    utRegisterEntry("ARRAY", 4);
-    utRegisterEntry("HEAP", 5);
-    utRegisterEntry("HASHED", 6);
-    utRegisterEntry("ORDERED_LIST", 7);
-    utRegisterEntry("UNBOUND", 8);
+    utRegisterEntry("REL_LINKED_LIST", 0);
+    utRegisterEntry("REL_DOUBLY_LINKED", 1);
+    utRegisterEntry("REL_TAIL_LINKED", 2);
+    utRegisterEntry("REL_POINTER", 3);
+    utRegisterEntry("REL_ARRAY", 4);
+    utRegisterEntry("REL_HEAP", 5);
+    utRegisterEntry("REL_HASHED", 6);
+    utRegisterEntry("REL_ORDERED_LIST", 7);
+    utRegisterEntry("REL_UNBOUND", 8);
     utRegisterEnum("PropertyType", 12);
-    utRegisterEntry("INT", 0);
-    utRegisterEntry("UINT", 1);
-    utRegisterEntry("FLOAT", 2);
-    utRegisterEntry("DOUBLE", 3);
-    utRegisterEntry("BIT", 4);
-    utRegisterEntry("BOOL", 5);
-    utRegisterEntry("CHAR", 6);
-    utRegisterEntry("ENUM", 7);
-    utRegisterEntry("TYPEDEF", 8);
-    utRegisterEntry("POINTER", 9);
-    utRegisterEntry("SYM", 10);
-    utRegisterEntry("UNBOUND", 11);
+    utRegisterEntry("PROP_INT", 0);
+    utRegisterEntry("PROP_UINT", 1);
+    utRegisterEntry("PROP_FLOAT", 2);
+    utRegisterEntry("PROP_DOUBLE", 3);
+    utRegisterEntry("PROP_BIT", 4);
+    utRegisterEntry("PROP_BOOL", 5);
+    utRegisterEntry("PROP_CHAR", 6);
+    utRegisterEntry("PROP_ENUM", 7);
+    utRegisterEntry("PROP_TYPEDEF", 8);
+    utRegisterEntry("PROP_POINTER", 9);
+    utRegisterEntry("PROP_SYM", 10);
+    utRegisterEntry("PROP_UNBOUND", 11);
     utRegisterEnum("MemoryStyle", 2);
-    utRegisterEntry("CREATE_ONLY", 0);
-    utRegisterEntry("FREE_LIST", 1);
+    utRegisterEntry("MEM_CREATE_ONLY", 0);
+    utRegisterEntry("MEM_FREE_LIST", 1);
     utRegisterClass("Root", 12, &dvRootData.usedRoot, &dvRootData.allocatedRoot,
         NULL, 65535, 4, allocRoot, NULL);
     utRegisterField("FirstModpath", &dvRoots.FirstModpath, sizeof(dvModpath), UT_POINTER, "Modpath");

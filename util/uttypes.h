@@ -13,62 +13,17 @@
 #ifndef UTTYPES_H
 #define UTTYPES_H
 
-#if defined(_WIN32)
-#define true 1
-#define false 0
-typedef unsigned char bool;
-#else
-/* Standard boolean type */
 #include <stdbool.h>
-#endif
+#include <stdint.h>
 
-#if !defined(__GNUC__) && defined(_WIN32)
-#if (_MSC_VER < 1310) 
-typedef unsigned __int64 uint64; /* VC6: Unsigned 64 bits */
-#else
-typedef unsigned long long uint64; /* Unsigned 64 bits */
-#endif
-typedef unsigned long uint32;    /* Unsigned >= 32 bits */
-typedef unsigned long uint;      /* Unsigned >= 32 bits */
-typedef unsigned short uint16;   /* Unsigned >= 16 bits */
-typedef unsigned char uint8;     /* Unsigned >= 8 bits */
-#if (_MSC_VER < 1310) 
-typedef signed __int64 int64;    /* VC6: Signed 64 bits */
-#else
-typedef signed long long int64;  /* Signed 64 bits */
-#endif
-typedef signed long int32;       /* Signed >= 32 bits */
-typedef signed short int16;      /* Signed >= 16 bits */
-typedef signed char int8;        /* Signed >= 8 bits */
-#define UINT64_MAX 0xffffffff
-#define INT64_MAX ((int32)0x7fffffff)
-
-/* Some compatibility wrappers */
-#define strcasecmp stricmp
-
-#else
-/* These cause -Wall to report warnings with %llu/%lld parameters - Bill
-#include <sys/types.h>
-typedef __uint8_t  uint8;
-typedef __uint16_t uint16;
-typedef __uint32_t uint32;
-typedef __uint64_t uint64;
-typedef  __int8_t   int8;
-typedef  __int16_t  int16;
-typedef  __int32_t  int32;
-typedef  __int64_t  int64;
-*/
-/* long long is C99... hopefully M$ will support it */
-typedef unsigned long long uint64; /* Unsigned >= 64 bits */
-typedef unsigned int uint32;       /* Unsigned >= 32 bits */
-typedef unsigned short uint16;     /* Unsigned >= 16 bits */
-typedef unsigned char uint8;       /* Unsigned >= 8 bits */
-typedef signed long long int64;    /* Signed >= 64 bits */
-typedef signed int int32;          /* Signed >= 32 bits */
-typedef signed short int16;        /* Signed >= 16 bits */
-typedef signed char int8;        /* Signed >= 8 bits */
-
-#endif
+typedef uint64_t uint64;
+typedef uint32_t uint32;
+typedef uint16_t uint16;
+typedef uint8_t uint8;
+typedef int64_t int64;
+typedef int32_t int32;
+typedef int16_t int16;
+typedef int8_t int8;
 
 #ifndef UINT64_MAX
 #define UINT64_MAX ((uint64)0xffffffffffffffffLL)
