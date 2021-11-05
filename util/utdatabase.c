@@ -90,7 +90,7 @@ void utCompactSymtabTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((utSymtab *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((utSymtab *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -210,6 +210,9 @@ void utSymtabResizeTables(
     utSymtab Symtab,
     uint32 numTables)
 {
+    if (utSymtabGetNumTable(Symtab) == numTables) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(utSym);
     uint32 usedHeaderSize = (sizeof(utSymtab) + elementSize - 1)/elementSize;
@@ -259,8 +262,6 @@ void utSymtabCopyProps(
     utSymtab newSymtab)
 {
     utSymtabSetNumSym(newSymtab, utSymtabGetNumSym(oldSymtab));
-    (void)oldSymtab; /* to prevent compilation warning */
-    (void)newSymtab; /* to prevent compilation warning */
 }
 
 #if defined(DD_DEBUG)
@@ -345,7 +346,7 @@ void utCompactSymNames(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((utSym *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((utSym *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -460,6 +461,9 @@ void utSymResizeNames(
     utSym Sym,
     uint32 numNames)
 {
+    if (utSymGetNumName(Sym) == numNames) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(char);
     uint32 usedHeaderSize = (sizeof(utSym) + elementSize - 1)/elementSize;
@@ -504,8 +508,6 @@ void utSymCopyProps(
     utSym newSym)
 {
     utSymSetHashValue(newSym, utSymGetHashValue(oldSym));
-    (void)oldSym; /* to prevent compilation warning */
-    (void)newSym; /* to prevent compilation warning */
 }
 
 #if defined(DD_DEBUG)
@@ -616,7 +618,7 @@ void utCompactDynarrayValues(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((utDynarray *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((utDynarray *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -731,6 +733,9 @@ void utDynarrayResizeValues(
     utDynarray Dynarray,
     uint32 numValues)
 {
+    if (utDynarrayGetNumValue(Dynarray) == numValues) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(uint8);
     uint32 usedHeaderSize = (sizeof(utDynarray) + elementSize - 1)/elementSize;
@@ -777,8 +782,6 @@ void utDynarrayCopyProps(
     utDynarraySetValueSize(newDynarray, utDynarrayGetValueSize(oldDynarray));
     utDynarraySetUsedValue(newDynarray, utDynarrayGetUsedValue(oldDynarray));
     utDynarraySetSize(newDynarray, utDynarrayGetSize(oldDynarray));
-    (void)oldDynarray; /* to prevent compilation warning */
-    (void)newDynarray; /* to prevent compilation warning */
 }
 
 #if defined(DD_DEBUG)
@@ -885,7 +888,7 @@ void utCompactSymArraySyms(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = *(uint32 *)(void *)(((utSymArray *)(void *)fromPtr) + 1);
+            size = utMax(*(uint32 *)(void *)(((utSymArray *)(void *)fromPtr) + 1), freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1005,6 +1008,9 @@ void utSymArrayResizeSyms(
     utSymArray SymArray,
     uint32 numSyms)
 {
+    if (utSymArrayGetNumSym(SymArray) == numSyms) {
+      return;
+    }
     uint32 freeSpace;
     uint32 elementSize = sizeof(utSym);
     uint32 usedHeaderSize = (sizeof(utSymArray) + elementSize - 1)/elementSize;
@@ -1053,8 +1059,6 @@ void utSymArrayCopyProps(
     utSymArray oldSymArray,
     utSymArray newSymArray)
 {
-    (void)oldSymArray; /* to prevent compilation warning */
-    (void)newSymArray; /* to prevent compilation warning */
 }
 
 /*----------------------------------------------------------------------------------------

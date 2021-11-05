@@ -10,10 +10,8 @@ extern "C" {
 #endif
 
 #ifndef DD_UTIL_H
-#include "uttypes.h"
+#include "ddutil.h"
 #endif
-
-#include <string.h>
 
 extern uint8 utModuleID;
 /* Class reference definitions */
@@ -129,11 +127,6 @@ utInlineC void utSetUsedSymArraySym(uint32 value) {utRootData.usedSymArraySym = 
 utInlineC void utSetAllocatedSymArraySym(uint32 value) {utRootData.allocatedSymArraySym = value;}
 utInlineC void utSetFreeSymArraySym(int32 value) {utRootData.freeSymArraySym = value;}
 
-void utAssert_(char *fileName, uint32 line, char *text);
-#define utAssert(assertion)      \
-  ((void)(utLikely(assertion) || \
-          (utAssert_(__FILE__, __LINE__, #assertion), 0)))
-
 /* Validate macros */
 #if defined(DD_DEBUG)
 utInlineC utSymtab utValidSymtab(utSymtab Symtab) {
@@ -208,7 +201,7 @@ utInlineC void utSymtabSetNumTable(utSymtab Symtab, uint32 value) {utSymtabs.Num
 #if defined(DD_DEBUG)
 utInlineC uint32 utSymtabCheckTableIndex(utSymtab Symtab, uint32 x) {utAssert(x < utSymtabGetNumTable(Symtab)); return x;}
 #else
-utInlineC uint32 utSymtabCheckTableIndex(utSymtab Symtab, uint32 x) { (void)Symtab; return x;}
+utInlineC uint32 utSymtabCheckTableIndex(utSymtab Symtab, uint32 x) {return x;}
 #endif
 utInlineC utSym utSymtabGetiTable(utSymtab Symtab, uint32 x) {return utSymtabs.Table[
     utSymtabGetTableIndex_(Symtab) + utSymtabCheckTableIndex(Symtab, x)];}
@@ -339,7 +332,7 @@ utInlineC void utSymSetNumName(utSym Sym, uint32 value) {utSyms.NumName[utSym2Va
 #if defined(DD_DEBUG)
 utInlineC uint32 utSymCheckNameIndex(utSym Sym, uint32 x) {utAssert(x < utSymGetNumName(Sym)); return x;}
 #else
-utInlineC uint32 utSymCheckNameIndex(utSym Sym, uint32 x) { (void)Sym; return x;}
+utInlineC uint32 utSymCheckNameIndex(utSym Sym, uint32 x) {return x;}
 #endif
 utInlineC char utSymGetiName(utSym Sym, uint32 x) {return utSyms.Name[
     utSymGetNameIndex_(Sym) + utSymCheckNameIndex(Sym, x)];}
@@ -475,7 +468,7 @@ utInlineC void utDynarraySetNumValue(utDynarray Dynarray, uint32 value) {utDynar
 #if defined(DD_DEBUG)
 utInlineC uint32 utDynarrayCheckValueIndex(utDynarray Dynarray, uint32 x) {utAssert(x < utDynarrayGetNumValue(Dynarray)); return x;}
 #else
-utInlineC uint32 utDynarrayCheckValueIndex(utDynarray Dynarray, uint32 x) { (void)Dynarray; return x;}
+utInlineC uint32 utDynarrayCheckValueIndex(utDynarray Dynarray, uint32 x) {return x;}
 #endif
 utInlineC uint8 utDynarrayGetiValue(utDynarray Dynarray, uint32 x) {return utDynarrays.Value[
     utDynarrayGetValueIndex_(Dynarray) + utDynarrayCheckValueIndex(Dynarray, x)];}
@@ -620,7 +613,7 @@ utInlineC void utSymArraySetNumSym(utSymArray SymArray, uint32 value) {utSymArra
 #if defined(DD_DEBUG)
 utInlineC uint32 utSymArrayCheckSymIndex(utSymArray SymArray, uint32 x) {utAssert(x < utSymArrayGetNumSym(SymArray)); return x;}
 #else
-utInlineC uint32 utSymArrayCheckSymIndex(utSymArray SymArray, uint32 x) { (void)SymArray; return x;}
+utInlineC uint32 utSymArrayCheckSymIndex(utSymArray SymArray, uint32 x) {return x;}
 #endif
 utInlineC utSym utSymArrayGetiSym(utSymArray SymArray, uint32 x) {return utSymArrays.Sym[
     utSymArrayGetSymIndex_(SymArray) + utSymArrayCheckSymIndex(SymArray, x)];}
@@ -685,6 +678,8 @@ void utSymArrayInsertSym(utSymArray SymArray, uint32 x, utSym _Sym);
 void utSymArrayAppendSym(utSymArray SymArray, utSym _Sym);
 void utDatabaseStart(void);
 void utDatabaseStop(void);
+// Hack: Commented out manually.
+//utInlineC void utDatabaseSetSaved(bool value) {utModuleSetSaved(utModules + utModuleID, value);}
 #if defined __cplusplus
 }
 #endif
