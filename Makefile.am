@@ -2,6 +2,7 @@
 ##
 ##
 
+AUTOMAKE_OPTIONS = subdir-objects
 SUBDIRS=	util src dataview
 EXTRA_DIST=	manual.odt README \
 	CODING_STYLE \

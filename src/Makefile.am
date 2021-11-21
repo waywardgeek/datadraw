@@ -9,6 +9,7 @@ datadraw_SOURCES= \
 	dvgenerate.c dvlexwrap.c dvmain.c dvparse.h dvparse.y dvread.c \
 	dvscan.l dvutil.c
 
+AUTOMAKE_OPTIONS = subdir-objects
 INCLUDES=	-I $(srcdir)/../util
 LDADD=	../util/libddutil-dbg.a
 

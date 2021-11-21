@@ -2,6 +2,8 @@
 ##
 ##
 
+AUTOMAKE_OPTIONS = subdir-objects
+
 lib_LIBRARIES=	 libddutil.a libddutil-dbg.a
 
 libddutil_a_SOURCES=	${SRCS} utdatabase.c utdatabase.h

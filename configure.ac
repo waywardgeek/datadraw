@@ -3,7 +3,8 @@ dnl
 dnl Contributed by Dan McMahill
 dnl 
 
-AC_INIT(src/dvmain.c)
+AC_INIT
+AC_CONFIG_SRCDIR([src/dvmain.c])
 AM_INIT_AUTOMAKE(datadraw, 3.1.X-unstable)
 AM_CONFIG_HEADER(config.h)
 
@@ -76,5 +77,6 @@ AC_MSG_RESULT([
 
 ])
 
-AC_OUTPUT([Makefile util/Makefile src/Makefile dataview/Makefile])
+AC_CONFIG_FILES([Makefile util/Makefile src/Makefile dataview/Makefile])
+AC_OUTPUT
 
