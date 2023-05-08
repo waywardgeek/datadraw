@@ -4,6 +4,7 @@
 
 bin_PROGRAMS=	dataview
 
+AUTOMAKE_OPTIONS = subdir-objects
 INCLUDES= -I$(srcdir)/../src -I$(srcdir)/../util
 LDADD= -lm ../util/libddutil.a
 
