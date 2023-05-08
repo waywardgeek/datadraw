@@ -132,7 +132,7 @@ void dvCompactRootModpathTables(void)
     uint32 size;
 
     while(fromPtr < dvRoots.ModpathTable + dvUsedRootModpathTable()) {
-        Root = *(dvRoot *)(void *)fromPtr;
+        memcpy(&Root, fromPtr, sizeof(dvRoot));
         if(Root != dvRootNull) {
             /* Need to move it to toPtr */
             size = utMax(dvRootGetNumModpathTable(Root) + usedHeaderSize, freeHeaderSize);
@@ -141,7 +141,8 @@ void dvCompactRootModpathTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvRoot), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -192,7 +193,7 @@ void dvRootAllocModpathTables(
     }
     dvRootSetModpathTableIndex_(Root, dvUsedRootModpathTable() + usedHeaderSize);
     dvRootSetNumModpathTable(Root, numModpathTables);
-    *(dvRoot *)(void *)(dvRoots.ModpathTable + dvUsedRootModpathTable()) = Root;
+    memcpy(dvRoots.ModpathTable + dvUsedRootModpathTable(), &Root, sizeof(dvRoot));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvRootGetModpathTableIndex_(Root)); xValue < dvRootGetModpathTableIndex_(Root) + numModpathTables; xValue++) {
@@ -248,8 +249,8 @@ void dvRootFreeModpathTables(
     if(dvRootGetNumModpathTable(Root) == 0) {
         return;
     }
-    *(dvRoot *)(void *)(dataPtr) = dvRootNull;
-    *(uint32 *)(void *)(((dvRoot *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvRoot));
+    memcpy((char *)dataPtr + sizeof(dvRoot), &size, sizeof(uint32));
     dvRootSetNumModpathTable(Root, 0);
     dvSetFreeRootModpathTable(dvFreeRootModpathTable() + size);
 }
@@ -297,8 +298,8 @@ void dvRootResizeModpathTables(
             }
         }
     }
-    *(dvRoot *)(void *)dataPtr = dvRootNull;
-    *(uint32 *)(void *)(((dvRoot *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvRoot));
+    memcpy((char *)dataPtr + sizeof(dvRoot), &oldSize, sizeof(uint32));
     dvSetFreeRootModpathTable(dvFreeRootModpathTable() + oldSize);
     dvRootSetModpathTableIndex_(Root, dvUsedRootModpathTable() + usedHeaderSize);
     dvRootSetNumModpathTable(Root, numModpathTables);
@@ -319,7 +320,7 @@ void dvCompactRootModuleTables(void)
     uint32 size;
 
     while(fromPtr < dvRoots.ModuleTable + dvUsedRootModuleTable()) {
-        Root = *(dvRoot *)(void *)fromPtr;
+        memcpy(&Root, fromPtr, sizeof(dvRoot));
         if(Root != dvRootNull) {
             /* Need to move it to toPtr */
             size = utMax(dvRootGetNumModuleTable(Root) + usedHeaderSize, freeHeaderSize);
@@ -328,7 +329,8 @@ void dvCompactRootModuleTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvRoot *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvRoot), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -379,7 +381,7 @@ void dvRootAllocModuleTables(
     }
     dvRootSetModuleTableIndex_(Root, dvUsedRootModuleTable() + usedHeaderSize);
     dvRootSetNumModuleTable(Root, numModuleTables);
-    *(dvRoot *)(void *)(dvRoots.ModuleTable + dvUsedRootModuleTable()) = Root;
+    memcpy(dvRoots.ModuleTable + dvUsedRootModuleTable(), &Root, sizeof(dvRoot));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvRootGetModuleTableIndex_(Root)); xValue < dvRootGetModuleTableIndex_(Root) + numModuleTables; xValue++) {
@@ -435,8 +437,8 @@ void dvRootFreeModuleTables(
     if(dvRootGetNumModuleTable(Root) == 0) {
         return;
     }
-    *(dvRoot *)(void *)(dataPtr) = dvRootNull;
-    *(uint32 *)(void *)(((dvRoot *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvRoot));
+    memcpy((char *)dataPtr + sizeof(dvRoot), &size, sizeof(uint32));
     dvRootSetNumModuleTable(Root, 0);
     dvSetFreeRootModuleTable(dvFreeRootModuleTable() + size);
 }
@@ -484,8 +486,8 @@ void dvRootResizeModuleTables(
             }
         }
     }
-    *(dvRoot *)(void *)dataPtr = dvRootNull;
-    *(uint32 *)(void *)(((dvRoot *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvRoot));
+    memcpy((char *)dataPtr + sizeof(dvRoot), &oldSize, sizeof(uint32));
     dvSetFreeRootModuleTable(dvFreeRootModuleTable() + oldSize);
     dvRootSetModuleTableIndex_(Root, dvUsedRootModuleTable() + usedHeaderSize);
     dvRootSetNumModuleTable(Root, numModuleTables);
@@ -1224,7 +1226,7 @@ void dvCompactModuleClassTables(void)
     uint32 size;
 
     while(fromPtr < dvModules.ClassTable + dvUsedModuleClassTable()) {
-        Module = *(dvModule *)(void *)fromPtr;
+        memcpy(&Module, fromPtr, sizeof(dvModule));
         if(Module != dvModuleNull) {
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumClassTable(Module) + usedHeaderSize, freeHeaderSize);
@@ -1233,7 +1235,8 @@ void dvCompactModuleClassTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvModule), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1284,7 +1287,7 @@ void dvModuleAllocClassTables(
     }
     dvModuleSetClassTableIndex_(Module, dvUsedModuleClassTable() + usedHeaderSize);
     dvModuleSetNumClassTable(Module, numClassTables);
-    *(dvModule *)(void *)(dvModules.ClassTable + dvUsedModuleClassTable()) = Module;
+    memcpy(dvModules.ClassTable + dvUsedModuleClassTable(), &Module, sizeof(dvModule));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvModuleGetClassTableIndex_(Module)); xValue < dvModuleGetClassTableIndex_(Module) + numClassTables; xValue++) {
@@ -1340,8 +1343,8 @@ void dvModuleFreeClassTables(
     if(dvModuleGetNumClassTable(Module) == 0) {
         return;
     }
-    *(dvModule *)(void *)(dataPtr) = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &size, sizeof(uint32));
     dvModuleSetNumClassTable(Module, 0);
     dvSetFreeModuleClassTable(dvFreeModuleClassTable() + size);
 }
@@ -1389,8 +1392,8 @@ void dvModuleResizeClassTables(
             }
         }
     }
-    *(dvModule *)(void *)dataPtr = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &oldSize, sizeof(uint32));
     dvSetFreeModuleClassTable(dvFreeModuleClassTable() + oldSize);
     dvModuleSetClassTableIndex_(Module, dvUsedModuleClassTable() + usedHeaderSize);
     dvModuleSetNumClassTable(Module, numClassTables);
@@ -1411,7 +1414,7 @@ void dvCompactModuleEnumTables(void)
     uint32 size;
 
     while(fromPtr < dvModules.EnumTable + dvUsedModuleEnumTable()) {
-        Module = *(dvModule *)(void *)fromPtr;
+        memcpy(&Module, fromPtr, sizeof(dvModule));
         if(Module != dvModuleNull) {
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumEnumTable(Module) + usedHeaderSize, freeHeaderSize);
@@ -1420,7 +1423,8 @@ void dvCompactModuleEnumTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvModule), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1471,7 +1475,7 @@ void dvModuleAllocEnumTables(
     }
     dvModuleSetEnumTableIndex_(Module, dvUsedModuleEnumTable() + usedHeaderSize);
     dvModuleSetNumEnumTable(Module, numEnumTables);
-    *(dvModule *)(void *)(dvModules.EnumTable + dvUsedModuleEnumTable()) = Module;
+    memcpy(dvModules.EnumTable + dvUsedModuleEnumTable(), &Module, sizeof(dvModule));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvModuleGetEnumTableIndex_(Module)); xValue < dvModuleGetEnumTableIndex_(Module) + numEnumTables; xValue++) {
@@ -1527,8 +1531,8 @@ void dvModuleFreeEnumTables(
     if(dvModuleGetNumEnumTable(Module) == 0) {
         return;
     }
-    *(dvModule *)(void *)(dataPtr) = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &size, sizeof(uint32));
     dvModuleSetNumEnumTable(Module, 0);
     dvSetFreeModuleEnumTable(dvFreeModuleEnumTable() + size);
 }
@@ -1576,8 +1580,8 @@ void dvModuleResizeEnumTables(
             }
         }
     }
-    *(dvModule *)(void *)dataPtr = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &oldSize, sizeof(uint32));
     dvSetFreeModuleEnumTable(dvFreeModuleEnumTable() + oldSize);
     dvModuleSetEnumTableIndex_(Module, dvUsedModuleEnumTable() + usedHeaderSize);
     dvModuleSetNumEnumTable(Module, numEnumTables);
@@ -1598,7 +1602,7 @@ void dvCompactModuleTypedefTables(void)
     uint32 size;
 
     while(fromPtr < dvModules.TypedefTable + dvUsedModuleTypedefTable()) {
-        Module = *(dvModule *)(void *)fromPtr;
+        memcpy(&Module, fromPtr, sizeof(dvModule));
         if(Module != dvModuleNull) {
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumTypedefTable(Module) + usedHeaderSize, freeHeaderSize);
@@ -1607,7 +1611,8 @@ void dvCompactModuleTypedefTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvModule), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1658,7 +1663,7 @@ void dvModuleAllocTypedefTables(
     }
     dvModuleSetTypedefTableIndex_(Module, dvUsedModuleTypedefTable() + usedHeaderSize);
     dvModuleSetNumTypedefTable(Module, numTypedefTables);
-    *(dvModule *)(void *)(dvModules.TypedefTable + dvUsedModuleTypedefTable()) = Module;
+    memcpy(dvModules.TypedefTable + dvUsedModuleTypedefTable(), &Module, sizeof(dvModule));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvModuleGetTypedefTableIndex_(Module)); xValue < dvModuleGetTypedefTableIndex_(Module) + numTypedefTables; xValue++) {
@@ -1714,8 +1719,8 @@ void dvModuleFreeTypedefTables(
     if(dvModuleGetNumTypedefTable(Module) == 0) {
         return;
     }
-    *(dvModule *)(void *)(dataPtr) = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &size, sizeof(uint32));
     dvModuleSetNumTypedefTable(Module, 0);
     dvSetFreeModuleTypedefTable(dvFreeModuleTypedefTable() + size);
 }
@@ -1763,8 +1768,8 @@ void dvModuleResizeTypedefTables(
             }
         }
     }
-    *(dvModule *)(void *)dataPtr = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &oldSize, sizeof(uint32));
     dvSetFreeModuleTypedefTable(dvFreeModuleTypedefTable() + oldSize);
     dvModuleSetTypedefTableIndex_(Module, dvUsedModuleTypedefTable() + usedHeaderSize);
     dvModuleSetNumTypedefTable(Module, numTypedefTables);
@@ -1785,7 +1790,7 @@ void dvCompactModuleSchemaTables(void)
     uint32 size;
 
     while(fromPtr < dvModules.SchemaTable + dvUsedModuleSchemaTable()) {
-        Module = *(dvModule *)(void *)fromPtr;
+        memcpy(&Module, fromPtr, sizeof(dvModule));
         if(Module != dvModuleNull) {
             /* Need to move it to toPtr */
             size = utMax(dvModuleGetNumSchemaTable(Module) + usedHeaderSize, freeHeaderSize);
@@ -1794,7 +1799,8 @@ void dvCompactModuleSchemaTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvModule *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvModule), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -1845,7 +1851,7 @@ void dvModuleAllocSchemaTables(
     }
     dvModuleSetSchemaTableIndex_(Module, dvUsedModuleSchemaTable() + usedHeaderSize);
     dvModuleSetNumSchemaTable(Module, numSchemaTables);
-    *(dvModule *)(void *)(dvModules.SchemaTable + dvUsedModuleSchemaTable()) = Module;
+    memcpy(dvModules.SchemaTable + dvUsedModuleSchemaTable(), &Module, sizeof(dvModule));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvModuleGetSchemaTableIndex_(Module)); xValue < dvModuleGetSchemaTableIndex_(Module) + numSchemaTables; xValue++) {
@@ -1901,8 +1907,8 @@ void dvModuleFreeSchemaTables(
     if(dvModuleGetNumSchemaTable(Module) == 0) {
         return;
     }
-    *(dvModule *)(void *)(dataPtr) = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &size, sizeof(uint32));
     dvModuleSetNumSchemaTable(Module, 0);
     dvSetFreeModuleSchemaTable(dvFreeModuleSchemaTable() + size);
 }
@@ -1950,8 +1956,8 @@ void dvModuleResizeSchemaTables(
             }
         }
     }
-    *(dvModule *)(void *)dataPtr = dvModuleNull;
-    *(uint32 *)(void *)(((dvModule *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvModule));
+    memcpy((char *)dataPtr + sizeof(dvModule), &oldSize, sizeof(uint32));
     dvSetFreeModuleSchemaTable(dvFreeModuleSchemaTable() + oldSize);
     dvModuleSetSchemaTableIndex_(Module, dvUsedModuleSchemaTable() + usedHeaderSize);
     dvModuleSetNumSchemaTable(Module, numSchemaTables);
@@ -3630,7 +3636,7 @@ void dvCompactEnumEntryTables(void)
     uint32 size;
 
     while(fromPtr < dvEnums.EntryTable + dvUsedEnumEntryTable()) {
-        Enum = *(dvEnum *)(void *)fromPtr;
+        memcpy(&Enum, fromPtr, sizeof(dvEnum));
         if(Enum != dvEnumNull) {
             /* Need to move it to toPtr */
             size = utMax(dvEnumGetNumEntryTable(Enum) + usedHeaderSize, freeHeaderSize);
@@ -3639,7 +3645,8 @@ void dvCompactEnumEntryTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvEnum *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvEnum), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -3690,7 +3697,7 @@ void dvEnumAllocEntryTables(
     }
     dvEnumSetEntryTableIndex_(Enum, dvUsedEnumEntryTable() + usedHeaderSize);
     dvEnumSetNumEntryTable(Enum, numEntryTables);
-    *(dvEnum *)(void *)(dvEnums.EntryTable + dvUsedEnumEntryTable()) = Enum;
+    memcpy(dvEnums.EntryTable + dvUsedEnumEntryTable(), &Enum, sizeof(dvEnum));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvEnumGetEntryTableIndex_(Enum)); xValue < dvEnumGetEntryTableIndex_(Enum) + numEntryTables; xValue++) {
@@ -3746,8 +3753,8 @@ void dvEnumFreeEntryTables(
     if(dvEnumGetNumEntryTable(Enum) == 0) {
         return;
     }
-    *(dvEnum *)(void *)(dataPtr) = dvEnumNull;
-    *(uint32 *)(void *)(((dvEnum *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvEnum));
+    memcpy((char *)dataPtr + sizeof(dvEnum), &size, sizeof(uint32));
     dvEnumSetNumEntryTable(Enum, 0);
     dvSetFreeEnumEntryTable(dvFreeEnumEntryTable() + size);
 }
@@ -3795,8 +3802,8 @@ void dvEnumResizeEntryTables(
             }
         }
     }
-    *(dvEnum *)(void *)dataPtr = dvEnumNull;
-    *(uint32 *)(void *)(((dvEnum *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvEnum));
+    memcpy((char *)dataPtr + sizeof(dvEnum), &oldSize, sizeof(uint32));
     dvSetFreeEnumEntryTable(dvFreeEnumEntryTable() + oldSize);
     dvEnumSetEntryTableIndex_(Enum, dvUsedEnumEntryTable() + usedHeaderSize);
     dvEnumSetNumEntryTable(Enum, numEntryTables);
@@ -4345,7 +4352,7 @@ void dvCompactTypedefInitializers(void)
     uint32 size;
 
     while(fromPtr < dvTypedefs.Initializer + dvUsedTypedefInitializer()) {
-        Typedef = *(dvTypedef *)(void *)fromPtr;
+        memcpy(&Typedef, fromPtr, sizeof(dvTypedef));
         if(Typedef != dvTypedefNull) {
             /* Need to move it to toPtr */
             size = utMax(dvTypedefGetNumInitializer(Typedef) + usedHeaderSize, freeHeaderSize);
@@ -4354,7 +4361,8 @@ void dvCompactTypedefInitializers(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvTypedef *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvTypedef), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -4405,7 +4413,7 @@ void dvTypedefAllocInitializers(
     }
     dvTypedefSetInitializerIndex_(Typedef, dvUsedTypedefInitializer() + usedHeaderSize);
     dvTypedefSetNumInitializer(Typedef, numInitializers);
-    *(dvTypedef *)(void *)(dvTypedefs.Initializer + dvUsedTypedefInitializer()) = Typedef;
+    memcpy(dvTypedefs.Initializer + dvUsedTypedefInitializer(), &Typedef, sizeof(dvTypedef));
     memset(dvTypedefs.Initializer + dvTypedefGetInitializerIndex_(Typedef), 0, ((numInitializers))*sizeof(char));
     dvSetUsedTypedefInitializer(dvUsedTypedefInitializer() + spaceNeeded);
 }
@@ -4456,8 +4464,8 @@ void dvTypedefFreeInitializers(
     if(dvTypedefGetNumInitializer(Typedef) == 0) {
         return;
     }
-    *(dvTypedef *)(void *)(dataPtr) = dvTypedefNull;
-    *(uint32 *)(void *)(((dvTypedef *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvTypedef));
+    memcpy((char *)dataPtr + sizeof(dvTypedef), &size, sizeof(uint32));
     dvTypedefSetNumInitializer(Typedef, 0);
     dvSetFreeTypedefInitializer(dvFreeTypedefInitializer() + size);
 }
@@ -4500,8 +4508,8 @@ void dvTypedefResizeInitializers(
     if(newSize > oldSize) {
         memset(dvTypedefs.Initializer + dvUsedTypedefInitializer() + oldSize, 0, ((newSize - oldSize))*sizeof(char));
     }
-    *(dvTypedef *)(void *)dataPtr = dvTypedefNull;
-    *(uint32 *)(void *)(((dvTypedef *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvTypedef));
+    memcpy((char *)dataPtr + sizeof(dvTypedef), &oldSize, sizeof(uint32));
     dvSetFreeTypedefInitializer(dvFreeTypedefInitializer() + oldSize);
     dvTypedefSetInitializerIndex_(Typedef, dvUsedTypedefInitializer() + usedHeaderSize);
     dvTypedefSetNumInitializer(Typedef, numInitializers);
@@ -4658,7 +4666,7 @@ void dvCompactClassPropertyTables(void)
     uint32 size;
 
     while(fromPtr < dvClasss.PropertyTable + dvUsedClassPropertyTable()) {
-        Class = *(dvClass *)(void *)fromPtr;
+        memcpy(&Class, fromPtr, sizeof(dvClass));
         if(Class != dvClassNull) {
             /* Need to move it to toPtr */
             size = utMax(dvClassGetNumPropertyTable(Class) + usedHeaderSize, freeHeaderSize);
@@ -4667,7 +4675,8 @@ void dvCompactClassPropertyTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvClass), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -4718,7 +4727,7 @@ void dvClassAllocPropertyTables(
     }
     dvClassSetPropertyTableIndex_(Class, dvUsedClassPropertyTable() + usedHeaderSize);
     dvClassSetNumPropertyTable(Class, numPropertyTables);
-    *(dvClass *)(void *)(dvClasss.PropertyTable + dvUsedClassPropertyTable()) = Class;
+    memcpy(dvClasss.PropertyTable + dvUsedClassPropertyTable(), &Class, sizeof(dvClass));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvClassGetPropertyTableIndex_(Class)); xValue < dvClassGetPropertyTableIndex_(Class) + numPropertyTables; xValue++) {
@@ -4774,8 +4783,8 @@ void dvClassFreePropertyTables(
     if(dvClassGetNumPropertyTable(Class) == 0) {
         return;
     }
-    *(dvClass *)(void *)(dataPtr) = dvClassNull;
-    *(uint32 *)(void *)(((dvClass *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvClass));
+    memcpy((char *)dataPtr + sizeof(dvClass), &size, sizeof(uint32));
     dvClassSetNumPropertyTable(Class, 0);
     dvSetFreeClassPropertyTable(dvFreeClassPropertyTable() + size);
 }
@@ -4823,8 +4832,8 @@ void dvClassResizePropertyTables(
             }
         }
     }
-    *(dvClass *)(void *)dataPtr = dvClassNull;
-    *(uint32 *)(void *)(((dvClass *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvClass));
+    memcpy((char *)dataPtr + sizeof(dvClass), &oldSize, sizeof(uint32));
     dvSetFreeClassPropertyTable(dvFreeClassPropertyTable() + oldSize);
     dvClassSetPropertyTableIndex_(Class, dvUsedClassPropertyTable() + usedHeaderSize);
     dvClassSetNumPropertyTable(Class, numPropertyTables);
@@ -4845,7 +4854,7 @@ void dvCompactClassSparsegroupTables(void)
     uint32 size;
 
     while(fromPtr < dvClasss.SparsegroupTable + dvUsedClassSparsegroupTable()) {
-        Class = *(dvClass *)(void *)fromPtr;
+        memcpy(&Class, fromPtr, sizeof(dvClass));
         if(Class != dvClassNull) {
             /* Need to move it to toPtr */
             size = utMax(dvClassGetNumSparsegroupTable(Class) + usedHeaderSize, freeHeaderSize);
@@ -4854,7 +4863,8 @@ void dvCompactClassSparsegroupTables(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvClass *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvClass), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -4905,7 +4915,7 @@ void dvClassAllocSparsegroupTables(
     }
     dvClassSetSparsegroupTableIndex_(Class, dvUsedClassSparsegroupTable() + usedHeaderSize);
     dvClassSetNumSparsegroupTable(Class, numSparsegroupTables);
-    *(dvClass *)(void *)(dvClasss.SparsegroupTable + dvUsedClassSparsegroupTable()) = Class;
+    memcpy(dvClasss.SparsegroupTable + dvUsedClassSparsegroupTable(), &Class, sizeof(dvClass));
     {
         uint32 xValue;
         for(xValue = (uint32)(dvClassGetSparsegroupTableIndex_(Class)); xValue < dvClassGetSparsegroupTableIndex_(Class) + numSparsegroupTables; xValue++) {
@@ -4961,8 +4971,8 @@ void dvClassFreeSparsegroupTables(
     if(dvClassGetNumSparsegroupTable(Class) == 0) {
         return;
     }
-    *(dvClass *)(void *)(dataPtr) = dvClassNull;
-    *(uint32 *)(void *)(((dvClass *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvClass));
+    memcpy((char *)dataPtr + sizeof(dvClass), &size, sizeof(uint32));
     dvClassSetNumSparsegroupTable(Class, 0);
     dvSetFreeClassSparsegroupTable(dvFreeClassSparsegroupTable() + size);
 }
@@ -5010,8 +5020,8 @@ void dvClassResizeSparsegroupTables(
             }
         }
     }
-    *(dvClass *)(void *)dataPtr = dvClassNull;
-    *(uint32 *)(void *)(((dvClass *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvClass));
+    memcpy((char *)dataPtr + sizeof(dvClass), &oldSize, sizeof(uint32));
     dvSetFreeClassSparsegroupTable(dvFreeClassSparsegroupTable() + oldSize);
     dvClassSetSparsegroupTableIndex_(Class, dvUsedClassSparsegroupTable() + usedHeaderSize);
     dvClassSetNumSparsegroupTable(Class, numSparsegroupTables);
@@ -6311,7 +6321,7 @@ void dvCompactPropertyInitializers(void)
     uint32 size;
 
     while(fromPtr < dvPropertys.Initializer + dvUsedPropertyInitializer()) {
-        Property = *(dvProperty *)(void *)fromPtr;
+        memcpy(&Property, fromPtr, sizeof(dvProperty));
         if(Property != dvPropertyNull) {
             /* Need to move it to toPtr */
             size = utMax(dvPropertyGetNumInitializer(Property) + usedHeaderSize, freeHeaderSize);
@@ -6320,7 +6330,8 @@ void dvCompactPropertyInitializers(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvProperty), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -6371,7 +6382,7 @@ void dvPropertyAllocInitializers(
     }
     dvPropertySetInitializerIndex_(Property, dvUsedPropertyInitializer() + usedHeaderSize);
     dvPropertySetNumInitializer(Property, numInitializers);
-    *(dvProperty *)(void *)(dvPropertys.Initializer + dvUsedPropertyInitializer()) = Property;
+    memcpy(dvPropertys.Initializer + dvUsedPropertyInitializer(), &Property, sizeof(dvProperty));
     memset(dvPropertys.Initializer + dvPropertyGetInitializerIndex_(Property), 0, ((numInitializers))*sizeof(char));
     dvSetUsedPropertyInitializer(dvUsedPropertyInitializer() + spaceNeeded);
 }
@@ -6422,8 +6433,8 @@ void dvPropertyFreeInitializers(
     if(dvPropertyGetNumInitializer(Property) == 0) {
         return;
     }
-    *(dvProperty *)(void *)(dataPtr) = dvPropertyNull;
-    *(uint32 *)(void *)(((dvProperty *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvProperty));
+    memcpy((char *)dataPtr + sizeof(dvProperty), &size, sizeof(uint32));
     dvPropertySetNumInitializer(Property, 0);
     dvSetFreePropertyInitializer(dvFreePropertyInitializer() + size);
 }
@@ -6466,8 +6477,8 @@ void dvPropertyResizeInitializers(
     if(newSize > oldSize) {
         memset(dvPropertys.Initializer + dvUsedPropertyInitializer() + oldSize, 0, ((newSize - oldSize))*sizeof(char));
     }
-    *(dvProperty *)(void *)dataPtr = dvPropertyNull;
-    *(uint32 *)(void *)(((dvProperty *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvProperty));
+    memcpy((char *)dataPtr + sizeof(dvProperty), &oldSize, sizeof(uint32));
     dvSetFreePropertyInitializer(dvFreePropertyInitializer() + oldSize);
     dvPropertySetInitializerIndex_(Property, dvUsedPropertyInitializer() + usedHeaderSize);
     dvPropertySetNumInitializer(Property, numInitializers);
@@ -6488,7 +6499,7 @@ void dvCompactPropertyIndexs(void)
     uint32 size;
 
     while(fromPtr < dvPropertys.Index + dvUsedPropertyIndex()) {
-        Property = *(dvProperty *)(void *)fromPtr;
+        memcpy(&Property, fromPtr, sizeof(dvProperty));
         if(Property != dvPropertyNull) {
             /* Need to move it to toPtr */
             size = utMax(dvPropertyGetNumIndex(Property) + usedHeaderSize, freeHeaderSize);
@@ -6497,7 +6508,8 @@ void dvCompactPropertyIndexs(void)
             toPtr += size;
         } else {
             /* Just skip it */
-            size = utMax(*(uint32 *)(void *)(((dvProperty *)(void *)fromPtr) + 1), freeHeaderSize);
+            memcpy(&size, (char *)fromPtr + sizeof(dvProperty), sizeof(uint32));
+            size = utMax(size, freeHeaderSize);
         }
         fromPtr += size;
     }
@@ -6548,7 +6560,7 @@ void dvPropertyAllocIndexs(
     }
     dvPropertySetIndexIndex_(Property, dvUsedPropertyIndex() + usedHeaderSize);
     dvPropertySetNumIndex(Property, numIndexs);
-    *(dvProperty *)(void *)(dvPropertys.Index + dvUsedPropertyIndex()) = Property;
+    memcpy(dvPropertys.Index + dvUsedPropertyIndex(), &Property, sizeof(dvProperty));
     memset(dvPropertys.Index + dvPropertyGetIndexIndex_(Property), 0, ((numIndexs))*sizeof(char));
     dvSetUsedPropertyIndex(dvUsedPropertyIndex() + spaceNeeded);
 }
@@ -6599,8 +6611,8 @@ void dvPropertyFreeIndexs(
     if(dvPropertyGetNumIndex(Property) == 0) {
         return;
     }
-    *(dvProperty *)(void *)(dataPtr) = dvPropertyNull;
-    *(uint32 *)(void *)(((dvProperty *)(void *)dataPtr) + 1) = size;
+    memset(dataPtr, 0, sizeof(dvProperty));
+    memcpy((char *)dataPtr + sizeof(dvProperty), &size, sizeof(uint32));
     dvPropertySetNumIndex(Property, 0);
     dvSetFreePropertyIndex(dvFreePropertyIndex() + size);
 }
@@ -6643,8 +6655,8 @@ void dvPropertyResizeIndexs(
     if(newSize > oldSize) {
         memset(dvPropertys.Index + dvUsedPropertyIndex() + oldSize, 0, ((newSize - oldSize))*sizeof(char));
     }
-    *(dvProperty *)(void *)dataPtr = dvPropertyNull;
-    *(uint32 *)(void *)(((dvProperty *)(void *)dataPtr) + 1) = oldSize;
+    memset(dataPtr, 0, sizeof(dvProperty));
+    memcpy((char *)dataPtr + sizeof(dvProperty), &oldSize, sizeof(uint32));
     dvSetFreePropertyIndex(dvFreePropertyIndex() + oldSize);
     dvPropertySetIndexIndex_(Property, dvUsedPropertyIndex() + usedHeaderSize);
     dvPropertySetNumIndex(Property, numIndexs);

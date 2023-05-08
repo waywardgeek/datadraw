@@ -1478,7 +1478,7 @@ static void writeArrayCompact(
         "    uint32 size;\n"
         "\n"
         "    while(fromPtr < %0%1s.%2 + %0Used%1%2()) {\n"
-        "        %1 = *(%3%1 *)(void *)fromPtr;\n"
+        "        memcpy(&%1, fromPtr, sizeof(%3%1));\n"
         "        if(%1 != %3%1Null) {\n"
         "            /* Need to move it to toPtr */\n"
         "            size = utMax(%0%1GetNum%2(%1) + usedHeaderSize, freeHeaderSize);\n",
@@ -1503,7 +1503,8 @@ static void writeArrayCompact(
         "            toPtr += size;\n"
         "        } else {\n"
         "            /* Just skip it */\n"
-        "            size = utMax(*(uint32 *)(void *)(((%3%1 *)(void *)fromPtr) + 1), freeHeaderSize);\n"
+        "            memcpy(&size, (char *)fromPtr + sizeof(%3%1), sizeof(uint32));\n"
+        "            size = utMax(size, freeHeaderSize);\n"
         "        }\n"
         "        fromPtr += size;\n"
         "    }\n"
@@ -1615,7 +1616,7 @@ static void writeArrayAlloc(
             dvPropertyGetID(property));
     }
     dvWrtemp(dvFile,
-        "    *(%3%1 *)(void *)(%0%1s.%2 + %0Used%1%2()) = %1;\n",
+        "    memcpy(%0%1s.%2 + %0Used%1%2(), &%1, sizeof(%3%1));\n",
         dvPrefix, dvClassGetName(theClass), dvPropertyGetName(property), dvClassGetPrefix(theClass));
     writePropertyInits(property, dvSwrtemp("%0%1Get%2Index_(%1)", dvPrefix, dvClassGetName(theClass),
         dvPropertyGetName(property)), utSprintf("num%ss", dvPropertyGetName(property)), "");
@@ -1730,8 +1731,8 @@ static void writeArrayFree(
             dvPropertyGetID(property));
     }
     dvWrtemp(dvFile,
-        "    *(%1%0 *)(void *)(dataPtr) = %1%0Null;\n"
-        "    *(uint32 *)(void *)(((%1%0 *)(void *)dataPtr) + 1) = size;\n",
+        "    memset(dataPtr, 0, sizeof(%1%0));\n"
+        "    memcpy((char *)dataPtr + sizeof(%1%0), &size, sizeof(uint32));\n",
         dvClassGetName(theClass), dvClassGetPrefix(theClass));
     if(dvClassRedo(theClass)) {
         dvWrtemp(dvFile,
@@ -1812,8 +1813,8 @@ static void writeArrayResize(
         dvPropertyGetName(property)), "newSize - oldSize", "    ");
     dvWrtemp(dvFile,
         "    }\n"
-        "    *(%1%0 *)(void *)dataPtr = %1%0Null;\n"
-        "    *(uint32 *)(void *)(((%1%0 *)(void *)dataPtr) + 1) = oldSize;\n",
+        "    memset(dataPtr, 0, sizeof(%1%0));\n"
+        "    memcpy((char *)dataPtr + sizeof(%1%0), &oldSize, sizeof(uint32));\n",
         dvClassGetName(theClass), dvClassGetPrefix(theClass));
     if(dvClassRedo(theClass)) {
         dvWrtemp(dvFile,
